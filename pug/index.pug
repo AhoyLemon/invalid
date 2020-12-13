@@ -1,0 +1,102 @@
+- var pageTitle = null;
+include partials/_variables
+include partials/_mixins
+
+doctype html
+html(lang="en")
+  
+  include partials/_head.pug
+    
+  body
+    #app(v-cloak)
+
+      .split-screens
+        .admin-screen
+          h2 SysAdmin Screen
+
+          .challenge
+            .name {{round.challenge.name}}
+            .possible
+              span (There are {{round.possibleAnswerCount}} possible)
+            .average
+              span Average Size is {{round.averageSize}} characters
+            .average
+              span There's an average of {{round.averageVowels}} vowels
+
+
+          .rules-summary
+            li {{round.challenge.nameAsRule}}
+            li(v-for="(rule,index) in round.rules") {{rule.message}}
+            li Passwords are case-insensitive
+
+          .rules-panel
+            h3 Add a Rule!
+            h4 You have {{my.rulebux}} Rulebux to spend.
+            .rules
+              //button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")
+              button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost > my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost > my.rulebux)")
+                .name {{rule.name}}
+                .cost {{rule.cost}}
+
+          .rule-details(v-if="ui.currentRule.editing")
+
+            form(v-if="ui.currentRule.name == 'Demand A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)")
+              span Demand the letter
+              input(v-model="ui.currentRule.inputValue" type="text" maxlength="1" minlength="1" required @input="ui.currentRule.inputValue=$event.target.value.toUpperCase()")
+              button(type="submit") Set
+
+            form(v-if="ui.currentRule.name == 'Ban A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)")
+              span Ban the letter
+              input(v-model="ui.currentRule.inputValue" type="text" maxlength="1" minlength="1" required @input="ui.currentRule.inputValue=$event.target.value.toUpperCase()")
+              button(type="submit") Set
+
+            form(v-if="ui.currentRule.name == 'Set A Maximum'" v-on:submit.prevent="saveRule(ui.currentRule)")
+              p How would you like to phrase this rule?
+              select(v-model="ui.currentRule.inputValue" required)
+                option Your password cannot exceed {{(round.averageSize + round.maxOffset)}} characters
+                option Your password must be less than {{(round.averageSize + round.maxOffset + 1)}} characters
+                option Password must be {{(round.averageSize + round.maxOffset)}} characters in length or less
+                option Password can be a maximum of {{(round.averageSize + round.maxOffset)}} characters
+                option Password can not be {{(round.averageSize + round.maxOffset + 1)}} characters or more.
+                option Password must not exceed {{(round.averageSize + round.maxOffset)}} characters.
+              p
+                button(type="submit") Set
+
+            form(v-if="ui.currentRule.name == 'Set A Minimum'" v-on:submit.prevent="saveRule(ui.currentRule)")
+              p How would you like to phrase this rule?
+              select(v-model="ui.currentRule.inputValue" required)
+                option Your password must be at least {{(round.averageSize - round.minOffset)}} characters long
+                option Your password must be more than {{(round.averageSize - round.minOffset - 1)}} characters
+                option Password must be {{(round.averageSize - round.minOffset)}} characters or more
+                option Password minimum is {{(round.averageSize - round.minOffset)}}
+                option Password must exceed {{(round.averageSize - round.minOffset - 1)}} characters
+                option Your password must contain {{(round.averageSize - round.minOffset - 1)}} characters or more
+              p
+                button(type="submit") Set
+
+            form(v-if="ui.currentRule.name == 'Limit Vowels'" v-on:submit.prevent="saveRule(ui.currentRule)")
+              p How would you like to phrase this rule?
+              select(v-model="ui.currentRule.inputValue" required)
+                option Your password cannot exceed {{(round.averageVowels + round.vowelOffset)}} vowels
+                option Your password must have less than {{(round.averageVowels + round.vowelOffset + 1)}} vowels
+                option Vowels in your password are limited to {{(round.averageVowels + round.vowelOffset)}}
+                option Password vowels cannot exceed {{(round.averageVowels + round.vowelOffset)}}
+                option Your password may not contain {{(round.averageVowels + round.vowelOffset + 1)}} vowels or more
+                option The vowel count in your password must be less than {{(round.averageVowels + round.vowelOffset + 1)}}
+              p
+                button(type="submit") Set
+
+            form(v-if="ui.currentRule.name == 'Ban A Combo'" v-on:submit.prevent="saveRule(ui.currentRule)")
+              span Ban The Letter 
+              input(v-model="ui.currentRule.inputValue" type="text" maxlength="1" minlength="1" required)
+              span from being used with 
+              input(v-model="ui.currentRule.inputValueTwo" type="text" maxlength="1" minlength="1" required)
+              button(type="submit") Set
+
+          .rules-advance(v-if="!ui.currentRule.editing")
+            button(type="button") Done with rules.
+
+        .player-screen
+          h2 Player Screen
+
+    include partials/_javascripts

@@ -1,0 +1,28 @@
+.admin-screen { background:$black; color:$white; padding:$padding; font-family: $monospace;
+  .rules-panel { border:1px solid currentColor; margin:$padding; padding:$padding; background:rgba(1,12,1,1);
+  
+    .rules { display:grid; grid-template-columns: repeat(3,1fr); gap:($gap / 2);
+      .rule { font-weight: $medium; color:white; border:1px solid currentColor; border-radius: 3px; padding:$padding; position: relative; background:transparent; border:1px solid currentColor; cursor: pointer;
+        &.active { background-color:$white; color:$black; }
+        &[disabled]:not(.active) { opacity: 0.65; }
+        &[disabled] { cursor: default; }
+
+
+        &.too-expensive { position: relative;
+          &:before { content: 'You can not afford this rule.'; @include position(absolute,0,0,null,0); background:$white; color:$black; padding:0.25em; transform: translateY(0); opacity: 0; transition:all 0.3s ease; }
+          &:hover:before { transform: translateY(-120%); opacity: 1; }
+        }
+      }
+      .name { font-size:16px; }
+      .cost { @include position(absolute,5px,5px); border:1px solid currentColor; width:1.5em; height:1.5em; text-align: center; border-radius: 50%; }
+    }
+  }
+
+  .rule-details {
+
+    input[maxlength="1"] { font-family:$monospace; font-size:16px; width:2em; }
+    select { font-family: $sans-serif; padding:0.5em 1.5em; font-size:17px;
+      option { padding: 0.5em; }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+mixin timeStamp()
+  - var d = new Date()
+  - var m = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
+  time 
+    = m[d.getMonth()] 
+    |  
+    = d.getDate()
+    | , 
+    = d.getFullYear() 
+
+
+mixin formatDate(d)
+  - var allMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
+  - var MonthAbbr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ]
+  - var e = d.split("-");
+  time(datetime=d)
+    = MonthAbbr[parseInt(e[1] - 1)]
+    |  
+    = e[2]
+    | , 
+    = e[0]
+
+
+mixin outsideLink(title,url)
+  a.link(href=url target="_blank" noopener @click="trackLink('"+title+"', '"+url+"')")= title

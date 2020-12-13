@@ -1,0 +1,12 @@
+.javascripts
+
+  if testing
+    script(src="js/libraries/vue.full.js")
+    script.
+      const testing = true;
+  else
+    script(src="js/libraries/vue.min.js")
+    script.
+      const testing = false;
+
+  script(src="js/min/site.min.js?updated"+lastUpdated)

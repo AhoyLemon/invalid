@@ -1,0 +1,133 @@
+@mixin background($size:cover, $position:center, $repeat:no-repeat) {
+   background-size:$size; background-position:$position; background-repeat:$repeat;
+}
+
+@mixin linear-gradient($direction, $fromColor, $toColor) {
+  background-color: $toColor; /* Fallback Color */
+  background: -webkit-gradient(linear, left top, left bottom, from($fromColor), to($toColor)); /* Saf4+, Chrome */
+  background: -webkit-linear-gradient($direction, $fromColor, $toColor); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background:    -moz-linear-gradient($direction, $fromColor, $toColor); /* FF3.6 */
+  background:     -ms-linear-gradient($direction, $fromColor, $toColor); /* IE10 */
+  background:      -o-linear-gradient($direction, $fromColor, $toColor); /* Opera 11.10+ */
+  background:         linear-gradient($direction, $fromColor, $toColor);
+}
+@mixin radial-gradient($from, $to) {
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.7) 0%, rgba(255,255,255,0) 70%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0.7)), color-stop(70%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.7) 0%,rgba(255,255,255,0) 70%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.7) 0%,rgba(255,255,255,0) 70%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.7) 0%,rgba(255,255,255,0) 70%); /* IE10+ */
+  background: radial-gradient(ellipse at center,  rgba(0,0,0,0.7) 0%,rgba(255,255,255,0) 70%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3000000', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+@mixin filter($filter-type,$filter-amount) { 
+  filter: $filter-type+unquote('(#{$filter-amount})');
+}
+
+@mixin flex-container($direction:row, $align:stretch, $wrap:wrap) {
+  display: -webkit-box; display: -webkit-flex; display: -moz-flex;display: -ms-flexbox; display: flex;
+  flex-direction: $direction;
+  -webkit-flex-wrap:$wrap; -moz-flex-wrap:$wrap; 
+  flex-wrap: $wrap;
+  @if $align == flex-start { 
+    -webkit-box-align: start; -ms-flex-align: start;
+  } @else if $align == flex-end { 
+    -webkit-box-align: end; -ms-flex-align: end;
+  } @else { 
+    -webkit-box-align: $align; -ms-flex-align: $align;
+  }
+  align-items: $align;
+}
+@mixin flex-item($basis, $grow:1, $shrink:1, $alignSelf:auto) {
+  @if $grow == 0 {
+    width:$basis;
+    flex-basis: $basis;
+  } @else {
+    flex-basis: $basis;
+  }
+  flex-grow: $grow;
+  flex-shrink: $shrink;
+  align-self: $alignSelf;
+}
+
+@mixin flex-center() {
+  @include flex-container(row,wrap,center); justify-content: center;
+}
+
+@mixin animation ($name, $duration, $iteration:1, $delay:0) {
+    animation-name: $name;
+    animation-duration: $duration;
+    animation-iteration-count: $iteration;
+    animation-delay:$delay;
+    animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+}
+
+@mixin transforms($value) {
+  transform: $value;
+}
+@mixin translate($x, $y) {
+  transform: translate($x, $y);
+}
+
+@mixin translateX($percent) {
+  transform: translateX($percent);
+}
+
+@mixin translateY($percent) {
+  transform: translateY($percent);
+}
+
+@mixin rotate($d) {
+  transform: rotate($d);
+}
+
+@mixin rotateX($d) {
+  transform: rotateX($d);
+}
+@mixin skew($x, $y:0) {
+  transform: skew($x, $y);
+}
+
+@mixin transition($property: all, $duration: 0.3s, $animation: ease, $delay:0s) { 
+  transition: $property $duration $animation $delay;
+}
+@mixin scale($ratio) {
+  transform: scale($ratio); 
+}
+
+@mixin position($type, $top:null, $right:null, $bottom:null, $left:null) {
+  position:$type;
+  @if $top {
+    top:$top;
+  }
+  @if $right {
+    right:$right;
+  }
+  @if $bottom {
+    bottom:$bottom;
+  }
+  @if $left {
+    left:$left;
+  }
+}
+
+@mixin inner($w:$max-width, $p:20px) {
+  max-width: $w;
+  margin-left: auto;
+  margin-right: auto;
+  @media (max-width:($max-width + ($p * 2))) {
+    width:100%;
+    padding-left:$p; padding-right: $p;
+  }
+}
+
+
+@mixin respond-to($media) {
+  @if $media == desktop {
+    @media only screen and (min-width: $desktop-min) { @content; }
+  }
+  @else if $media == mobile {
+    @media only screen and (max-width: $mobile-max) { @content; }
+  }
+}

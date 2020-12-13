@@ -1,0 +1,16 @@
+%clearfix {
+  &:after { content: ""; display: table;clear: both; }
+}
+
+%truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+%commalist {
+  li { display: inline;
+    &:after { content:', '; }
+    &:last-child:after { content:''; }
+  }
+}
+
+%textlink { text-decoration: none; color:$link;
+  &:hover { border-bottom: 0.05em solid currentColor; }
+}
