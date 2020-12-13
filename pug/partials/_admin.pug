@@ -1,0 +1,111 @@
+.admin-screen
+
+  h2 SysAdmin Screen 
+    |  ({{players[0].name}})
+
+  .panel.rules-summary
+    ul
+      li {{round.challenge.nameAsRule}}
+      li.admin-only There are {{round.possibleAnswerCount}} possible
+      li.admin-only Average password size is {{round.averageSize}} characters
+      li.admin-only There's an average of {{round.averageVowels}} vowels
+      li(v-for="(rule,index) in round.rules") {{rule.message}}
+      li Passwords are case-insensitive
+      li(v-if="round.bugs && round.bugs.length > 0 ") 
+        span(v-if="round.bugs.length == 1") There is a system bug.
+        span(v-else) There are {{round.bugs.length}} system bugs.
+      li.admin-only(v-for="(bug,index) in round.bugs") {{bug}} will cause a system crash.
+    p.admin-only Info in this color is for admin eyes only.
+
+  .panel.rules-panel(v-if="round.phase == 'choose rules'")
+    h3 Add a Rule!
+    h4 You have {{my.rulebux}} Rulebux to spend.
+    .rules
+      //button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")
+      button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost > my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost > my.rulebux)")
+        .name {{rule.name}}
+        .cost {{rule.cost}}
+
+      button.finished(type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing") FINISH RULES
+      
+
+  .panel.rule-details(v-if="ui.currentRule.editing && (round.phase == 'choose rules')")
+
+    form.fieldset-and-button(v-if="ui.currentRule.name == 'Demand A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)")
+      fieldset
+        label(for="DemandTheLetter") Demand the letter
+        input(v-model="ui.currentRule.inputValue" id="DemandTheLetter" type="text" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?")
+      button(type="submit") Set
+
+    form.fieldset-and-button(v-if="ui.currentRule.name == 'Ban A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)")
+      fieldset
+        label(for="BanTheLetter") Ban the letter
+        input(v-model="ui.currentRule.inputValue" type="text" id="BanTheLetter" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?")
+      button(type="submit") Set
+
+    form.select-and-button(v-if="ui.currentRule.name == 'Set A Maximum'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
+      select(v-model="ui.currentRule.inputValue" required)
+        option(selected disabled value="") How would you like to phrase this rule?
+        option Your password cannot exceed {{(round.averageSize + round.maxOffset)}} characters
+        option Your password must be less than {{(round.averageSize + round.maxOffset + 1)}} characters
+        option Password must be {{(round.averageSize + round.maxOffset)}} characters in length or less
+        option Password can be a maximum of {{(round.averageSize + round.maxOffset)}} characters
+        option Password can not be {{(round.averageSize + round.maxOffset + 1)}} characters or more.
+        option Password must not exceed {{(round.averageSize + round.maxOffset)}} characters.
+
+      button(type="submit") Set
+
+    form.select-and-button(v-if="ui.currentRule.name == 'Set A Minimum'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
+      select(v-model="ui.currentRule.inputValue" required)
+        option(selected disabled value="") How would you like to phrase this rule?
+        option Your password must be at least {{(round.averageSize - round.minOffset)}} characters long
+        option Your password must be more than {{(round.averageSize - round.minOffset - 1)}} characters
+        option Password must be {{(round.averageSize - round.minOffset)}} characters or more
+        option Password minimum is {{(round.averageSize - round.minOffset)}}
+        option Password must exceed {{(round.averageSize - round.minOffset - 1)}} characters
+        option Your password must contain {{(round.averageSize - round.minOffset - 1)}} characters or more
+      button(type="submit") Set
+
+    form.select-and-button(v-if="ui.currentRule.name == 'Limit Vowels'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
+      select(v-model="ui.currentRule.inputValue" required)
+        option(selected disabled value="") How would you like to phrase this rule?
+        option Your password cannot exceed {{(round.averageVowels + round.vowelOffset)}} vowels
+        option Your password must have less than {{(round.averageVowels + round.vowelOffset + 1)}} vowels
+        option Vowels in your password are limited to {{(round.averageVowels + round.vowelOffset)}}
+        option Password vowels cannot exceed {{(round.averageVowels + round.vowelOffset)}}
+        option Your password may not contain {{(round.averageVowels + round.vowelOffset + 1)}} vowels or more
+        option The vowel count in your password must be less than {{(round.averageVowels + round.vowelOffset + 1)}}
+      button(type="submit") Set
+
+    form.fieldset-and-button(v-if="ui.currentRule.name == 'Ban A Combo'" v-on:submit.prevent="saveRule(ui.currentRule)")
+      fieldset
+        label(for="FirstBannedLetter") Ban The Letter 
+        input(v-model="ui.currentRule.inputValue" type="text" id="FirstBannedLetter" maxlength="1" minlength="1" required v-touppercase v-focus)
+        label(for="SecondBannedLetter") from being used with 
+        input(v-model="ui.currentRule.inputValueTwo" type="text" id="SecondBannedLetter" maxlength="1" minlength="1" required v-touppercase)
+      button(type="submit") Set
+
+  //-.panel.rules-advance(v-if="!ui.currentRule.editing && (round.phase == 'choose rules')")
+    button(type="button" @click="round.phase = 'add bugs'") Finished Setting Rules
+
+  .panel.bug-setup(v-if="round.phase == 'add bugs'")
+    .first-bug-intro(v-if="!round.bugs || round.bugs.length < 1")
+      h2 Add a bug to the system.
+      p Enter a word to use as a bug.
+      p If a player tries to use that word as a password, the system will crash (and you earn points.)
+      p(v-if="my.rulebux < 1") FYI, next time you're SysAdmin, you can buy additional bugs for 1 point.
+    .additional-bug(v-else-if="my.rulebux > 0")
+      p You may add {{my.rulebux}} additional bugs to the system
+    form.fieldset-and-button(v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux > 0")
+      fieldset 
+        label(for="BugPassword")
+        input(type="text" id="BugPassword" v-model="ui.addBug" v-touppercase  v-focus)
+      button(type="Submit") Set
+
+    ul.bug-errors(v-if="ui.addBugErrors")
+      li(v-for="(e,index) in ui.addBugErrors") {{e}}
+    .button-holder
+      button(@click="onboardEmployees()") Onboard Employees
+
+  
+  h3(v-if="round.phase == 'create password'")

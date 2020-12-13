@@ -11,6 +11,30 @@ body { background:$body; color:$copy; font-family:$font-family; }
 img { max-width: 100%; }
 
 
-.split-screens { display:grid; grid-template-columns: repeat(2,1fr); gap:$gap; height:99.9vh;
+.split-screens { display:grid; grid-template-columns: repeat(2,1fr); grid-template-rows: 1fr 120px; height:99.9vh;
 
 }
+
+p { margin-bottom: 1em; }
+ul {
+  li { margin-left: 2em; list-style-type: disc; margin-bottom: 0.5em; } 
+}
+
+
+.password-form { margin-left: auto; margin-right: auto; width:320px;
+  .input-password { position: relative; display: block;
+    .name { @include position(absolute,5px,5px,null,25px); display: block; color:$black; font-size:14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    input { font-size:2rem; font-family: inherit; display: block; padding:20px 0 5px 20px; width:100%; border:2px solid rgba(0,0,0,0.2);
+      .error { border-color:$red; }
+    }
+  }
+  .required { color:$red; }
+  button[type="submit"] { display:block; width:100%; font-family: inherit; font-weight: $bold; text-transform: uppercase; font-size:26px;
+    background:$blue; border:none; border-radius: 0; padding:0.35em 2em; font-weight: 900; letter-spacing: 0.2em;
+  }
+
+  input, button { border-radius: 0; }
+}
+
+
+

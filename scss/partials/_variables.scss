@@ -7,8 +7,18 @@ $barlow: 'Barlow', sans-serif;
 $sans-serif: $barlow;
 $fira: 'Fira Code', monospace;
 $monospace: $fira;
-$playfair: 'Playfair Display', serif;
-$serif: $playfair;
+$lora: 'Lora', serif;
+$serif: $lora;
 
 $medium: 300;
 $bold: 500;
+
+
+
+// Colors
+$tiffany: #0abab5;
+$lime: #2EF429;
+$green: $lime;
+$adminPanelColor: rgba(1,12,1,1);
+
+$blue: $tiffany;

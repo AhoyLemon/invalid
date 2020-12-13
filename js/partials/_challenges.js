@@ -37,7 +37,7 @@ const challenges = [
       "sindel",
       "stryker",
       "meat",
-      "bo' rai cho",
+      "bo rai cho",
       "frost"
     ]
   }

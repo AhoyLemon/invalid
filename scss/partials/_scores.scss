@@ -1,0 +1,17 @@
+.scorekeeper { display:flex; grid-column: span 2; font-family: $sans-serif; padding:10px;
+
+  .player { border: 1px solid currentColor; padding:$padding; flex-basis:160px; margin-right: 7px;
+    .name { text-transform: uppercase; letter-spacing: 0.1em;}
+    .score { font-size:220%;}
+  }
+
+  /*
+  &[player-count] { display:grid; gap:$padding; }
+  &[player-count="1"] { grid-template-columns: repeat(1,1fr);}
+  &[player-count="2"] { grid-template-columns: repeat(2,1fr);}
+  &[player-count="3"] { grid-template-columns: repeat(3,1fr);}
+  &[player-count="4"] { grid-template-columns: repeat(4,1fr);}
+  &[player-count="5"] { grid-template-columns: repeat(5,1fr);}
+  &[player-count="6"] { grid-template-columns: repeat(6,1fr);}
+  */
+}

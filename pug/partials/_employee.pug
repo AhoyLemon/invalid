@@ -1,0 +1,29 @@
+.employee-screen
+  h2 Employee Screen
+    |  ({{players[1].name}})
+
+  p Create Your Password.
+  ul
+    li {{round.challenge.nameAsRule}}
+    li(v-for="(rule,index) in round.rules") {{rule.message}}
+    li Passwords are case-insensitive
+    li(v-if="round.bugs && round.bugs.length > 0 ") 
+      span(v-if="round.bugs.length == 1") There is a system bug.
+      span(v-else) There are {{round.bugs.length}} system bugs.
+
+
+  form.password-form(v-if="round.phase == 'create password'" @submit.prevent="tryThisPassword(ui.passwordAttempt)")
+    label.input-password
+      input(type="text" v-model="ui.passwordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus)
+      span.name Create A Password
+        sup.required *
+    .button-holder
+      button(type="submit") Submit
+
+  .password-errors(v-if="ui.passwordAttemptErrors && ui.passwordAttemptErrors.length > 0")
+    .error(v-if="ui.passwordAttemptErrors.length == 1") {{ui.passwordAttemptErrors[0]}}
+    ul(v-if="ui.passwordAttemptErrors.length > 1")
+      li.error(v-for="(err,index) in ui.passwordAttemptErrors") {{err}}
+
+  .crash-screen(v-if="round.phase == 'crashed'")
+    h1 You crashed the system.

@@ -229,23 +229,113 @@ img {
 .split-screens {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 40px 1fr;
+  -ms-grid-columns: (1fr)[2];
   grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  -ms-grid-rows: 1fr 120px;
+  grid-template-rows: 1fr 120px;
   height: 99.9vh;
+}
+
+.split-screens > *:nth-child(1) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+}
+
+.split-screens > *:nth-child(2) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+}
+
+.split-screens > *:nth-child(3) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+}
+
+.split-screens > *:nth-child(4) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+ul li {
+  margin-left: 2em;
+  list-style-type: disc;
+  margin-bottom: 0.5em;
+}
+
+.password-form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+}
+.password-form .input-password {
+  position: relative;
+  display: block;
+}
+.password-form .input-password .name {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  left: 25px;
+  display: block;
+  color: #212121;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.password-form .input-password input {
+  font-size: 2rem;
+  font-family: inherit;
+  display: block;
+  padding: 20px 0 5px 20px;
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+.password-form .input-password input .error {
+  border-color: #ee2a2a;
+}
+.password-form .required {
+  color: #ee2a2a;
+}
+.password-form button[type=submit] {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 26px;
+  background: #0abab5;
+  border: none;
+  border-radius: 0;
+  padding: 0.35em 2em;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+}
+.password-form input, .password-form button {
+  border-radius: 0;
 }
 
 .admin-screen {
   background: #212121;
   color: #eee;
-  padding: 20px;
+  padding: 40px;
   font-family: "Fira Code", monospace;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  gap: 40px;
 }
-.admin-screen .rules-panel {
-  border: 1px solid currentColor;
-  margin: 20px;
+.admin-screen .panel {
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 20px;
   background: #010c01;
+  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
 }
 .admin-screen .rules-panel .rules {
   display: -ms-grid;
@@ -254,57 +344,20 @@ img {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
-.admin-screen .rules-panel .rules .rule {
+.admin-screen .rules-panel .rules button {
   font-weight: 300;
-  color: white;
-  border: 1px solid currentColor;
+  color: #eee;
+  border: 1px solid #eee;
   border-radius: 3px;
   padding: 20px;
   position: relative;
   background: transparent;
-  border: 1px solid currentColor;
   cursor: pointer;
 }
-.admin-screen .rules-panel .rules .rule.active {
-  background-color: #eee;
-  color: #212121;
-}
-.admin-screen .rules-panel .rules .rule[disabled]:not(.active) {
-  opacity: 0.65;
-}
-.admin-screen .rules-panel .rules .rule[disabled] {
-  cursor: default;
-}
-.admin-screen .rules-panel .rules .rule.too-expensive {
-  position: relative;
-}
-.admin-screen .rules-panel .rules .rule.too-expensive:before {
-  content: "You can not afford this rule.";
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  background: #eee;
-  color: #212121;
-  padding: 0.25em;
-  -webkit-transform: translateY(0);
-      -ms-transform: translateY(0);
-          transform: translateY(0);
-  opacity: 0;
-  -webkit-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-.admin-screen .rules-panel .rules .rule.too-expensive:hover:before {
-  -webkit-transform: translateY(-120%);
-      -ms-transform: translateY(-120%);
-          transform: translateY(-120%);
-  opacity: 1;
-}
-.admin-screen .rules-panel .rules .name {
+.admin-screen .rules-panel .rules button.rule .name {
   font-size: 16px;
 }
-.admin-screen .rules-panel .rules .cost {
+.admin-screen .rules-panel .rules button.rule .cost {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -314,16 +367,191 @@ img {
   text-align: center;
   border-radius: 50%;
 }
-.admin-screen .rule-details input[maxlength="1"] {
+.admin-screen .rules-panel .rules button.finished {
+  -ms-grid-column: 2;
+  grid-column: 2;
+  font-size: 18px;
+  padding: 16px 24px;
+}
+.admin-screen .rules-panel .rules button.finished:hover {
+  color: #2EF429;
+}
+.admin-screen .rules-panel .rules button:hover:not([disabled]) {
+  border-color: #2EF429;
+}
+.admin-screen .rules-panel .rules button:hover:not([disabled]) .name {
+  color: #2EF429;
+}
+.admin-screen .rules-panel .rules button.active {
+  font-weight: 900;
+}
+.admin-screen .rules-panel .rules button[disabled]:not(.active) {
+  color: rgba(238, 238, 238, 0.65);
+  border-color: rgba(238, 238, 238, 0.65);
+}
+.admin-screen .rules-panel .rules button[disabled] {
+  cursor: default;
+}
+.admin-screen .rules-panel .rules button.too-expensive {
+  position: relative;
+}
+.admin-screen .rules-panel .rules button.too-expensive:before {
+  content: "You can not afford this rule.";
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  left: 0;
+  color: #ee2a2a;
+  -webkit-transform: translateY(120%);
+      -ms-transform: translateY(120%);
+          transform: translateY(120%);
+  opacity: 0;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: 12px;
+}
+.admin-screen .rules-panel .rules button.too-expensive:hover:before {
+  -webkit-transform: translateY(0);
+      -ms-transform: translateY(0);
+          transform: translateY(0);
+  opacity: 1;
+}
+.admin-screen .rule-details {
+  font-size: 26px;
+}
+.admin-screen .rule-details input {
+  border: none;
+  border-bottom: 0.15em solid currentColor;
+  color: #eee;
+  outline: none;
+  font-size: 23px;
   font-family: "Fira Code", monospace;
-  font-size: 16px;
-  width: 2em;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+}
+.admin-screen .rule-details input[maxlength="1"] {
+  width: 1.2em;
 }
 .admin-screen .rule-details select {
-  font-family: "Barlow", sans-serif;
+  font-family: "Fira Code", monospace;
   padding: 0.5em 1.5em;
-  font-size: 17px;
+  font-size: 18px;
 }
-.admin-screen .rule-details select option {
-  padding: 0.5em;
+.admin-screen .select-and-button button,
+.admin-screen .fieldset-and-button button {
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 22px;
+  background: transparent;
+  color: #eee;
+  border: 1px solid #eee;
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.admin-screen .select-and-button button:hover, .admin-screen .select-and-button button:focus,
+.admin-screen .fieldset-and-button button:hover,
+.admin-screen .fieldset-and-button button:focus {
+  color: #2EF429;
+  border-color: #2EF429;
+}
+.admin-screen .rules-advance {
+  text-align: center;
+}
+.admin-screen .rules-advance button {
+  font-size: 22px;
+  font-family: "Fira Code", monospace;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.admin-screen .select-and-button {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 10px 120px;
+  grid-template-columns: 1fr 120px;
+  gap: 10px;
+}
+.admin-screen .select-and-button select {
+  background: transparent;
+  color: #eee;
+  border: 0;
+  font-weight: 500;
+}
+.admin-screen .select-and-button select:focus {
+  background: #000;
+}
+.admin-screen .fieldset-and-button {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 10px 120px;
+  grid-template-columns: 1fr 120px;
+  gap: 10px;
+}
+.admin-screen .fieldset-and-button input {
+  background: transparent;
+}
+.admin-screen .fieldset-and-button input:focus, .admin-screen .fieldset-and-button input:hover {
+  border-color: #2EF429;
+  color: #2EF429;
+}
+.admin-screen .fieldset-and-button input:focus::-webkit-input-placeholder, .admin-screen .fieldset-and-button input:hover::-webkit-input-placeholder {
+  color: rgba(46, 244, 41, 0.6);
+}
+.admin-screen .fieldset-and-button input:focus::-moz-placeholder, .admin-screen .fieldset-and-button input:hover::-moz-placeholder {
+  color: rgba(46, 244, 41, 0.6);
+}
+.admin-screen .fieldset-and-button input:focus:-ms-input-placeholder, .admin-screen .fieldset-and-button input:hover:-ms-input-placeholder {
+  color: rgba(46, 244, 41, 0.6);
+}
+.admin-screen .fieldset-and-button input:focus::-ms-input-placeholder, .admin-screen .fieldset-and-button input:hover::-ms-input-placeholder {
+  color: rgba(46, 244, 41, 0.6);
+}
+.admin-screen .fieldset-and-button input:focus::placeholder, .admin-screen .fieldset-and-button input:hover::placeholder {
+  color: rgba(46, 244, 41, 0.6);
+}
+.admin-screen .admin-only {
+  color: #ee2a2a;
+}
+.admin-screen button {
+  font-family: inherit;
+}
+
+.employee-screen {
+  background: #eee;
+  padding: 40px;
+  font-family: "Lora", serif;
+}
+
+.scorekeeper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-grid-column-span: 2;
+  grid-column: span 2;
+  font-family: "Barlow", sans-serif;
+  padding: 10px;
+  /*
+  &[player-count] { display:grid; gap:$padding; }
+  &[player-count="1"] { grid-template-columns: repeat(1,1fr);}
+  &[player-count="2"] { grid-template-columns: repeat(2,1fr);}
+  &[player-count="3"] { grid-template-columns: repeat(3,1fr);}
+  &[player-count="4"] { grid-template-columns: repeat(4,1fr);}
+  &[player-count="5"] { grid-template-columns: repeat(5,1fr);}
+  &[player-count="6"] { grid-template-columns: repeat(6,1fr);}
+  */
+}
+.scorekeeper .player {
+  border: 1px solid currentColor;
+  padding: 20px;
+  -ms-flex-preferred-size: 160px;
+      flex-basis: 160px;
+  margin-right: 7px;
+}
+.scorekeeper .player .name {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.scorekeeper .player .score {
+  font-size: 220%;
 }

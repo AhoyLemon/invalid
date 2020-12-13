@@ -1,28 +1,73 @@
-.admin-screen { background:$black; color:$white; padding:$padding; font-family: $monospace;
-  .rules-panel { border:1px solid currentColor; margin:$padding; padding:$padding; background:rgba(1,12,1,1);
-  
+.admin-screen { background:$black; color:$white; padding:$gap; font-family: $monospace; display:grid; grid-template-columns: 1fr; gap:$gap;
+
+
+  .panel { border:1px solid rgba(255,255,255,0.15); padding:$padding; background:$adminPanelColor; box-shadow: 10px 10px 10px rgba(0,0,0,0.1); }
+
+  //-.rules-summary {  }
+
+  .rules-panel {
     .rules { display:grid; grid-template-columns: repeat(3,1fr); gap:($gap / 2);
-      .rule { font-weight: $medium; color:white; border:1px solid currentColor; border-radius: 3px; padding:$padding; position: relative; background:transparent; border:1px solid currentColor; cursor: pointer;
-        &.active { background-color:$white; color:$black; }
-        &[disabled]:not(.active) { opacity: 0.65; }
+      button { font-weight: $medium; color:$white; border:1px solid $white; border-radius: 3px; padding:$padding; position: relative; background:transparent; cursor: pointer;
+
+
+        &.rule { 
+          .name { font-size:16px; }
+          .cost { @include position(absolute,5px,5px); border:1px solid currentColor; width:1.5em; height:1.5em; text-align: center; border-radius: 50%; }
+        }
+        &.finished { grid-column: 2; font-size:18px; padding:16px 24px;
+          &:hover { color:$green; }
+        }
+
+        &:hover:not([disabled]) { border-color:$green;
+          .name { color:$green; }
+        }
+        &.active { font-weight: 900; }
+        &[disabled]:not(.active) { color:rgba($white,0.65); border-color:rgba($white,0.65); }
         &[disabled] { cursor: default; }
-
-
         &.too-expensive { position: relative;
-          &:before { content: 'You can not afford this rule.'; @include position(absolute,0,0,null,0); background:$white; color:$black; padding:0.25em; transform: translateY(0); opacity: 0; transition:all 0.3s ease; }
-          &:hover:before { transform: translateY(-120%); opacity: 1; }
+          &:before { content: 'You can not afford this rule.'; @include position(absolute,null,0,3px,0); color:$red; transform: translateY(120%); opacity: 0; transition:all 0.3s ease; font-size:12px; }
+          &:hover:before { transform: translateY(0); opacity: 1; }
         }
       }
-      .name { font-size:16px; }
-      .cost { @include position(absolute,5px,5px); border:1px solid currentColor; width:1.5em; height:1.5em; text-align: center; border-radius: 50%; }
+      
     }
   }
 
   .rule-details {
+    input { border:none; border-bottom:0.15em solid currentColor; color:$white; outline:none; font-size:23px; font-family: $monospace; padding-left:0.3em; padding-right: 0.3em; }
+    input[maxlength="1"] { width:1.2em; }
+    select { font-family: $monospace; padding:0.5em 1.5em; font-size:18px; }
+    font-size:26px;
+    //-input, select { font-size:26px; }
+  }
 
-    input[maxlength="1"] { font-family:$monospace; font-size:16px; width:2em; }
-    select { font-family: $sans-serif; padding:0.5em 1.5em; font-size:17px;
-      option { padding: 0.5em; }
+  .select-and-button,
+  .fieldset-and-button { 
+    button { text-transform: uppercase; font-weight: 900; font-size:22px; background:transparent; color:$white; border:1px solid $white; outline:none; border-radius: 4px; cursor: pointer;
+      &:hover, &:focus { color:$green; border-color: $green; }
     }
   }
+
+  .rules-advance { text-align: center;
+    button { font-size:22px; font-family: $monospace; font-weight: 900; text-transform: uppercase; }
+  }
+
+  .select-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px;
+    select { background:transparent; color:$white; border:0; font-weight: 500;
+      &:focus { background:#000; }
+    }
+  }
+  .fieldset-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px;
+    input { background:transparent;  
+      &:focus, &:hover { border-color:$green; color:$green;
+        &::placeholder { color:rgba($green,0.6)}
+      }
+    }
+  }
+
+
+  .admin-only { color:$red; }
+
+  button { font-family: inherit; }
 }
+
