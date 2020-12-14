@@ -1,4 +1,7 @@
-.admin-screen { background:$black; color:$white; padding:$gap; font-family: $monospace; display:grid; grid-template-columns: 1fr; gap:$gap;
+.admin-screen { background:$black; color:$white; padding:$gap; padding-top:($gap * 2); font-family: $monospace; display:grid; grid-template-columns: 1fr; gap:$gap; position: relative;
+  .top-info { background: $adminPanelColor; @include position(absolute,0,0,null,0); border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding:10px $gap; display:grid; grid-template-columns: 2fr 2fr 1fr 1fr;
+  }
 
 
   .panel { border:1px solid rgba(255,255,255,0.15); padding:$padding; background:$adminPanelColor; box-shadow: 10px 10px 10px rgba(0,0,0,0.1); }
@@ -12,7 +15,7 @@
 
         &.rule { 
           .name { font-size:16px; }
-          .cost { @include position(absolute,5px,5px); border:1px solid currentColor; width:1.5em; height:1.5em; text-align: center; border-radius: 50%; }
+          .cost { @include position(absolute,5px,5px); border:1px solid currentColor; line-height: 2em; width:2em; height:2em; text-align: center; border-radius: 50%; }
         }
         &.finished { grid-column: 2; font-size:18px; padding:16px 24px;
           &:hover { color:$green; }
@@ -34,7 +37,6 @@
   }
 
   .rule-details {
-    input { border:none; border-bottom:0.15em solid currentColor; color:$white; outline:none; font-size:23px; font-family: $monospace; padding-left:0.3em; padding-right: 0.3em; }
     input[maxlength="1"] { width:1.2em; }
     select { font-family: $monospace; padding:0.5em 1.5em; font-size:18px; }
     font-size:26px;
@@ -48,9 +50,23 @@
     }
   }
 
+  /*
   .rules-advance { text-align: center;
     button { font-size:22px; font-family: $monospace; font-weight: 900; text-transform: uppercase; }
   }
+  */
+
+  .bug-setup { 
+    .bug-errors { color:$adminError; padding-top:1em; }
+    .button-holder { display:grid; grid-template-columns: repeat(3,1fr); gap:($gap / 2); padding-top:$padding; border-top:2px solid rgba(255,255,255,0.15); margin-top:$padding;
+      button { grid-column: 2; font-weight: $medium; color:$white; border:1px solid $white; border-radius: 3px; padding:$padding; position: relative; background:transparent; cursor: pointer; font-size:18px; padding:16px 24px; text-transform: uppercase; 
+        &:hover, &:focus { color:$green; border-color: $green; }
+      }
+    }
+  }
+
+
+  h2 { text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1em; }
 
   .select-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px;
     select { background:transparent; color:$white; border:0; font-weight: 500;
@@ -58,7 +74,7 @@
     }
   }
   .fieldset-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px;
-    input { background:transparent;  
+    input { background:transparent; border:none; border-bottom:0.15em solid currentColor; color:$white; outline:none; font-size:23px; font-family: $monospace; padding-left:0.3em; padding-right: 0.3em;
       &:focus, &:hover { border-color:$green; color:$green;
         &::placeholder { color:rgba($green,0.6)}
       }
@@ -66,7 +82,7 @@
   }
 
 
-  .admin-only { color:$red; }
+  .admin-only { color:$adminOnly; }
 
   button { font-family: inherit; }
 }

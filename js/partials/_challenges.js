@@ -3,6 +3,7 @@ const challenges = [
   {
     name: "Playable Mortal Kombat Characters",
     nameAsRule: "Your password must be a playable Mortal Kombat character",
+    failedMessage: "[PASS] is not a playable Mortal Kombat character",
     possible: [
       "johnny cage",
       "kano",

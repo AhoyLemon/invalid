@@ -266,69 +266,36 @@ ul li {
   margin-bottom: 0.5em;
 }
 
-.password-form {
-  margin-left: auto;
-  margin-right: auto;
-  width: 320px;
-}
-.password-form .input-password {
-  position: relative;
-  display: block;
-}
-.password-form .input-password .name {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  left: 25px;
-  display: block;
-  color: #212121;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.password-form .input-password input {
-  font-size: 2rem;
-  font-family: inherit;
-  display: block;
-  padding: 20px 0 5px 20px;
-  width: 100%;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-}
-.password-form .input-password input .error {
-  border-color: #ee2a2a;
-}
-.password-form .required {
-  color: #ee2a2a;
-}
-.password-form button[type=submit] {
-  display: block;
-  width: 100%;
-  font-family: inherit;
-  font-weight: 500;
-  text-transform: uppercase;
-  font-size: 26px;
-  background: #0abab5;
-  border: none;
-  border-radius: 0;
-  padding: 0.35em 2em;
-  font-weight: 900;
-  letter-spacing: 0.2em;
-}
-.password-form input, .password-form button {
-  border-radius: 0;
-}
-
 .admin-screen {
   background: #212121;
   color: #eee;
   padding: 40px;
+  padding-top: 80px;
   font-family: "Fira Code", monospace;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr;
   grid-template-columns: 1fr;
   gap: 40px;
+  position: relative;
+  /*
+  .rules-advance { text-align: center;
+    button { font-size:22px; font-family: $monospace; font-weight: 900; text-transform: uppercase; }
+  }
+  */
+}
+.admin-screen .top-info {
+  background: #010c01;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 10px 40px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 2fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
 }
 .admin-screen .panel {
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -362,8 +329,9 @@ ul li {
   top: 5px;
   right: 5px;
   border: 1px solid currentColor;
-  width: 1.5em;
-  height: 1.5em;
+  line-height: 2em;
+  width: 2em;
+  height: 2em;
   text-align: center;
   border-radius: 50%;
 }
@@ -420,16 +388,6 @@ ul li {
 .admin-screen .rule-details {
   font-size: 26px;
 }
-.admin-screen .rule-details input {
-  border: none;
-  border-bottom: 0.15em solid currentColor;
-  color: #eee;
-  outline: none;
-  font-size: 23px;
-  font-family: "Fira Code", monospace;
-  padding-left: 0.3em;
-  padding-right: 0.3em;
-}
 .admin-screen .rule-details input[maxlength="1"] {
   width: 1.2em;
 }
@@ -456,14 +414,43 @@ ul li {
   color: #2EF429;
   border-color: #2EF429;
 }
-.admin-screen .rules-advance {
-  text-align: center;
+.admin-screen .bug-setup .bug-errors {
+  color: #ee2a2a;
+  padding-top: 1em;
 }
-.admin-screen .rules-advance button {
-  font-size: 22px;
-  font-family: "Fira Code", monospace;
-  font-weight: 900;
+.admin-screen .bug-setup .button-holder {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 20px 1fr 20px 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(255, 255, 255, 0.15);
+  margin-top: 20px;
+}
+.admin-screen .bug-setup .button-holder button {
+  -ms-grid-column: 2;
+  grid-column: 2;
+  font-weight: 300;
+  color: #eee;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 20px;
+  position: relative;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 16px 24px;
   text-transform: uppercase;
+}
+.admin-screen .bug-setup .button-holder button:hover, .admin-screen .bug-setup .button-holder button:focus {
+  color: #2EF429;
+  border-color: #2EF429;
+}
+.admin-screen h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1em;
 }
 .admin-screen .select-and-button {
   display: -ms-grid;
@@ -490,6 +477,14 @@ ul li {
 }
 .admin-screen .fieldset-and-button input {
   background: transparent;
+  border: none;
+  border-bottom: 0.15em solid currentColor;
+  color: #eee;
+  outline: none;
+  font-size: 23px;
+  font-family: "Fira Code", monospace;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
 }
 .admin-screen .fieldset-and-button input:focus, .admin-screen .fieldset-and-button input:hover {
   border-color: #2EF429;
@@ -511,7 +506,7 @@ ul li {
   color: rgba(46, 244, 41, 0.6);
 }
 .admin-screen .admin-only {
-  color: #ee2a2a;
+  color: #0abab5;
 }
 .admin-screen button {
   font-family: inherit;
@@ -520,7 +515,100 @@ ul li {
 .employee-screen {
   background: #eee;
   padding: 40px;
+  padding-top: 80px;
   font-family: "Lora", serif;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.employee-screen .top-info {
+  background: #f6f6ff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 10px 40px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 2fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
+}
+.employee-screen .inner {
+  width: 100%;
+  max-width: 500px;
+  background: #f6f6ff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  -webkit-box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.3);
+          box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+}
+.employee-screen .password-form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.employee-screen .password-form fieldset {
+  position: relative;
+}
+.employee-screen .password-form fieldset input {
+  font-size: 2rem;
+  font-family: inherit;
+  display: block;
+  padding: 20px 0 5px 20px;
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+.employee-screen .password-form fieldset input .error {
+  border-color: #ee2a2a;
+}
+.employee-screen .password-form fieldset label {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  left: 25px;
+  display: block;
+  color: #212121;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.employee-screen .password-form .required {
+  color: #ee2a2a;
+}
+.employee-screen .password-form button[type=submit] {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 26px;
+  background: #0abab5;
+  border: none;
+  border-radius: 0;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  padding: 0.35em 2em;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+}
+.employee-screen .password-form input, .employee-screen .password-form button {
+  border-radius: 0;
+}
+.employee-screen .password-form input {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.employee-screen .password-errors {
+  color: #ee2a2a;
 }
 
 .scorekeeper {

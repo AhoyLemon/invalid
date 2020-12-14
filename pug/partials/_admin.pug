@@ -1,7 +1,11 @@
 .admin-screen
 
-  h2 SysAdmin Screen 
-    |  ({{players[0].name}})
+  .top-info
+    .name {{players[0].name}}
+    .job SysAdmin
+    .rulebux {{my.rulebux}}
+      sup ƒ
+    .score SCORE: {{players[0].score}}
 
   .panel.rules-summary
     ul
@@ -18,13 +22,13 @@
     p.admin-only Info in this color is for admin eyes only.
 
   .panel.rules-panel(v-if="round.phase == 'choose rules'")
-    h3 Add a Rule!
-    h4 You have {{my.rulebux}} Rulebux to spend.
+    h2 Add a Password Rule
     .rules
       //button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")
       button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost > my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost > my.rulebux)")
         .name {{rule.name}}
         .cost {{rule.cost}}
+          sup ƒ
 
       button.finished(type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing") FINISH RULES
       
@@ -93,13 +97,15 @@
       h2 Add a bug to the system.
       p Enter a word to use as a bug.
       p If a player tries to use that word as a password, the system will crash (and you earn points.)
-      p(v-if="my.rulebux < 1") FYI, next time you're SysAdmin, you can buy additional bugs for 1 point.
+      p(v-if="my.rulebux < 1") FYI, next time you're SysAdmin, you can buy additional bugs for 1
+        sup ƒ
+        | .
     .additional-bug(v-else-if="my.rulebux > 0")
       p You may add {{my.rulebux}} additional bugs to the system
     form.fieldset-and-button(v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux > 0")
       fieldset 
-        label(for="BugPassword")
-        input(type="text" id="BugPassword" v-model="ui.addBug" v-touppercase  v-focus)
+        label(for="BugPassword") Set a Bug on 
+        input(type="text" id="BugPassword" v-model="ui.addBug" v-touppercase  v-focus placeholder="PASSWORD")
       button(type="Submit") Set
 
     ul.bug-errors(v-if="ui.addBugErrors")

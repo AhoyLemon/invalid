@@ -4,31 +4,39 @@ var app = new Vue({
     rules: rules,
     my: {
       rulebux: 6,
+      passwordAttempts: 0
     },
     players: [
       {
         name: 'Lemon',
-        score: 0
+        score: 0,
+        employeeNumber: employeeNumberSeed + 1,
       },
       {
         name: 'Pablo',
-        score: 0
+        score: 0,
+        employeeNumber: employeeNumberSeed + 2,
+        attempts: 0
       },
       {
         name: 'Carlos',
-        score: 0
+        score: 0,
+        employeeNumber: employeeNumberSeed + 3
       },
       {
         name: 'Anna',
-        score: 0
+        score: 0,
+        employeeNumber: employeeNumberSeed + 4
       },
       {
         name: 'Meredith',
-        score: 0
+        score: 0,
+        employeeNumber: employeeNumberSeed + 5
       },
       {
         name: 'Lindsay',
-        score: 0
+        score: 0,
+        employeeNumber: employeeNumberSeed + 6
       },
     ],
     round: {
@@ -42,10 +50,12 @@ var app = new Vue({
       averageVowels: 0,
       maxOffset: 2,
       minOffset: 2,
-      vowelOffset: 1
+      vowelOffset: 1,
+      elapsedTime: 0,
+      timer: undefined
     },
     ui: {
-      addBug: 'FART',
+      addBug: '',
       addBugErrors: [],
       passwordAttempt: '',
       passwordAttemptErrors: [],
@@ -176,6 +186,20 @@ var app = new Vue({
     onboardEmployees() {
       const self = this;
       self.round.phase = "create password";
+      this.startTimer();
+    },
+
+    startTimer() {
+      this.timer = setInterval(() => {
+        this.round.elapsedTime += 1;
+        this.players[0].score += 5;
+      }, 1000);
+    },
+    stopTimer() {
+      clearInterval(this.timer);
+    },
+    resetTimer() {
+      this.elapsedTime = 0;
     },
 
 
@@ -258,21 +282,66 @@ var app = new Vue({
       return systemCrashed;
     },
 
-    tryThisPassword(attempt) {
+    tryToFind(attempt) {
       const self = this;
       attempt = attempt.toUpperCase();
 
+      self.round.challenge.possible.forEach(function(possibility) {
+        if (attempt.toUpperCase() == possibility.toUpperCase()) {
+          return true;
+        }
+      });
+      return false;
+    },
+
+    tryThisPassword(attempt) {
+      const self = this;
+      attempt = attempt.toUpperCase();
+      self.ui.passwordAttemptErrors = [];
+
       const crashCheck = self.tryToCrashWith(attempt);
       const failCheck = self.tryToFailThis(attempt);
+      const matchCheck = self.tryToFind(attempt);
+      let correctAnswer = false;
 
       if (crashCheck) {
         self.round.phase = "crashed";
-        alert('the system crashed');
-      } else if (failCheck) {
-        self.ui.passwordAttemptErrors = failCheck.reasons;
-        self.ui.passwordAttempt = '';
-        self.ui.passwordInputError = true;
+        
       }
+      if (failCheck) {
+        self.ui.passwordAttemptErrors = failCheck.reasons;
+        self.ui.passwordInputError = true;
+      } 
+      
+      if (matchCheck) {
+        correctAnswer = true;
+      }
+      if (!matchCheck) {
+        let errorMessage = self.round.challenge.failedMessage.replace("[PASS]", attempt);
+        correctAnswer = false;
+        self.ui.passwordAttemptErrors.push(errorMessage);
+      }
+
+      // Deal with the results of the attempt.
+      self.my.passwordAttempts++;
+      self.ui.passwordAttempt = '';
+      if (crashCheck) {
+        alert('the system crashed, the round is over');
+      } else if (failCheck) {
+        // you failed. I have nothing to add here, beacuse you're already seeing why you failed.
+      } else if (correctAnswer) {
+
+        // YOU GOT IT, FUCKO
+        self.players[1].score += 100;
+        self.players[1].score += 20;
+        self.stopTimer();
+        self.resetTimer();
+
+        alert('at this point, I need to turn '+self.players[1].name+' into '+self.players[2].name);
+      }
+      
+
+
 
     },
 

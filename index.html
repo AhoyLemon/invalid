@@ -9,14 +9,18 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-13@17:38:19">
+    <meta http-equiv="last-modified" content="2020-11-13@19:51:10">
   </head>
   <body>
     <div id="app" v-cloak>
       <div class="split-screens">
         <div class="admin-screen">
-          <h2>
-            SysAdmin Screen  ({{players[0].name}})</h2>
+          <div class="top-info">
+            <div class="name">{{players[0].name}}</div>
+            <div class="job">SysAdmin</div>
+            <div class="rulebux">{{my.rulebux}}<sup>ƒ</sup></div>
+            <div class="score">SCORE: {{players[0].score}}</div>
+          </div>
           <div class="panel rules-summary">
             <ul>
               <li>{{round.challenge.nameAsRule}}</li>
@@ -31,13 +35,12 @@
             <p class="admin-only">Info in this color is for admin eyes only.</p>
           </div>
           <div class="panel rules-panel" v-if="round.phase == 'choose rules'">
-            <h3>Add a Rule!</h3>
-            <h4>You have {{my.rulebux}} Rulebux to spend.</h4>
+            <h2>Add a Password Rule</h2>
             <div class="rules">
               <!--button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")-->
               <button class="rule" v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost &gt; my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost &gt; my.rulebux)">
                 <div class="name">{{rule.name}}</div>
-                <div class="cost">{{rule.cost}}</div>
+                <div class="cost">{{rule.cost}}<sup>ƒ</sup></div>
               </button>
               <button class="finished" type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing">FINISH RULES</button>
             </div>
@@ -108,15 +111,15 @@
               <h2>Add a bug to the system.</h2>
               <p>Enter a word to use as a bug.</p>
               <p>If a player tries to use that word as a password, the system will crash (and you earn points.)</p>
-              <p v-if="my.rulebux &lt; 1">FYI, next time you're SysAdmin, you can buy additional bugs for 1 point.</p>
+              <p v-if="my.rulebux &lt; 1">FYI, next time you're SysAdmin, you can buy additional bugs for 1<sup>ƒ</sup>.</p>
             </div>
             <div class="additional-bug" v-else-if="my.rulebux &gt; 0">
               <p>You may add {{my.rulebux}} additional bugs to the system</p>
             </div>
             <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux &gt; 0">
               <fieldset> 
-                <label for="BugPassword"></label>
-                <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase v-focus>
+                <label for="BugPassword">Set a Bug on </label>
+                <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase v-focus placeholder="PASSWORD">
               </fieldset>
               <button type="Submit">Set</button>
             </form>
@@ -130,28 +133,35 @@
           <h3 v-if="round.phase == 'create password'"></h3>
         </div>
         <div class="employee-screen">
-          <h2>
-            Employee Screen ({{players[1].name}})</h2>
-          <p>Create Your Password.</p>
-          <ul>
-            <li>{{round.challenge.nameAsRule}}</li>
-            <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
-            <li>Passwords are case-insensitive</li>
-            <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
-          </ul>
-          <form class="password-form" v-if="round.phase == 'create password'" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
-            <label class="input-password">
-              <input type="text" v-model="ui.passwordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus><span class="name">Create A Password<sup class="required">*</sup></span>
-            </label>
-            <div class="button-holder">
-              <button type="submit">Submit</button>
-            </div>
-          </form>
-          <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
-            <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
-            <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
-              <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
+          <div class="top-info">
+            <div class="name">{{players[1].name}}</div>
+            <div class="job"> <span>Employee </span><sup>#</sup><span>{{players[1].employeeNumber}}</span></div>
+            <div class="attempts"><span v-if="players[1].attempts &amp;&amp; players[1].attempts &gt; 0">{{players[1].attempts}} tries</span></div>
+            <div class="score">SCORE: {{players[1].score}}</div>
+          </div>
+          <div class="inner">
+            <p>Create Your Password.</p>
+            <ul>
+              <li>{{round.challenge.nameAsRule}}</li>
+              <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
+              <li>Passwords are case-insensitive</li>
+              <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
             </ul>
+            <form class="password-form" v-if="round.phase == 'create password'" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
+              <fieldset>
+                <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus>
+                <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
+              </fieldset>
+              <div class="button-holder">
+                <button type="submit">Submit</button>
+              </div>
+            </form>
+            <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
+              <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
+              <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
+                <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
+              </ul>
+            </div>
           </div>
           <div class="crash-screen" v-if="round.phase == 'crashed'">
             <h1>You crashed the system.</h1>
@@ -168,7 +178,7 @@
     <div class="javascripts">
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-13@17:38:19"></script>
+      <script src="js/min/site.min.js?updated2020-11-13@19:51:10"></script>
     </div>
   </body>
 </html>

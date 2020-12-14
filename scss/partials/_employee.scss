@@ -1,4 +1,29 @@
-.employee-screen { background:$white; padding:$gap; font-family: $serif; 
+.employee-screen { background:$white; padding:$gap; padding-top:($gap * 2); font-family: $serif; position: relative;
+  .top-info { background: $employeePanelColor; @include position(absolute,0,0,null,0); border-bottom: 1px solid rgba(0,0,0,0.15);
+    padding:10px $gap; display:grid; grid-template-columns: 2fr 2fr 1fr 1fr;
+  }
 
+  display:flex; align-items: center; justify-content: center;
+  .inner { width:100%; max-width: 500px; background: $employeePanelColor; border: 1px solid rgba(0,0,0,0.15); padding:$padding; box-shadow: 2px 2px 18px rgba(0,0,0,0.3); border-radius: 20px; }
+
+
+  .password-form { margin-top:$padding; margin-bottom: $padding;
+
+    fieldset { position: relative;
+      input { font-size:2rem; font-family: inherit; display: block; padding:20px 0 5px 20px; width:100%; border:2px solid rgba(0,0,0,0.2);
+        .error { border-color:$red; }
+      }
+      label { @include position(absolute,5px,5px,null,25px); display: block; color:$black; font-size:14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    }
+    .required { color:$red; }
+    button[type="submit"] { display:block; width:100%; font-family: inherit; font-weight: $bold; text-transform: uppercase; font-size:26px;
+      background:$blue; border:none; border-radius: 0; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; padding:0.35em 2em; font-weight: 900; letter-spacing: 0.3em;
+    }
   
+    input, button { border-radius: 0; }
+    input { border-top-left-radius: 16px; border-top-right-radius: 16px; }
+  }
+
+  .password-errors { color:$red;
+  }
 }

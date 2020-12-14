@@ -1,5 +1,7 @@
 const siteURL = "";
 
+const employeeNumberSeed = randomNumber(10000,99999);
+
 const rules = [
   {
     name: "Demand A Letter",
@@ -26,3 +28,4 @@ const rules = [
     cost: 1
   }
 ];
+
