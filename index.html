@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-13@19:51:10">
+    <meta http-equiv="last-modified" content="2020-11-18@20:59:38">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -116,7 +116,7 @@
             <div class="additional-bug" v-else-if="my.rulebux &gt; 0">
               <p>You may add {{my.rulebux}} additional bugs to the system</p>
             </div>
-            <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux &gt; 0">
+            <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length &lt; 1 || my.rulebux &gt; 0">
               <fieldset> 
                 <label for="BugPassword">Set a Bug on </label>
                 <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase v-focus placeholder="PASSWORD">
@@ -130,7 +130,15 @@
               <button @click="onboardEmployees()">Onboard Employees</button>
             </div>
           </div>
-          <h3 v-if="round.phase == 'create password'"></h3>
+          <h3 v-if="round.phase == 'create password'">Employees are trying to enter passwords...</h3>
+          <div class="panel crash-notification" v-if="round.phase == 'crashed'">
+            <h2>System Crash!</h2>
+            <p>Congratulations! <strong>Carlos</strong> has crashed the system with the password <strong>SHITBALLS</strong></p>
+            <p>You have earned <strong>100</strong> points</p>
+            <div class="button-holder">
+              <button @click="">Next Round</button>
+            </div>
+          </div>
         </div>
         <div class="employee-screen">
           <div class="top-info">
@@ -164,7 +172,28 @@
             </div>
           </div>
           <div class="crash-screen" v-if="round.phase == 'crashed'">
-            <h1>You crashed the system.</h1>
+            <div class="inside">
+              <h1>Server error in '/' Application</h1>
+              <p><strong>Description: </strong>An unhandled exception occured when <strong>Carlos</strong> entered the password <strong>SHITBALLS.</strong></p>
+              <p><strong>Source Error</strong></p>
+              <pre><code>Line 109113:     protected isTheSiteCrashed(ooobject pwassword) {
+Line 109114:       while (password != error) {
+Line 109115:         destroyWebsite = false;
+Line 109116:       }
+Line 109117:     }
+</code></pre>
+              <p><strong>Password Entered</strong></p>
+              <pre><code>SHITBALLS
+</code></pre>
+              <p><strong>Employee Record</strong></p>
+              <pre><code>EMPloyeeNuumber:     103431
+EMpoyeeNAME:         Carlos
+</code></pre>
+              <p><strong>Source File</strong></p>
+              <pre><code>D:\Code\Projects\BigCorp\EmployeeProfiles\Scum\Auth\Processes\FuckItThisWillWorkForNow.aspx
+</code></pre>
+              <footer><strong>Version Information:</strong><br><code>BigCorp Framework Version 4.00.1134.Release5-Final--Version2.TestBuild-5</code></footer>
+            </div>
           </div>
         </div>
         <div class="scorekeeper" :player-count="players.length">
@@ -178,7 +207,7 @@
     <div class="javascripts">
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-13@19:51:10"></script>
+      <script src="js/min/site.min.js?updated2020-11-18@20:59:38"></script>
     </div>
   </body>
 </html>

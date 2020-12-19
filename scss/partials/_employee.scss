@@ -10,7 +10,10 @@
   .password-form { margin-top:$padding; margin-bottom: $padding;
 
     fieldset { position: relative;
-      input { font-size:2rem; font-family: inherit; display: block; padding:20px 0 5px 20px; width:100%; border:2px solid rgba(0,0,0,0.2);
+      input { font-size:2rem; font-family: inherit; display: block; padding:20px 0 5px 20px; width:100%; border:2px solid rgba(0,0,0,0.2); outline:none;
+        &:focus { border-color: $blue;
+          ~ label { color:$blue; }
+        }
         .error { border-color:$red; }
       }
       label { @include position(absolute,5px,5px,null,25px); display: block; color:$black; font-size:14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -25,5 +28,13 @@
   }
 
   .password-errors { color:$red;
+  }
+
+
+  .crash-screen { background:white; color:black; padding:$padding; @include position(absolute,0,0,0,0); display: flex; // align-items: center; justify-content: center;
+    .inside { width:100%; }
+    h1 { color: red; border-bottom: 3px solid currentColor; display:block; margin-bottom: 2em; }
+    pre { background: #ffffcc; font-weight: bold; padding:1em; margin-bottom:2em; }
+    footer { border-top:2px solid black; }
   }
 }

@@ -36,4 +36,52 @@
         li.error(v-for="(err,index) in ui.passwordAttemptErrors") {{err}}
 
   .crash-screen(v-if="round.phase == 'crashed'")
-    h1 You crashed the system.
+    .inside
+      h1 Server error in '/' Application
+      p
+        strong Description: 
+        | An unhandled exception occured when 
+        strong Carlos
+        |  entered the password 
+        strong SHITBALLS.
+      
+      //-p
+        strong Suspected Cause:
+        |  Perhaps there was a bug associated with the password 
+        strong SHITBALLS.
+
+      p
+        strong Source Error
+      pre
+        code.
+          Line 109113:     protected isTheSiteCrashed(ooobject pwassword) {
+          Line 109114:       while (password != error) {
+          Line 109115:         destroyWebsite = false;
+          Line 109116:       }
+          Line 109117:     }
+
+      p
+        strong Password Entered
+      pre
+        code.
+          SHITBALLS
+      
+      p
+        strong Employee Record
+      pre
+        code.
+          EMPloyeeNuumber:     103431
+          EMpoyeeNAME:         Carlos
+      
+      p
+        strong Source File
+      pre
+        code.
+          D:\Code\Projects\BigCorp\EmployeeProfiles\Scum\Auth\Processes\FuckItThisWillWorkForNow.aspx
+      
+      footer
+        strong Version Information:
+        br
+        code BigCorp Framework Version 4.00.1134.Release5-Final--Version2.TestBuild-5
+
+

@@ -1,4 +1,8 @@
 .admin-screen { background:$black; color:$white; padding:$gap; padding-top:($gap * 2); font-family: $monospace; display:grid; grid-template-columns: 1fr; gap:$gap; position: relative;
+
+  overflow-y: auto;
+
+
   .top-info { background: $adminPanelColor; @include position(absolute,0,0,null,0); border-bottom: 1px solid rgba(255,255,255,0.15);
     padding:10px $gap; display:grid; grid-template-columns: 2fr 2fr 1fr 1fr;
   }
@@ -9,7 +13,7 @@
   //-.rules-summary {  }
 
   .rules-panel {
-    .rules { display:grid; grid-template-columns: repeat(3,1fr); gap:($gap / 2);
+    .rules { display:grid; gap:($gap / 2); grid-template-columns: repeat( auto-fit, minmax(190px, 1fr) );
       button { font-weight: $medium; color:$white; border:1px solid $white; border-radius: 3px; padding:$padding; position: relative; background:transparent; cursor: pointer;
 
 
@@ -78,6 +82,18 @@
       &:focus, &:hover { border-color:$green; color:$green;
         &::placeholder { color:rgba($green,0.6)}
       }
+    }
+  }
+
+  @keyframes blinkRed { 
+    0%   { color:rgba(255,0,0,0); }
+    50%  { color:rgba(255,0,0,1); }
+    100% { color:rgba(255,0,0,0); }
+  }
+  .crash-notification { 
+    h2 { color:$red; animation: blinkRed 0.5s linear infinite; font-size:200%; letter-spacing: 0.2em; }
+    button { font-weight: $medium; color:$white; border:1px solid $white; border-radius: 3px; padding:$padding; position: relative; background:transparent; cursor: pointer; font-size:18px; padding:16px 24px; text-transform: uppercase; 
+      &:hover, &:focus { color:$green; border-color: $green; }
     }
   }
 

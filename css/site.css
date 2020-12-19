@@ -278,6 +278,7 @@ ul li {
   grid-template-columns: 1fr;
   gap: 40px;
   position: relative;
+  overflow-y: auto;
   /*
   .rules-advance { text-align: center;
     button { font-size:22px; font-family: $monospace; font-weight: 900; text-transform: uppercase; }
@@ -307,9 +308,8 @@ ul li {
 .admin-screen .rules-panel .rules {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 20px 1fr 20px 1fr;
-  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
 .admin-screen .rules-panel .rules button {
   font-weight: 300;
@@ -505,6 +505,52 @@ ul li {
 .admin-screen .fieldset-and-button input:focus::placeholder, .admin-screen .fieldset-and-button input:hover::placeholder {
   color: rgba(46, 244, 41, 0.6);
 }
+@-webkit-keyframes blinkRed {
+  0% {
+    color: rgba(255, 0, 0, 0);
+  }
+  50% {
+    color: red;
+  }
+  100% {
+    color: rgba(255, 0, 0, 0);
+  }
+}
+@keyframes blinkRed {
+  0% {
+    color: rgba(255, 0, 0, 0);
+  }
+  50% {
+    color: red;
+  }
+  100% {
+    color: rgba(255, 0, 0, 0);
+  }
+}
+.admin-screen .crash-notification h2 {
+  color: #ee2a2a;
+  -webkit-animation: blinkRed 0.5s linear infinite;
+          animation: blinkRed 0.5s linear infinite;
+  font-size: 200%;
+  letter-spacing: 0.2em;
+}
+.admin-screen .crash-notification button {
+  font-weight: 300;
+  color: #eee;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 20px;
+  position: relative;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 16px 24px;
+  text-transform: uppercase;
+}
+.admin-screen .crash-notification button:hover, .admin-screen .crash-notification button:focus {
+  color: #2EF429;
+  border-color: #2EF429;
+}
 .admin-screen .admin-only {
   color: #0abab5;
 }
@@ -565,6 +611,13 @@ ul li {
   padding: 20px 0 5px 20px;
   width: 100%;
   border: 2px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+.employee-screen .password-form fieldset input:focus {
+  border-color: #0abab5;
+}
+.employee-screen .password-form fieldset input:focus ~ label {
+  color: #0abab5;
 }
 .employee-screen .password-form fieldset input .error {
   border-color: #ee2a2a;
@@ -609,6 +662,37 @@ ul li {
 }
 .employee-screen .password-errors {
   color: #ee2a2a;
+}
+.employee-screen .crash-screen {
+  background: white;
+  color: black;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.employee-screen .crash-screen .inside {
+  width: 100%;
+}
+.employee-screen .crash-screen h1 {
+  color: red;
+  border-bottom: 3px solid currentColor;
+  display: block;
+  margin-bottom: 2em;
+}
+.employee-screen .crash-screen pre {
+  background: #ffffcc;
+  font-weight: bold;
+  padding: 1em;
+  margin-bottom: 2em;
+}
+.employee-screen .crash-screen footer {
+  border-top: 2px solid black;
 }
 
 .scorekeeper {

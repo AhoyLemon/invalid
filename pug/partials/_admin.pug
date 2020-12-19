@@ -102,16 +102,30 @@
         | .
     .additional-bug(v-else-if="my.rulebux > 0")
       p You may add {{my.rulebux}} additional bugs to the system
-    form.fieldset-and-button(v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux > 0")
+    form.fieldset-and-button(v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length < 1 || my.rulebux > 0")
       fieldset 
         label(for="BugPassword") Set a Bug on 
         input(type="text" id="BugPassword" v-model="ui.addBug" v-touppercase  v-focus placeholder="PASSWORD")
       button(type="Submit") Set
 
+
     ul.bug-errors(v-if="ui.addBugErrors")
       li(v-for="(e,index) in ui.addBugErrors") {{e}}
     .button-holder
       button(@click="onboardEmployees()") Onboard Employees
-
   
-  h3(v-if="round.phase == 'create password'")
+  h3(v-if="round.phase == 'create password'") Employees are trying to enter passwords...
+
+  .panel.crash-notification(v-if="round.phase == 'crashed'")
+    h2 System Crash!
+    p Congratulations! 
+      strong Carlos
+      |  has crashed the system with the password 
+      strong SHITBALLS
+
+    p You have earned 
+      strong 100
+      |  points
+    
+    .button-holder
+      button(@click="") Next Round

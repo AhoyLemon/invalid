@@ -1,3 +1,7 @@
+let currentPlayerNum = 0;
+
+
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -6,6 +10,12 @@ var app = new Vue({
       rulebux: 6,
       passwordAttempts: 0
     },
+
+    // Delete this whole category.
+
+    currentPlayer: {},
+
+
     players: [
       {
         name: 'Lemon',
@@ -286,12 +296,13 @@ var app = new Vue({
       const self = this;
       attempt = attempt.toUpperCase();
 
+      let foundOne = false;
       self.round.challenge.possible.forEach(function(possibility) {
         if (attempt.toUpperCase() == possibility.toUpperCase()) {
-          return true;
+          foundOne = true;
         }
       });
-      return false;
+      return foundOne;
     },
 
     tryThisPassword(attempt) {
@@ -326,7 +337,7 @@ var app = new Vue({
       self.my.passwordAttempts++;
       self.ui.passwordAttempt = '';
       if (crashCheck) {
-        alert('the system crashed, the round is over');
+        //alert('the system crashed, the round is over');
       } else if (failCheck) {
         // you failed. I have nothing to add here, beacuse you're already seeing why you failed.
       } else if (correctAnswer) {
@@ -337,7 +348,9 @@ var app = new Vue({
         self.stopTimer();
         self.resetTimer();
 
-        alert('at this point, I need to turn '+self.players[1].name+' into '+self.players[2].name);
+        alert('YOU WON! \n At this point, I need to turn '+self.players[1].name+' into '+self.players[2].name);
+
+        self.passwordSuccess(attempt);
       }
       
 
@@ -364,7 +377,6 @@ var app = new Vue({
       self.round.possibleAnswerCount = possibleAnswerCount;
 
     },
-
 
     findAverageSize() {
 
@@ -397,7 +409,18 @@ var app = new Vue({
 
       self.round.averageVowels = Math.round(avg);
       //self.round.averageVowels = avg.toFixed(1);
+    },
+
+    passwordSuccess(pw) {
+      const self = this;
+    },
+
+    crashTheServer() {
+      const self = this;
     }
+
+    // REMOVE THIS FUNCTION. It shouldn't be necessary.
+    
 
   },
 
