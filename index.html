@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-18@20:59:38">
+    <meta http-equiv="last-modified" content="2020-11-20@15:42:26">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -21,7 +21,7 @@
             <div class="rulebux">{{my.rulebux}}<sup>ƒ</sup></div>
             <div class="score">SCORE: {{players[0].score}}</div>
           </div>
-          <div class="panel rules-summary">
+          <div class="panel rules-summary" v-if="round.phase != 'crashed'">
             <ul>
               <li>{{round.challenge.nameAsRule}}</li>
               <li class="admin-only">There are {{round.possibleAnswerCount}} possible</li>
@@ -133,7 +133,7 @@
           <h3 v-if="round.phase == 'create password'">Employees are trying to enter passwords...</h3>
           <div class="panel crash-notification" v-if="round.phase == 'crashed'">
             <h2>System Crash!</h2>
-            <p>Congratulations! <strong>Carlos</strong> has crashed the system with the password <strong>SHITBALLS</strong></p>
+            <p>Congratulations! <strong>{{players[1].name}}</strong> has crashed the system with the password <strong>{{round.crash.word}}</strong></p>
             <p>You have earned <strong>100</strong> points</p>
             <div class="button-holder">
               <button @click="">Next Round</button>
@@ -174,7 +174,7 @@
           <div class="crash-screen" v-if="round.phase == 'crashed'">
             <div class="inside">
               <h1>Server error in '/' Application</h1>
-              <p><strong>Description: </strong>An unhandled exception occured when <strong>Carlos</strong> entered the password <strong>SHITBALLS.</strong></p>
+              <p><strong>Description: </strong>An unhandled exception occured when <strong>{{round.crash.player.name}}</strong> entered the password <strong>{{round.crash.word}}</strong></p>
               <p><strong>Source Error</strong></p>
               <pre><code>Line 109113:     protected isTheSiteCrashed(ooobject pwassword) {
 Line 109114:       while (password != error) {
@@ -183,14 +183,14 @@ Line 109116:       }
 Line 109117:     }
 </code></pre>
               <p><strong>Password Entered</strong></p>
-              <pre><code>SHITBALLS
+              <pre><code>{{round.crash.word}}
 </code></pre>
               <p><strong>Employee Record</strong></p>
-              <pre><code>EMPloyeeNuumber:     103431
-EMpoyeeNAME:         Carlos
+              <pre><code>EMPloyeeNuumber:     {{round.crash.player.employeeNumber}}
+EMpoyeeNAME:         {{round.crash.player.name}}
 </code></pre>
               <p><strong>Source File</strong></p>
-              <pre><code>D:\Code\Projects\BigCorp\EmployeeProfiles\Scum\Auth\Processes\FuckItThisWillWorkForNow.aspx
+              <pre><code>D:\Code\Projects\BigCorp\Profiles\Scum\Auth\Processes\FuckItThisWillWorkForNow.aspx
 </code></pre>
               <footer><strong>Version Information:</strong><br><code>BigCorp Framework Version 4.00.1134.Release5-Final--Version2.TestBuild-5</code></footer>
             </div>
@@ -207,7 +207,7 @@ EMpoyeeNAME:         Carlos
     <div class="javascripts">
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-18@20:59:38"></script>
+      <script src="js/min/site.min.js?updated2020-11-20@15:42:26"></script>
     </div>
   </body>
 </html>

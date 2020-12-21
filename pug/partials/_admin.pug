@@ -7,7 +7,7 @@
       sup ƒ
     .score SCORE: {{players[0].score}}
 
-  .panel.rules-summary
+  .panel.rules-summary(v-if="round.phase != 'crashed'")
     ul
       li {{round.challenge.nameAsRule}}
       li.admin-only There are {{round.possibleAnswerCount}} possible
@@ -119,9 +119,9 @@
   .panel.crash-notification(v-if="round.phase == 'crashed'")
     h2 System Crash!
     p Congratulations! 
-      strong Carlos
+      strong {{players[1].name}}
       |  has crashed the system with the password 
-      strong SHITBALLS
+      strong {{round.crash.word}}
 
     p You have earned 
       strong 100

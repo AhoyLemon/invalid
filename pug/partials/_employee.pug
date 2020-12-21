@@ -41,9 +41,9 @@
       p
         strong Description: 
         | An unhandled exception occured when 
-        strong Carlos
+        strong {{round.crash.player.name}}
         |  entered the password 
-        strong SHITBALLS.
+        strong {{round.crash.word}}
       
       //-p
         strong Suspected Cause:
@@ -64,20 +64,20 @@
         strong Password Entered
       pre
         code.
-          SHITBALLS
+          {{round.crash.word}}
       
       p
         strong Employee Record
       pre
         code.
-          EMPloyeeNuumber:     103431
-          EMpoyeeNAME:         Carlos
+          EMPloyeeNuumber:     {{round.crash.player.employeeNumber}}
+          EMpoyeeNAME:         {{round.crash.player.name}}
       
       p
         strong Source File
       pre
         code.
-          D:\Code\Projects\BigCorp\EmployeeProfiles\Scum\Auth\Processes\FuckItThisWillWorkForNow.aspx
+          D:\Code\Projects\BigCorp\Profiles\Scum\Auth\Processes\FuckItThisWillWorkForNow.aspx
       
       footer
         strong Version Information:

@@ -41,5 +41,40 @@ const challenges = [
       "bo rai cho",
       "frost"
     ]
+  },
+
+  {
+    name: "First Name of Bob's Burgers characters",
+    nameAsRule: "Your password MUST be the first name of a Bob's Burgers character",
+    failedMessage: "[PASS] is not a Bob's Burgers character",
+
+    possible: [
+      "Mike",
+      "Bob",
+      "LINDA",
+      "GENE",
+      "LOUISE",
+      "TINA",
+      "TEDDY",
+      "MORT",
+      "RUDY",
+      "JIMMY",
+      "ANDY",
+      "OLLIE",
+      "JOCELYN",
+      "TAMMY",
+      "HELEN",
+      "TREV",
+      "MARSHMALLOW",
+      "BOO BOO",
+      "DARRYL",
+      "PHILLIP",
+      "ALEX",
+      "ART",
+      "RANDY",
+      "KURT",
+      "LOGAN",
+      "SASHA"
+    ]
   }
 ];

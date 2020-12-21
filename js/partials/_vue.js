@@ -8,13 +8,14 @@ var app = new Vue({
     rules: rules,
     my: {
       rulebux: 6,
-      passwordAttempts: 0
+      passwordAttempts: 0,
+      name: "Pablo",
+      score: 0
     },
 
     // Delete this whole category.
 
     currentPlayer: {},
-
 
     players: [
       {
@@ -52,17 +53,22 @@ var app = new Vue({
     round: {
       phase: 'choose rules',
       number: 1,
-      challenge: challenges[0],
+      challenge: challenges[1],
       rules: [],
       bugs: [],
-      possibleAnswerCount: challenges[0].possible.length,
+      possibleAnswerCount: challenges[1].possible.length,
       averageSize: 0,
       averageVowels: 0,
       maxOffset: 2,
       minOffset: 2,
       vowelOffset: 1,
       elapsedTime: 0,
-      timer: undefined
+      timer: undefined,
+      crash: {
+        active: false,
+        word: "",
+        player: []
+      }
     },
     ui: {
       addBug: '',
@@ -212,7 +218,6 @@ var app = new Vue({
       this.elapsedTime = 0;
     },
 
-
     tryToFailThis(attempt) {
       let self = this;
 
@@ -317,7 +322,17 @@ var app = new Vue({
 
       if (crashCheck) {
         self.round.phase = "crashed";
-        
+
+        // Set crash to true.
+        self.round.crash.active = true;
+        self.round.crash.player = self.players[1];
+        self.round.crash.word = attempt;
+
+        // Award the SysAdmin points and stop the timer.
+        self.players[0].score += 100;
+        self.stopTimer();
+        self.resetTimer();
+
       }
       if (failCheck) {
         self.ui.passwordAttemptErrors = failCheck.reasons;
@@ -345,6 +360,9 @@ var app = new Vue({
         // YOU GOT IT, FUCKO
         self.players[1].score += 100;
         self.players[1].score += 20;
+        self.my.score += 100;
+        self.my.score += 20;
+
         self.stopTimer();
         self.resetTimer();
 
@@ -352,9 +370,6 @@ var app = new Vue({
 
         self.passwordSuccess(attempt);
       }
-      
-
-
 
     },
 
