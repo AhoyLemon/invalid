@@ -10,7 +10,11 @@ html(lang="en")
   body
     #app(v-cloak)
 
-      .split-screens
+      include partials/_create-or-join.pug
+
+      include partials/_pregame.pug
+
+      .split-screens(v-if="currentlyInGame && round.phase != 'pregame'")
         
         include partials/_admin.pug
 

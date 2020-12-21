@@ -9,11 +9,40 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-20@15:42:26">
+    <meta http-equiv="last-modified" content="2020-11-21@12:53:32">
   </head>
   <body>
     <div id="app" v-cloak>
-      <div class="split-screens">
+      <div class="create-or-join" v-if="!currentlyInGame">
+        <div class="inside">
+          <div class="create">
+            <button @click="createRoom()">Create a New Room</button>
+          </div>
+          <div class="or"><span>or</span></div>
+          <div class="join">
+            <form @submit.prevent="joinRoom()">
+              <input type="text" minlength="4" maxlength="4" required v-model="roomCode" @input="roomCode = $event.target.value.toUpperCase()" placeholder="Enter A Room Code">
+              <button v-if="roomCode &amp;&amp; roomCode.length &gt; 3" type="submit">Join this room.</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="pregame" v-if="currentlyInGame &amp;&amp; round.phase == 'pregame'">
+        <form class="pregame-form" @submit.prevent="updatePlayer()">
+          <fieldset>
+            <input v-model="my.employeeNumber" type="text" readonly disabled>
+            <label>Employee Number</label>
+          </fieldset>
+          <fieldset>
+            <input v-model="my.name" type="text">
+            <label>Employee Name</label>
+          </fieldset>
+          <div class="button-holder">
+            <button type="submit">Apply For Job</button>
+          </div>
+        </form>
+      </div>
+      <div class="split-screens" v-if="currentlyInGame &amp;&amp; round.phase != 'pregame'">
         <div class="admin-screen">
           <div class="top-info">
             <div class="name">{{players[0].name}}</div>
@@ -205,9 +234,10 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       </div>
     </div>
     <div class="javascripts">
+      <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-20@15:42:26"></script>
+      <script src="js/min/site.min.js?updated2020-11-21@12:53:32"></script>
     </div>
   </body>
 </html>

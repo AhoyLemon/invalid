@@ -1,0 +1,36 @@
+.create-or-join {  grid-column:span 2; 
+
+  .inside { height:99vh; display:grid;  display:grid; grid-template-rows: 1fr 5vw 1fr; padding:$gap;
+    > * {  display:flex; align-items: center;  justify-content: center; text-align: center; }
+  }
+
+  input,
+  button { font-size:6vw; color:$black; font-family: $serif; font-weight: normal; text-transform: none;
+    display:block; width:100%; padding:0.3em 0; text-align: center;
+    border:2px solid transparent;
+  }
+  button { cursor: pointer; }
+  .create {
+    button { transition:all 0.15s linear;
+      &:hover, &:focus { color:orange; }
+      &:active { border-color: orange; outline: none; }
+    }
+  }
+  .or { font-size:3vw; text-align: center; color:rgba($black,0.6); }
+  .join {
+    input { background:transparent;
+      &::placeholder { color:$black; }
+      &:hover {
+        &::placeholder { color:$blue; }
+      }
+      &:focus { color: $blue; border: 2px solid $blue; outline: none;
+        &::placeholder { color:rgba($blue,0.4); }
+      }
+    }
+    form { width:100%; position: relative; }
+    button { background:$blue; color:$white;
+      @include position(absolute,null,0,0,0);
+      font-size:24px;
+    }
+  }
+}

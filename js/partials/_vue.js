@@ -5,54 +5,25 @@ let currentPlayerNum = 0;
 var app = new Vue({
   el: '#app',
   data: {
+    currentlyInGame: false,
+    roomCode: null,
     rules: rules,
     my: {
+      employeeNumber: randomNumber(10000,99999),
+      name: '',
       rulebux: 6,
       passwordAttempts: 0,
-      name: "Pablo",
       score: 0
     },
 
-    // Delete this whole category.
 
+    // Delete this whole category.
     currentPlayer: {},
 
-    players: [
-      {
-        name: 'Lemon',
-        score: 0,
-        employeeNumber: employeeNumberSeed + 1,
-      },
-      {
-        name: 'Pablo',
-        score: 0,
-        employeeNumber: employeeNumberSeed + 2,
-        attempts: 0
-      },
-      {
-        name: 'Carlos',
-        score: 0,
-        employeeNumber: employeeNumberSeed + 3
-      },
-      {
-        name: 'Anna',
-        score: 0,
-        employeeNumber: employeeNumberSeed + 4
-      },
-      {
-        name: 'Meredith',
-        score: 0,
-        employeeNumber: employeeNumberSeed + 5
-      },
-      {
-        name: 'Lindsay',
-        score: 0,
-        employeeNumber: employeeNumberSeed + 6
-      },
-    ],
+    players: [],
     round: {
       phase: 'choose rules',
-      number: 1,
+      number: 0,
       challenge: challenges[1],
       rules: [],
       bugs: [],
@@ -71,6 +42,9 @@ var app = new Vue({
       }
     },
     ui: {
+      enterCode: {
+        focus: false
+      },
       addBug: '',
       addBugErrors: [],
       passwordAttempt: '',
@@ -83,10 +57,107 @@ var app = new Vue({
         inputValue: '',
         inputValueTwo: ''
       }
-    }
+    },
+    messages: []
   },
 
   methods: {
+
+
+
+    ////////////////////////////////////////////////////////////////
+    // Lobby Create / Join Methods
+
+    createRoom() {
+      const self = this;
+
+      function makeID(digits) {
+        let text = "";
+        const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      
+        for (let i = 0; i < digits; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+      
+        return text;
+      }
+
+      self.roomCode = makeID(4);
+      pubnub.subscribe({
+        channels: [self.roomCode],
+        withPresence: true
+      });
+      self.currentlyInGame = true;
+      self.round.phase = "pregame";
+      const url = new URL(window.location);
+      url.searchParams.set('room', self.roomCode);
+      window.history.pushState({}, '', url);
+    },
+
+    joinRoom() {
+      const self = this;
+
+      pubnub.subscribe({
+        channels: [self.roomCode],
+        withPresence: true
+      });
+      self.currentlyInGame = true;
+      const url = new URL(window.location);
+      url.searchParams.set('room', self.roomCode);
+      window.history.pushState({}, '', url);
+      alert('107')
+    },
+
+
+    /////////////////////////////////////////////////////////////////////
+    // BEFORE GAME (game hasn't started yet)
+
+    updatePlayer() {
+      const self = this;
+      
+      //Is this a new player or a player update
+      let newPlayer = true;
+
+      /*
+      self.players.forEach(function(player, index) {
+        if (player.employeeNumber == app.players.employeeNumber) {
+          // It's a player update, change the record
+          app.players[index] = app.player;
+          newPlayer = false;
+        }
+      });
+      */
+      
+      // It's a new player, add that to the array.
+      if (newPlayer) {
+        
+        const p = {
+          name: self.my.name,
+          employeeNumber: self.my.employeeNumber,
+          score: 0
+        };
+        self.players.push(p);
+
+      }
+
+      pubnub.publish({
+        channel : self.roomCode,
+        message : {
+          type: 'updatePlayers',
+          data: {
+            players: self.players
+          }
+        },
+      });
+
+    },
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////
+    // SysAdmin Methods
+
     chooseRule(rule) {
       const self = this;
       self.ui.currentRule.name = rule.name;
@@ -441,12 +512,30 @@ var app = new Vue({
 
   computed: {
 
+    /*
+    computedEnterCodePlaceholder() {
+      const self = this;
+      if (self.ui.enterCode.focus) {
+        return 'Enter Room Code';
+      } else {
+        return 'Join A Room';
+      }
+    }
+    */
+
   },
 
   mounted: function() {
     const self = this;
     self.findAverageSize();
     self.findAverageVowelCount();
+
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('room')) {
+      self.roomCode = urlParams.get('room');
+    }
+
+
   },
 
   directives: {

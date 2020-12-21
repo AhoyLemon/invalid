@@ -1,0 +1,10 @@
+.pregame(v-if="currentlyInGame && round.phase == 'pregame'")
+  form.pregame-form(@submit.prevent="updatePlayer()")
+    fieldset
+      input(v-model="my.employeeNumber" type="text" readonly disabled)
+      label Employee Number
+    fieldset
+      input(v-model="my.name" type="text")
+      label Employee Name
+    .button-holder
+      button(type="submit") Apply For Job

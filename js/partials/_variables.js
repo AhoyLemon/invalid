@@ -1,5 +1,5 @@
 const siteURL = "";
-
+const playerID = randomNumber(1,100);
 const employeeNumberSeed = randomNumber(10000,99999);
 
 const rules = [

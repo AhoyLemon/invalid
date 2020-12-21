@@ -266,6 +266,180 @@ ul li {
   margin-bottom: 0.5em;
 }
 
+.create-or-join {
+  -ms-grid-column-span: 2;
+  grid-column: span 2;
+}
+.create-or-join .inside {
+  height: 99vh;
+  display: -ms-grid;
+  display: grid;
+  display: grid;
+  -ms-grid-rows: 1fr 5vw 1fr;
+  grid-template-rows: 1fr 5vw 1fr;
+  padding: 40px;
+}
+.create-or-join .inside > * {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+}
+.create-or-join input,
+.create-or-join button {
+  font-size: 6vw;
+  color: #212121;
+  font-family: "Lora", serif;
+  font-weight: normal;
+  text-transform: none;
+  display: block;
+  width: 100%;
+  padding: 0.3em 0;
+  text-align: center;
+  border: 2px solid transparent;
+}
+.create-or-join button {
+  cursor: pointer;
+}
+.create-or-join .create button {
+  -webkit-transition: all 0.15s linear;
+  -o-transition: all 0.15s linear;
+  transition: all 0.15s linear;
+}
+.create-or-join .create button:hover, .create-or-join .create button:focus {
+  color: orange;
+}
+.create-or-join .create button:active {
+  border-color: orange;
+  outline: none;
+}
+.create-or-join .or {
+  font-size: 3vw;
+  text-align: center;
+  color: rgba(33, 33, 33, 0.6);
+}
+.create-or-join .join input {
+  background: transparent;
+}
+.create-or-join .join input::-webkit-input-placeholder {
+  color: #212121;
+}
+.create-or-join .join input::-moz-placeholder {
+  color: #212121;
+}
+.create-or-join .join input:-ms-input-placeholder {
+  color: #212121;
+}
+.create-or-join .join input::-ms-input-placeholder {
+  color: #212121;
+}
+.create-or-join .join input::placeholder {
+  color: #212121;
+}
+.create-or-join .join input:hover::-webkit-input-placeholder {
+  color: #0abab5;
+}
+.create-or-join .join input:hover::-moz-placeholder {
+  color: #0abab5;
+}
+.create-or-join .join input:hover:-ms-input-placeholder {
+  color: #0abab5;
+}
+.create-or-join .join input:hover::-ms-input-placeholder {
+  color: #0abab5;
+}
+.create-or-join .join input:hover::placeholder {
+  color: #0abab5;
+}
+.create-or-join .join input:focus {
+  color: #0abab5;
+  border: 2px solid #0abab5;
+  outline: none;
+}
+.create-or-join .join input:focus::-webkit-input-placeholder {
+  color: rgba(10, 186, 181, 0.4);
+}
+.create-or-join .join input:focus::-moz-placeholder {
+  color: rgba(10, 186, 181, 0.4);
+}
+.create-or-join .join input:focus:-ms-input-placeholder {
+  color: rgba(10, 186, 181, 0.4);
+}
+.create-or-join .join input:focus::-ms-input-placeholder {
+  color: rgba(10, 186, 181, 0.4);
+}
+.create-or-join .join input:focus::placeholder {
+  color: rgba(10, 186, 181, 0.4);
+}
+.create-or-join .join form {
+  width: 100%;
+  position: relative;
+}
+.create-or-join .join button {
+  background: #0abab5;
+  color: #eee;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 24px;
+}
+
+.pregame {
+  height: 99.9vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.pregame form {
+  width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.pregame form fieldset {
+  display: block;
+  position: relative;
+}
+.pregame form fieldset input {
+  font-family: inherit;
+  font-size: 20px;
+  padding: 15px 10px 2px 10px;
+  display: block;
+  width: 100%;
+}
+.pregame form fieldset label {
+  position: absolute;
+  top: 2px;
+  left: 10px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+.pregame form button {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  background: #0abab5;
+  border: 1px solid currentColor;
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+}
+
 .admin-screen {
   background: #212121;
   color: #eee;
