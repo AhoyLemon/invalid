@@ -266,133 +266,154 @@ ul li {
   margin-bottom: 0.5em;
 }
 
+svg path {
+  fill: currentColor;
+}
+
 .create-or-join {
-  -ms-grid-column-span: 2;
-  grid-column: span 2;
-}
-.create-or-join .inside {
-  height: 99vh;
-  display: -ms-grid;
-  display: grid;
-  display: grid;
-  -ms-grid-rows: 1fr 5vw 1fr;
-  grid-template-rows: 1fr 5vw 1fr;
-  padding: 40px;
-}
-.create-or-join .inside > * {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  text-align: center;
+  /*
+  .join {
+    input { background:transparent;
+      &::placeholder { color:$black; }
+      &:hover {
+        &::placeholder { color:$blue; }
+      }
+      &:focus { color: $blue; border: 2px solid $blue; outline: none;
+        &::placeholder { color:rgba($blue,0.4); }
+      }
+    }
+    form { width:100%; position: relative; }
+    button { background:$blue; color:$white;
+      @include position(absolute,null,0,0,0);
+      font-size:24px;
+    }
+  }
+  */
 }
 .create-or-join input,
 .create-or-join button {
-  font-size: 6vw;
+  cursor: pointer;
+}
+.create-or-join .create {
+  background: orange;
+  -webkit-clip-path: polygon(0 0, 0% 100%, 100% 0);
+          clip-path: polygon(0 0, 0% 100%, 100% 0);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 4em;
+}
+.create-or-join .create button {
+  font-size: 3.7vw;
   color: #212121;
   font-family: "Lora", serif;
   font-weight: normal;
   text-transform: none;
   display: block;
-  width: 100%;
-  padding: 0.3em 0;
-  text-align: center;
-  border: 2px solid transparent;
-}
-.create-or-join button {
-  cursor: pointer;
-}
-.create-or-join .create button {
-  -webkit-transition: all 0.15s linear;
-  -o-transition: all 0.15s linear;
-  transition: all 0.15s linear;
-}
-.create-or-join .create button:hover, .create-or-join .create button:focus {
-  color: orange;
-}
-.create-or-join .create button:active {
-  border-color: orange;
-  outline: none;
+  background: transparent;
+  border: none;
 }
 .create-or-join .or {
   font-size: 3vw;
   text-align: center;
-  color: rgba(33, 33, 33, 0.6);
+  color: rgba(33, 33, 33, 0.5);
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  z-index: 4;
+  display: block;
+  -webkit-transform: translate(0, -25%);
+      -ms-transform: translate(0, -25%);
+          transform: translate(0, -25%);
+  text-transform: uppercase;
+}
+.create-or-join .join {
+  background: #0abab5;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 0);
+          clip-path: polygon(0 100%, 100% 100%, 100% 0);
+  padding: 4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 .create-or-join .join input {
+  font-size: 9vw;
+  color: #212121;
+  font-family: "Lora", serif;
+  display: block;
+  width: 4em;
+  border: none;
+  outline: none;
   background: transparent;
 }
 .create-or-join .join input::-webkit-input-placeholder {
   color: #212121;
+  font-size: 3.7vw;
 }
 .create-or-join .join input::-moz-placeholder {
   color: #212121;
+  font-size: 3.7vw;
 }
 .create-or-join .join input:-ms-input-placeholder {
   color: #212121;
+  font-size: 3.7vw;
 }
 .create-or-join .join input::-ms-input-placeholder {
   color: #212121;
+  font-size: 3.7vw;
 }
 .create-or-join .join input::placeholder {
   color: #212121;
-}
-.create-or-join .join input:hover::-webkit-input-placeholder {
-  color: #0abab5;
-}
-.create-or-join .join input:hover::-moz-placeholder {
-  color: #0abab5;
-}
-.create-or-join .join input:hover:-ms-input-placeholder {
-  color: #0abab5;
-}
-.create-or-join .join input:hover::-ms-input-placeholder {
-  color: #0abab5;
-}
-.create-or-join .join input:hover::placeholder {
-  color: #0abab5;
+  font-size: 3.7vw;
 }
 .create-or-join .join input:focus {
-  color: #0abab5;
-  border: 2px solid #0abab5;
-  outline: none;
+  color: yellow;
 }
 .create-or-join .join input:focus::-webkit-input-placeholder {
-  color: rgba(10, 186, 181, 0.4);
+  color: yellow;
 }
 .create-or-join .join input:focus::-moz-placeholder {
-  color: rgba(10, 186, 181, 0.4);
+  color: yellow;
 }
 .create-or-join .join input:focus:-ms-input-placeholder {
-  color: rgba(10, 186, 181, 0.4);
+  color: yellow;
 }
 .create-or-join .join input:focus::-ms-input-placeholder {
-  color: rgba(10, 186, 181, 0.4);
+  color: yellow;
 }
 .create-or-join .join input:focus::placeholder {
-  color: rgba(10, 186, 181, 0.4);
-}
-.create-or-join .join form {
-  width: 100%;
-  position: relative;
+  color: yellow;
 }
 .create-or-join .join button {
-  background: #0abab5;
-  color: #eee;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  font-size: 24px;
+  margin-left: auto;
+  display: block;
+  font-family: "Lora", serif;
+  font-size: 3em;
+  background: transparent;
+  border: none;
 }
 
 .pregame {
   height: 99.9vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 160px;
+  grid-template-columns: 1fr 160px;
+}
+.pregame .sign-in {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -438,6 +459,41 @@ ul li {
   font-size: 16px;
   padding: 10px;
   cursor: pointer;
+}
+.pregame .players {
+  padding: 1rem;
+}
+.pregame .players .player {
+  display: block;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: rgba(33, 33, 33, 0.75);
+  color: #eee;
+  -webkit-box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.15);
+          box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+.pregame .players .player.is-me {
+  background: #212121;
+}
+.pregame .players .number {
+  font-style: italic;
+}
+.pregame .players .name {
+  font-size: 1.25em;
+  font-weight: 500;
+  padding-top: 0.25em;
+  padding-left: 0.5em;
+}
+.pregame .players .host {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  color: #eee;
+}
+.pregame .players .host svg {
+  width: 26px;
+  height: 26px;
 }
 
 .admin-screen {
@@ -626,59 +682,6 @@ ul li {
   letter-spacing: 0.15em;
   margin-bottom: 1em;
 }
-.admin-screen .select-and-button {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr 10px 120px;
-  grid-template-columns: 1fr 120px;
-  gap: 10px;
-}
-.admin-screen .select-and-button select {
-  background: transparent;
-  color: #eee;
-  border: 0;
-  font-weight: 500;
-}
-.admin-screen .select-and-button select:focus {
-  background: #000;
-}
-.admin-screen .fieldset-and-button {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr 10px 120px;
-  grid-template-columns: 1fr 120px;
-  gap: 10px;
-}
-.admin-screen .fieldset-and-button input {
-  background: transparent;
-  border: none;
-  border-bottom: 0.15em solid currentColor;
-  color: #eee;
-  outline: none;
-  font-size: 23px;
-  font-family: "Fira Code", monospace;
-  padding-left: 0.3em;
-  padding-right: 0.3em;
-}
-.admin-screen .fieldset-and-button input:focus, .admin-screen .fieldset-and-button input:hover {
-  border-color: #2EF429;
-  color: #2EF429;
-}
-.admin-screen .fieldset-and-button input:focus::-webkit-input-placeholder, .admin-screen .fieldset-and-button input:hover::-webkit-input-placeholder {
-  color: rgba(46, 244, 41, 0.6);
-}
-.admin-screen .fieldset-and-button input:focus::-moz-placeholder, .admin-screen .fieldset-and-button input:hover::-moz-placeholder {
-  color: rgba(46, 244, 41, 0.6);
-}
-.admin-screen .fieldset-and-button input:focus:-ms-input-placeholder, .admin-screen .fieldset-and-button input:hover:-ms-input-placeholder {
-  color: rgba(46, 244, 41, 0.6);
-}
-.admin-screen .fieldset-and-button input:focus::-ms-input-placeholder, .admin-screen .fieldset-and-button input:hover::-ms-input-placeholder {
-  color: rgba(46, 244, 41, 0.6);
-}
-.admin-screen .fieldset-and-button input:focus::placeholder, .admin-screen .fieldset-and-button input:hover::placeholder {
-  color: rgba(46, 244, 41, 0.6);
-}
 @-webkit-keyframes blinkRed {
   0% {
     color: rgba(255, 0, 0, 0);
@@ -730,6 +733,131 @@ ul li {
 }
 .admin-screen button {
   font-family: inherit;
+}
+
+.admin-screen {
+  min-height: 99.9vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: 1fr 120px;
+  grid-template-rows: 1fr 120px;
+}
+
+.admin-screen > *:nth-child(1) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+}
+
+.admin-screen > *:nth-child(2) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+}
+
+.admin-screen > *:nth-child(3) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+}
+
+.admin-screen > *:nth-child(4) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+}
+.admin-screen form fieldset {
+  position: relative;
+}
+.admin-screen form fieldset select {
+  width: 100%;
+  font-family: inherit;
+  font-size: 24px;
+  background: transparent;
+  color: #eee;
+  padding: 20px 10px 4px 8px;
+}
+.admin-screen form fieldset label {
+  position: absolute;
+  top: 2px;
+  left: 10px;
+  text-transform: uppercase;
+}
+.admin-screen form fieldset option {
+  color: #212121;
+}
+.admin-screen form.fieldset-and-button {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 10px 120px;
+  grid-template-columns: 1fr 120px;
+  gap: 10px;
+}
+.admin-screen form.fieldset-and-button input {
+  background: transparent;
+  border: none;
+  border-bottom: 0.15em solid currentColor;
+  color: #eee;
+  outline: none;
+  font-size: 23px;
+  font-family: "Fira Code", monospace;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  margin-left: 1em;
+}
+.admin-screen form.fieldset-and-button input:focus, .admin-screen form.fieldset-and-button input:hover {
+  border-color: #2EF429;
+  color: #2EF429;
+}
+.admin-screen form.fieldset-and-button input:focus::-webkit-input-placeholder, .admin-screen form.fieldset-and-button input:hover::-webkit-input-placeholder {
+  color: rgba(46, 244, 41, 0.6);
+}
+.admin-screen form.fieldset-and-button input:focus::-moz-placeholder, .admin-screen form.fieldset-and-button input:hover::-moz-placeholder {
+  color: rgba(46, 244, 41, 0.6);
+}
+.admin-screen form.fieldset-and-button input:focus:-ms-input-placeholder, .admin-screen form.fieldset-and-button input:hover:-ms-input-placeholder {
+  color: rgba(46, 244, 41, 0.6);
+}
+.admin-screen form.fieldset-and-button input:focus::-ms-input-placeholder, .admin-screen form.fieldset-and-button input:hover::-ms-input-placeholder {
+  color: rgba(46, 244, 41, 0.6);
+}
+.admin-screen form.fieldset-and-button input:focus::placeholder, .admin-screen form.fieldset-and-button input:hover::placeholder {
+  color: rgba(46, 244, 41, 0.6);
+}
+.admin-screen form.fieldset-and-button label {
+  position: relative;
+}
+.admin-screen form.select-and-button {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 10px 120px;
+  grid-template-columns: 1fr 120px;
+  gap: 10px;
+  margin-left: 1em;
+}
+.admin-screen form.select-and-button select {
+  background: transparent;
+  color: #eee;
+  border: 0;
+  font-weight: 500;
+}
+.admin-screen form.select-and-button select:focus {
+  background: #000;
+}
+.admin-screen .attempt-console ol {
+  margin-top: 2em;
+}
+.admin-screen .attempt-console ol li {
+  margin-bottom: 1em;
+  margin-left: 2em;
+  list-style-type: decimal;
+}
+.admin-screen .attempt-console ol li .name, .admin-screen .attempt-console ol li .pass {
+  font-weight: 900;
+}
+.admin-screen .attempt-console .failed {
+  color: #ff3838;
+}
+.admin-screen .attempt-console .success {
+  color: #38ff38;
 }
 
 .employee-screen {
@@ -867,6 +995,30 @@ ul li {
 }
 .employee-screen .crash-screen footer {
   border-top: 2px solid black;
+}
+
+.employee-screen {
+  min-height: 99.9vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  -ms-grid-rows: 1fr 120px;
+  grid-template-rows: 1fr 120px;
+}
+
+.employee-screen > *:nth-child(1) {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+}
+
+.employee-screen > *:nth-child(2) {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+}
+.employee-screen .inner {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .scorekeeper {

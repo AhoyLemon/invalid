@@ -1,20 +1,20 @@
-.employee-screen
+.employee-screen(v-if="my.role == 'employee'")
 
   .top-info
-    .name {{players[1].name}}
+    .name {{my.name}}
     .job 
       span Employee 
       sup #
-      span {{players[1].employeeNumber}}
+      span {{my.employeeNumber}}
     .attempts
-      span(v-if="players[1].attempts && players[1].attempts > 0") {{players[1].attempts}} tries
-    .score SCORE: {{players[1].score}}
+      span(v-if="players[my.playerIndex].attempts && players[my.playerIndex].attempts > 0") {{players[my.playerIndex].attempts}} tries
+    .score SCORE: {{my.score}}
 
 
-  .inner
-    p Create Your Password.
+  .inner(v-if="!ui.passwordSucceded")
+    p(v-if="round.phase == 'create password'") Create Your Password.
     ul
-      li {{round.challenge.nameAsRule}}
+      li(v-if="round.challenge && round.challenge.nameAsRule") {{round.challenge.nameAsRule}}
       li(v-for="(rule,index) in round.rules") {{rule.message}}
       li Passwords are case-insensitive
       li(v-if="round.bugs && round.bugs.length > 0 ") 
@@ -30,10 +30,19 @@
       .button-holder
         button(type="submit") Submit
 
+    .stand-by(v-if="round.phase != 'create password'")
+      p Your password rules are still being created by your SysAdmin {{computedSysAdminName}}. Please stand by.
+
     .password-errors(v-if="ui.passwordAttemptErrors && ui.passwordAttemptErrors.length > 0")
       .error(v-if="ui.passwordAttemptErrors.length == 1") {{ui.passwordAttemptErrors[0]}}
       ul(v-if="ui.passwordAttemptErrors.length > 1")
         li.error(v-for="(err,index) in ui.passwordAttemptErrors") {{err}}
+  
+  .inner(v-if="ui.passwordSucceded")
+
+    h1 SUCCESS!
+    p You've set a password.
+    p Please stand by while your coworkers try to do the same.
 
   .crash-screen(v-if="round.phase == 'crashed'")
     .inside
@@ -44,11 +53,6 @@
         strong {{round.crash.player.name}}
         |  entered the password 
         strong {{round.crash.word}}
-      
-      //-p
-        strong Suspected Cause:
-        |  Perhaps there was a bug associated with the password 
-        strong SHITBALLS.
 
       p
         strong Source Error
@@ -84,4 +88,5 @@
         br
         code BigCorp Framework Version 4.00.1134.Release5-Final--Version2.TestBuild-5
 
+  include _scores.pug
 

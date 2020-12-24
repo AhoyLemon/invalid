@@ -14,12 +14,10 @@ html(lang="en")
 
       include partials/_pregame.pug
 
-      .split-screens(v-if="currentlyInGame && round.phase != 'pregame'")
+      //-.split-screens(v-if="currentlyInGame && round.phase != 'pregame'")
         
-        include partials/_admin.pug
+      include partials/_admin.pug
 
-        include partials/_employee.pug
-
-        include partials/_scores.pug
+      include partials/_employee.pug
 
     include partials/_javascripts

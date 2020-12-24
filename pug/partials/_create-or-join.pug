@@ -10,8 +10,8 @@
   
     .join
       form(@submit.prevent="joinRoom()")
+        button(v-if="roomCode && roomCode.length > 3" type="submit") Join this room.
         input(type="text" minlength="4" maxlength="4" required v-model="roomCode"
           @input="roomCode = $event.target.value.toUpperCase()"
           placeholder="Enter A Room Code"
         )
-        button(v-if="roomCode && roomCode.length > 3" type="submit") Join this room.

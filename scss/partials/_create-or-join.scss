@@ -1,22 +1,12 @@
-.create-or-join {  grid-column:span 2; 
-
-  .inside { height:99vh; display:grid;  display:grid; grid-template-rows: 1fr 5vw 1fr; padding:$gap;
-    > * {  display:flex; align-items: center;  justify-content: center; text-align: center; }
-  }
+.create-or-join {
 
   input,
-  button { font-size:6vw; color:$black; font-family: $serif; font-weight: normal; text-transform: none;
-    display:block; width:100%; padding:0.3em 0; text-align: center;
-    border:2px solid transparent;
-  }
   button { cursor: pointer; }
-  .create {
-    button { transition:all 0.15s linear;
-      &:hover, &:focus { color:orange; }
-      &:active { border-color: orange; outline: none; }
-    }
+  .create { background:orange; clip-path: polygon(0 0, 0% 100%, 100% 0);  @include position(absolute,0,0,0,0); padding:4em;
+    button { font-size:3.7vw; color:$black; font-family: $serif; font-weight: normal; text-transform: none; display:block; background:transparent; border:none; }
   }
-  .or { font-size:3vw; text-align: center; color:rgba($black,0.6); }
+  .or { font-size:3vw; text-align: center; color:rgba($black,.5); @include position(absolute,50%,50%); z-index: 4; display: block;  transform: translate(0, -25%); text-transform: uppercase; }
+  /*
   .join {
     input { background:transparent;
       &::placeholder { color:$black; }
@@ -32,5 +22,17 @@
       @include position(absolute,null,0,0,0);
       font-size:24px;
     }
+  }
+  */
+
+
+  .join { background:$blue; @include position(absolute,0,0,0,0); clip-path: polygon(0 100%, 100% 100%, 100% 0);  padding:4em; display: flex; align-items:flex-end; justify-content: flex-end;
+    input { font-size:9vw; color:$black; font-family: $serif; display:block; width:4em; border:none; outline:none; background: transparent;
+      &::placeholder { color:$black; font-size:3.7vw; }
+      &:focus { color:yellow;
+        &::placeholder { color:yellow; }
+      }
+    }
+    button { margin-left: auto; display: block; font-family: $serif; font-size:3em; background: transparent; border:none; }
   }
 }

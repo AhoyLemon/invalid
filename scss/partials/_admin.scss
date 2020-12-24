@@ -72,19 +72,6 @@
 
   h2 { text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1em; }
 
-  .select-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px;
-    select { background:transparent; color:$white; border:0; font-weight: 500;
-      &:focus { background:#000; }
-    }
-  }
-  .fieldset-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px;
-    input { background:transparent; border:none; border-bottom:0.15em solid currentColor; color:$white; outline:none; font-size:23px; font-family: $monospace; padding-left:0.3em; padding-right: 0.3em;
-      &:focus, &:hover { border-color:$green; color:$green;
-        &::placeholder { color:rgba($green,0.6)}
-      }
-    }
-  }
-
   @keyframes blinkRed { 
     0%   { color:rgba(255,0,0,0); }
     50%  { color:rgba(255,0,0,1); }
@@ -103,3 +90,40 @@
   button { font-family: inherit; }
 }
 
+
+
+
+.admin-screen { min-height: 99.9vh; display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 120px; 
+
+  form {
+    fieldset { position: relative; 
+      select { width:100%; font-family:inherit; font-size:24px; background:transparent; color:$white; padding:20px 10px 4px 8px; }
+      label { @include position(absolute,2px,null,null,10px); text-transform: uppercase; }
+      option { color:$black; }
+    }
+    &.fieldset-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px;
+      input { background:transparent; border:none; border-bottom:0.15em solid currentColor; color:$white; outline:none; font-size:23px; font-family: $monospace; padding-left:0.3em; padding-right: 0.3em; margin-left: 1em;
+        &:focus, &:hover { border-color:$green; color:$green;
+          &::placeholder { color:rgba($green,0.6)}
+        }
+      }
+      label { position: relative; }
+    }
+    &.select-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px; margin-left: 1em;
+      select { background:transparent; color:$white; border:0; font-weight: 500;
+        &:focus { background:#000; }
+      }
+    }
+  }
+
+  .attempt-console {
+    ol { margin-top:2em;
+      li { margin-bottom: 1em; margin-left: 2em; list-style-type: decimal;
+        .name, .pass { font-weight: 900; }
+      }
+    }
+    .failed { color:rgba(255,56,56,1); }
+    .success { color:rgba(56,255,56,1); }
+  }
+
+}

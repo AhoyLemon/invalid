@@ -1,33 +1,36 @@
 let currentPlayerNum = 0;
 
-
-
 var app = new Vue({
   el: '#app',
   data: {
     currentlyInGame: false,
     roomCode: null,
+    isRoomHost: false,
     rules: rules,
+    playerCount: 0,
     my: {
       employeeNumber: randomNumber(10000,99999),
       name: '',
+      playerIndex: -1, // This is assigned in updatePlayer()
+      role: null,
       rulebux: 6,
       passwordAttempts: 0,
       score: 0
     },
 
-
-    // Delete this whole category.
-    currentPlayer: {},
-
     players: [],
+
     round: {
-      phase: 'choose rules',
+      phase: 'create or join',
       number: 0,
-      challenge: challenges[1],
+      sysAdminIndex: -1,
+      possibleChallenges: [],
+      challenge: {},
       rules: [],
       bugs: [],
-      possibleAnswerCount: challenges[1].possible.length,
+      attempts: [],
+      claimedPasswords: [],
+      possibleAnswerCount: 0,
       averageSize: 0,
       averageVowels: 0,
       maxOffset: 2,
@@ -42,14 +45,17 @@ var app = new Vue({
       }
     },
     ui: {
+      appliedForJob: false,
       enterCode: {
         focus: false
       },
+      challengeID: null,
       addBug: '',
       addBugErrors: [],
       passwordAttempt: '',
       passwordAttemptErrors: [],
       passwordInputError: false,
+      passwordSucceded: false,
       currentRule: {
         editing: false,
         name: '',
@@ -86,6 +92,7 @@ var app = new Vue({
         channels: [self.roomCode],
         withPresence: true
       });
+      self.isRoomHost = true;
       self.currentlyInGame = true;
       self.round.phase = "pregame";
       const url = new URL(window.location);
@@ -101,10 +108,10 @@ var app = new Vue({
         withPresence: true
       });
       self.currentlyInGame = true;
+      self.round.phase = "pregame";
       const url = new URL(window.location);
       url.searchParams.set('room', self.roomCode);
       window.history.pushState({}, '', url);
-      alert('107')
     },
 
 
@@ -114,31 +121,45 @@ var app = new Vue({
     updatePlayer() {
       const self = this;
       
+      self.ui.appliedForJob = true;
       //Is this a new player or a player update
       let newPlayer = true;
+      const p = {
+        name: self.my.name,
+        employeeNumber: self.my.employeeNumber,
+        isRoomHost: self.isRoomHost,
+        role: null,
+        score: 0
+      };
 
-      /*
       self.players.forEach(function(player, index) {
-        if (player.employeeNumber == app.players.employeeNumber) {
-          // It's a player update, change the record
-          app.players[index] = app.player;
+        if (player.employeeNumber == self.my.employeeNumber) {
+          self.players[index] = p;
           newPlayer = false;
         }
       });
-      */
       
       // It's a new player, add that to the array.
       if (newPlayer) {
-        
-        const p = {
-          name: self.my.name,
-          employeeNumber: self.my.employeeNumber,
-          score: 0
-        };
         self.players.push(p);
-
       }
 
+
+      self.players.forEach(function(player, index) {
+        if (player.employeeNumber == self.my.employeeNumber) {
+          self.my.playerIndex = index;
+        }
+      });
+      if (self.my.playerIndex < 0) {
+        alert('could not get a player index. this is a bug. this should not happen.');
+      }
+
+      self.sendPlayerUpdate();
+
+    },
+
+    sendPlayerUpdate() {
+      const self = this;
       pubnub.publish({
         channel : self.roomCode,
         message : {
@@ -148,15 +169,64 @@ var app = new Vue({
           }
         },
       });
+    },
+
+    startTheGame() {
+      const self = this;
+
+      // Assign the host as SysAdmin, all other players are employees
+      self.players.forEach(function(player, index) {
+        if (player.isRoomHost) {
+          self.players[index].role = "SysAdmin";
+        } else {
+          self.players[index].role = "employee";
+        }
+      });
+
+      pubnub.publish({
+        channel : self.roomCode,
+        message : {
+          type: 'startTheGame',
+          data: {
+            players: self.players
+          }
+        },
+      });
 
     },
 
 
-
-
-
     ////////////////////////////////////////////////////////////////
     // SysAdmin Methods
+
+    // This is gonna shuffle & filter the possible categories...
+    definePossibleChallenges() {
+      const self = this;
+      let c = shuffle(challenges);
+      c.length = 3;
+      self.round.possibleChallenges = c;
+    },
+
+    chooseAChallenge() {
+      const self = this;
+      challenges.forEach(function(c) {
+        if (c.id == self.ui.challengeID) {
+          self.round.challenge = c;
+        }
+      });
+      self.findPossibleRightAnswers();
+      self.findAverageSize();
+      self.findAverageVowelCount();
+      pubnub.publish({
+        channel : self.roomCode,
+        message : {
+          type: 'updatePasswordChallenge',
+          data: {
+            challenge: self.round.challenge
+          }
+        },
+      });
+    },
 
     chooseRule(rule) {
       const self = this;
@@ -226,6 +296,17 @@ var app = new Vue({
 
       // Recalculate Possible Right Answers.
       self.findPossibleRightAnswers();
+
+      pubnub.publish({
+        channel : self.roomCode,
+        message : {
+          type: 'updatePasswordRules',
+          data: {
+            rules: self.round.rules
+          }
+        },
+      });
+
     },
 
     clearCurrentRule() {
@@ -268,20 +349,39 @@ var app = new Vue({
       self.ui.addBug = '';
       self.round.bugs.push(bug);
 
+
+      pubnub.publish({
+        channel : self.roomCode,
+        message : {
+          type: 'updateBugs',
+          data: {
+            bugs: self.round.bugs
+          }
+        },
+      });
     },
 
     onboardEmployees() {
       const self = this;
-      self.round.phase = "create password";
-      this.startTimer();
+      pubnub.publish({
+        channel : self.roomCode,
+        message : {
+          type: 'startGuessing',
+          data: {
+            sysAdminIndex: self.my.playerIndex
+          }
+        },
+      });
     },
 
     startTimer() {
-      this.timer = setInterval(() => {
-        this.round.elapsedTime += 1;
-        this.players[0].score += 5;
+      const self = this;
+      self.timer = setInterval(() => {
+        self.round.elapsedTime += 1;
+        self.players[self.round.sysAdminIndex].score += 5;
       }, 1000);
     },
+    
     stopTimer() {
       clearInterval(this.timer);
     },
@@ -389,6 +489,7 @@ var app = new Vue({
       const crashCheck = self.tryToCrashWith(attempt);
       const failCheck = self.tryToFailThis(attempt);
       const matchCheck = self.tryToFind(attempt);
+
       let correctAnswer = false;
 
       if (crashCheck) {
@@ -422,26 +523,31 @@ var app = new Vue({
       // Deal with the results of the attempt.
       self.my.passwordAttempts++;
       self.ui.passwordAttempt = '';
+      let passwordSucceeded = false;
       if (crashCheck) {
         //alert('the system crashed, the round is over');
       } else if (failCheck) {
         // you failed. I have nothing to add here, beacuse you're already seeing why you failed.
       } else if (correctAnswer) {
-
-        // YOU GOT IT, FUCKO
-        self.players[1].score += 100;
-        self.players[1].score += 20;
-        self.my.score += 100;
-        self.my.score += 20;
-
-        self.stopTimer();
-        self.resetTimer();
-
-        alert('YOU WON! \n At this point, I need to turn '+self.players[1].name+' into '+self.players[2].name);
-
-        self.passwordSuccess(attempt);
+        passwordSucceeded = true;
       }
 
+      if (passwordSucceeded) {
+        self.passwordSuccess(attempt)
+      } else {
+        pubnub.publish({
+          channel : self.roomCode,
+          message : {
+            type: 'triedPassword',
+            data: {
+              playerIndex: self.my.playerIndex,
+              pwAttempt: attempt,
+              attemptCount: self.my.passwordAttempts,
+              result: "failed"
+            }
+          },
+        });
+      }
     },
 
     findPossibleRightAnswers() {
@@ -497,43 +603,99 @@ var app = new Vue({
       //self.round.averageVowels = avg.toFixed(1);
     },
 
-    passwordSuccess(pw) {
+    passwordSuccess(attempt) {
       const self = this;
+      // YOU GOT IT!
+      // Let's give you some points
+      self.my.score += 100;
+      self.my.score += 20;
+
+      // Let's change the UI to reflect you having won.
+      self.ui.passwordSucceded = true;
+
+      pubnub.publish({
+        channel : self.roomCode,
+        message : {
+          type: 'passwordSuccess',
+          data: {
+            playerIndex: self.my.playerIndex,
+            pwAttempt: attempt,
+            attemptCount: self.my.passwordAttempts,
+            playerScore: self.my.score,
+            result: "success"
+          }
+        },
+      });
     },
 
     crashTheServer() {
       const self = this;
     }
 
-    // REMOVE THIS FUNCTION. It shouldn't be necessary.
-    
-
   },
 
   computed: {
 
-    /*
-    computedEnterCodePlaceholder() {
+    computedSysAdminName() {
       const self = this;
-      if (self.ui.enterCode.focus) {
-        return 'Enter Room Code';
-      } else {
-        return 'Join A Room';
-      }
+      let n = "";
+      self.players.forEach(function(player, index) {
+        if (player.role == "SysAdmin" || player.role != "employee") {
+          return player.name;
+        }
+      });
+    },
+    computedSysAdminIndex() {
+      const self = this;
+      let n = "";
+      self.players.forEach(function(player, index) {
+        if (player.role == "SysAdmin" || player.role != "employee") {
+          return index;
+        }
+      });
     }
-    */
 
   },
 
   mounted: function() {
     const self = this;
-    self.findAverageSize();
-    self.findAverageVowelCount();
+    //self.findAverageSize();
+    //self.findAverageVowelCount();
 
     var urlParams = new URLSearchParams(window.location.search);
+
+
+    
     if (urlParams.has('room')) {
       self.roomCode = urlParams.get('room');
+
+      // Commented out autojoin stuff while in testing.
+      /*
+      self.currentlyInGame = true;
+      self.round.phase = "pregame";
+
+      setTimeout(function(){
+        pubnub.subscribe({
+          channels: [self.roomCode],
+          withPresence: true
+        });
+      }, 1000);
+      */
     }
+
+
+    // FAKE EMPLOYEE.
+    /*
+    self.my.role = "employee";
+    self.my.name = "Lemon";
+    self.my.playerIndex = 1;
+    self.currentlyInGame = true;
+    self.players = [
+      { name: "Carlos", role:"SysAdmin", employeeNumber:2, score:0  },
+      { name: "Lemon", role:"employee", employeeNumber:1, score:0  }
+    ];
+    self.ui.passwordSucceded = true;
+    */
 
 
   },

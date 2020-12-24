@@ -1,4 +1,4 @@
-.admin-screen
+.admin-screen(v-if="my.role == 'SysAdmin'")
 
   .top-info
     .name {{players[0].name}}
@@ -7,7 +7,18 @@
       sup ƒ
     .score SCORE: {{players[0].score}}
 
-  .panel.rules-summary(v-if="round.phase != 'crashed'")
+  .panel.challenge-select(v-if="ui.challengeID == null")
+    p First, select your password challenge.
+    form(@submit.prevent="chooseAChallenge()")
+      fieldset
+        select(v-model="ui.challengeID" @change="chooseAChallenge()")
+          option(disabled selected)
+          option(v-for="option in round.possibleChallenges" :value="option.id") {{option.name}}
+        label Password Challenge
+        
+      button(type="submit") Choose
+
+  .panel.rules-summary(v-if="ui.challengeID != null && round.phase != 'crashed'")
     ul
       li {{round.challenge.nameAsRule}}
       li.admin-only There are {{round.possibleAnswerCount}} possible
@@ -21,7 +32,7 @@
       li.admin-only(v-for="(bug,index) in round.bugs") {{bug}} will cause a system crash.
     p.admin-only Info in this color is for admin eyes only.
 
-  .panel.rules-panel(v-if="round.phase == 'choose rules'")
+  .panel.rules-panel(v-if="ui.challengeID != null && round.phase == 'choose rules'")
     h2 Add a Password Rule
     .rules
       //button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")
@@ -112,9 +123,15 @@
     ul.bug-errors(v-if="ui.addBugErrors")
       li(v-for="(e,index) in ui.addBugErrors") {{e}}
     .button-holder
-      button(@click="onboardEmployees()") Onboard Employees
+      button(@click="onboardEmployees()" :disabled="ui.addBug.length > 0") Onboard Employees
   
-  h3(v-if="round.phase == 'create password'") Employees are trying to enter passwords...
+  .panel.attempt-console
+    h3(v-if="round.phase == 'create password'") Employees are trying to enter passwords...
+    ol
+      li(v-for="a in round.attempts" :class="a.result")
+        span.name {{players[a.playerIndex].name}}
+        |  tried 
+        span.pass {{a.pwAttempt}}
 
   .panel.crash-notification(v-if="round.phase == 'crashed'")
     h2 System Crash!
@@ -129,3 +146,5 @@
     
     .button-holder
       button(@click="") Next Round
+
+  include _scores.pug
