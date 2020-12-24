@@ -2,6 +2,54 @@ const siteURL = "";
 const playerID = randomNumber(1,100);
 const employeeNumberSeed = randomNumber(10000,99999);
 
+const myDefaults = {
+  rulebux: 6,
+  passwordAttempts: 0
+};
+
+const roundDefaults = {
+  possibleChallenges: [],
+  challenge: {},
+  rules: [],
+  bugs: [],
+  attempts: [],
+  claimedPasswords: [],
+  possibleAnswerCount: 0,
+  averageSize: 0,
+  averageVowels: 0,
+  elapsedTime: 0,
+  roundTimer: undefined,
+  hurryTimer: undefined,
+  hurryTime: 10,
+  crash: {
+    active: false,
+    word: "",
+    player: []
+  }
+};
+
+const uiDefaults = {
+  appliedForJob: false,
+  enterCode: {
+    focus: false
+  },
+  challengeID: null,
+  addBug: '',
+  addBugErrors: [],
+  passwordAttempt: '',
+  passwordAttemptErrors: [],
+  passwordInputError: false,
+  passwordSucceded: false,
+  roundOver: false,
+  currentRule: {
+    editing: false,
+    name: '',
+    cost: 0,
+    inputValue: '',
+    inputValueTwo: ''
+  }
+};
+
 const rules = [
   {
     name: "Demand A Letter",

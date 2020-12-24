@@ -7,7 +7,7 @@
       sup #
       span {{my.employeeNumber}}
     .attempts
-      span(v-if="players[my.playerIndex].attempts && players[my.playerIndex].attempts > 0") {{players[my.playerIndex].attempts}} tries
+      span(v-if="my.passwordAttempts > 0") {{my.passwordAttempts}} tries
     .score SCORE: {{my.score}}
 
   .inner(v-if="!ui.roundOver")

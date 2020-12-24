@@ -43,9 +43,10 @@ var app = new Vue({
       crash: {
         active: false,
         word: "",
-        player: []
+        player: {}
       }
     },
+    allEmployeePasswords: [],
     ui: {
       appliedForJob: false,
       enterCode: {
@@ -197,7 +198,6 @@ var app = new Vue({
       });
 
     },
-
 
     ////////////////////////////////////////////////////////////////
     // SysAdmin Methods
@@ -381,7 +381,7 @@ var app = new Vue({
     // The guessing has begun.
     roundStartTimer() {
       const self = this;
-      self.roundTimer = setInterval(() => {
+      self.round.roundTimer = setInterval(() => {
         self.round.elapsedTime += 1;
         self.players[self.round.sysAdminIndex].score += 1;
       }, 1000);
@@ -414,21 +414,12 @@ var app = new Vue({
 
     endTheGuessingRound() {
       const self = this;
-      // If time's up, shut down the screen.
-      self.ui.roundOver = true;
-      self.resetHurryTimer();
-      self.resetRoundTimer();
-
-      // If you're SysAdmin, send that command out to everyone.
-      if (self.role == "SysAdmin") {
-        pubnub.publish({
-          channel : self.roomCode,
-          message : {
-            type: 'roundOver'
-          },
-        });
-      }
-
+      pubnub.publish({
+        channel : self.roomCode,
+        message : {
+          type: 'roundOver'
+        },
+      });
     },
 
     tryToFailThis(attempt) {
@@ -539,13 +530,13 @@ var app = new Vue({
         self.ui.passwordInputError = true;
       } 
       
-      if (matchCheck) {
-        correctAnswer = true;
-      }
       if (!matchCheck) {
         let errorMessage = self.round.challenge.failedMessage.replace("[PASS]", attempt);
-        correctAnswer = false;
         self.ui.passwordAttemptErrors.push(errorMessage);
+      }
+
+      if (matchCheck && !failCheck && !crashCheck) {
+        correctAnswer = true;
       }
 
       // Deal with the results of the attempt.
@@ -662,27 +653,32 @@ var app = new Vue({
       });
     },
 
+
+    startNextRoundClicked() {
+      const self = this;
+      pubnub.publish({
+        channel : self.roomCode,
+        message : {
+          type: 'startNewRound',
+          data: {
+            playerIndex: self.my.playerIndex,
+            players: self.players
+          }
+        },
+      });
+    }
+
   },
 
   computed: {
 
     computedSysAdminName() {
       const self = this;
-      return self.players[self.computedSysAdminIndex].name;
+      return self.players[self.round.sysAdminIndex].name;
     },
     computedSysAdminIndex() {
       const self = this;
-      let n = -1;
-      self.players.forEach(function(player, index) {
-        if (player.role == "SysAdmin" || player.role != "employee") {
-          n = index;
-        }
-      });
-      if (n == -1) {
-        alert('there is a bug in the computedSysAdminIndex');
-      } else {
-        return n;
-      }
+      return self.round.sysAdminIndex;
     }
 
   },
@@ -746,15 +742,5 @@ Vue.directive('focus', {
   inserted: function (el) {
     // Focus the element
     el.focus();
-  }
-});
-
-
-// Register a global custom directive called `v-focus`
-Vue.directive('dropdown', {
-  // When the bound element is inserted into the DOM...
-  inserted: function (el) {
-    // Focus the element
-    el.select();
   }
 });

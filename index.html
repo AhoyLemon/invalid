@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-24@12:18:20">
+    <meta http-equiv="last-modified" content="2020-11-24@16:12:00">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -78,7 +78,7 @@
             <button type="submit">Choose</button>
           </form>
         </div>
-        <div class="panel rules-summary" v-if="ui.challengeID != null &amp;&amp; round.phase != 'crashed'">
+        <div class="panel rules-summary" v-if="ui.challengeID != null &amp;&amp; round.phase != 'crashed' &amp;&amp; !ui.roundOver">
           <ul>
             <li>{{round.challenge.nameAsRule}}</li>
             <li class="admin-only">There are {{round.possibleAnswerCount}} possible</li>
@@ -187,7 +187,7 @@
             <button @click="onboardEmployees()" :disabled="ui.addBug.length &gt; 0">Onboard Employees</button>
           </div>
         </div>
-        <div class="panel attempt-console">
+        <div class="panel attempt-console" v-if="round.phase == 'create password'">
           <h3 v-if="round.phase == 'create password'">Employees are trying to enter passwords...</h3>
           <ol>
             <li v-for="a in round.attempts" :class="a.result"><span class="name">{{players[a.playerIndex].name}}</span> tried <span class="pass">{{a.pwAttempt}}</span></li>
@@ -201,6 +201,13 @@
             <button @click="">Next Round</button>
           </div>
         </div>
+        <div class="panel round-over" v-if="ui.roundOver">
+          <h2>This round is over.</h2>
+          <p>You have been fired for no particular reason.</p>
+          <p>
+            <button type="button" @click="startNextRoundClicked()"></button>
+          </p>
+        </div>
         <div class="scorekeeper" :player-count="players.length">
           <div class="player" v-for="(player,index) in players">
             <div class="name">{{player.name}}</div>
@@ -212,7 +219,7 @@
         <div class="top-info">
           <div class="name">{{my.name}}</div>
           <div class="job"> <span>Employee </span><sup>#</sup><span>{{my.employeeNumber}}</span></div>
-          <div class="attempts"><span v-if="players[my.playerIndex].attempts &amp;&amp; players[my.playerIndex].attempts &gt; 0">{{players[my.playerIndex].attempts}} tries</span></div>
+          <div class="attempts"><span v-if="my.passwordAttempts &gt; 0">{{my.passwordAttempts}} tries</span></div>
           <div class="score">SCORE: {{my.score}}</div>
         </div>
         <div class="inner" v-if="!ui.roundOver">
@@ -294,7 +301,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-24@12:18:20"></script>
+      <script src="js/min/site.min.js?updated2020-11-24@16:12:00"></script>
     </div>
   </body>
 </html>

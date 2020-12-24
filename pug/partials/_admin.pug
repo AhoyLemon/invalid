@@ -18,7 +18,7 @@
         
       button(type="submit") Choose
 
-  .panel.rules-summary(v-if="ui.challengeID != null && round.phase != 'crashed'")
+  .panel.rules-summary(v-if="ui.challengeID != null && round.phase != 'crashed' && !ui.roundOver")
     ul
       li {{round.challenge.nameAsRule}}
       li.admin-only There are {{round.possibleAnswerCount}} possible
@@ -43,7 +43,6 @@
 
       button.finished(type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing") FINISH RULES
       
-
   .panel.rule-details(v-if="ui.currentRule.editing && (round.phase == 'choose rules')")
 
     form.fieldset-and-button(v-if="ui.currentRule.name == 'Demand A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)")
@@ -100,9 +99,6 @@
         input(v-model="ui.currentRule.inputValueTwo" type="text" id="SecondBannedLetter" maxlength="1" minlength="1" required v-touppercase)
       button(type="submit") Set
 
-  //-.panel.rules-advance(v-if="!ui.currentRule.editing && (round.phase == 'choose rules')")
-    button(type="button" @click="round.phase = 'add bugs'") Finished Setting Rules
-
   .panel.bug-setup(v-if="round.phase == 'add bugs'")
     .first-bug-intro(v-if="!round.bugs || round.bugs.length < 1")
       h2 Add a bug to the system.
@@ -125,7 +121,7 @@
     .button-holder
       button(@click="onboardEmployees()" :disabled="ui.addBug.length > 0") Onboard Employees
   
-  .panel.attempt-console
+  .panel.attempt-console(v-if="round.phase == 'create password'")
     h3(v-if="round.phase == 'create password'") Employees are trying to enter passwords...
     ol
       li(v-for="a in round.attempts" :class="a.result")
@@ -146,5 +142,12 @@
     
     .button-holder
       button(@click="") Next Round
+
+  .panel.round-over(v-if="ui.roundOver")
+
+    h2 This round is over.
+    p You have been fired for no particular reason.
+    p
+      button(type="button" @click="startNextRoundClicked()")
 
   include _scores.pug

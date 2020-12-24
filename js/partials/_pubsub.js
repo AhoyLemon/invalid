@@ -18,10 +18,11 @@ pubnub.addListener({
       event
     );
 
+
     if (event.message.type == "updatePlayers") {
       app.players = event.message.data.players;
-      if (app.my && app.my.playerIndex && app.my.playerIndex > 0) {
-        app.my.role = event.message.data.players[app.my.playerIndex].role;
+      if (app.my && app.my.playerIndex && app.my.playerIndex > -1) {
+        app.my.role = app.players[app.my.playerIndex].role;
       }
     }
 
@@ -62,16 +63,35 @@ pubnub.addListener({
       let i = event.message.data.playerIndex;
       app.players[i].score = event.message.data.playerScore;
       app.round.claimedPasswords.push(event.message.data.pwAttempt);
+    
       app.round.attempts.push(event.message.data);
 
       // If the Hurry Up timer hasn't already started, start it now.
-      if (self.round.hurryTimer == undefined) {
+      if (app.round.hurryTimer == undefined) {
         app.startHurryTimer();
       }
+
+      // Add this to all Employee Passwords, for the final round.
+      let p = {
+        pw: event.message.data.pwAttempt,
+        name: app.players[i].name,
+        playerIndex: i
+      };
+      app.allEmployeePasswords.push(p);
+
+      // Let's check to see if all employees have succeeded.
+
+      if (app.round.claimedPasswords.length >= (app.players.length - 1) ) {
+        // Yup! Let's end the round.
+        app.endTheGuessingRound();
+      }
+
     }
 
     if (event.message.type == "roundOver") {
-      app.endTheGuessingRound();
+      app.ui.roundOver = true;
+      app.resetHurryTimer();
+      app.resetRoundTimer();
     }
 
     if (event.message.type == "crashedServer") {
@@ -86,6 +106,40 @@ pubnub.addListener({
         app.my.score += 100;
       }
       app.endTheGuessingRound();
+    }
+
+    if (event.message.type == "startNewRound") {
+      app.players = event.message.data.players;
+      
+      let i = app.round.sysAdminIndex + 1;
+
+      if (i >= app.players.length) {
+        alert('XXX you have cycled thru all players. Soooooo... Uhhh, do something about that.');
+      } else {
+        app.round.sysAdminIndex = i;
+      }
+
+      // Define roles.
+      app.players.forEach(function(p,index) {
+        p.role = "employee";
+      });
+      app.players[i].role = "SysAdmin";
+      app.my.role = app.players[app.my.playerIndex].role;
+
+      app.ui = uiDefaults;
+      app.round.phase = "choose rules";
+      app.round.number += 1;
+      app.round.possibleChallenges = [];
+      app.round.challenge = {};
+      app.round.rules = [];
+      app.round.attempts = [];
+      app.round.claimedPasswords = [];
+      app.round.elapsedTime = 0;
+      app.round.crash = {
+        active: false,
+        word: "",
+        player: {}
+      };
     }
 
 
