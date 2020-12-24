@@ -51,7 +51,7 @@ pubnub.addListener({
     if (event.message.type == "startGuessing") {
       app.round.phase = "create password";
       app.round.sysAdminIndex = event.message.data.sysAdminIndex;
-      app.startTimer();
+      app.roundStartTimer();
     }
 
     if (event.message.type == "triedPassword") {
@@ -63,7 +63,32 @@ pubnub.addListener({
       app.players[i].score = event.message.data.playerScore;
       app.round.claimedPasswords.push(event.message.data.pwAttempt);
       app.round.attempts.push(event.message.data);
+
+      // If the Hurry Up timer hasn't already started, start it now.
+      if (self.round.hurryTimer == undefined) {
+        app.startHurryTimer();
+      }
     }
+
+    if (event.message.type == "roundOver") {
+      app.endTheGuessingRound();
+    }
+
+    if (event.message.type == "crashedServer") {
+      let i = event.message.data.playerIndex;
+      app.round.phase = "crashed";
+      app.round.crash.active = true;
+      app.round.crash.player = app.players[i];
+      app.round.crash.word = event.message.data.pwAttempt;
+      app.round.attempts.push(event.message.data);
+
+      if (app.my.role == "SysAdmin") {
+        app.my.score += 100;
+      }
+      app.endTheGuessingRound();
+    }
+
+
 
   },
 

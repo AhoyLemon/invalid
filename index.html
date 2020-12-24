@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-23@22:02:16">
+    <meta http-equiv="last-modified" content="2020-11-24@12:18:20">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -215,37 +215,43 @@
           <div class="attempts"><span v-if="players[my.playerIndex].attempts &amp;&amp; players[my.playerIndex].attempts &gt; 0">{{players[my.playerIndex].attempts}} tries</span></div>
           <div class="score">SCORE: {{my.score}}</div>
         </div>
-        <div class="inner" v-if="!ui.passwordSucceded">
-          <p v-if="round.phase == 'create password'">Create Your Password.</p>
-          <ul>
-            <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">{{round.challenge.nameAsRule}}</li>
-            <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
-            <li>Passwords are case-insensitive</li>
-            <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
-          </ul>
-          <form class="password-form" v-if="round.phase == 'create password'" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
-            <fieldset>
-              <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus>
-              <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
-            </fieldset>
-            <div class="button-holder">
-              <button type="submit">Submit</button>
-            </div>
-          </form>
-          <div class="stand-by" v-if="round.phase != 'create password'">
-            <p>Your password rules are still being created by your SysAdmin {{computedSysAdminName}}. Please stand by.</p>
-          </div>
-          <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
-            <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
-            <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
-              <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
+        <div class="inner" v-if="!ui.roundOver">
+          <div class="content" v-if="!ui.passwordSucceded">
+            <p v-if="round.phase == 'create password'">Create Your Password.</p>
+            <ul>
+              <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">{{round.challenge.nameAsRule}}</li>
+              <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
+              <li>Passwords are case-insensitive</li>
+              <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
             </ul>
+            <form class="password-form" v-if="round.phase == 'create password'" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
+              <fieldset>
+                <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus>
+                <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
+              </fieldset>
+              <div class="button-holder">
+                <button type="submit">Submit</button>
+              </div>
+            </form>
+            <div class="stand-by" v-if="round.phase != 'create password'">
+              <p>Your password rules are still being created by {{computedSysAdminName}}, your friendly and helpful System Administrator. Please stand by.</p>
+            </div>
+            <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
+              <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
+              <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
+                <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="content" v-if="ui.passwordSucceded">
+            <h1>SUCCESS!</h1>
+            <p>You've set a password.</p>
+            <p>Please stand by while your coworkers try to do the same.</p>
           </div>
         </div>
-        <div class="inner" v-if="ui.passwordSucceded">
-          <h1>SUCCESS!</h1>
-          <p>You've set a password.</p>
-          <p>Please stand by while your coworkers try to do the same.</p>
+        <div class="inner" v-if="ui.roundOver">
+          <h1>This round is over.</h1>
+          <p>Please stand by. All employees will be fired and rehired at a 6.5% salary reduction.</p>
         </div>
         <div class="crash-screen" v-if="round.phase == 'crashed'">
           <div class="inside">
@@ -271,6 +277,11 @@ EMpoyeeNAME:         {{round.crash.player.name}}
             <footer><strong>Version Information:</strong><br><code>BigCorp Framework Version 4.00.1134.Release5-Final--Version2.TestBuild-5</code></footer>
           </div>
         </div>
+        <div class="hurry-timer" v-if="round.hurryTimer != undefined">
+          <div class="time-left" v-if="round.hurryTime &gt;= 10"><span class="integer double-digit">{{parseInt(round.hurryTime)}}</span></div>
+          <div class="time-left" v-else-if="round.hurryTime &lt; 10"><span class="integer">{{round.hurryTime.toFixed(1).split('.')[0]}}</span>.<sup class="decimal">{{round.hurryTime.toFixed(1).split('.')[1]}}</sup></div>
+          <div class="label" v-if="!ui.passwordSucceded">Hurry Up</div>
+        </div>
         <div class="scorekeeper" :player-count="players.length">
           <div class="player" v-for="(player,index) in players">
             <div class="name">{{player.name}}</div>
@@ -283,7 +294,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-23@22:02:16"></script>
+      <script src="js/min/site.min.js?updated2020-11-24@12:18:20"></script>
     </div>
   </body>
 </html>

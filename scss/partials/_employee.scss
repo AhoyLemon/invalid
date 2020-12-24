@@ -42,4 +42,15 @@
 
 .employee-screen { min-height: 99.9vh; display:grid; grid-template-columns: 1fr; grid-template-rows: 1fr 120px;
   .inner { margin-left: auto; margin-right:auto;}
+
+  .hurry-timer { width:6vw; height: 6vw; background:white; border-radius: 50%; @include position(absolute,55px,25px); text-align: center; padding-top:0.5vw; border:2px solid rgba(0,0,0,0.15); box-shadow: -9px 9px 9px rgba(0,0,0,0.35);
+    .label { text-transform: uppercase; font-weight: 700; margin-top: 10px; background:rgb(40,40,40); color:white; padding:0.25em; border-radius: 4px; box-shadow: -9px 9px 9px rgba(0,0,0,0.35); }
+    .time-left { font-size:4vw; line-height: 100%;
+      .integer { display: inline-block; width:1ch;
+        &.double-digit { width:2ch; }
+      }
+      .decimal { display: inline-block; width:0.8ch; transform: translate(-40%,6px); }
+    }
+
+  }
 }

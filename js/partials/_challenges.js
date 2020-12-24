@@ -49,7 +49,6 @@ const challenges = [
     name: "First Name of Bob's Burgers Characters",
     nameAsRule: "Your password MUST be the first name of a Bob's Burgers character",
     failedMessage: "[PASS] is not a Bob's Burgers character",
-
     possible: [
       "Mike",
       "Bob",

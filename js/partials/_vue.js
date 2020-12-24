@@ -37,7 +37,9 @@ var app = new Vue({
       minOffset: 2,
       vowelOffset: 1,
       elapsedTime: 0,
-      timer: undefined,
+      roundTimer: undefined,
+      hurryTimer: undefined,
+      hurryTime: 10,
       crash: {
         active: false,
         word: "",
@@ -56,6 +58,7 @@ var app = new Vue({
       passwordAttemptErrors: [],
       passwordInputError: false,
       passwordSucceded: false,
+      roundOver: false,
       currentRule: {
         editing: false,
         name: '',
@@ -374,19 +377,58 @@ var app = new Vue({
       });
     },
 
-    startTimer() {
+    // TIMERS:
+    // The guessing has begun.
+    roundStartTimer() {
       const self = this;
-      self.timer = setInterval(() => {
+      self.roundTimer = setInterval(() => {
         self.round.elapsedTime += 1;
-        self.players[self.round.sysAdminIndex].score += 5;
+        self.players[self.round.sysAdminIndex].score += 1;
       }, 1000);
     },
     
-    stopTimer() {
-      clearInterval(this.timer);
+    resetRoundTimer() {
+      const self = this;
+      clearInterval(self.round.roundTimer);
+      self.round.roundTimer = undefined;
+      self.round.elapsedTime = 0;
     },
-    resetTimer() {
-      this.elapsedTime = 0;
+
+    // Hurry up!
+    startHurryTimer() {
+      const self = this;
+      self.round.hurryTimer = setInterval(() => {
+        self.round.hurryTime -= 0.1;
+        if (self.round.hurryTime <= 0) {
+          self.endTheGuessingRound();
+        }
+      }, 100);
+    },
+
+    resetHurryTimer() {
+      const self = this;
+      clearInterval(self.round.hurryTimer);
+      self.round.hurryTimer = undefined;
+      self.round.hurryTime = 10;
+    },
+
+    endTheGuessingRound() {
+      const self = this;
+      // If time's up, shut down the screen.
+      self.ui.roundOver = true;
+      self.resetHurryTimer();
+      self.resetRoundTimer();
+
+      // If you're SysAdmin, send that command out to everyone.
+      if (self.role == "SysAdmin") {
+        pubnub.publish({
+          channel : self.roomCode,
+          message : {
+            type: 'roundOver'
+          },
+        });
+      }
+
     },
 
     tryToFailThis(attempt) {
@@ -492,20 +534,6 @@ var app = new Vue({
 
       let correctAnswer = false;
 
-      if (crashCheck) {
-        self.round.phase = "crashed";
-
-        // Set crash to true.
-        self.round.crash.active = true;
-        self.round.crash.player = self.players[1];
-        self.round.crash.word = attempt;
-
-        // Award the SysAdmin points and stop the timer.
-        self.players[0].score += 100;
-        self.stopTimer();
-        self.resetTimer();
-
-      }
       if (failCheck) {
         self.ui.passwordAttemptErrors = failCheck.reasons;
         self.ui.passwordInputError = true;
@@ -523,17 +551,23 @@ var app = new Vue({
       // Deal with the results of the attempt.
       self.my.passwordAttempts++;
       self.ui.passwordAttempt = '';
-      let passwordSucceeded = false;
-      if (crashCheck) {
-        //alert('the system crashed, the round is over');
-      } else if (failCheck) {
-        // you failed. I have nothing to add here, beacuse you're already seeing why you failed.
-      } else if (correctAnswer) {
-        passwordSucceeded = true;
-      }
+      
 
-      if (passwordSucceeded) {
-        self.passwordSuccess(attempt)
+      if (crashCheck) {
+        pubnub.publish({
+          channel : self.roomCode,
+          message : {
+            type: 'crashedServer',
+            data: {
+              playerIndex: self.my.playerIndex,
+              pwAttempt: attempt,
+              attemptCount: self.my.passwordAttempts,
+              result: "crash"
+            }
+          },
+        });
+      } else if (correctAnswer) {
+        self.passwordSuccess(attempt);
       } else {
         pubnub.publish({
           channel : self.roomCode,
@@ -628,44 +662,34 @@ var app = new Vue({
       });
     },
 
-    crashTheServer() {
-      const self = this;
-    }
-
   },
 
   computed: {
 
     computedSysAdminName() {
       const self = this;
-      let n = "";
-      self.players.forEach(function(player, index) {
-        if (player.role == "SysAdmin" || player.role != "employee") {
-          return player.name;
-        }
-      });
+      return self.players[self.computedSysAdminIndex].name;
     },
     computedSysAdminIndex() {
       const self = this;
-      let n = "";
+      let n = -1;
       self.players.forEach(function(player, index) {
         if (player.role == "SysAdmin" || player.role != "employee") {
-          return index;
+          n = index;
         }
       });
+      if (n == -1) {
+        alert('there is a bug in the computedSysAdminIndex');
+      } else {
+        return n;
+      }
     }
 
   },
 
   mounted: function() {
     const self = this;
-    //self.findAverageSize();
-    //self.findAverageVowelCount();
-
     var urlParams = new URLSearchParams(window.location.search);
-
-
-    
     if (urlParams.has('room')) {
       self.roomCode = urlParams.get('room');
 
@@ -685,6 +709,7 @@ var app = new Vue({
 
 
     // FAKE EMPLOYEE.
+    
     /*
     self.my.role = "employee";
     self.my.name = "Lemon";
@@ -695,6 +720,8 @@ var app = new Vue({
       { name: "Lemon", role:"employee", employeeNumber:1, score:0  }
     ];
     self.ui.passwordSucceded = true;
+    self.ui.roundOver = true;
+    self.startHurryTimer();
     */
 
 

@@ -1020,6 +1020,49 @@ svg path {
   margin-left: auto;
   margin-right: auto;
 }
+.employee-screen .hurry-timer {
+  width: 6vw;
+  height: 6vw;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 55px;
+  right: 25px;
+  text-align: center;
+  padding-top: 0.5vw;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: -9px 9px 9px rgba(0, 0, 0, 0.35);
+          box-shadow: -9px 9px 9px rgba(0, 0, 0, 0.35);
+}
+.employee-screen .hurry-timer .label {
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 10px;
+  background: #282828;
+  color: white;
+  padding: 0.25em;
+  border-radius: 4px;
+  -webkit-box-shadow: -9px 9px 9px rgba(0, 0, 0, 0.35);
+          box-shadow: -9px 9px 9px rgba(0, 0, 0, 0.35);
+}
+.employee-screen .hurry-timer .time-left {
+  font-size: 4vw;
+  line-height: 100%;
+}
+.employee-screen .hurry-timer .time-left .integer {
+  display: inline-block;
+  width: 1ch;
+}
+.employee-screen .hurry-timer .time-left .integer.double-digit {
+  width: 2ch;
+}
+.employee-screen .hurry-timer .time-left .decimal {
+  display: inline-block;
+  width: 0.8ch;
+  -webkit-transform: translate(-40%, 6px);
+      -ms-transform: translate(-40%, 6px);
+          transform: translate(-40%, 6px);
+}
 
 .scorekeeper {
   display: -webkit-box;
