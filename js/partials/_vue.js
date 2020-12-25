@@ -13,7 +13,7 @@ var app = new Vue({
       name: '',
       playerIndex: -1, // This is assigned in updatePlayer()
       role: null,
-      rulebux: 6,
+      rulebux: 666,
       passwordAttempts: 0,
       score: 0
     },
@@ -33,6 +33,8 @@ var app = new Vue({
       possibleAnswerCount: 0,
       averageSize: 0,
       averageVowels: 0,
+      letterCounts: [],
+      demandableLetters: [],
       maxOffset: 2,
       minOffset: 2,
       vowelOffset: 1,
@@ -220,6 +222,8 @@ var app = new Vue({
       self.findPossibleRightAnswers();
       self.findAverageSize();
       self.findAverageVowelCount();
+      self.countLettersInEachWord();
+
       pubnub.publish({
         channel : self.roomCode,
         message : {
@@ -628,12 +632,56 @@ var app = new Vue({
       //self.round.averageVowels = avg.toFixed(1);
     },
 
+    countLettersInEachWord() {
+      const self = this;
+
+      const allLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+      const possibilities = self.round.challenge.possible;
+      let letter = "";
+      let count = 0;
+      let letterReport = [];
+
+      // For every letter in the alphabet...
+      allLetters.forEach(function(l,lIndex) {
+        letter = l;
+        count = 0;
+
+        // Add +1 if the possibility contains that letter.
+        possibilities.forEach(function(p, pIndex) {
+          if (p.toUpperCase().includes(l)) {
+            count++;
+          }
+        });
+
+        // And then add it to a report.
+        let r = {
+          letter: l,
+          count: count
+        };
+        letterReport.push(r);
+
+      });
+      
+
+      self.round.letterCounts = letterReport;
+      self.round.demandableLetters = [];
+
+      self.round.letterCounts.forEach(function(letter) {
+        if (letter.count >= (self.players.length + 2)) {
+          self.round.demandableLetters.push(letter.letter);
+        }
+      });
+    },
+
     passwordSuccess(attempt) {
       const self = this;
       // YOU GOT IT!
       // Let's give you some points
       self.my.score += 100;
-      self.my.score += 20;
+
+      if (self.round.claimedPasswords.length < 1) {
+        self.my.score += 20;
+      }
 
       // Let's change the UI to reflect you having won.
       self.ui.passwordSucceded = true;

@@ -1,4 +1,4 @@
-.pregame { height:99.9vh; display: grid; grid-template-columns: 1fr 160px;
+.pregame { height:99.9vh; display: grid; grid-template-columns: 1fr 160px; font-family: $sans-serif;
 
   .sign-in { display: flex; align-items: center; }
   form { width:280px; margin-left: auto; margin-right: auto; display:grid; grid-template-columns: 1fr; gap:10px;
@@ -19,5 +19,9 @@
       svg { width:26px; height: 26px; }
 
     }
+  }
+
+  .room-code { @include position(fixed,20px,null,null,20px); text-align: center;
+    .display { font-weight: 700; font-size:325%; }
   }
 }

@@ -48,7 +48,10 @@
     form.fieldset-and-button(v-if="ui.currentRule.name == 'Demand A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)")
       fieldset
         label(for="DemandTheLetter") Demand the letter
-        input(v-model="ui.currentRule.inputValue" id="DemandTheLetter" type="text" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?")
+        //-input(v-model="ui.currentRule.inputValue" id="DemandTheLetter" type="text" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?")
+        select.letter(v-model="ui.currentRule.inputValue" id="DemandTheLetter" required)
+          option(disabled selected value="") ?
+          option(v-for="letter in round.demandableLetters" :value="letter") {{letter}}
       button(type="submit") Set
 
     form.fieldset-and-button(v-if="ui.currentRule.name == 'Ban A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)")
@@ -148,6 +151,6 @@
     h2 This round is over.
     p You have been fired for no particular reason.
     p
-      button(type="button" @click="startNextRoundClicked()")
+      button(type="button" @click="startNextRoundClicked()") Start Next Round
 
   include _scores.pug

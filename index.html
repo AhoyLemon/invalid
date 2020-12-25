@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-24@16:12:00">
+    <meta http-equiv="last-modified" content="2020-11-24@20:31:02">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -28,6 +28,10 @@
         </div>
       </div>
       <div class="pregame" v-if="currentlyInGame &amp;&amp; round.phase == 'pregame'">
+        <div class="room-code">
+          <div class="label">Your room code</div>
+          <div class="display">{{roomCode}}</div>
+        </div>
         <div class="sign-in">
           <form class="pregame-form" @submit.prevent="updatePlayer()">
             <fieldset>
@@ -106,7 +110,10 @@
           <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Demand A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)">
             <fieldset>
               <label for="DemandTheLetter">Demand the letter</label>
-              <input v-model="ui.currentRule.inputValue" id="DemandTheLetter" type="text" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?">
+              <select class="letter" v-model="ui.currentRule.inputValue" id="DemandTheLetter" required>
+                <option disabled selected value="">?</option>
+                <option v-for="letter in round.demandableLetters" :value="letter">{{letter}}</option>
+              </select>
             </fieldset>
             <button type="submit">Set</button>
           </form>
@@ -205,7 +212,7 @@
           <h2>This round is over.</h2>
           <p>You have been fired for no particular reason.</p>
           <p>
-            <button type="button" @click="startNextRoundClicked()"></button>
+            <button type="button" @click="startNextRoundClicked()">Start Next Round</button>
           </p>
         </div>
         <div class="scorekeeper" :player-count="players.length">
@@ -301,7 +308,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-24@16:12:00"></script>
+      <script src="js/min/site.min.js?updated2020-11-24@20:31:02"></script>
     </div>
   </body>
 </html>

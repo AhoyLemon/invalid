@@ -412,6 +412,7 @@ svg path {
   display: grid;
   -ms-grid-columns: 1fr 160px;
   grid-template-columns: 1fr 160px;
+  font-family: "Barlow", sans-serif;
 }
 .pregame .sign-in {
   display: -webkit-box;
@@ -494,6 +495,16 @@ svg path {
 .pregame .players .host svg {
   width: 26px;
   height: 26px;
+}
+.pregame .room-code {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  text-align: center;
+}
+.pregame .room-code .display {
+  font-weight: 700;
+  font-size: 325%;
 }
 
 .admin-screen {
@@ -620,6 +631,10 @@ svg path {
 }
 .admin-screen .rule-details input[maxlength="1"] {
   width: 1.2em;
+}
+.admin-screen .rule-details select.letter {
+  width: 4em;
+  padding: 0.3em;
 }
 .admin-screen .rule-details select {
   font-family: "Fira Code", monospace;
@@ -822,8 +837,16 @@ svg path {
 .admin-screen form.fieldset-and-button input:focus::placeholder, .admin-screen form.fieldset-and-button input:hover::placeholder {
   color: rgba(46, 244, 41, 0.6);
 }
+.admin-screen form.fieldset-and-button select {
+  background: #010101;
+  color: #eee;
+}
+.admin-screen form.fieldset-and-button select option {
+  color: #eee;
+}
 .admin-screen form.fieldset-and-button label {
   position: relative;
+  margin-right: 1em;
 }
 .admin-screen form.select-and-button {
   display: -ms-grid;

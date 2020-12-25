@@ -1,4 +1,9 @@
 .pregame(v-if="currentlyInGame && round.phase == 'pregame'")
+
+  .room-code
+    .label Your room code
+    .display {{roomCode}}
+
   .sign-in
     form.pregame-form(@submit.prevent="updatePlayer()")
       fieldset

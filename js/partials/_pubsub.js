@@ -140,6 +140,10 @@ pubnub.addListener({
         word: "",
         player: {}
       };
+
+      if (app.my.role == "SysAdmin") {
+        app.definePossibleChallenges();
+      }
     }
 
 

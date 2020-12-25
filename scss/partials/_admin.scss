@@ -42,6 +42,7 @@
 
   .rule-details {
     input[maxlength="1"] { width:1.2em; }
+    select.letter { width:4em; padding:0.3em; }
     select { font-family: $monospace; padding:0.5em 1.5em; font-size:18px; }
     font-size:26px;
     //-input, select { font-size:26px; }
@@ -107,7 +108,10 @@
           &::placeholder { color:rgba($green,0.6)}
         }
       }
-      label { position: relative; }
+      select { background:#010101; color:$white;
+        option { color:$white; }
+      }
+      label { position: relative; margin-right: 1em; }
     }
     &.select-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px; margin-left: 1em;
       select { background:transparent; color:$white; border:0; font-weight: 500;
