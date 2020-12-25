@@ -514,6 +514,15 @@ var app = new Vue({
       return systemCrashed;
     },
 
+    tryToFindDuplicatePassword(attempt) {
+      const self = this;
+      if (self.round.claimedPasswords.includes(attempt)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
     tryToFind(attempt) {
       const self = this;
       attempt = attempt.toUpperCase();
@@ -534,6 +543,7 @@ var app = new Vue({
 
       const crashCheck = self.tryToCrashWith(attempt);
       const failCheck = self.tryToFailThis(attempt);
+      const duplicateCheck = self.tryToFindDuplicatePassword(attempt);
       const matchCheck = self.tryToFind(attempt);
 
       let correctAnswer = false;
@@ -541,14 +551,19 @@ var app = new Vue({
       if (failCheck) {
         self.ui.passwordAttemptErrors = failCheck.reasons;
         self.ui.passwordInputError = true;
-      } 
+      }
+      if (duplicateCheck) {
+        self.ui.passwordAttemptErrors.push("Someone else has already used "+attempt+" as a password.");
+        self.ui.passwordInputError = true;
+      }
       
       if (!matchCheck) {
         let errorMessage = self.round.challenge.failedMessage.replace("[PASS]", attempt);
+        self.ui.passwordInputError = true;
         self.ui.passwordAttemptErrors.push(errorMessage);
       }
 
-      if (matchCheck && !failCheck && !crashCheck) {
+      if (matchCheck && !failCheck && !crashCheck && !duplicateCheck) {
         correctAnswer = true;
       }
 

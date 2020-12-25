@@ -64,7 +64,6 @@ pubnub.addListener({
       let i = event.message.data.playerIndex;
       app.players[i].score = event.message.data.playerScore;
       app.round.claimedPasswords.push(event.message.data.pwAttempt);
-    
       app.round.attempts.push(event.message.data);
 
       // If the Hurry Up timer hasn't already started, start it now.
