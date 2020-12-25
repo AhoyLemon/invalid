@@ -34,6 +34,10 @@
 
   .panel.rules-panel(v-if="ui.challengeID != null && round.phase == 'choose rules'")
     h2 Add a Password Rule
+    p You have 
+      span.rulebux {{my.rulebux}}
+        sup ƒ
+      |  to spend
     .rules
       //button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")
       button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost > my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost > my.rulebux)")

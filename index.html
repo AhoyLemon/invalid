@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-24@20:31:02">
+    <meta http-equiv="last-modified" content="2020-11-24@20:44:39">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -97,6 +97,7 @@
         </div>
         <div class="panel rules-panel" v-if="ui.challengeID != null &amp;&amp; round.phase == 'choose rules'">
           <h2>Add a Password Rule</h2>
+          <p>You have <span class="rulebux">{{my.rulebux}}<sup>ƒ</sup></span> to spend</p>
           <div class="rules">
             <!--button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")-->
             <button class="rule" v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost &gt; my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost &gt; my.rulebux)">
@@ -308,7 +309,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-24@20:31:02"></script>
+      <script src="js/min/site.min.js?updated2020-11-24@20:44:39"></script>
     </div>
   </body>
 </html>

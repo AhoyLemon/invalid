@@ -13,7 +13,7 @@ var app = new Vue({
       name: '',
       playerIndex: -1, // This is assigned in updatePlayer()
       role: null,
-      rulebux: 666,
+      rulebux: 6666,
       passwordAttempts: 0,
       score: 0
     },
@@ -194,9 +194,10 @@ var app = new Vue({
         message : {
           type: 'startTheGame',
           data: {
-            players: self.players
+            players: self.players,
+            sysAdminIndex: self.my.playerIndex
           }
-        },
+        }
       });
 
     },
@@ -292,27 +293,35 @@ var app = new Vue({
         
       }
 
-      // Pay for it.
-      self.my.rulebux = (self.my.rulebux - rule.cost);
-
       // Add it to the rule list.
       self.round.rules.push(r);
-
-      // Clear out current rule.
-      self.clearCurrentRule();
-
       // Recalculate Possible Right Answers.
       self.findPossibleRightAnswers();
 
-      pubnub.publish({
-        channel : self.roomCode,
-        message : {
-          type: 'updatePasswordRules',
-          data: {
-            rules: self.round.rules
-          }
-        },
-      });
+      // if possibleRightAnswers is high enough, save the rule.
+      if (self.round.possibleAnswerCount >= self.players.length) {
+        // Pay for it.
+        self.my.rulebux = (self.my.rulebux - rule.cost);
+        
+        // Inform the other players.
+        pubnub.publish({
+          channel : self.roomCode,
+          message : {
+            type: 'updatePasswordRules',
+            data: {
+              rules: self.round.rules
+            }
+          },
+        });
+
+      } else {
+        alert('ERROR: \n Sorry, this rule would make the game impossible \n This interface will look better eventually.');
+        self.round.rules.pop();
+        self.findPossibleRightAnswers();
+      }
+
+      // Clear out current rule.
+      self.clearCurrentRule();
 
     },
 
@@ -590,10 +599,6 @@ var app = new Vue({
         }
         
       });
-
-
-      // NOTE TO LEMON: Make a pressure valve here.
-      // If there's too few possible answers, reject the rule.
 
       self.round.possibleAnswerCount = possibleAnswerCount;
 

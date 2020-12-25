@@ -31,6 +31,7 @@ pubnub.addListener({
       app.my.role = event.message.data.players[app.my.playerIndex].role;
       app.round.phase = "choose rules";
       app.round.number = 1;
+      app.round.sysAdminIndex = event.message.data.sysAdminIndex;
 
       if (app.my.role == "SysAdmin") {
         app.definePossibleChallenges();
