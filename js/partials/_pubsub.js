@@ -58,6 +58,7 @@ pubnub.addListener({
     if (event.message.type == "startGuessing") {
       app.round.phase = "create password";
       app.round.sysAdminIndex = event.message.data.sysAdminIndex;
+      app.ui.roundOver = false;
       app.roundStartTimer();
     }
 
@@ -134,7 +135,6 @@ pubnub.addListener({
 
       app.ui = uiDefaults;
       // ^- figure out why that doesn't work.
-      app.ui.roundOver = false;
       app.ui.challengeID = null;
 
       app.my.rulebux = defaults.rulebux;
