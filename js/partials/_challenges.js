@@ -375,7 +375,7 @@ const challenges = [
   {
     id: 9,
     name: "My Little Ponies",
-    nameAsRule: "Your password MUST a My Little Pony (unicorns count)",
+    nameAsRule: "Your password MUST be a My Little Pony (unicorns count)",
     failedMessage: "[PASS] isn't a My Little Pony! 🦄",
     possible: [
       "TWILIGHT SPARKLE",
@@ -413,4 +413,34 @@ const challenges = [
       "TEMPEST SHADOW"
     ]
   },
+
+  {
+    id: 9,
+    name: "Leafy Green Vegetables",
+    nameAsRule: "Your password MUST be a leafy green vegetable",
+    failedMessage: "[PASS] is not a leafy green vegeable",
+    possible: [
+      "ARUGULA",
+      "BIBB",
+      "CABBAGE",
+      "LETTUCE",
+      "BEET GREENS",
+      "COLLARD GREENS",
+      "DANDELION GREENS",
+      "KALE",
+      "MICROGREENS",
+      "MUSTARD GREENS",
+      "RAPINI",
+      "BROCCOLI RABE",
+      "ROMAINE",
+      "SPINACH",
+      "SWISS CHARD",
+      "WATERCRESS",
+      "ENDIVE",
+      "BOK CHOY",
+      "TURNIP GREENS",
+      "PARSLEY"
+    ]
+  }
+
 ];
