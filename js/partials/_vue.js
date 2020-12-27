@@ -476,6 +476,7 @@ var app = new Vue({
 
     endTheGuessingRound() {
       const self = this;
+      self.ui.passwordSucceeded = false;
       pubnub.publish({
         channel : self.roomCode,
         message : {
