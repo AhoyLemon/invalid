@@ -506,6 +506,23 @@ svg path {
   font-weight: 700;
   font-size: 325%;
 }
+.pregame .nobody-here {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.pregame .nobody-here .inside {
+  max-width: 68ch;
+}
+.pregame .nobody-here h2 {
+  margin-bottom: 1em;
+}
 
 .admin-screen {
   background: #212121;

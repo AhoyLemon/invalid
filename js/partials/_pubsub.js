@@ -45,14 +45,17 @@ pubnub.addListener({
 
     if (event.message.type == "updatePasswordChallenge") {
       app.round.challenge = event.message.data.challenge;
+      app.ui.roundOver = false;
     }
 
     if (event.message.type == "updatePasswordRules") {
       app.round.rules = event.message.data.rules;
+      app.ui.roundOver = false;
     }
 
     if (event.message.type == "updateBugs") {
       app.round.bugs = event.message.data.bugs;
+      app.ui.roundOver = false;
     }
 
     if (event.message.type == "startGuessing") {

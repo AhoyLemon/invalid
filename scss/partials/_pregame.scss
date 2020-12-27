@@ -24,4 +24,9 @@
   .room-code { @include position(fixed,20px,null,null,20px); text-align: center;
     .display { font-weight: 700; font-size:325%; }
   }
+
+  .nobody-here { display: flex; align-items: center; justify-content: center;
+    .inside { max-width: 68ch; }
+    h2 { margin-bottom: 1em; }
+  }
 }

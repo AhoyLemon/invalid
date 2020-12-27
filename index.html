@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-27@12:16:08">
+    <meta http-equiv="last-modified" content="2020-11-27@13:02:20">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -32,7 +32,13 @@
           <div class="label">Your room code</div>
           <div class="display">{{roomCode}}</div>
         </div>
-        <div class="sign-in">
+        <div class="nobody-here" v-if="!isRoomHost &amp;&amp; players.length &lt; 1">
+          <div class="inside">
+            <h2>There's nobody here.</h2>
+            <p>Either you have the wrong room code, or your host hasn't entered their name yet.</p>
+          </div>
+        </div>
+        <div class="sign-in" v-if="isRoomHost || players.length &gt; 0">
           <form class="pregame-form" @submit.prevent="updatePlayer()">
             <fieldset>
               <input v-model="my.employeeNumber" type="text" readonly disabled>
@@ -312,7 +318,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-27@12:16:08"></script>
+      <script src="js/min/site.min.js?updated2020-11-27@13:02:20"></script>
     </div>
   </body>
 </html>

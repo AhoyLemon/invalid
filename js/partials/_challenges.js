@@ -2,7 +2,7 @@
 const challenges = [
   {
     id: 1,
-    name: "Playable Mortal Kombat Characters",
+    name: "Mortal Kombat",
     nameAsRule: "Your password must be a playable Mortal Kombat character",
     failedMessage: "[PASS] is not a playable Mortal Kombat character",
     possible: [
@@ -46,7 +46,7 @@ const challenges = [
 
   {
     id: 2,
-    name: "First Name of Bob's Burgers Characters",
+    name: "Bob's Burgers",
     nameAsRule: "Your password MUST be the first name of a Bob's Burgers character",
     failedMessage: "[PASS] is not a Bob's Burgers character",
     possible: [

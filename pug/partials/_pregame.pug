@@ -4,7 +4,13 @@
     .label Your room code
     .display {{roomCode}}
 
-  .sign-in
+  .nobody-here(v-if="!isRoomHost && players.length < 1")
+
+    .inside
+      h2 There's nobody here.
+      p Either you have the wrong room code, or your host hasn't entered their name yet.
+
+  .sign-in(v-if="isRoomHost || players.length > 0")
     form.pregame-form(@submit.prevent="updatePlayer()")
       fieldset
         input(v-model="my.employeeNumber" type="text" readonly disabled)

@@ -4,12 +4,12 @@ const employeeNumberSeed = randomNumber(10000,99999);
 
 
 const defaults = {
-  rulebux: 6,
+  rulebux: 666,
   maxOffset: 2,
   minOffset: 2,
   vowelOffset: 1,
   hurryTime: 10,
-  adminTimeleft: 60,
+  adminTimeleft: 90,
 };
 
 const myDefaults = {

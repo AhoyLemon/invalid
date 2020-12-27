@@ -508,7 +508,7 @@ var app = new Vue({
           }
         } 
         if (r.type == "Set A Minimum") {
-          if (possibility.length < r.inputValue) {
+          if (attempt.length < r.inputValue) {
             attemptFailed = true;
             attemptFailedReasons.push('Password is too short');
           }
