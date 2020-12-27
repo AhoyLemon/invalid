@@ -130,12 +130,15 @@ var app = new Vue({
 
     requestPlayers() {
       const self = this;
-      pubnub.publish({
-        channel : self.roomCode,
-        message : {
-          type: 'requestPlayers',
-        },
-      });
+      if (self.roomCode) {
+        pubnub.publish({
+          channel : self.roomCode,
+          message : {
+            type: 'requestPlayers',
+            data: {}
+          }
+        });
+      }
     },
 
     updatePlayer() {

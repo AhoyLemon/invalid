@@ -133,12 +133,12 @@ pubnub.addListener({
       app.my.role = app.players[app.my.playerIndex].role;
 
       app.ui = uiDefaults;
+      // ^- figure out why that doesn't work.
       app.ui.roundOver = false;
       app.ui.challengeID = null;
 
       app.my.rulebux = defaults.rulebux;
 
-      
       app.round.phase = "choose rules";
       app.round.number += 1;
       app.round.possibleChallenges = [];
