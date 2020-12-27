@@ -443,6 +443,9 @@ var app = new Vue({
       self.round.roundTimer = setInterval(() => {
         self.round.elapsedTime += 1;
         self.players[self.round.sysAdminIndex].score += 1;
+        if ((self.round.elapsedTime >= (defaults.employeeMaxTime - defaults.hurryTime)) && (self.round.hurryTimer == undefined)) {
+          self.startHurryTimer();
+        }
       }, 1000);
     },
     

@@ -10,6 +10,7 @@ const defaults = {
   vowelOffset: 1,
   hurryTime: 10,
   adminTimeleft: 90,
+  employeeMaxTime: 50
 };
 
 const myDefaults = {
