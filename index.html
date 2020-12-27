@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-26@17:12:56">
+    <meta http-equiv="last-modified" content="2020-11-27@12:16:08">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -64,11 +64,11 @@
       </div>
       <div class="admin-screen" v-if="my.role == 'SysAdmin'">
         <div class="top-info">
-          <div class="name">{{players[0].name}}</div>
+          <div class="name">{{my.name}}</div>
           <div class="job">SysAdmin</div>
           <div class="rulebux">{{my.rulebux}}<sup>ƒ</sup></div>
           <div class="round-number">ROUND {{round.number}} / {{maxRounds}}</div>
-          <div class="score">SCORE: {{players[0].score}}</div>
+          <div class="score">SCORE: {{my.score}}</div>
         </div>
         <div class="panel challenge-select" v-if="ui.challengeID == null">
           <p>First, select your password challenge.</p>
@@ -312,7 +312,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-26@17:12:56"></script>
+      <script src="js/min/site.min.js?updated2020-11-27@12:16:08"></script>
     </div>
   </body>
 </html>

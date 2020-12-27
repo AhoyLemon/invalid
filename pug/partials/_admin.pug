@@ -1,12 +1,12 @@
 .admin-screen(v-if="my.role == 'SysAdmin'")
 
   .top-info
-    .name {{players[0].name}}
+    .name {{my.name}}
     .job SysAdmin
     .rulebux {{my.rulebux}}
       sup ƒ
     .round-number ROUND {{round.number}} / {{maxRounds}}
-    .score SCORE: {{players[0].score}}
+    .score SCORE: {{my.score}}
 
   .panel.challenge-select(v-if="ui.challengeID == null")
     p First, select your password challenge.
