@@ -18,6 +18,11 @@ pubnub.addListener({
       event
     );
 
+    if (event.message.type == "requestPlayers") {
+      if (app.isRoomHost) {
+        app.sendPlayerUpdate();
+      }
+    }
 
     if (event.message.type == "updatePlayers") {
       app.players = event.message.data.players;
@@ -31,8 +36,8 @@ pubnub.addListener({
       app.my.role = event.message.data.players[app.my.playerIndex].role;
       app.round.phase = "choose rules";
       app.round.number = 1;
+      app.maxRounds = event.message.data.maxRounds;
       app.round.sysAdminIndex = event.message.data.sysAdminIndex;
-
       if (app.my.role == "SysAdmin") {
         app.definePossibleChallenges();
       }
@@ -104,6 +109,7 @@ pubnub.addListener({
 
       if (app.my.role == "SysAdmin") {
         app.my.score += 100;
+        app.players[app.my.playerIndex].score += 100;
       }
       app.endTheGuessingRound();
     }
@@ -111,10 +117,10 @@ pubnub.addListener({
     if (event.message.type == "startNewRound") {
       app.players = event.message.data.players;
       
-      let i = app.round.sysAdminIndex + 1;
 
+      let i = app.round.sysAdminIndex + 1;
       if (i >= app.players.length) {
-        alert('XXX you have cycled thru all players. Soooooo... Uhhh, do something about that.');
+        app.round.sysAdminIndex = 0;
       } else {
         app.round.sysAdminIndex = i;
       }
@@ -123,15 +129,17 @@ pubnub.addListener({
       app.players.forEach(function(p,index) {
         p.role = "employee";
       });
-      app.players[i].role = "SysAdmin";
+      app.players[app.round.sysAdminIndex].role = "SysAdmin";
       app.my.role = app.players[app.my.playerIndex].role;
 
       app.ui = uiDefaults;
+
       app.round.phase = "choose rules";
       app.round.number += 1;
       app.round.possibleChallenges = [];
       app.round.challenge = {};
       app.round.rules = [];
+      app.round.bugs = [];
       app.round.attempts = [];
       app.round.claimedPasswords = [];
       app.round.elapsedTime = 0;
@@ -146,11 +154,12 @@ pubnub.addListener({
       }
     }
 
-
-
   },
 
   status: function(event) {
+
+    app.requestPlayers();
+
     displayMessage(
       event.category,
       'connected to channels: ' + event.affectedChannels,
@@ -165,9 +174,6 @@ pubnub.addListener({
       app.playerCount = event.occupancy;
     }
 
-    if (app.isRoomHost) {
-      app.sendPlayerUpdate();
-    }
   }
 
 });

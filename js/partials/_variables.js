@@ -2,6 +2,16 @@ const siteURL = "";
 const playerID = randomNumber(1,100);
 const employeeNumberSeed = randomNumber(10000,99999);
 
+
+const defaults = {
+  rulebux: 6,
+  maxOffset: 2,
+  minOffset: 2,
+  vowelOffset: 1,
+  hurryTime: 10,
+  adminTimeleft: 60,
+};
+
 const myDefaults = {
   rulebux: 6,
   passwordAttempts: 0
@@ -18,9 +28,11 @@ const roundDefaults = {
   averageSize: 0,
   averageVowels: 0,
   elapsedTime: 0,
+  adminTimer: undefined,
   roundTimer: undefined,
   hurryTimer: undefined,
-  hurryTime: 10,
+  hurryTime: defaults.hurryTime,
+  adminTimeleft: defaults.adminTimeleft,
   crash: {
     active: false,
     word: "",
@@ -34,13 +46,13 @@ const uiDefaults = {
     focus: false
   },
   challengeID: null,
+  roundOver: false,
   addBug: '',
   addBugErrors: [],
   passwordAttempt: '',
   passwordAttemptErrors: [],
   passwordInputError: false,
-  passwordSucceded: false,
-  roundOver: false,
+  passwordSucceeded: false,
   currentRule: {
     editing: false,
     name: '',

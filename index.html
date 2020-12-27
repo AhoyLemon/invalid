@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-24@20:44:39">
+    <meta http-equiv="last-modified" content="2020-11-26@17:12:56">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -67,6 +67,7 @@
           <div class="name">{{players[0].name}}</div>
           <div class="job">SysAdmin</div>
           <div class="rulebux">{{my.rulebux}}<sup>ƒ</sup></div>
+          <div class="round-number">ROUND {{round.number}} / {{maxRounds}}</div>
           <div class="score">SCORE: {{players[0].score}}</div>
         </div>
         <div class="panel challenge-select" v-if="ui.challengeID == null">
@@ -205,9 +206,6 @@
           <h2>System Crash!</h2>
           <p>Congratulations! <strong>{{players[1].name}}</strong> has crashed the system with the password <strong>{{round.crash.word}}</strong></p>
           <p>You have earned <strong>100</strong> points</p>
-          <div class="button-holder">
-            <button @click="">Next Round</button>
-          </div>
         </div>
         <div class="panel round-over" v-if="ui.roundOver">
           <h2>This round is over.</h2>
@@ -215,6 +213,10 @@
           <p>
             <button type="button" @click="startNextRoundClicked()">Start Next Round</button>
           </p>
+        </div>
+        <div class="admin-timer" v-if="round.adminTimer != undefined">
+          <div class="label">TIME LEFT</div>
+          <time><span class="integer">{{round.adminTimeleft.toFixed(2).split('.')[0]}}</span>.<sup class="decimal">{{round.adminTimeleft.toFixed(2).split('.')[1]}}</sup></time>
         </div>
         <div class="scorekeeper" :player-count="players.length">
           <div class="player" v-for="(player,index) in players">
@@ -227,11 +229,12 @@
         <div class="top-info">
           <div class="name">{{my.name}}</div>
           <div class="job"> <span>Employee </span><sup>#</sup><span>{{my.employeeNumber}}</span></div>
+          <div class="round-number">ROUND {{round.number}} / {{maxRounds}}</div>
           <div class="attempts"><span v-if="my.passwordAttempts &gt; 0">{{my.passwordAttempts}} tries</span></div>
           <div class="score">SCORE: {{my.score}}</div>
         </div>
         <div class="inner" v-if="!ui.roundOver">
-          <div class="content" v-if="!ui.passwordSucceded">
+          <div class="content" v-if="!ui.passwordSucceeded">
             <p v-if="round.phase == 'create password'">Create Your Password.</p>
             <ul>
               <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">{{round.challenge.nameAsRule}}</li>
@@ -258,7 +261,7 @@
               </ul>
             </div>
           </div>
-          <div class="content" v-if="ui.passwordSucceded">
+          <div class="content" v-if="ui.passwordSucceeded">
             <h1>SUCCESS!</h1>
             <p>You've set a password.</p>
             <p>Please stand by while your coworkers try to do the same.</p>
@@ -309,7 +312,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-24@20:44:39"></script>
+      <script src="js/min/site.min.js?updated2020-11-26@17:12:56"></script>
     </div>
   </body>
 </html>

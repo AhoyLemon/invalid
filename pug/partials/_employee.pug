@@ -6,6 +6,7 @@
       span Employee 
       sup #
       span {{my.employeeNumber}}
+    .round-number ROUND {{round.number}} / {{maxRounds}}
     .attempts
       span(v-if="my.passwordAttempts > 0") {{my.passwordAttempts}} tries
     .score SCORE: {{my.score}}
@@ -13,7 +14,7 @@
   .inner(v-if="!ui.roundOver")
 
     //- You haven't entered a successful password yet.
-    .content(v-if="!ui.passwordSucceded")
+    .content(v-if="!ui.passwordSucceeded")
       p(v-if="round.phase == 'create password'") Create Your Password.
       ul
         li(v-if="round.challenge && round.challenge.nameAsRule") {{round.challenge.nameAsRule}}
@@ -42,7 +43,7 @@
           li.error(v-for="(err,index) in ui.passwordAttemptErrors") {{err}}
   
     //- You've entered a password and it was successful
-    .content(v-if="ui.passwordSucceded")
+    .content(v-if="ui.passwordSucceeded")
       h1 SUCCESS!
       p You've set a password.
       p Please stand by while your coworkers try to do the same.

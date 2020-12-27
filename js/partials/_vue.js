@@ -8,12 +8,13 @@ var app = new Vue({
     isRoomHost: false,
     rules: rules,
     playerCount: 0,
+    maxRounds: 0,
     my: {
       employeeNumber: randomNumber(10000,99999),
       name: '',
       playerIndex: -1, // This is assigned in updatePlayer()
       role: null,
-      rulebux: 6666,
+      rulebux: defaults.rulebux,
       passwordAttempts: 0,
       score: 0
     },
@@ -35,13 +36,15 @@ var app = new Vue({
       averageVowels: 0,
       letterCounts: [],
       demandableLetters: [],
-      maxOffset: 2,
-      minOffset: 2,
-      vowelOffset: 1,
+      maxOffset: defaults.maxOffset,
+      minOffset: defaults.minOffset,
+      vowelOffset: defaults.vowelOffset,
       elapsedTime: 0,
+      adminTimer: undefined,
       roundTimer: undefined,
       hurryTimer: undefined,
-      hurryTime: 10,
+      hurryTime: defaults.hurryTime,
+      adminTimeleft: defaults.adminTimeleft,
       crash: {
         active: false,
         word: "",
@@ -60,7 +63,7 @@ var app = new Vue({
       passwordAttempt: '',
       passwordAttemptErrors: [],
       passwordInputError: false,
-      passwordSucceded: false,
+      passwordSucceeded: false,
       roundOver: false,
       currentRule: {
         editing: false,
@@ -124,6 +127,17 @@ var app = new Vue({
     /////////////////////////////////////////////////////////////////////
     // BEFORE GAME (game hasn't started yet)
 
+
+    requestPlayers() {
+      const self = this;
+      pubnub.publish({
+        channel : self.roomCode,
+        message : {
+          type: 'requestPlayers',
+        },
+      });
+    },
+
     updatePlayer() {
       const self = this;
       
@@ -164,6 +178,7 @@ var app = new Vue({
 
     },
 
+    
     sendPlayerUpdate() {
       const self = this;
       pubnub.publish({
@@ -189,12 +204,21 @@ var app = new Vue({
         }
       });
 
+      if (self.players.length == 2) {
+        self.maxRounds = 4;
+      } else if (self.players.length == 3) {
+        self.maxRounds = 6;
+      } else {
+        self.maxRounds = self.players.length;
+      }
+
       pubnub.publish({
         channel : self.roomCode,
         message : {
           type: 'startTheGame',
           data: {
             players: self.players,
+            maxRounds: self.maxRounds,
             sysAdminIndex: self.my.playerIndex
           }
         }
@@ -224,7 +248,7 @@ var app = new Vue({
       self.findAverageSize();
       self.findAverageVowelCount();
       self.countLettersInEachWord();
-
+      self.startAdminTimer();
       pubnub.publish({
         channel : self.roomCode,
         message : {
@@ -379,6 +403,7 @@ var app = new Vue({
 
     onboardEmployees() {
       const self = this;
+      self.resetAdminTimer();
       pubnub.publish({
         channel : self.roomCode,
         message : {
@@ -392,6 +417,24 @@ var app = new Vue({
 
     // TIMERS:
     // The guessing has begun.
+    startAdminTimer() {
+      const self = this;
+      self.round.adminTimer = setInterval(() => {
+        self.round.adminTimeleft -= 0.05;
+        if (self.round.adminTimeleft <= 0) {
+          self.onboardEmployees();
+        }
+      }, 50);
+    },
+
+    resetAdminTimer() {
+      const self = this;
+      clearInterval(self.round.adminTimer);
+      self.round.adminTimer = undefined;
+      self.round.adminTimeleft = defaults.adminTimeleft;
+    },
+
+
     roundStartTimer() {
       const self = this;
       self.round.roundTimer = setInterval(() => {
@@ -704,7 +747,7 @@ var app = new Vue({
       }
 
       // Let's change the UI to reflect you having won.
-      self.ui.passwordSucceded = true;
+      self.ui.passwordSucceeded = true;
 
       pubnub.publish({
         channel : self.roomCode,

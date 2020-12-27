@@ -536,8 +536,8 @@ svg path {
   padding: 10px 40px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 2fr 2fr 1fr 1fr;
-  grid-template-columns: 2fr 2fr 1fr 1fr;
+  -ms-grid-columns: (1fr)[5];
+  grid-template-columns: repeat(5, 1fr);
 }
 .admin-screen .panel {
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -882,6 +882,23 @@ svg path {
 .admin-screen .attempt-console .success {
   color: #38ff38;
 }
+.admin-screen .admin-timer {
+  background: black;
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  padding: 20px;
+}
+.admin-screen .admin-timer time {
+  color: #2EF429;
+}
+.admin-screen .admin-timer time {
+  font-size: 280%;
+}
+.admin-screen .admin-timer time sup {
+  font-size: 85%;
+  top: unset;
+}
 
 .employee-screen {
   background: #eee;
@@ -909,8 +926,8 @@ svg path {
   padding: 10px 40px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 2fr 2fr 1fr 1fr;
-  grid-template-columns: 2fr 2fr 1fr 1fr;
+  -ms-grid-columns: (1fr)[5];
+  grid-template-columns: repeat(5, 1fr);
 }
 .employee-screen .inner {
   width: 100%;

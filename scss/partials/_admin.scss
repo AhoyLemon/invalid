@@ -4,7 +4,7 @@
 
 
   .top-info { background: $adminPanelColor; @include position(absolute,0,0,null,0); border-bottom: 1px solid rgba(255,255,255,0.15);
-    padding:10px $gap; display:grid; grid-template-columns: 2fr 2fr 1fr 1fr;
+    padding:10px $gap; display:grid; grid-template-columns: repeat(5,1fr);
   }
 
 
@@ -128,6 +128,13 @@
     }
     .failed { color:rgba(255,56,56,1); }
     .success { color:rgba(56,255,56,1); }
+  }
+
+  .admin-timer { background:black; @include position(fixed,null,$gap,$gap); padding:$padding;
+    time { color:$green; }
+    time { font-size:280%;
+      sup {font-size:85%; top:unset }
+    }
   }
 
 }

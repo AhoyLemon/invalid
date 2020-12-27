@@ -1,6 +1,6 @@
 .employee-screen { background:$white; padding:$gap; padding-top:($gap * 2); font-family: $serif; position: relative;
   .top-info { background: $employeePanelColor; @include position(absolute,0,0,null,0); border-bottom: 1px solid rgba(0,0,0,0.15);
-    padding:10px $gap; display:grid; grid-template-columns: 2fr 2fr 1fr 1fr;
+    padding:10px $gap; display:grid; grid-template-columns: repeat(5,1fr);
   }
 
   display:flex; align-items: center; justify-content: center;
