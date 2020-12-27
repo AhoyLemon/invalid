@@ -133,6 +133,7 @@ pubnub.addListener({
       app.my.role = app.players[app.my.playerIndex].role;
 
       app.ui = uiDefaults;
+      app.ui.roundOver = false;
 
       app.round.phase = "choose rules";
       app.round.number += 1;
