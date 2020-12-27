@@ -134,7 +134,7 @@ pubnub.addListener({
 
       app.ui = uiDefaults;
       app.ui.roundOver = false;
-
+      app.my.rulebux = defaults.rulebux;
       app.round.phase = "choose rules";
       app.round.number += 1;
       app.round.possibleChallenges = [];
