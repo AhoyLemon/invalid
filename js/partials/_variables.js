@@ -4,7 +4,7 @@ const employeeNumberSeed = randomNumber(10000,99999);
 
 
 const defaults = {
-  rulebux: 666,
+  rulebux: 6,
   maxOffset: 2,
   minOffset: 2,
   vowelOffset: 1,
