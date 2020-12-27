@@ -79,6 +79,8 @@ const challenges = [
     ]
   },
 
+  /*
+
   {
     id: 3,
     name: "Words For Breasts (Recognized By The OED)",
@@ -111,6 +113,8 @@ const challenges = [
       "CANS"
     ]
   },
+
+  */
 
   {
     id: 4,
@@ -366,5 +370,47 @@ const challenges = [
       "LEWD",
       "RACY"
     ]
-  }
+  },
+
+  {
+    id: 9,
+    name: "My Little Ponies",
+    nameAsRule: "Your password MUST a My Little Pony (unicorns count)",
+    failedMessage: "[PASS] isn't a My Little Pony! 🦄",
+    possible: [
+      "TWILIGHT SPARKLE",
+      "APPLEJACK",
+      "FLUTTERSHY",
+      "RARITY",
+      "PINKIE PIE",
+      "RAINBOW DASH",
+      "APPLE BLOOM",
+      "SCOOTALOO",
+      "SWEETIE BELLE",
+      "BABS SEED",
+      "PRINCESS CELESTIA",
+      "PRINCESS LUNA",
+      "PRINCE BLUEBLOOD",
+      "SHINING ARMOR",
+      "PROCESS CADENCE",
+      "FLURRY HEART",
+      "PRINCESS AMORE",
+      "GRANNY SMITH",
+      "BIG MCINTOSH",
+      "BRAEBURN",
+      "AUNT ORANGE",
+      "UNCLE ORANGE",
+      "HAYSEED TURNIP TRUCK",
+      "APPLE STRUDEL",
+      "AUNTIE APPLESAUCE",
+      "APPLE ROSE",
+      "GOLDIE DELICIOUS",
+      "BRIGHT MAC",
+      "PEAR BUTTER",
+      "MAUD PIE",
+      "STARLIGHT GLIMMER",
+      "SUNSET SHIMMER",
+      "TEMPEST SHADOW"
+    ]
+  },
 ];
