@@ -566,6 +566,7 @@ const challenges = [
     ]
   },
 
+  /*
   {
     id: 12,
     name: "Worst Movies",
@@ -619,6 +620,91 @@ const challenges = [
       "CATS"
     ],
     source: "https://en.wikipedia.org/wiki/Golden_Raspberry_Award_for_Worst_Picture"
+  },
+  */
+
+  {
+    id: 13,
+    name: "Worst Actors",
+    nameAsRule: "Your password must be the LAST name of a “Worst Actor” award winner.",
+    hint: "“Worst Actor” is a separate category from “Worst Actress”",
+    failedMessage: "[PASS] never won a Razzie",
+    possible: [
+
+      // ACTORS
+      "DIAMOND",
+      "SPILSBURY",
+      "OLIVIER",
+      "ATKINS",
+      "STALLONE",
+      "PRINCE",
+      "COSBY",
+      "SHATNER",
+      "CLAY",
+      "COSTNER",
+      "REYNOLDS",
+      "SHORE",
+      "ARNOLD",
+      "WILLIS",
+      "SANDLER",
+      "TRAVOLTA",
+      "GREEN",
+      "BENIGNI",
+      "AFFLECK",
+      "BUSH",
+      "SCHNEIDER",
+      "WAYANS",
+      "MURPHY",
+      "MYERS",
+      "JONAS",
+      "KUTCHER",
+      "SMITH",
+      "CAMERON",
+      "DORNAN",
+      "D'SOUZA",
+      "CRUISE",
+      "TRUMP"
+    ]
+  },
+
+  {
+    id: 14,
+    name: "Worst Actresses",
+    nameAsRule: "Your password must be the LAST name of a “Worst Actress” award winner",
+    hint: "“Worst Actress” is a separate category from “Worst Actor”",
+    failedMessage: "[PASS] never won a Razzie",
+    possible: [
+      // ACTRESSES
+      "SHIELDS",
+      "DEREK",
+      "DUNAWAY",
+      "ZADORA",
+      "BLAIR",
+      "MADONNA",
+      "MINELLI",
+      "LOCKLEAR",
+      "YOUNG",
+      "GRIFFITH",
+      "STONE",
+      "BERKLEY",
+      "MOORE",
+      "SPICE",
+      "DONAHUE",
+      "CAREY",
+      "SPEARS",
+      "LOPEZ",
+      "BERRY",
+      "MCCARTHY",
+      "LOHAN",
+      "HILTON",
+      "BULLOCK",
+      "CATTRALL", "DAVIS", "NIXON", "PARKER",
+      "STEWART",
+      "PERRY",
+      "DIAZ",
+      "JOHNSON",
+      "DUFF"
+    ]
   }
 ];
 
