@@ -1,0 +1,17 @@
+.final-round { @include position(fixed,0,0,0,0); display:flex; align-items: center; font-family: $serif;
+  .inside { width:100%; max-width: 62ch; margin-left: auto; margin-right: auto; background:rgba(15,15,15,0.75); backdrop-filter:blur(5px); padding:1.5em; color:white; }
+
+  video.fullscreen { @include position(fixed,0,0,0,0);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover;
+    transition: 1s opacity;
+  }
+}

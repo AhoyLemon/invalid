@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-27@13:02:20">
+    <meta http-equiv="last-modified" content="2020-11-27@18:33:21">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -205,7 +205,10 @@
         <div class="panel attempt-console" v-if="round.phase == 'create password'">
           <h3 v-if="round.phase == 'create password'">Employees are trying to enter passwords...</h3>
           <ol>
-            <li v-for="a in round.attempts" :class="a.result"><span class="name">{{players[a.playerIndex].name}}</span> tried <span class="pass">{{a.pwAttempt}}</span></li>
+            <li v-for="a in round.attempts" :class="a.result">
+              <template v-if="a.result == 'failed'"><span class="name">{{players[a.playerIndex].name}}</span> tried <span class="pass">{{a.pwAttempt}}</span></template>
+              <template v-else><span class="name">{{players[a.playerIndex].name}}</span> guessed one correctly!</template>
+            </li>
           </ol>
         </div>
         <div class="panel crash-notification" v-if="round.phase == 'crashed'">
@@ -313,12 +316,24 @@ EMpoyeeNAME:         {{round.crash.player.name}}
           </div>
         </div>
       </div>
+      <div class="final-round" v-if="round.phase == 'FINAL ROUND'">
+        <video class="fullscreen" muted autoplay loop>
+          <source src="video/polygons.mp4">
+        </video>
+        <div class="inside">
+          <h1>This is the final round!</h1>
+          <p>In the final round, your goal is to hack into accounts of your coworkers.</p>
+          <p>When the timer starts, type in any password you think any of your coworkers may have used successfully.</p>
+          <p>This password must be one that they used successfully in a previous round.</p>
+          <p>If you're right, you'll steal 40 points from that player</p>
+        </div>
+      </div>
     </div>
     <div class="javascripts">
       <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-27@13:02:20"></script>
+      <script src="js/min/site.min.js?updated2020-11-27@18:33:21"></script>
     </div>
   </body>
 </html>

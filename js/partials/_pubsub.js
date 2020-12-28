@@ -99,6 +99,7 @@ pubnub.addListener({
 
     if (event.message.type == "roundOver") {
       app.ui.roundOver = true;
+      app.ui.passwordSucceeded = false;
       app.resetHurryTimer();
       app.resetRoundTimer();
     }

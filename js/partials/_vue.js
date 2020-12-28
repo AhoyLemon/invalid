@@ -792,7 +792,12 @@ var app = new Vue({
 
     computedSysAdminName() {
       const self = this;
-      return self.players[self.round.sysAdminIndex].name;
+      if (self.players && self.players.length > 0 && self.round.sysAdminIndex > -1) {
+        return self.players[self.round.sysAdminIndex].name;
+      } else {
+        return null;
+      }
+      
     },
     computedSysAdminIndex() {
       const self = this;
@@ -833,10 +838,11 @@ var app = new Vue({
       { name: "Carlos", role:"SysAdmin", employeeNumber:2, score:0  },
       { name: "Lemon", role:"employee", employeeNumber:1, score:0  }
     ];
-    self.ui.passwordSucceded = true;
-    self.ui.roundOver = true;
-    self.startHurryTimer();
+    self.round.phase = "FINAL ROUND";
     */
+    //self.ui.passwordSucceded = true;
+    //self.ui.roundOver = true;
+    //self.startHurryTimer();
 
 
   },

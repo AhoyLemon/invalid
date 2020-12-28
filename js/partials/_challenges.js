@@ -86,6 +86,7 @@ const challenges = [
     name: "Words For Breasts (Recognized By The OED)",
     nameAsRule: "Your password MUST be a word the Oxford English Dictionary recognizes as a synonym for “breasts”",
     failedMessage: "The OED doesn't recognize [PASS] as a word for breasts.",
+    naughty: true,
     possible: [
       "CHEST",
       "BUST",

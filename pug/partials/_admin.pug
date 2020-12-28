@@ -133,9 +133,13 @@
     h3(v-if="round.phase == 'create password'") Employees are trying to enter passwords...
     ol
       li(v-for="a in round.attempts" :class="a.result")
-        span.name {{players[a.playerIndex].name}}
-        |  tried 
-        span.pass {{a.pwAttempt}}
+        template(v-if="a.result == 'failed'")
+          span.name {{players[a.playerIndex].name}}
+          |  tried 
+          span.pass {{a.pwAttempt}}
+        template(v-else)
+          span.name {{players[a.playerIndex].name}}
+          |  guessed one correctly!
 
   .panel.crash-notification(v-if="round.phase == 'crashed'")
     h2 System Crash!
