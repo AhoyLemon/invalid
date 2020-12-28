@@ -71,7 +71,9 @@ var app = new Vue({
         cost: 0,
         inputValue: '',
         inputValueTwo: ''
-      }
+      },
+      enterFinalPasswords: false,
+      passwordSuccessMessage: null
     },
     messages: []
   },
@@ -127,7 +129,6 @@ var app = new Vue({
     /////////////////////////////////////////////////////////////////////
     // BEFORE GAME (game hasn't started yet)
 
-
     requestPlayers() {
       const self = this;
       if (self.roomCode) {
@@ -180,7 +181,6 @@ var app = new Vue({
       self.sendPlayerUpdate();
 
     },
-
     
     sendPlayerUpdate() {
       const self = this;
@@ -231,7 +231,6 @@ var app = new Vue({
 
     ////////////////////////////////////////////////////////////////
     // SysAdmin Methods
-
     // This is gonna shuffle & filter the possible categories...
     definePossibleChallenges() {
       const self = this;
@@ -436,7 +435,6 @@ var app = new Vue({
       self.round.adminTimer = undefined;
       self.round.adminTimeleft = defaults.adminTimeleft;
     },
-
 
     roundStartTimer() {
       const self = this;
@@ -771,7 +769,6 @@ var app = new Vue({
       });
     },
 
-
     startNextRoundClicked() {
       const self = this;
       pubnub.publish({
@@ -784,6 +781,62 @@ var app = new Vue({
           }
         },
       });
+    },
+
+    ////////////////////////////////////////////////////////////////
+    // Final Round stuff.
+    tryToCrackWith(attempt) {
+      const self = this;
+      attempt = attempt.toUpperCase();
+
+      self.ui.passwordAttempt = "";
+      self.ui.passwordSuccessMessage = "";
+      self.ui.passwordAttemptErrors = [];
+      let pwMatch = false;
+      let pwMatchErrorMessage = null;
+      let pwPlayerIndex = null;
+      let passwordClaimed = false;
+      let matchIndex = -1;
+
+      self.allEmployeePasswords.forEach(function(p, i) {
+        if (p.pw == attempt) {
+          pwMatch = true;
+          if (p.name == self.my.name || p.playerIndex == self.my.playerIndex) {
+            pwMatchErrorMessage = "You just hacked into your own account. Did you mean to do that?";
+          } else if (p.claimed) {
+            passwordClaimed = true;
+            pwMatchErrorMessage = "This password was already cracked by "+p.claimed;
+          } else {
+            pwPlayerIndex = p.playerIndex;
+            matchIndex = i;
+          }
+        }
+      });
+
+      if (pwMatchErrorMessage) {
+        self.ui.passwordAttemptErrors.push(pwMatchErrorMessage);
+      } else if (!pwMatch) {
+        self.ui.passwordAttemptErrors.push("There is no employee with the password "+attempt);
+      } else if (pwMatch && pwPlayerIndex) {
+        self.ui.passwordSuccessMessage = "The password "+attempt+ " belongs to "+self.players[pwPlayerIndex].name;
+        self.players[self.my.playerIndex].score += defaults.hackAccountBonus;
+        self.players[pwPlayerIndex].score -= defaults.hackAccountBonus;
+
+        self.allEmployeePasswords[matchIndex].claimed = self.my.name;
+
+        
+        pubnub.publish({
+          channel : self.roomCode,
+          message : {
+            type: 'passwordCracked',
+            data: {
+              players: self.players,
+              allEmployeePasswords: self.allEmployeePasswords
+            }
+          },
+        });
+
+      }
     }
 
   },
@@ -797,11 +850,24 @@ var app = new Vue({
       } else {
         return null;
       }
-      
     },
     computedSysAdminIndex() {
       const self = this;
       return self.round.sysAdminIndex;
+    },
+    computedUnclaimedPasswords() {
+      const self = this;
+      if (self.allEmployeePasswords.length < 1) {
+        return 0;
+      } else {
+        let n = 0;
+        self.allEmployeePasswords.forEach(function(p) {
+          if (!p.claimed) {
+            n++;
+          }
+        });
+        return n;
+      }
     }
 
   },
@@ -835,11 +901,22 @@ var app = new Vue({
     self.my.playerIndex = 1;
     self.currentlyInGame = true;
     self.players = [
-      { name: "Carlos", role:"SysAdmin", employeeNumber:2, score:0  },
-      { name: "Lemon", role:"employee", employeeNumber:1, score:0  }
+      { name: "Carlos", role:"SysAdmin", employeeNumber:2, score:320  },
+      { name: "Lemon", role:"employee", employeeNumber:1, score:118  },
+      { name: "Pablo", role:"employee", employeeNumber:3, score:212  }
     ];
     self.round.phase = "FINAL ROUND";
+
+    self.allEmployeePasswords = [
+      { pw: "SCORPION", name: "Carlos", playerIndex:0, claimed: false },
+      { pw: "RAIDEN", name: "Pablo", playerIndex:2, claimed: false },
+      { pw: "GORO", name: "Carlos", playerIndex:0, claimed: false },
+      { pw: "MILEENA", name: "Pablo", playerIndex:2, claimed: false },
+      { pw: "KITANA", name: "Carlos", playerIndex:0, claimed: false },
+      { pw: "KANO", name: "Pablo", playerIndex:2, claimed: false },
+    ];
     */
+    
     //self.ui.passwordSucceded = true;
     //self.ui.roundOver = true;
     //self.startHurryTimer();

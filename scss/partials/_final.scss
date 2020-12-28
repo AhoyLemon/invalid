@@ -1,5 +1,5 @@
 .final-round { @include position(fixed,0,0,0,0); display:flex; align-items: center; font-family: $serif;
-  .inside { width:100%; max-width: 62ch; margin-left: auto; margin-right: auto; background:rgba(15,15,15,0.75); backdrop-filter:blur(5px); padding:1.5em; color:white; }
+  .inside { width:100%; max-width: 62ch; margin-left: auto; margin-right: auto; background:rgba(15,15,15,0.6); backdrop-filter:blur(8px); padding:1.5em; color:white; }
 
   video.fullscreen { @include position(fixed,0,0,0,0);
     position: fixed;
@@ -12,6 +12,32 @@
     z-index: -100;
     transform: translateX(-50%) translateY(-50%);
     background-size: cover;
-    transition: 1s opacity;
+  }
+
+  .password-form { margin-top:$padding; margin-bottom: $padding;
+
+    fieldset { position: relative;
+      input { font-size:2rem; font-family: inherit; display: block; padding:20px 0 5px 20px; width:100%; border:2px solid rgba(0,0,0,0.2); outline:none; background:transparent; color:white; border-color:white;
+        .error { border-color:$red; }
+      }
+      label { @include position(absolute,5px,5px,null,25px); display: block; color:white; font-size:14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    }
+    .required { color:$red; }
+    button[type="submit"] { display:block; width:100%; font-family: inherit; font-weight: $bold; text-transform: uppercase; font-size:26px; background:white; border:none; border-radius: 0; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; padding:0.35em 2em; font-weight: 900; letter-spacing: 0.3em; cursor: pointer;
+      &:hover, &:focus { background:$blue; }
+    }
+  
+    input, button { border-radius: 0; }
+    input { border-top-left-radius: 16px; border-top-right-radius: 16px; }
+  }
+
+  .password-errors { color:$red; margin-bottom: 1em;}
+  .success { color:$green; }
+
+
+  .scorekeeper { @include position(fixed,0,0); width:200px; display:grid; grid-template-columns: 1fr; gap:10px;
+    .player { background: rgba(15,15,15,0.6); backdrop-filter:blur(8px); color:rgba(255,255,255,0.7);
+      &.you { background:rgba(5,5,5,0.75); color:rgba(255,255,255,1); }
+    }
   }
 }

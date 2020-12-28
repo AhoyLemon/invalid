@@ -1144,9 +1144,9 @@ svg path {
   max-width: 62ch;
   margin-left: auto;
   margin-right: auto;
-  background: rgba(15, 15, 15, 0.75);
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
+  background: rgba(15, 15, 15, 0.6);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
   padding: 1.5em;
   color: white;
 }
@@ -1168,9 +1168,98 @@ svg path {
       -ms-transform: translateX(-50%) translateY(-50%);
           transform: translateX(-50%) translateY(-50%);
   background-size: cover;
-  -webkit-transition: 1s opacity;
-  -o-transition: 1s opacity;
-  transition: 1s opacity;
+}
+.final-round .password-form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.final-round .password-form fieldset {
+  position: relative;
+}
+.final-round .password-form fieldset input {
+  font-size: 2rem;
+  font-family: inherit;
+  display: block;
+  padding: 20px 0 5px 20px;
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  background: transparent;
+  color: white;
+  border-color: white;
+}
+.final-round .password-form fieldset input .error {
+  border-color: #ee2a2a;
+}
+.final-round .password-form fieldset label {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  left: 25px;
+  display: block;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.final-round .password-form .required {
+  color: #ee2a2a;
+}
+.final-round .password-form button[type=submit] {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 26px;
+  background: white;
+  border: none;
+  border-radius: 0;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  padding: 0.35em 2em;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+}
+.final-round .password-form button[type=submit]:hover, .final-round .password-form button[type=submit]:focus {
+  background: #0abab5;
+}
+.final-round .password-form input, .final-round .password-form button {
+  border-radius: 0;
+}
+.final-round .password-form input {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.final-round .password-errors {
+  color: #ee2a2a;
+  margin-bottom: 1em;
+}
+.final-round .success {
+  color: #2EF429;
+}
+.final-round .scorekeeper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 200px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.final-round .scorekeeper .player {
+  background: rgba(15, 15, 15, 0.6);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.7);
+}
+.final-round .scorekeeper .player.you {
+  background: rgba(5, 5, 5, 0.75);
+  color: white;
 }
 
 .scorekeeper {
@@ -1205,3 +1294,4 @@ svg path {
 .scorekeeper .player .score {
   font-size: 220%;
 }
+/*# sourceMappingURL=site.css.map */

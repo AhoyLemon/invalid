@@ -84,7 +84,8 @@ pubnub.addListener({
       let p = {
         pw: event.message.data.pwAttempt,
         name: app.players[i].name,
-        playerIndex: i
+        playerIndex: i,
+        claimed: false
       };
       app.allEmployeePasswords.push(p);
 
@@ -161,6 +162,11 @@ pubnub.addListener({
       if (app.my.role == "SysAdmin") {
         app.definePossibleChallenges();
       }
+    }
+
+    if (event.message.type == "passwordCracked") {
+      app.players = event.message.data.players;
+      app.allEmployeePasswords = app.players = event.message.data.allEmployeePasswords;
     }
 
   },

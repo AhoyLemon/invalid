@@ -10,7 +10,8 @@ const defaults = {
   vowelOffset: 1,
   hurryTime: 10,
   adminTimeleft: 90,
-  employeeMaxTime: 50
+  employeeMaxTime: 50,
+  hackAccountBonus: 40
 };
 
 const myDefaults = {
@@ -46,6 +47,7 @@ const uiDefaults = {
   enterCode: {
     focus: false
   },
+  
   challengeID: null,
   roundOver: false,
   addBug: '',
@@ -60,7 +62,9 @@ const uiDefaults = {
     cost: 0,
     inputValue: '',
     inputValueTwo: ''
-  }
+  },
+  enterFinalPasswords: false,
+  passwordSuccessMessage: null
 };
 
 const rules = [

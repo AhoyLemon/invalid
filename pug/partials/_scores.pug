@@ -1,4 +1,4 @@
 .scorekeeper(:player-count="players.length")
-  .player(v-for="(player,index) in players")
+  .player(v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }")
     .name {{player.name}}
     .score {{player.score}}
