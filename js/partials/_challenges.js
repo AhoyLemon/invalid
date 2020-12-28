@@ -47,7 +47,7 @@ const challenges = [
   {
     id: 2,
     name: "Bob's Burgers",
-    nameAsRule: "Your password MUST be the first name of a Bob's Burgers character",
+    nameAsRule: "Your password must be the first name of a Bob's Burgers character",
     failedMessage: "[PASS] is not a Bob's Burgers character",
     possible: [
       "Mike",
@@ -79,12 +79,10 @@ const challenges = [
     ]
   },
 
-  /*
-
   {
     id: 3,
-    name: "Words For Breasts (Recognized By The OED)",
-    nameAsRule: "Your password MUST be a word the Oxford English Dictionary recognizes as a synonym for “breasts”",
+    name: "Words For Breasts",
+    nameAsRule: "Your password must be a word the Oxford English Dictionary recognizes as a synonym for “breasts”",
     failedMessage: "The OED doesn't recognize [PASS] as a word for breasts.",
     naughty: true,
     possible: [
@@ -114,8 +112,6 @@ const challenges = [
       "CANS"
     ]
   },
-
-  */
 
   {
     id: 4,
@@ -186,7 +182,7 @@ const challenges = [
   {
     id: 5,
     name: "European Countries",
-    nameAsRule: "Your password MUST be a country in Europe",
+    nameAsRule: "Your password must be a country in Europe",
     failedMessage: "Sorry! [PASS] is not a European Country.",
     possible: [
       "Albania",
@@ -245,8 +241,8 @@ const challenges = [
 
   {
     id: 6,
-    name: "NFL Teams",
-    nameAsRule: "Your password MUST be an NFL football team name",
+    name: "Football Teams",
+    nameAsRule: "Your password must be an NFL football team name",
     failedMessage: "Sorry! There are no [PASS] in the NFL.",
     possible: [
       "CARDINALS",
@@ -286,7 +282,7 @@ const challenges = [
   {
     id: 7,
     name: "State Birds",
-    nameAsRule: "Your password MUST be a U.S. state bird",
+    nameAsRule: "Your password must be a U.S. state bird",
     failedMessage: "Sorry, no US State made [PASS] their official bird.",
     possible: [
       "YELLOWHAMMER",
@@ -321,7 +317,7 @@ const challenges = [
   {
     id: 8,
     name: "Synonyms for Blue",
-    nameAsRule: "Your password MUST be a synonym for blue",
+    nameAsRule: "Your password must be a synonym for blue",
     failedMessage: "Thesaurus.com doesn't list [PASS] as a synonym for blue.",
     possible: [
       "AZURE",
@@ -376,7 +372,7 @@ const challenges = [
   {
     id: 9,
     name: "My Little Ponies",
-    nameAsRule: "Your password MUST be a My Little Pony (unicorns count)",
+    nameAsRule: "Your password must be a My Little Pony (unicorns count)",
     failedMessage: "[PASS] isn't a My Little Pony! 🦄",
     possible: [
       "TWILIGHT SPARKLE",
@@ -418,7 +414,7 @@ const challenges = [
   {
     id: 9,
     name: "Leafy Green Vegetables",
-    nameAsRule: "Your password MUST be a leafy green vegetable",
+    nameAsRule: "Your password must be a leafy green vegetable",
     failedMessage: "[PASS] is not a leafy green vegeable",
     possible: [
       "ARUGULA",
@@ -442,6 +438,97 @@ const challenges = [
       "TURNIP GREENS",
       "PARSLEY"
     ]
+  },
+
+  {
+    id: 10,
+    name: "World Languages",
+    nameAsRule: "Your password must be an Official Language of any country",
+    failedMessage: "[PASS] is not a language recognized by any country.",
+    possible: [
+      "ABKHAZ",
+      "ALBANIAN",
+      "ARABIC",
+      "ARMENIAN",
+      "AZERBAIJANI",
+      "BELARUSIAN",
+      "BENGALI",
+      "BOSNIAN",
+      "BULGARIAN",
+      "BURMESE",
+      "CASTILIAN",
+      "CATALAN",
+      "COMORIAN",
+      "CROATIAN",
+      "CZECH",
+      "DANISH",
+      "DARI",
+      "DUTCH",
+      "DZONGKHA",
+      "ENGLISH",
+      "ESTONIAN",
+      "FIJIAN",
+      "FINNISH",
+      "FRENCH",
+      "GEORGIAN",
+      "GERMAN",
+      "GREEK",
+      "HEBREW",
+      "HINDI",
+      "HUNGARIAN",
+      "ICELANDIC",
+      "INDONESIAN",
+      "IRISH",
+      "ITALIAN",
+      "JAPANESE",
+      "KAZAKH",
+      "KHMER",
+      "KIRUNDI",
+      "KYRGYZ",
+      "KOREAN",
+      "LAO",
+      "LATVIAN",
+      "LITHUANIAN",
+      "LUXEMBOURGISH",
+      "MACEDONIAN",
+      "MALAY",
+      "MALTESE",
+      "MAORI",
+      "MANDARIN",
+      "MONGOLIAN",
+      "NEPALI",
+      "NORWEGIAN",
+      "PALAUAN",
+      "PASHTO",
+      "PERSIAN",
+      "POLISH",
+      "PORTUGUESE",
+      "QUECHUA",
+      "ROMANIAN",
+      "RUSSIAN",
+      "SERBIAN",
+      "SLOVAK",
+      "SLOVENE",
+      "SOMALI",
+      "SOTHO",
+      "SPANISH",
+      "SWAHILI",
+      "SWAZI",
+      "SWEDISH",
+      "TAJIK",
+      "TAMAZIGHT",
+      "TETUM",
+      "TIGRINYA",
+      "TSWANA",
+      "TURKISH",
+      "UKRANIAN",
+      "URDU",
+      "UZBEK",
+      "WOLEAIAN"
+    ],
+    source: "https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory"
+
   }
 
 ];
+
