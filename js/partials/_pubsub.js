@@ -123,13 +123,20 @@ pubnub.addListener({
     if (event.message.type == "startNewRound") {
       app.players = event.message.data.players;
       
-
-      let i = app.round.sysAdminIndex + 1;
-      if (i >= app.players.length) {
-        app.round.sysAdminIndex = 0;
+      if (app.round >= app.maxRounds) {
+        // Time for the final round.
+        self.round.phase = "FINAL ROUND";
       } else {
-        app.round.sysAdminIndex = i;
+        // Let's do another round.
+        let i = app.round.sysAdminIndex + 1;
+        if (i >= app.players.length) {
+          app.round.sysAdminIndex = 0;
+        } else {
+          app.round.sysAdminIndex = i;
+        }
       }
+
+      
 
       // Define roles.
       app.players.forEach(function(p,index) {
