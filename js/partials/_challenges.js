@@ -528,7 +528,42 @@ const challenges = [
     ],
     source: "https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory"
 
-  }
+  },
 
+  {
+    id: 11,
+    name: "Coen Brothers Movies",
+    nameAsRule: "Your password must be the title of a film written and/or directed by Joel and/or Ethan Coen.",
+    failedMessage: "[PASS] is not a Coen Brothers movie.",
+    possible: [
+      "BLOOD SIMPLE",
+      "CRIMEWAVE",
+      "RAISING ARIZONA",
+      "MILLER'S CROSSING",
+      "BARTON FINK",
+      "THE HUDSUCKER PROXY",
+      "FARGO",
+      "THE BIG LEBOWSKI",
+      "THE NAKED MAN",
+      "O BROTHER, WHERE ART THOU?",
+      "THE MAN WHO WASN'T THERE",
+      "INTOLERABLE CRUELTY",
+      "THE LADYKILLERS",
+      "TUILERIES",
+      "WORLD CINEMA",
+      "NO COUNTRY FOR OLD MEN",
+      "BURN AFTER READING",
+      "A SERIOUS MAN",
+      "TRUE GRIT",
+      "GAMBIT",
+      "INSIDE LLEWYN DAVIS",
+      "UNBROKEN",
+      "BRIDGE OF SPIES",
+      "HAIL, CAESAR!",
+      "SUBURBICON",
+      "THE BALLAD OF BUSTER SCRUGGS",
+      "THE TRAGEDY OF MACBETH"
+    ]
+  }
 ];
 
