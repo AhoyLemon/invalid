@@ -707,4 +707,3 @@ const challenges = [
     ]
   }
 ];
-

@@ -208,9 +208,11 @@ var app = new Vue({
       });
 
       if (self.players.length == 2) {
-        self.maxRounds = 4;
+        self.maxRounds = 6;
       } else if (self.players.length == 3) {
         self.maxRounds = 6;
+      } else if (self.players.length == 3) {
+        self.maxRounds = 8;
       } else {
         self.maxRounds = self.players.length;
       }
