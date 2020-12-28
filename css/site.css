@@ -1261,6 +1261,18 @@ svg path {
   background: rgba(5, 5, 5, 0.75);
   color: white;
 }
+.final-round .timer {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  width: 5vw;
+  height: 5vw;
+  border-radius: 50%;
+  line-height: 5vw;
+  text-align: center;
+  font-size: 3.6vw;
+}
 
 .scorekeeper {
   display: -webkit-box;

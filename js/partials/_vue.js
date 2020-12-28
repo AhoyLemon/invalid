@@ -45,6 +45,7 @@ var app = new Vue({
       hurryTimer: undefined,
       hurryTime: defaults.hurryTime,
       adminTimeleft: defaults.adminTimeleft,
+      finalTimeLeft: defaults.finalTimeLeft,
       crash: {
         active: false,
         word: "",
@@ -211,7 +212,7 @@ var app = new Vue({
         self.maxRounds = 6;
       } else if (self.players.length == 3) {
         self.maxRounds = 6;
-      } else if (self.players.length == 3) {
+      } else if (self.players.length == 4) {
         self.maxRounds = 8;
       } else {
         self.maxRounds = self.players.length;
@@ -471,9 +472,39 @@ var app = new Vue({
       const self = this;
       clearInterval(self.round.hurryTimer);
       self.round.hurryTimer = undefined;
-      self.round.hurryTime = 10;
+      self.round.hurryTime = defaults.hurryTime;
     },
 
+    // Countdown to final round.
+    startCountdownToFinalRound() {
+      const self = this;
+      self.round.hurryTime = (defaults.hurryTime * 3);
+      self.round.hurryTimer = setInterval(() => {
+        self.round.hurryTime -= 1;
+        if (self.round.hurryTime <= 0) {
+          self.ui.enterFinalPasswords = true;
+          clearInterval(self.round.hurryTimer);
+          self.round.hurryTimer = undefined;
+          self.startFinalRoundCounter();
+        }
+      }, 1000);
+    },
+
+    startFinalRoundCounter() {
+      const self = this;
+      self.round.finalTimeLeft = defaults.finalTimeLeft;
+      self.round.roundTimer = setInterval(() => {
+        self.round.finalTimeLeft -= 1;
+        if (self.round.finalTimeLeft <= 0) {
+          // TODO: Create a game over screen.
+          //alert('IMAGINE A GAME OVER SCREEN GOES HERE.');
+          self.round.finalTimeLeft = defaults.finalTimeLeft;
+        }
+      }, 1001);
+    },
+
+    /////////////////////////////
+    // EMPLOYEE FUNCTIONS
     endTheGuessingRound() {
       const self = this;
       self.ui.passwordSucceeded = false;
@@ -787,6 +818,7 @@ var app = new Vue({
 
     ////////////////////////////////////////////////////////////////
     // Final Round stuff.
+
     tryToCrackWith(attempt) {
       const self = this;
       attempt = attempt.toUpperCase();
@@ -804,8 +836,10 @@ var app = new Vue({
         if (p.pw == attempt) {
           pwMatch = true;
           if (p.name == self.my.name || p.playerIndex == self.my.playerIndex) {
+            soundYouIdiot.play();
             pwMatchErrorMessage = "You just hacked into your own account. Did you mean to do that?";
           } else if (p.claimed) {
+            soundTooSlow.play();
             passwordClaimed = true;
             pwMatchErrorMessage = "This password was already cracked by "+p.claimed;
           } else {
@@ -816,10 +850,13 @@ var app = new Vue({
       });
 
       if (pwMatchErrorMessage) {
+        
         self.ui.passwordAttemptErrors.push(pwMatchErrorMessage);
       } else if (!pwMatch) {
+        soundNo.play();
         self.ui.passwordAttemptErrors.push("There is no employee with the password "+attempt);
       } else if (pwMatch && pwPlayerIndex) {
+        soundCracked.play();
         self.ui.passwordSuccessMessage = "The password "+attempt+ " belongs to "+self.players[pwPlayerIndex].name;
         self.players[self.my.playerIndex].score += defaults.hackAccountBonus;
         self.players[pwPlayerIndex].score -= defaults.hackAccountBonus;
@@ -897,6 +934,7 @@ var app = new Vue({
 
     // FAKE EMPLOYEE.
     
+    
     /*
     self.my.role = "employee";
     self.my.name = "Lemon";
@@ -917,6 +955,7 @@ var app = new Vue({
       { pw: "KITANA", name: "Carlos", playerIndex:0, claimed: false },
       { pw: "KANO", name: "Pablo", playerIndex:2, claimed: false },
     ];
+    self.startCountdownToFinalRound();
     */
     
     //self.ui.passwordSucceded = true;

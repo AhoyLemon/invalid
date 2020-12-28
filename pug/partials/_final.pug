@@ -8,8 +8,9 @@
       p When the timer starts, type in any password you think any of your coworkers may have used successfully.
       p This password must be one that they used successfully in a previous round.
       p If you're right, you'll steal 40 points from that player
-      p
+      //-p
         button(@click="ui.enterFinalPasswords = true") Start
+      h2 Round begins in {{round.hurryTime}} seconds.
     template(v-if="ui.enterFinalPasswords")
 
       template(v-if="ui.passwordSuccessMessage") 
@@ -28,6 +29,9 @@
           li.error(v-for="(err,index) in ui.passwordAttemptErrors") {{err}}
       
       p There are {{computedUnclaimedPasswords}} unclaimed passwords in the system.
+
+  .timer.final-timer(v-if="round.roundTimer != undefined")
+    time {{round.finalTimeLeft}}
 
   include _scores
     

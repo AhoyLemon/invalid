@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-27@20:40:07">
+    <meta http-equiv="last-modified" content="2020-11-28@15:59:07">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -327,9 +327,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
             <p>When the timer starts, type in any password you think any of your coworkers may have used successfully.</p>
             <p>This password must be one that they used successfully in a previous round.</p>
             <p>If you're right, you'll steal 40 points from that player</p>
-            <p>
-              <button @click="ui.enterFinalPasswords = true">Start</button>
-            </p>
+            <h2>Round begins in {{round.hurryTime}} seconds.</h2>
           </template>
           <template v-if="ui.enterFinalPasswords">
             <template v-if="ui.passwordSuccessMessage"> 
@@ -354,6 +352,9 @@ EMpoyeeNAME:         {{round.crash.player.name}}
             <p>There are {{computedUnclaimedPasswords}} unclaimed passwords in the system.</p>
           </template>
         </div>
+        <div class="timer final-timer" v-if="round.roundTimer != undefined">
+          <time>{{round.finalTimeLeft}}</time>
+        </div>
         <div class="scorekeeper" :player-count="players.length">
           <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
             <div class="name">{{player.name}}</div>
@@ -366,7 +367,8 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
-      <script src="js/min/site.min.js?updated2020-11-27@20:40:07"></script>
+      <script src="js/libraries/howler.min.js"></script>
+      <script src="js/min/site.min.js?updated2020-11-28@15:59:07"></script>
     </div>
   </body>
 </html>

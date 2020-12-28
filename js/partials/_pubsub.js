@@ -126,6 +126,7 @@ pubnub.addListener({
       if (app.round >= app.maxRounds) {
         // Time for the final round.
         self.round.phase = "FINAL ROUND";
+        self.startCountdownToFinalRound();
       } else {
         // Let's do another round.
         let i = app.round.sysAdminIndex + 1;

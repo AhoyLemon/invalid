@@ -40,4 +40,7 @@
       &.you { background:rgba(5,5,5,0.75); color:rgba(255,255,255,1); }
     }
   }
+
+  .timer { @include position(fixed,null,20px,20px); background:rgba(255,255,255,0.6); width:5vw; height:5vw; border-radius: 50%; line-height: 5vw; text-align: center; font-size:3.6vw;
+  }
 }

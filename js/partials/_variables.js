@@ -11,7 +11,8 @@ const defaults = {
   hurryTime: 10,
   adminTimeleft: 90,
   employeeMaxTime: 50,
-  hackAccountBonus: 40
+  hackAccountBonus: 40,
+  finalTimeLeft: 60
 };
 
 const myDefaults = {
@@ -35,6 +36,7 @@ const roundDefaults = {
   hurryTimer: undefined,
   hurryTime: defaults.hurryTime,
   adminTimeleft: defaults.adminTimeleft,
+  finalTimeLeft: defaults.finalTimeLeft,
   crash: {
     active: false,
     word: "",
