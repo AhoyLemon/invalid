@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-28@22:25:19">
+    <meta http-equiv="last-modified" content="2020-11-29@10:04:08">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -225,7 +225,7 @@
         </div>
         <div class="admin-timer" v-if="round.adminTimer != undefined">
           <div class="label">TIME LEFT</div>
-          <time><span class="integer">{{round.adminTimeleft.toFixed(2).split('.')[0]}}</span>.<sup class="decimal">{{round.adminTimeleft.toFixed(2).split('.')[1]}}</sup></time>
+          <time><span class="integer">{{round.adminTimeLeft.toFixed(2).split('.')[0]}}</span>.<sup class="decimal">{{round.adminTimeLeft.toFixed(2).split('.')[1]}}</sup></time>
         </div>
         <div class="scorekeeper" :player-count="players.length">
           <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
@@ -368,7 +368,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
       <script src="js/libraries/howler.min.js"></script>
-      <script src="js/min/site.min.js?updated2020-11-28@22:25:19"></script>
+      <script src="js/min/site.min.js?updated2020-11-29@10:04:08"></script>
     </div>
   </body>
 </html>

@@ -44,7 +44,7 @@ var app = new Vue({
       roundTimer: undefined,
       hurryTimer: undefined,
       hurryTime: defaults.hurryTime,
-      adminTimeleft: defaults.adminTimeleft,
+      adminTimeLeft: defaults.adminTimeLeft,
       finalTimeLeft: defaults.finalTimeLeft,
       crash: {
         active: false,
@@ -425,8 +425,8 @@ var app = new Vue({
     startAdminTimer() {
       const self = this;
       self.round.adminTimer = setInterval(() => {
-        self.round.adminTimeleft -= 0.05;
-        if (self.round.adminTimeleft <= 0) {
+        self.round.adminTimeLeft -= 0.05;
+        if (self.round.adminTimeLeft <= 0) {
           self.onboardEmployees();
         }
       }, 50);
@@ -436,7 +436,7 @@ var app = new Vue({
       const self = this;
       clearInterval(self.round.adminTimer);
       self.round.adminTimer = undefined;
-      self.round.adminTimeleft = defaults.adminTimeleft;
+      self.round.adminTimeLeft = defaults.adminTimeLeft;
     },
 
     roundStartTimer() {
