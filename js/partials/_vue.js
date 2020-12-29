@@ -100,30 +100,35 @@ var app = new Vue({
       }
 
       self.roomCode = makeID(4);
-      pubnub.subscribe({
-        channels: [self.roomCode],
-        withPresence: true
-      });
+
+      // Create a room with the randomly generated code.
+      socket.emit('createRoom', self.roomCode);
+
+      // Set your local variables.
       self.isRoomHost = true;
       self.currentlyInGame = true;
       self.round.phase = "pregame";
       const url = new URL(window.location);
       url.searchParams.set('room', self.roomCode);
       window.history.pushState({}, '', url);
+
     },
 
     joinRoom() {
       const self = this;
 
-      pubnub.subscribe({
-        channels: [self.roomCode],
-        withPresence: true
-      });
+      // Try to join a room with the entered code.
+      socket.emit('joinRoom', self.roomCode);
+
+      
       self.currentlyInGame = true;
       self.round.phase = "pregame";
       const url = new URL(window.location);
       url.searchParams.set('room', self.roomCode);
       window.history.pushState({}, '', url);
+
+
+
     },
 
 
@@ -185,15 +190,13 @@ var app = new Vue({
     
     sendPlayerUpdate() {
       const self = this;
-      pubnub.publish({
-        channel : self.roomCode,
-        message : {
-          type: 'updatePlayers',
-          data: {
-            players: self.players
-          }
-        },
-      });
+
+      const d = {
+        roomCode: self.roomCode,
+        players: self.players
+      };
+
+      socket.emit('updatePlayers', d);
     },
 
     startTheGame() {
@@ -218,6 +221,7 @@ var app = new Vue({
         self.maxRounds = self.players.length;
       }
 
+      /*
       pubnub.publish({
         channel : self.roomCode,
         message : {
@@ -229,6 +233,16 @@ var app = new Vue({
           }
         }
       });
+      */
+
+      const d = {
+        roomCode: self.roomCode,
+        players: self.players,
+        maxRounds: self.maxRounds,
+        sysAdminIndex: self.my.playerIndex
+      };
+
+      socket.emit('startTheGame', d);
 
     },
 
@@ -254,6 +268,7 @@ var app = new Vue({
       self.findAverageVowelCount();
       self.countLettersInEachWord();
       self.startAdminTimer();
+      /*
       pubnub.publish({
         channel : self.roomCode,
         message : {
@@ -263,6 +278,14 @@ var app = new Vue({
           }
         },
       });
+      */
+
+      socket.emit("updatePasswordChallenge", {
+        roomCode: self.roomCode,
+        challenge: self.round.challenge
+      });
+
+
     },
 
     chooseRule(rule) {
@@ -424,6 +447,7 @@ var app = new Vue({
     // The guessing has begun.
     startAdminTimer() {
       const self = this;
+      self.round.adminTimeLeft = defaults.adminTimeLeft;
       self.round.adminTimer = setInterval(() => {
         self.round.adminTimeLeft -= 0.05;
         if (self.round.adminTimeLeft <= 0) {

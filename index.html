@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;500&amp;family=Fira+Code:wght@300;600&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
-    <link href="css/site.css" rel="stylesheet">
+    <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-29@10:04:08">
+    <meta http-equiv="last-modified" content="2020-11-29@16:01:10">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -39,22 +39,24 @@
           </div>
         </div>
         <div class="sign-in" v-if="isRoomHost || players.length &gt; 0">
-          <form class="pregame-form" @submit.prevent="updatePlayer()">
-            <fieldset>
-              <input v-model="my.employeeNumber" type="text" readonly disabled>
-              <label>Employee Number</label>
-            </fieldset>
-            <fieldset>
-              <input v-model="my.name" type="text" v-focus>
-              <label>Employee Name</label>
-            </fieldset>
-            <div class="button-holder">
-              <button type="submit"> <span v-if="!ui.appliedForJob">Apply For Job</span><span v-if="ui.appliedForJob">Update Resume</span></button>
-            </div>
+          <div class="inside">
+            <form class="pregame-form" @submit.prevent="updatePlayer()">
+              <fieldset>
+                <input v-model="my.employeeNumber" type="text" readonly disabled>
+                <label>Employee Number</label>
+              </fieldset>
+              <fieldset>
+                <input v-model="my.name" type="text" v-focus>
+                <label>Employee Name</label>
+              </fieldset>
+              <div class="button-holder">
+                <button type="submit"> <span v-if="!ui.appliedForJob">Apply For Job</span><span v-if="ui.appliedForJob">Update Resume</span></button>
+              </div>
+            </form>
             <div class="start-button" v-if="isRoomHost &amp;&amp; ui.appliedForJob &amp;&amp; players.length &gt; 1">
-              <button @click="startTheGame()">Start The Game</button>
+              <button type="button" @click="startTheGame()">Start The Game</button>
             </div>
-          </form>
+          </div>
         </div>
         <div class="players">
           <div class="player" v-for="player in players" :class="{ 'is-me' : (my.employeeNumber == player.employeeNumber), 'is-host': player.isRoomHost }">
@@ -368,7 +370,14 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
       <script src="js/libraries/howler.min.js"></script>
-      <script src="js/min/site.min.js?updated2020-11-29@10:04:08"></script>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script>
+        //var socket = io();
+        var socket = io.connect('http://localhost:3000');
+        
+      </script>
+      <script src="js/min/site.min.js?updated2020-11-29@16:01:10"></script>
     </div>
   </body>
 </html>

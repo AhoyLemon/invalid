@@ -11,21 +11,22 @@
       p Either you have the wrong room code, or your host hasn't entered their name yet.
 
   .sign-in(v-if="isRoomHost || players.length > 0")
-    form.pregame-form(@submit.prevent="updatePlayer()")
-      fieldset
-        input(v-model="my.employeeNumber" type="text" readonly disabled)
-        label Employee Number
-      fieldset
-        input(v-model="my.name" type="text" v-focus)
-        label Employee Name
+    .inside
+      form.pregame-form(@submit.prevent="updatePlayer()")
+        fieldset
+          input(v-model="my.employeeNumber" type="text" readonly disabled)
+          label Employee Number
+        fieldset
+          input(v-model="my.name" type="text" v-focus)
+          label Employee Name
 
-      .button-holder
-        button(type="submit") 
-          span(v-if="!ui.appliedForJob") Apply For Job
-          span(v-if="ui.appliedForJob") Update Resume
-
+        .button-holder
+          button(type="submit") 
+            span(v-if="!ui.appliedForJob") Apply For Job
+            span(v-if="ui.appliedForJob") Update Resume
+            
       .start-button(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
-        button(@click="startTheGame()") Start The Game
+        button(type="button" @click="startTheGame()") Start The Game
 
   .players
     .player(v-for="player in players" :class="{ 'is-me' : (my.employeeNumber == player.employeeNumber), 'is-host': player.isRoomHost }")

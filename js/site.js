@@ -7,4 +7,5 @@
 //@prepros-append partials/_challenges.js
 
 //@prepros-append partials/_vue.js
-//@prepros-append partials/_pubsub.js
+
+//@prepros-append partials/_sockets.js
