@@ -143,8 +143,6 @@ pubnub.addListener({
         }
       }
 
-      
-
       // Define roles.
       app.players.forEach(function(p,index) {
         p.role = "employee";
@@ -181,6 +179,10 @@ pubnub.addListener({
     if (event.message.type == "passwordCracked") {
       app.players = event.message.data.players;
       app.allEmployeePasswords = app.players = event.message.data.allEmployeePasswords;
+    }
+
+    if (event.message.type == "gameOver") {
+      app.setGameOver();
     }
 
   },
@@ -223,5 +225,5 @@ const displayMessage = function(messageType, aMessage, timeStamp, obj) {
   } else if (messageType) {
     app.messages.push({ type: messageType });
   }
-
+  
 };

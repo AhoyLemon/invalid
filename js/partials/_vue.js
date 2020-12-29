@@ -496,9 +496,12 @@ var app = new Vue({
       self.round.roundTimer = setInterval(() => {
         self.round.finalTimeLeft -= 1;
         if (self.round.finalTimeLeft <= 0) {
-          // TODO: Create a game over screen.
-          //alert('IMAGINE A GAME OVER SCREEN GOES HERE.');
-          self.round.finalTimeLeft = defaults.finalTimeLeft;
+          pubnub.publish({
+            channel : self.roomCode,
+            message : {
+              type: 'gameOver'
+            }
+          });
         }
       }, 1001);
     },
@@ -877,7 +880,25 @@ var app = new Vue({
           },
         });
 
+        if (self.computedUnclaimedPasswords < 1) {
+          pubnub.publish({
+            channel : self.roomCode,
+            message : {
+              type: 'gameOver'
+            }
+          });
+        }
+
       }
+    },
+
+    setGameOver() {
+      const self = this;
+      clearInterval(self.round.roundTimer);
+      self.round.roundTimer = undefined;
+
+      // TODO: Create a game over screen.
+      alert('IMAGINE A GAME OVER SCREEN GOES HERE.');
     }
 
   },
