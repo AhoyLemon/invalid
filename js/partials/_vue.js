@@ -667,8 +667,10 @@ var app = new Vue({
           },
         });
       } else if (correctAnswer) {
+        soundCorrectGuess.play();
         self.passwordSuccess(attempt);
       } else {
+        soundBadGuess.play();
         pubnub.publish({
           channel : self.roomCode,
           message : {

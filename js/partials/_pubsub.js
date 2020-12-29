@@ -46,16 +46,19 @@ pubnub.addListener({
     if (event.message.type == "updatePasswordChallenge") {
       app.round.challenge = event.message.data.challenge;
       app.ui.roundOver = false;
+      soundNewRule.play();
     }
 
     if (event.message.type == "updatePasswordRules") {
       app.round.rules = event.message.data.rules;
       app.ui.roundOver = false;
+      soundNewRule.play();
     }
 
     if (event.message.type == "updateBugs") {
       app.round.bugs = event.message.data.bugs;
       app.ui.roundOver = false;
+      soundNewRule.play();
     }
 
     if (event.message.type == "startGuessing") {
@@ -63,6 +66,7 @@ pubnub.addListener({
       app.round.sysAdminIndex = event.message.data.sysAdminIndex;
       app.ui.roundOver = false;
       app.roundStartTimer();
+      soundStartGuessing.play();
     }
 
     if (event.message.type == "triedPassword") {
@@ -112,6 +116,8 @@ pubnub.addListener({
       app.round.crash.player = app.players[i];
       app.round.crash.word = event.message.data.pwAttempt;
       app.round.attempts.push(event.message.data);
+
+      soundSystemCrash.play();
 
       if (app.my.role == "SysAdmin") {
         app.my.score += 100;
