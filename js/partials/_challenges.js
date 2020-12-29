@@ -1064,7 +1064,7 @@ const challenges = [
       "ROB ROY",
       "MARY PICKFORD"
     ]
-  }
+  },
 
   {
     id: 20,
@@ -1327,7 +1327,7 @@ const challenges = [
       // "ZELDA: LINK TO THE PAST",
       // "LINK TO THE PAST"
     ]
-  }
+  },
 
   {
     id: 22,
@@ -1559,6 +1559,7 @@ const challenges = [
       // "BUCKNER AND GARCIA"
       "MICHAEL DAMIAN",
       "CLARENCE CLEMONS"
+    ]
   },
 
   {
@@ -1697,6 +1698,144 @@ const challenges = [
       "ESTELLE",
       "THE VERONICAS",
       "ASHER ROTH"
+    ]
+  },
+
+  {
+    id: 26,
+    name: "Western Art Periods",
+    nameAsRule: "Your password must be the name of a Western art period or movement.",
+    failedMessage: "[PASS] is not a Western art period, according to Wikipedia.",
+    possible: [
+      "EARLY CHRISTIAN",
+      "MIGRATION PERIOD",
+      // ALSO
+      // "MIGRATION"
+      "ANGLO-SAXON",
+      "VISIGOTHIC",
+      "PRE-ROMANESQUE",
+      "INSULAR",
+      "VIKING",
+      "BYZANTINE",
+      "MEROVINGIAN",
+      "CAROLINGIAN",
+      "OTTONIAN",
+      "ROMANESQUE",
+      "NORMAN-SICILIAN",
+      "GOTHIC",
+      "RENAISSANCE",
+      // ALSO
+      // "ITALIAN RENAISSANCE",
+      // "LATE RENAISSANCE"
+      "MANNERISM",
+      "BAROQUE",
+      "ROCOCO",
+      "NEOCLASSICISM",
+      "ROMANTICISM",
+      "NAZARENE MOVEMENT",
+      "DUSSELDORF SCHOOL",
+      "HUDSON RIVER SCHOOL",
+      "LUMINISM",
+      // ALSO
+      // "AMERICAN ART STYLE"
+      "NORWICH SCHOOL",
+      "BIEDERMEIER",
+      "PHOTOGRAPHY",
+      "REALISM",
+      "BARBIZON SCHOOL",
+      "PEREDVIZHNIKI",
+      "HAGUE SCHOOL",
+      "AMERICAN BARBIZON SCHOOL",
+      "SPANISH ECLECTICISM",
+      // ALSO
+      // "ECLECTICISM"
+      "MACCHIAIOLI",
+      "PRE-RAPHAELITE BROTHERHOOD",
+      "MODERN",
+      // ALSO
+      // "MODERN ART"
+      "COS COB ART COLONY",
+      "IMPRESSIONISM",
+      "ARTS AND CRAFTS MOVEMENT",
+      // ALSO
+      // "ARTS AND CRAFTS"
+      "TONALISM",
+      "SYMBOLISM",
+      "POST-IMPRESSIONISM",
+      "LES NABIS",
+      "CLOISONNISM",
+      "SYNTHETISM",
+      "NEO-IMPRESSIONISM",
+      "POINTILLISM",
+      "DIVISIONISM",
+      "ART NOUVEAU",
+      "RUSSIAN AVANT-GARDE",
+      "YOUNG POLAND",
+      "HAGENBUND",
+      "FAUVISM",
+      "EXPRESSIONISM",
+      "DIE BRUCKE",
+      "DER BLAUE REITER",
+      "BLOOMSBURY GROUP",
+      "CUBISM",
+      "ORPHISM",
+      "PURISM",
+      "ASHCAN SCHOOL",
+      "ART DECO",
+      "FUTURISM",
+      "RAYONISM",
+      "SYNCHROMISM",
+      "UNIVERSAL FLOWERING",
+      "VORTICISM",
+      "BIOMORPHISM",
+      "SUPREMATISM",
+      "DADA",
+      "PROLETKULT",
+      "DE STIJL",
+      "PITTURA METAFISICA",
+      "BAUHAUS",
+      "CONSTRUCTIVISM",
+      "PRECISIONISM",
+      "SURREALISM",
+      "DEVETSIL",
+      "GROUP OF SEVEN",
+      "HARLEM RENAISSANCE",
+      "AMERICAN SCENE PAINTING",
+      "NEW OBJECTIVITY",
+      "GRUPO MONTPARNASSE",
+      "NORTHWEST SCHOOL",
+      "SOCIAL REALISM",
+      // ALSO
+      // "SOCIALIST REALISM"
+      "ALLIANZ",
+      "ABSTRACT EXPRESSIONISM",
+      "ACTION PAINTING",
+      "COLOR FIELD PAINTING",
+      "OUTSIDER ART",
+      "VIENNA SCHOOL FO FANTASTIC REALISM",
+      "NEO-DADA",
+      "POP ART",
+      "NEW REALISM",
+      "MINIMALISM",
+      "CONCEPTUAL ART",
+      "GRAFFITI",
+      "PSYCHEDELIC ART",
+      "OP ART",
+      "PHOTOREALISM",
+      "DECONSTRUCTIVISM",
+      "POSTMODERN ART",
+      "NEOISM",
+      "TOYISM"
+    ]
+  },
+
+  {
+    id: 27,
+    name: "Western Architectural Styles",
+    nameAsRule: "Your password must be the name of a major Western architectural style or school.",
+    failedMessage: "[PASS] is done fucked up",
+    possible: [
+      "Item 1",	  
     ]
   }
 
