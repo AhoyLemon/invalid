@@ -94,7 +94,6 @@ pubnub.addListener({
       app.allEmployeePasswords.push(p);
 
       // Let's check to see if all employees have succeeded.
-
       if (app.round.claimedPasswords.length >= (app.players.length - 1) ) {
         // Yup! Let's end the round.
         app.endTheGuessingRound();
@@ -129,7 +128,7 @@ pubnub.addListener({
     if (event.message.type == "startNewRound") {
       app.players = event.message.data.players;
       
-      if (app.round >= app.maxRounds) {
+      if (app.round.number >= app.maxRounds) {
         // Time for the final round.
         self.round.phase = "FINAL ROUND";
         self.startCountdownToFinalRound();
