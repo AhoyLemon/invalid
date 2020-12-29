@@ -1831,11 +1831,118 @@ const challenges = [
 
   {
     id: 27,
-    name: "Western Architectural Styles",
-    nameAsRule: "Your password must be the name of a major Western architectural style or school.",
-    failedMessage: "[PASS] is done fucked up",
+    name: "Modern and Post-Modern Western Architectural Styles",
+    nameAsRule: "Your password must be the name of a Modern or Post-Modern Western architectural style or school.",
+    failedMessage: "[PASS] is not a style or school used in Western architecture.",
     possible: [
-      "Item 1",	  
+      "AVANT-GARDE",
+      "PARAMETRICISM",
+      "CHICAGO SCHOOL",
+      "FUNCTIONALISM",
+      "FUTURISM",
+      "EXPRESSIONISM",
+      "AMSTERDAM SCHOOL",
+      "ORGANIC",
+      "NEW OBJECTIVITY",
+      "RATIONALISM",
+      "BAUHAUS",
+      "DE STIJL",
+      "MODERNE",
+      "ART DECO",
+      "MODERNISM",
+      "INTERNATIONAL STYLE",
+      // ALSO
+      // "INTERNATIONAL"
+      "USONIAN",
+      "MID-CENTURY MODERN",
+      "GOOGIE",
+      "BRUTALISM",
+      "STRUCTURALISM",
+      "METABOLIST",
+      "DANISH FUNTIONALISM",
+      // ALSO
+      // "FUNCTIONALISM"
+      "STRUCTURAL EXPRESSIONISM",
+      "RANCH",
+      "CONSTRUCTIVISM",
+      "POSTCONSTRUCTIVISM",
+      "STALINIST",
+      "FASCIST",
+      "SHED STYLE",
+      // ALSO
+      // "SHED"
+      "ARCOLOGY",
+      "DECONSTRUCTIVISM",
+      "CRITICLA REGIONALISM",
+      "BLOBITECTURE",
+      "HIGH-TECH",
+      "HOSTILE",
+      "INTERACTIVE",
+      "SUSTAINABLE",
+      "EARTHSHIP",
+      "NEO-FUTURISM",
+      "NEW CLASSICAL"
+    ]
+  },
+
+  {
+    id: 28,
+    name: "Classic Board Games",
+    nameAsRule: "Your password must be a classic board game.",
+    hint: "Classic, in this case, refers to popular games published before 2000.",
+    failedMessage: "[PASS] must be one of those new games. Try again.",
+    possible: [
+      "LIFE",	
+      // ALSO
+      // "GAME OF LIFE"
+      "CLUE",
+      // ALSO
+      // "CLUEDO"
+      "CATAN",
+      // ALSO
+      // "SETTLERS OF CATAN"
+      "MONOPOLY",
+      "TRIVIAL PURSUIT",
+      "RISK",
+      "BOGGLE",
+      "BATTLESHIP",
+      "SCRABBLE",
+      "CANDY LAND",
+      "STRATEGO",
+      "AXIS & ALLIES",
+      "CHESS",
+      "CHECKERS",
+      "BACKGAMMON",
+      "CHINESE CHECKERS",
+      "BLOKUS",
+      "CONNECT FOUR",
+      "TWISTER",
+      "OPERATION",
+      "DON'T BREAK THE ICE",
+      "OPERATION",
+      "HUNGRY HUNGRY HIPPOS",
+      "MOUSE TRAP",
+      "JENGA",
+      "DOMINOES",
+      "CHUTES AND LADDERS",
+      // ALSO
+      // "SNAKES AND LADDERS"
+      "TROUBLE",
+      "SORRY",
+      "YAHTZEE",
+      "PICTIONARY",
+      "SCATTERGORIES",
+      "PARCHEESI",
+      "GUESS WHO",
+      "BALDERDASH",
+      "TABOO",
+      "CRANIUM",
+      "HI HO CHERRY-O",
+      "LUDO",
+      "OTHELLO",
+      "MANCALA",
+      "PERFECTION",
+      "CODENAMES"
     ]
   }
 
