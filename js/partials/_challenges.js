@@ -954,7 +954,8 @@ const challenges = [
       "GOLF",
       "GYMNASITCS ARTISTIC",
       "GYMNASTICS RHYTHMIC",
-      "RHRYTHM GYMNASTICS",
+      // ALSO
+      // "RHYTHM GYMNASTICS"
       "HANDBALL",
       "HOCKEY",
       "JUDO",
@@ -1062,6 +1063,269 @@ const challenges = [
       "HOT TODDY",
       "ROB ROY",
       "MARY PICKFORD"
+    ]
+  }
+
+  {
+    id: 20,
+    name: "Recurring Simpsons Characters",
+    nameAsRule: "Your password must be the first name of a recurring Simpsons character.",
+    failedMessage: "[PASS] is not a Simpsons character. Or is. It's 32+ seasons.",
+    possible: [
+      "HOMER",
+      "MARGE",
+      "BART",
+      "LISA",
+      "MAGGIE",
+      "ABRAHAM",
+      "SANTA'S LITTLE HELPER",
+      "SNOWBALL II",
+      "SNOWBALL V",
+      "APU",
+      "BARNEY",
+      "BLEEDING GUMS MURPHY",
+      "CLANCY",
+      // ALSO
+      // "CHIEF WIGGUM"
+      "DEWEY",
+      "EDDIE",
+      "EDNA",
+      "ITCHY",
+      "JANEY",
+      "JASPER",
+      "KENT",
+      "KRUSTY",
+      "LOU",
+      "MARTIN",
+      "MARVIN",
+      "MILHOUSE",
+      "MOE",
+      "MR. BURNS",
+      "NED",
+      "OTTO",
+      "PATTY",
+      "RALPH",
+      "TIMOTHY",
+      // ALSO
+      // "REVEREND LOVEJOY"
+      "SCRATCHY",
+      "SELMA",
+      "SEYMOUR",
+      "SHERRI",
+      "SIDESHOW BOB",
+      "TODD",
+      "WAYLON",
+      "BERNICE",
+      "CARL",
+      "DOLPH",
+      "JULIUS",
+      // ALSO
+      // "DR. HIBBERT"
+      "NICK",
+      // ALSO
+      // "DR. NICK"
+      "ELIZABETH",
+      "HANS",
+      "HELEN",
+      "HERMAN",
+      "JACQUELINE",
+      "JIMBO",
+      "KEARNEY",
+      "LIONEL",
+      "MAUDE",
+      "MAYOR QUIMBY",
+      "NELSON",
+      "JONATHAN",
+      "PROFESSOR FRINK",
+      "RAINIER",
+      "ROD",
+      "SIDESHOW MEL",
+      "TROY",
+      "AGNES",
+      "COMIC BOOK GUY",
+      "GROUNDSKEEPER WILLIE",
+      "KANG",
+      "KODOS",
+      "LUANN",
+      "BUMBLEBEE MAN",
+      "LUNCHLADY DORIS",
+      "DORIS",
+      "SEA CAPTAIN",
+      "RUTH",
+      "CLETUS",
+      "GARY",
+      // ALSO
+      // "SUPERINTENDENT CHALMERS"
+      "ALICE",
+      "SARAH",
+      "FAT TONY",
+      "MONA",
+      "DISCO STU",
+      "MANJULA",
+      "DUFFMAN",
+      "ALLISON",
+      "RICH TEXAN",
+      "GIL"
+    ]
+  },
+
+  {
+    id: 21,
+    name: "Top 100 SNES Games",
+    nameAsRule: "Your password must be a Super Nintendo game considered to be one of the top 100 best.",
+    failedMessage: "[PASS] is not considered one of the Top 100 SNES games, according to IGN.",
+    possible: [
+      "FINAL FIGHT",
+      "TINY TOON ADVENTURES: BUSTER BUSTS LOOSE",
+      // ALSO
+      // "TINY TOON ADVENTURES"
+      "UNIRACERS",
+      "ULTIMATE MORTAL KOMBAT 3",
+      // ALSO
+      // "MORTAL KOMBAT 3"
+      // "MORTAL KOMBAT III"
+      // "ULTIMATE MORTAL KOMBAT III"
+      "STREET FIGHTER ALPHA 2",
+      "TOP GEAR 2",
+      "ADVENTURES OF BATMAN AND ROBIN",
+      "SUPER TURRICAN 2",
+      "SUPER DOUBLE DRAGON",
+      "SUPER STAR WARS: THE EMPIRE STRIKES BACK",
+      // ALSO
+      // "STAR WARS THE EMPIRE STRIKES BACK"
+      "BLACKTHORNE",
+      "SUPER BOMBERMAN 2",
+      "SUNSET RIDERS",
+      "SPARKSTER",
+      "STUNT RACE FX",
+      "SPIDER-MAN AND VENOM: MAXIMUM CARNAGE",
+      // ALSO
+      // "SPIDER MAN AND VENOM"
+      "SUPER TENNIS",
+      "SUPER STAR WARS",
+      "KILLER INSTINCT",
+      "DEATH AND RETURN OF SUPERMAN",
+      "PILOTWINGS",
+      "FLASHBACK: THE QUEST FOR IDENTITY",
+      // ALSO
+      // "FLASHBACK"
+      "X-MEN: MUTANT APOCALYPSE",
+      "SHADOWRUN",
+      "SOUL BLAZER",
+      "MADDEN NFL '94",
+      "ILLUSION OF GAIA",
+      "POCKY AND ROCKY 2",
+      "ROCK N' ROLL RACING",
+      "JUNGLE STRIKE",
+      "POPULOUS",
+      "OUT OF THIS WORLD",
+      "KIRBY'S AVALANCHE",
+      "MEGA MAN X3",
+      "THE LION KING",
+      "R-TYPE III: THE THIRD LIGHTNING",
+      // ALSO
+      // "R-TYPE III",
+      // "R-TYPE 3"
+      "INTERNATIONAL SUPERSTAR SOCCER",
+      "FATAL FURY 2",
+      "KIRBY'S DREAM LAND 3",
+      "JOE AND MAC 2: LOST IN THE TROPICS",
+      // ALSO
+      // "JOE AND MAC 2",
+      // "JOE & MAC"
+      "ALADDIN",
+      "NHL '94",
+      "DONKEY KONG COUNTRY 3",
+      "EARTHWORM JIM",
+      "ALIEN 3",
+      "AXELAY",
+      "BUST-A-MOVE",
+      "BREATH OF FIRE II",
+      // ALSO
+      // "BREATH OF FIRE 2"
+      "KEN GRIFFEY JR.'S WINNING RUN",
+      // ALSO
+      // "KEN GRIFFEY JRS WINNING RUN"
+      "SUPER GHOULS N' GHOSTS",
+      "YOSHI'S COOKIE",
+      "SUPER BOMBERMAN",
+      "ZOMBIES AT MY NEIGHBORS",
+      "KIRBY SUPER STAR",
+      "HARVEST MOON",
+      "GRADIUS III",
+      "DEMON'S CREST",
+      "BREATH OF FIRE",
+      "EVO: SEARCH FOR EDEN",
+      // ALSO
+      // "EVO SEARCH FOR EDEN",
+      // "EVO"
+      "OGRE BATTLE",
+      "EARTHWORM JIM 2",
+      "TEENAGE MUTANT NINJA TURTLES: TURTLES IN TIME",
+      // ALSO
+      // "TMNT: TURTLES IN TIME",
+      // "TMNT TURTLES IN TIME",
+      // "TURTLES IN TIME"
+      "KIRBY'S DREAM COURSE",
+      "UN SQUADRON",
+      "NBA JAM",
+      "SIM CITY",
+      "LUFIA II",
+      // ALSO
+      // "LUFIA 2"
+      // "LUFIA II: RISE OF THE SINISTRALS",
+      // "LUFIA 2: RISE OF THE SINISTRALS"
+      "METAL WARRIORS",
+      "LEGEND OF THE MYSTICAL NINJA",
+      "MEGA MAN X2",
+      "THE LOST VIKINGS",
+      "WARIO'S WOODS",
+      "DONKEY KONG COUNTRY",
+      "TETRIS AND DR. MARIO",
+      "SUPER STAR WARS: RETURN OF THE JEDI",
+      // ALSO
+      // "STAR WARS: RETURN OF THE JEDI"
+      "MORTAL KOMBAT II",
+      // ALSO
+      // "MORTAL KOMBAT 2"
+      "CONTRA III",
+      // ALSO
+      // "CONTRA 3"
+      "THE MAGICAL QUEST",
+      "MARIO PAINT",
+      "SUPER CASTLEVANIA IV",
+      // ALSO
+      // "CASTLEVANIA IV",
+      // "CASTLEVANIA 4"
+      "SUPER MARIO ALL-STARS",
+      "ACTRAISER",
+      "F-ZERO",
+      "SUPER PUNCH-OUT",
+      "DONKEY KONG COUNTRY 2",
+      "TETRIS ATTACK",
+      "FINAL FANTASY IV",
+      // ALSO
+      // "FINAL FANTASY 4"
+      "EARTHBOUND",
+      "MEGA MAN X",
+      "SECRET OF MANA",
+      "SUPER MARIO RPG",
+      "STAR FOX",
+      "SUPER MARIO KART",
+      "YOSHI'S ISLAND",
+      "SUPER STREET FIGHTER II TURBO",
+      // ALSO
+      // "SUPER STREET FIGHTER 2 TURBO"
+      "SUPER MARIO WORLD",
+      "FINAL FANTASY VI",
+      // ALSO
+      // "FINAL FANTASY 6"
+      "SUPER METROID",
+      "CHRONO TRIGGER",
+      "LEGEND OF ZELDA: LINK TO THE PAST",
+      // ALSO
+      // "ZELDA: LINK TO THE PAST",
+      // "LINK TO THE PAST"
     ]
   }
 
