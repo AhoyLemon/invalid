@@ -162,9 +162,9 @@
   .admin-timer(v-if="round.adminTimer != undefined")
     .label TIME LEFT
     time
-      span.integer {{round.adminTimeleft.toFixed(2).split('.')[0]}}
+      span.integer {{round.adminTimeLeft.toFixed(2).split('.')[0]}}
       | .
-      sup.decimal {{round.adminTimeleft.toFixed(2).split('.')[1]}}
+      sup.decimal {{round.adminTimeLeft.toFixed(2).split('.')[1]}}
 
 
   include _scores.pug

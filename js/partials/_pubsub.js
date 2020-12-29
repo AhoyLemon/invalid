@@ -45,26 +45,22 @@ pubnub.addListener({
 
     if (event.message.type == "updatePasswordChallenge") {
       app.round.challenge = event.message.data.challenge;
-      app.ui.roundOver = false;
       soundNewRule.play();
     }
 
     if (event.message.type == "updatePasswordRules") {
       app.round.rules = event.message.data.rules;
-      app.ui.roundOver = false;
       soundNewRule.play();
     }
 
     if (event.message.type == "updateBugs") {
       app.round.bugs = event.message.data.bugs;
-      app.ui.roundOver = false;
       soundNewRule.play();
     }
 
     if (event.message.type == "startGuessing") {
       app.round.phase = "create password";
       app.round.sysAdminIndex = event.message.data.sysAdminIndex;
-      app.ui.roundOver = false;
       app.roundStartTimer();
       soundStartGuessing.play();
     }
@@ -132,43 +128,31 @@ pubnub.addListener({
         // Time for the final round.
         app.round.phase = "FINAL ROUND";
         app.startCountdownToFinalRound();
+        
       } else {
+
         // Let's do another round.
+        app.round.phase = "choose rules";
+        app.round.number += 1;
+
+        // Who's the SysAdmin?
         let i = app.round.sysAdminIndex + 1;
         if (i >= app.players.length) {
           app.round.sysAdminIndex = 0;
         } else {
           app.round.sysAdminIndex = i;
         }
+        // Okay, define roles.
+        app.players.forEach(function(p,index) {
+          p.role = "employee";
+        });
+        app.players[app.round.sysAdminIndex].role = "SysAdmin";
+        app.my.role = app.players[app.my.playerIndex].role;
+
       }
 
-      // Define roles.
-      app.players.forEach(function(p,index) {
-        p.role = "employee";
-      });
-      app.players[app.round.sysAdminIndex].role = "SysAdmin";
-      app.my.role = app.players[app.my.playerIndex].role;
-
-      app.ui = uiDefaults;
-      // ^- figure out why that doesn't work.
-      app.ui.challengeID = null;
-
-      app.my.rulebux = defaults.rulebux;
-
-      app.round.phase = "choose rules";
-      app.round.number += 1;
-      app.round.possibleChallenges = [];
-      app.round.challenge = {};
-      app.round.rules = [];
-      app.round.bugs = [];
-      app.round.attempts = [];
-      app.round.claimedPasswords = [];
-      app.round.elapsedTime = 0;
-      app.round.crash = {
-        active: false,
-        word: "",
-        player: {}
-      };
+      resetUI();
+      resetRoundVariables();
 
       if (app.my.role == "SysAdmin") {
         app.definePossibleChallenges();
