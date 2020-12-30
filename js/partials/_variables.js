@@ -18,6 +18,10 @@ const defaults = {
 };
 
 const settings = {
+  default: {
+    rulebux: 7,
+    numberOfPossibleChallenges: 5,
+  },
   points: {
     forGoodPassword: 100,
     forFirstPassword: 20,

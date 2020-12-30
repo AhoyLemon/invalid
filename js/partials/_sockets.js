@@ -191,6 +191,7 @@ socket.on("startNewRound", function(msg) {
 
     // If you're the SysAdmin, set up some challenges for you to choose from.
     if (app.my.role == "SysAdmin") {
+      app.my.rulebux = settings.default.rulebux;
       app.definePossibleChallenges();
       document.title = app.my.role + " | " + gameTitle;
     } else {

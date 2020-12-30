@@ -15,7 +15,7 @@ var app = new Vue({
       name: '',
       playerIndex: -1, // This is assigned in updatePlayer()
       role: null,
-      rulebux: defaults.rulebux,
+      rulebux: settings.default.rulebux,
       passwordAttempts: 0,
       score: 0
     },
@@ -232,7 +232,7 @@ var app = new Vue({
       let n = 0;
 
       // Create some possible challenges, based on some rulesets.
-      while (n < defaults.numberOfPossibleChallenges) {
+      while (n < settings.default.numberOfPossibleChallenges) {
         let randomChallenge = randomFrom(challenges);
 
         let appendThisChallenge = true;
