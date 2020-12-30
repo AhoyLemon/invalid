@@ -14,7 +14,8 @@ const defaults = {
   adminTimeLeft: 90,
   employeeMaxTime: 50,
   hackAccountBonus: 40,
-  finalTimeLeft: 60
+  finalTimeLeft: 60,
+  numberOfPossibleChallenges: 3
 };
 
 const myDefaults = {
