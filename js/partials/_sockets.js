@@ -58,6 +58,7 @@ socket.on("updatePasswordChallenge", function(msg) {
 socket.on("updatePasswordRules", function(msg) {
   console.log("I (an employee) am being updated on the password rules.");  
   app.round.rules = msg.rules;
+  app.round.shibboleth = msg.shibboleth;
   soundNewRule.play();
 });
 

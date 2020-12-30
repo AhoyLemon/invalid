@@ -28,6 +28,7 @@ var app = new Vue({
       possibleChallenges: [],
       challenge: {},
       rules: [],
+      shibboleth: "",
       bugs: [],
       attempts: [],
       claimedPasswords: [],
@@ -59,6 +60,7 @@ var app = new Vue({
         focus: false
       },
       challengeID: null,
+      shibboleth: "",
       addBug: '',
       addBugErrors: [],
       passwordAttempt: '',
@@ -267,32 +269,28 @@ var app = new Vue({
         r.type = rule.name;
         r.inputValue = self.ui.currentRule.inputValue.toUpperCase();
         r.message = 'You may not use the letter ' +  r.inputValue;
-      }
-      if (rule.name == "Demand A Letter") {
+      } else if (rule.name == "Demand A Letter") {
         r.type = rule.name;
         r.inputValue = self.ui.currentRule.inputValue.toUpperCase();
         r.message = 'You must use the letter ' +  r.inputValue;
-      }
-
-      if (rule.name == "Set A Maximum") {
+      } else if (rule.name == "Shibboleth") {
+        r.type = rule.name;
+        r.inputValue = self.ui.currentRule.inputValue;
+        r.message = 'Before entering a password, you must type ' +  r.inputValue;
+        self.round.shibboleth = r.inputValue;
+      } else if (rule.name == "Set A Maximum") {
         r.type = rule.name;
         r.inputValue = self.round.averageSize + self.round.maxOffset;
         r.message = self.ui.currentRule.inputValue;
-      }
-
-      if (rule.name == "Set A Minimum") {
+      } else if (rule.name == "Set A Minimum") {
         r.type = rule.name;
         r.inputValue = self.round.averageSize - self.round.minOffset;
         r.message = self.ui.currentRule.inputValue;
-      }
-
-      if (rule.name == "Limit Vowels") {
+      } else if (rule.name == "Limit Vowels") {
         r.type = rule.name;
         r.inputValue = self.round.averageVowels + self.round.vowelOffset;
         r.message = self.ui.currentRule.inputValue;
-      }
-
-      if (rule.name == "Ban A Combo") {
+      } else if (rule.name == "Ban A Combo") {
         r.type = rule.name;
         r.inputValue = self.ui.currentRule.inputValue.toUpperCase();
         r.inputValueTwo = self.ui.currentRule.inputValueTwo.toUpperCase();
@@ -318,7 +316,8 @@ var app = new Vue({
         // Inform the other players.
         socket.emit("updatePasswordRules", {
           roomCode: self.roomCode,
-          rules: self.round.rules
+          rules: self.round.rules,
+          shibboleth: self.round.shibboleth
         });
 
       } else {
@@ -929,6 +928,15 @@ var app = new Vue({
     computedSysAdminIndex() {
       const self = this;
       return self.round.sysAdminIndex;
+    },
+
+    computedShibbolethRequired() {
+      const self = this;
+      if (self.round.shibboleth && (self.ui.shibboleth.toUpperCase() != self.round.shibboleth.toUpperCase())) {
+        return true;
+      } else {
+        return false;
+      }
     },
     computedUnclaimedPasswords() {
       const self = this;

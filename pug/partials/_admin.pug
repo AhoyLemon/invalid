@@ -107,6 +107,21 @@
         input(v-model="ui.currentRule.inputValueTwo" type="text" id="SecondBannedLetter" maxlength="1" minlength="1" required v-touppercase)
       button(type="submit") Set
 
+    form.fieldset-and-button(v-if="ui.currentRule.name == 'Shibboleth'" v-on:submit.prevent="saveRule(ui.currentRule)")
+      fieldset
+        span(style="font-size:16px") Before an employee can type a password
+        select(v-model="ui.currentRule.inputValue" required)
+          option(selected disabled value="") they must first type...
+          option LOVE
+          option SECRET
+          option(v-if="allowNaughty") SEX
+          option SWORDFISH
+          option QWERTY
+          option(v-if="allowNaughty") FUCKTHIS
+          option PASSWORD1
+      button(type="submit") Set
+
+
   .panel.bug-setup(v-if="round.phase == 'add bugs'")
     .first-bug-intro(v-if="!round.bugs")
       h2 Add a bug to the system.

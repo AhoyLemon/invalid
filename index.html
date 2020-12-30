@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-30@11:02:37">
+    <meta http-equiv="last-modified" content="2020-11-30@15:42:13">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -52,6 +52,10 @@
               <div class="button-holder">
                 <button type="submit"> <span v-if="!ui.appliedForJob">Apply For Job</span><span v-if="ui.appliedForJob">Update Resume</span></button>
               </div>
+              <fieldset class="checkbox" v-if="isRoomHost &amp;&amp; ui.appliedForJob &amp;&amp; players.length &gt; 1">
+                <input v-model="allowNaughty" type="checkbox" id="AllowNaughtyChallenges">
+                <label for="AllowNaughtyChallenges" title="Checking this will allow profane and/or sexual challenges, passwords and options to be available">Allow naughty things.</label>
+              </fieldset>
             </form>
             <div class="start-button" v-if="isRoomHost &amp;&amp; ui.appliedForJob &amp;&amp; players.length &gt; 1">
               <button type="button" @click="startTheGame()">Start The Game</button>
@@ -179,6 +183,21 @@
             </fieldset>
             <button type="submit">Set</button>
           </form>
+          <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Shibboleth'" v-on:submit.prevent="saveRule(ui.currentRule)">
+            <fieldset><span style="font-size:16px">Before an employee can type a password</span>
+              <select v-model="ui.currentRule.inputValue" required>
+                <option selected disabled value="">they must first type...</option>
+                <option>LOVE</option>
+                <option>SECRET</option>
+                <option v-if="allowNaughty">SEX</option>
+                <option>SWORDFISH</option>
+                <option>QWERTY</option>
+                <option v-if="allowNaughty">FUCKTHIS</option>
+                <option>PASSWORD1</option>
+              </select>
+            </fieldset>
+            <button type="submit">Set</button>
+          </form>
         </div>
         <div class="panel bug-setup" v-if="round.phase == 'add bugs'">
           <div class="first-bug-intro" v-if="!round.bugs">
@@ -255,15 +274,26 @@
               <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">Passwords are case-insensitive</li>
               <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
             </ul>
-            <form class="password-form" v-if="round.phase == 'create password'" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
-              <fieldset>
-                <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus>
-                <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
-              </fieldset>
-              <div class="button-holder">
-                <button type="submit">Submit</button>
-              </div>
-            </form>
+            <!-- Shibboleth Entry.-->
+            <div v-if="computedShibbolethRequired &amp;&amp; round.phase == 'create password'">
+              <form class="shibboleth-form" @submit.prevent="ui.shibboleth = ''">
+                <fieldset>
+                  <input type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus>
+                  <label for="ShibbolethInput">Type {{round.shibboleth}}<sup class="requred">*</sup></label>
+                </fieldset>
+              </form>
+            </div>
+            <div v-else-if="round.phase == 'create password'">
+              <form class="password-form" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
+                <fieldset>
+                  <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus>
+                  <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
+                </fieldset>
+                <div class="button-holder">
+                  <button type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
             <div class="stand-by" v-if="round.phase != 'create password'">
               <p>Your password rules are still being created by {{computedSysAdminName}}, your friendly and helpful System Administrator. Please stand by.</p>
             </div>
@@ -282,7 +312,8 @@
         </div>
         <div class="inner" v-if="ui.roundOver">
           <h1>This round is over.</h1>
-          <p>Please stand by. All employees will be fired and rehired at a 6.5% salary reduction.</p>
+          <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
+          <p v-else>Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.</p>
         </div>
         <div class="crash-screen" v-if="round.phase == 'crashed'">
           <div class="inside">
@@ -379,7 +410,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2020-11-30@11:02:37"></script>
+      <script src="js/min/site.min.js?updated2020-11-30@15:42:13"></script>
     </div>
   </body>
 </html>

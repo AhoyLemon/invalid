@@ -28,14 +28,22 @@
           span(v-else) There are {{round.bugs.length}} system bugs.
     
 
+      // Shibboleth Entry.
+      div(v-if="computedShibbolethRequired && round.phase == 'create password'")
+        form.shibboleth-form(@submit.prevent="ui.shibboleth = ''")
+          fieldset
+            input(type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus)
+            label(for="ShibbolethInput") Type {{round.shibboleth}}
+              sup.requred *
 
-      form.password-form(v-if="round.phase == 'create password'" @submit.prevent="tryThisPassword(ui.passwordAttempt)")
-        fieldset
-          input(type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus)
-          label(for="PasswordAttempt") Create A Password
-            sup.required *
-        .button-holder
-          button(type="submit") Submit
+      div(v-else-if="round.phase == 'create password'")
+        form.password-form(@submit.prevent="tryThisPassword(ui.passwordAttempt)")
+          fieldset
+            input(type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus)
+            label(for="PasswordAttempt") Create A Password
+              sup.required *
+          .button-holder
+            button(type="submit") Submit
 
       .stand-by(v-if="round.phase != 'create password'")
         p Your password rules are still being created by {{computedSysAdminName}}, your friendly and helpful System Administrator. Please stand by.
@@ -53,7 +61,9 @@
 
   .inner(v-if="ui.roundOver")
     h1 This round is over.
-    p Please stand by. All employees will be fired and rehired at a 6.5% salary reduction.
+
+    p(v-if="round.number == maxRounds") BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.
+    p(v-else) Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.
 
 
   .crash-screen(v-if="round.phase == 'crashed'")

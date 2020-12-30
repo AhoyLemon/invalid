@@ -26,6 +26,7 @@ const roundDefaults = {
   possibleChallenges: [],
   challenge: {},
   rules: [],
+  shibboleth: "",
   bugs: [],
   attempts: [],
   claimedPasswords: [],
@@ -50,6 +51,7 @@ function resetRoundVariables() {
   app.round.possibleChallenges = [];
   app.round.challenge = {};
   app.round.rules = [];
+  app.round.shibboleth = "";
   app.round.bugs = [];
   app.round.attempts = [];
   app.round.claimedPasswords = [];
@@ -64,7 +66,7 @@ function resetRoundVariables() {
   app.round.adminTimeLeft = defaults.adminTimeLeft;
   app.round.finalTimeLeft = defaults.finalTimeLeft;
   app.round.crash.active = false;
-  app.round.crash.word = null;
+  app.round.crash.word = "";
   app.round.crash.player = [];
 }
 
@@ -122,6 +124,10 @@ const rules = [
   },
   {
     name: "Ban A Letter",
+    cost: 3
+  },
+  {
+    name: "Shibboleth",
     cost: 3
   },
   {
