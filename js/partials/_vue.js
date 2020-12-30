@@ -672,23 +672,6 @@ var app = new Vue({
         self.passwordSuccess(attempt);
       } else {
         soundBadGuess.play();
-
-        // TODO: Remove PubNub triedPassword
-        /*
-        pubnub.publish({
-          channel : self.roomCode,
-          message : {
-            type: 'triedPassword',
-            data: {
-              playerIndex: self.my.playerIndex,
-              pwAttempt: attempt,
-              attemptCount: self.my.passwordAttempts,
-              result: "failed"
-            }
-          },
-        });
-        */
-
         socket.emit("triedPassword", {
           roomCode: self.roomCode,
           playerIndex: self.my.playerIndex,
@@ -794,10 +777,10 @@ var app = new Vue({
       const self = this;
       // YOU GOT IT!
       // Let's give you some points
-      self.my.score += 100;
+      self.my.score += settings.points.forGoodPassword;
 
-      if (self.round.claimedPasswords.length < 1) {
-        self.my.score += 20;
+      if (self.round.claimedPasswords.length < 1 && self.players.length > 2) {
+        self.my.score += settings.points.forFirstPassword;
       }
 
       // Let's change the UI to reflect you having won.
@@ -848,6 +831,13 @@ var app = new Vue({
           if (p.name == self.my.name || p.playerIndex == self.my.playerIndex) {
             soundYouIdiot.play();
             pwMatchErrorMessage = "You just hacked into your own account. Did you mean to do that?";
+            self.players[self.my.playerIndex].score += settings.points.forCrackingOwnPassword;
+            self.allEmployeePasswords[i].claimed = self.my.name;
+            socket.emit("passwordCracked", {
+              roomCode: self.roomCode,
+              players: self.players,
+              allEmployeePasswords: self.allEmployeePasswords
+            });
           } else if (p.claimed) {
             soundTooSlow.play();
             passwordClaimed = true;
@@ -868,24 +858,10 @@ var app = new Vue({
       } else if (pwMatch && pwPlayerIndex != -1) {
         soundCracked.play();
         self.ui.passwordSuccessMessage = "The password "+attempt+ " belongs to "+self.players[pwPlayerIndex].name;
-        self.players[self.my.playerIndex].score += defaults.hackAccountBonus;
-        self.players[pwPlayerIndex].score -= defaults.hackAccountBonus;
+        self.players[self.my.playerIndex].score += settings.points.forCrackingPassword;
+        self.players[pwPlayerIndex].score += settings.points.forHavingPasswordCracked;
 
         self.allEmployeePasswords[matchIndex].claimed = self.my.name;
-
-        // TODO: Remove PubNub passwordCracked
-        /*
-        pubnub.publish({
-          channel : self.roomCode,
-          message : {
-            type: 'passwordCracked',
-            data: {
-              players: self.players,
-              allEmployeePasswords: self.allEmployeePasswords
-            }
-          },
-        });
-        */
 
         socket.emit("passwordCracked", {
           roomCode: self.roomCode,
@@ -894,16 +870,6 @@ var app = new Vue({
         });
 
         if (self.computedUnclaimedPasswords < 1) {
-
-          // TODO Remove PubNub gameOver
-          /*
-          pubnub.publish({
-            channel : self.roomCode,
-            message : {
-              type: 'gameOver'
-            }
-          });
-          */
 
           socket.emit("gameOver", {
             roomCode: self.roomCode

@@ -4,7 +4,7 @@ const playerID = randomNumber(1,100);
 const employeeNumberSeed = randomNumber(10000,99999);
 
 
-
+// TODO: Refactor this category into structured settings.
 const defaults = {
   rulebux: 7,
   maxOffset: 2,
@@ -13,15 +13,30 @@ const defaults = {
   hurryTime: 20,
   adminTimeLeft: 90,
   employeeMaxTime: 50,
-  hackAccountBonus: 40,
   finalTimeLeft: 60,
-  numberOfPossibleChallenges: 3
+  numberOfPossibleChallenges: 3,
 };
 
+const settings = {
+  points: {
+    forGoodPassword: 100,
+    forFirstPassword: 20,
+    perSecondPlayed: 1,
+    forFailedPassword: 3,
+    forServerCrash: 100,
+    forCrackingPassword: 40,
+    forHavingPasswordCracked: -40,
+    forCrackingOwnPassword: -50
+  }
+};
+
+// TODO: Remove this object
 const myDefaults = {
   rulebux: 7,
   passwordAttempts: 0
 };
+
+
 
 const roundDefaults = {
   possibleChallenges: [],
@@ -70,34 +85,6 @@ function resetRoundVariables() {
   app.round.crash.word = "";
   app.round.crash.player = [];
 }
-
-/*
-const uiDefaults = {
-  appliedForJob: false,
-  enterCode: {
-    focus: false
-  },
-  
-  challengeID: null,
-  roundOver: false,
-  addBug: null,
-  addBugErrors: [],
-  passwordAttempt: '',
-  passwordAttemptErrors: [],
-  passwordInputError: false,
-  passwordSucceeded: false,
-  currentRule: {
-    editing: false,
-    name: '',
-    cost: 0,
-    inputValue: '',
-    inputValueTwo: ''
-  },
-  enterFinalPasswords: false,
-  passwordSuccessMessage: null
-};
-*/
-
 
 function resetUI() {
   app.ui.appliedForJob = false;

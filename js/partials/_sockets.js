@@ -81,6 +81,10 @@ socket.on("startGuessing", function(msg) {
 socket.on("triedPassword", function(msg) {
   console.log("Someone else had a bad password.");  
   app.round.attempts.push(msg);
+  app.players[app.round.sysAdminIndex].score += settings.points.forFailedPassword;
+  if (app.my.role == "SysAdmin") {
+    app.my.score += settings.points.forFailedPassword;
+  }
 });
 
 // Some player (possibly me, but maybe not) caused a server crash!
@@ -93,12 +97,10 @@ socket.on("crashedServer", function(msg) {
   app.round.crash.player = app.players[i];
   app.round.crash.word = msg.pwAttempt;
   app.round.attempts.push(msg);
-
   soundSystemCrash.play();
-
+  app.players[app.round.sysAdminIndex].score += settings.points.forServerCrash;
   if (app.my.role == "SysAdmin") {
-    app.my.score += 100;
-    app.players[app.my.playerIndex].score += 100;
+    app.my.score += settings.points.forServerCrash;
   }
   app.endTheGuessingRound();
 });
