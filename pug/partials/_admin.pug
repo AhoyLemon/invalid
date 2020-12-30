@@ -17,17 +17,18 @@
           option(v-for="option in round.possibleChallenges" :value="option.id") {{option.name}}
         label Password Challenge
         
-      button(type="submit") Choose
+      //-button(type="submit") Choose
 
   .panel.rules-summary(v-if="ui.challengeID != null && round.phase != 'crashed' && !ui.roundOver")
     ul
       li {{round.challenge.nameAsRule}}
+      li(v-if="round.challenge.hint") {{round.challenge.hint}}
       li.admin-only There are {{round.possibleAnswerCount}} possible
       li.admin-only Average password size is {{round.averageSize}} characters
       li.admin-only There's an average of {{round.averageVowels}} vowels
       li(v-for="(rule,index) in round.rules") {{rule.message}}
       li Passwords are case-insensitive
-      li(v-if="round.bugs && round.bugs.length > 0 ") 
+      li(v-if="round.bugs.length > 0") 
         span(v-if="round.bugs.length == 1") There is a system bug.
         span(v-else) There are {{round.bugs.length}} system bugs.
       li.admin-only(v-for="(bug,index) in round.bugs") {{bug}} will cause a system crash.
@@ -53,7 +54,6 @@
     form.fieldset-and-button(v-if="ui.currentRule.name == 'Demand A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)")
       fieldset
         label(for="DemandTheLetter") Demand the letter
-        //-input(v-model="ui.currentRule.inputValue" id="DemandTheLetter" type="text" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?")
         select.letter(v-model="ui.currentRule.inputValue" id="DemandTheLetter" required)
           option(disabled selected value="") ?
           option(v-for="letter in round.demandableLetters" :value="letter") {{letter}}
@@ -108,7 +108,7 @@
       button(type="submit") Set
 
   .panel.bug-setup(v-if="round.phase == 'add bugs'")
-    .first-bug-intro(v-if="!round.bugs || round.bugs.length < 1")
+    .first-bug-intro(v-if="!round.bugs")
       h2 Add a bug to the system.
       p Enter a word to use as a bug.
       p If a player tries to use that word as a password, the system will crash (and you earn points.)
@@ -117,7 +117,7 @@
         | .
     .additional-bug(v-else-if="my.rulebux > 0")
       p You may add {{my.rulebux}} additional bugs to the system
-    form.fieldset-and-button(v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length < 1 || my.rulebux > 0")
+    form.fieldset-and-button(v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux > 0")
       fieldset 
         label(for="BugPassword") Set a Bug on 
         input(type="text" id="BugPassword" v-model="ui.addBug" v-touppercase  v-focus placeholder="PASSWORD")
@@ -129,28 +129,30 @@
     .button-holder
       button(@click="onboardEmployees()" :disabled="ui.addBug.length > 0") Onboard Employees
   
-  .panel.attempt-console(v-if="round.phase == 'create password'")
+  .panel.attempt-console(v-if="round.phase == 'create password' || round.phase == 'crashed'")
     h3(v-if="round.phase == 'create password'") Employees are trying to enter passwords...
+    .crash-notification(v-if="round.phase == 'crashed'")
+      h2 System Crash!
+      p Congratulations! 
+        strong {{round.crash.player.name}}
+        |  has crashed the system with the password 
+        strong {{round.crash.word}}
+
+      p You have earned 
+        strong 100
+        |  points
     ol
       li(v-for="a in round.attempts" :class="a.result")
         template(v-if="a.result == 'failed'")
           span.name {{players[a.playerIndex].name}}
           |  tried 
           span.pass {{a.pwAttempt}}
-        template(v-else)
+        template(v-else-if="a.result == 'success'")
           span.name {{players[a.playerIndex].name}}
-          |  guessed one correctly!
-
-  .panel.crash-notification(v-if="round.phase == 'crashed'")
-    h2 System Crash!
-    p Congratulations! 
-      strong {{players[1].name}}
-      |  has crashed the system with the password 
-      strong {{round.crash.word}}
-
-    p You have earned 
-      strong 100
-      |  points
+          |  guessed one correctly
+        template(v-else-if="a.result == 'crash'")
+          span.name {{players[a.playerIndex].name}}
+          |  crashed the server!
 
   .panel.round-over(v-if="ui.roundOver")
 

@@ -99,7 +99,7 @@ function resetUI() {
   app.ui.enterCode.focus = false;
   app.ui.challengeID = null;
   app.ui.roundOver =  false;
-  app.ui.addBug = null;
+  app.ui.addBug = "";
   app.ui.addBugErrors = [];
   app.ui.passwordAttempt = null;
   app.ui.passwordInputError = false;

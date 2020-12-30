@@ -135,6 +135,9 @@ var app = new Vue({
     /////////////////////////////////////////////////////////////////////
     // BEFORE GAME (game hasn't started yet)
 
+
+    // TODO: Remove entire PubNub requestPlayers apparatus.
+    /*
     requestPlayers() {
       const self = this;
       if (self.roomCode) {
@@ -147,6 +150,7 @@ var app = new Vue({
         });
       }
     },
+    */
 
     updatePlayer() {
       const self = this;
@@ -221,6 +225,8 @@ var app = new Vue({
         self.maxRounds = self.players.length;
       }
 
+
+      // TODO: Remove PubNub startTheGame
       /*
       pubnub.publish({
         channel : self.roomCode,
@@ -235,14 +241,12 @@ var app = new Vue({
       });
       */
 
-      const d = {
+      socket.emit('startTheGame', {
         roomCode: self.roomCode,
         players: self.players,
         maxRounds: self.maxRounds,
         sysAdminIndex: self.my.playerIndex
-      };
-
-      socket.emit('startTheGame', d);
+      });
 
     },
 
@@ -268,6 +272,8 @@ var app = new Vue({
       self.findAverageVowelCount();
       self.countLettersInEachWord();
       self.startAdminTimer();
+
+      // TODO: Remove PubNub password challenge.
       /*
       pubnub.publish({
         channel : self.roomCode,
@@ -355,7 +361,9 @@ var app = new Vue({
         // Pay for it.
         self.my.rulebux = (self.my.rulebux - rule.cost);
         
-        // Inform the other players.
+        
+        // TODO: Remove pubnub updatePasswordRules
+        /*
         pubnub.publish({
           channel : self.roomCode,
           message : {
@@ -364,6 +372,13 @@ var app = new Vue({
               rules: self.round.rules
             }
           },
+        });
+        */
+
+        // Inform the other players.
+        socket.emit("updatePasswordRules", {
+          roomCode: self.roomCode,
+          rules: self.round.rules
         });
 
       } else {
@@ -418,6 +433,8 @@ var app = new Vue({
       self.round.bugs.push(bug);
 
 
+      // TODO: Remove PubNub updateBugs
+      /*
       pubnub.publish({
         channel : self.roomCode,
         message : {
@@ -427,11 +444,20 @@ var app = new Vue({
           }
         },
       });
+      */
+
+      socket.emit("updateBugs", {
+        roomCode: self.roomCode,
+        bugs: self.round.bugs
+      });
     },
 
     onboardEmployees() {
       const self = this;
       self.resetAdminTimer();
+
+      // TODO: Remove PubNub startGuessing
+      /*
       pubnub.publish({
         channel : self.roomCode,
         message : {
@@ -440,6 +466,12 @@ var app = new Vue({
             sysAdminIndex: self.my.playerIndex
           }
         },
+      });
+      */
+
+      socket.emit("startGuessing", {
+        roomCode: self.roomCode,
+        sysAdminIndex: self.my.playerIndex
       });
     },
 
@@ -502,7 +534,7 @@ var app = new Vue({
     // Countdown to final round.
     startCountdownToFinalRound() {
       const self = this;
-      self.round.hurryTime = (defaults.hurryTime * 3);
+      self.round.hurryTime = (defaults.hurryTime * 2);
       self.round.hurryTimer = setInterval(() => {
         self.round.hurryTime -= 1;
         if (self.round.hurryTime <= 0) {
@@ -520,11 +552,19 @@ var app = new Vue({
       self.round.roundTimer = setInterval(() => {
         self.round.finalTimeLeft -= 1;
         if (self.round.finalTimeLeft <= 0) {
+
+          // TODO: Remove PubNub gameover
+          /*
           pubnub.publish({
             channel : self.roomCode,
             message : {
               type: 'gameOver'
             }
+          });
+          */
+
+          socket.emit("gameOver", {
+            roomCode: self.roomCode
           });
         }
       }, 1001);
@@ -534,13 +574,22 @@ var app = new Vue({
     // EMPLOYEE FUNCTIONS
     endTheGuessingRound() {
       const self = this;
-      self.ui.passwordSucceeded = false;
+      
+      // TODO: Remove pubnub roundover
+      /*
       pubnub.publish({
         channel : self.roomCode,
         message : {
           type: 'roundOver'
         },
       });
+      */
+
+      // TODO: Figure out why this fires for each player, and try to make it only fire once.
+      socket.emit("roundOver", {
+        roomCode: self.roomCode
+      });
+
     },
 
     tryToFailThis(attempt) {
@@ -681,6 +730,9 @@ var app = new Vue({
       
 
       if (crashCheck) {
+
+        // TODO: Remove pubnub crashedServer
+        /*
         pubnub.publish({
           channel : self.roomCode,
           message : {
@@ -693,11 +745,24 @@ var app = new Vue({
             }
           },
         });
+        */
+
+        socket.emit("crashedServer", {
+          roomCode: self.roomCode,
+          playerIndex: self.my.playerIndex,
+          pwAttempt: attempt,
+          attemptCount: self.my.passwordAttempts,
+          result: "crash"
+        });
+
       } else if (correctAnswer) {
         soundCorrectGuess.play();
         self.passwordSuccess(attempt);
       } else {
         soundBadGuess.play();
+
+        // TODO: Remove PubNub triedPassword
+        /*
         pubnub.publish({
           channel : self.roomCode,
           message : {
@@ -710,6 +775,16 @@ var app = new Vue({
             }
           },
         });
+        */
+
+        socket.emit("triedPassword", {
+          roomCode: self.roomCode,
+          playerIndex: self.my.playerIndex,
+          pwAttempt: attempt,
+          attemptCount: self.my.passwordAttempts,
+          result: "failed"
+        });
+
       }
     },
 
@@ -816,6 +891,8 @@ var app = new Vue({
       // Let's change the UI to reflect you having won.
       self.ui.passwordSucceeded = true;
 
+      // TODO: Remove pubnub passwordSuccess
+      /*
       pubnub.publish({
         channel : self.roomCode,
         message : {
@@ -829,10 +906,24 @@ var app = new Vue({
           }
         },
       });
+      */
+
+      socket.emit("passwordSuccess", {
+        roomCode: self.roomCode,
+        playerIndex: self.my.playerIndex,
+        pwAttempt: attempt,
+        attemptCount: self.my.passwordAttempts,
+        playerScore: self.my.score,
+        result: "success"
+      });
+
     },
 
     startNextRoundClicked() {
       const self = this;
+
+      // TODO: Remove pubnub StartnewRound
+      /*
       pubnub.publish({
         channel : self.roomCode,
         message : {
@@ -843,6 +934,14 @@ var app = new Vue({
           }
         },
       });
+      */
+
+      socket.emit("startNewRound", {
+        roomCode: self.roomCode,
+        playerIndex: self.my.playerIndex,
+        players: self.players
+      });
+
     },
 
     ////////////////////////////////////////////////////////////////
@@ -857,7 +956,7 @@ var app = new Vue({
       self.ui.passwordAttemptErrors = [];
       let pwMatch = false;
       let pwMatchErrorMessage = null;
-      let pwPlayerIndex = null;
+      let pwPlayerIndex = -1;
       let passwordClaimed = false;
       let matchIndex = -1;
 
@@ -884,7 +983,7 @@ var app = new Vue({
       } else if (!pwMatch) {
         soundNo.play();
         self.ui.passwordAttemptErrors.push("There is no employee with the password "+attempt);
-      } else if (pwMatch && pwPlayerIndex) {
+      } else if (pwMatch && pwPlayerIndex != -1) {
         soundCracked.play();
         self.ui.passwordSuccessMessage = "The password "+attempt+ " belongs to "+self.players[pwPlayerIndex].name;
         self.players[self.my.playerIndex].score += defaults.hackAccountBonus;
@@ -892,7 +991,8 @@ var app = new Vue({
 
         self.allEmployeePasswords[matchIndex].claimed = self.my.name;
 
-        
+        // TODO: Remove PubNub passwordCracked
+        /*
         pubnub.publish({
           channel : self.roomCode,
           message : {
@@ -903,14 +1003,30 @@ var app = new Vue({
             }
           },
         });
+        */
+
+        socket.emit("passwordCracked", {
+          roomCode: self.roomCode,
+          players: self.players,
+          allEmployeePasswords: self.allEmployeePasswords
+        });
 
         if (self.computedUnclaimedPasswords < 1) {
+
+          // TODO Remove PubNub gameOver
+          /*
           pubnub.publish({
             channel : self.roomCode,
             message : {
               type: 'gameOver'
             }
           });
+          */
+
+          socket.emit("gameOver", {
+            roomCode: self.roomCode
+          });
+
         }
 
       }
@@ -964,11 +1080,8 @@ var app = new Vue({
     if (urlParams.has('room')) {
       self.roomCode = urlParams.get('room');
 
-      // Commented out autojoin stuff while in testing.
+      // TODO: Remove PubNub subscription
       /*
-      self.currentlyInGame = true;
-      self.round.phase = "pregame";
-
       setTimeout(function(){
         pubnub.subscribe({
           channels: [self.roomCode],
