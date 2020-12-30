@@ -37,14 +37,13 @@ socket.on("startTheGame", function(msg) {
   app.round.number = 1;
   app.maxRounds = msg.maxRounds;
   app.round.sysAdminIndex = msg.sysAdminIndex;
+  app.allowNaughty = msg.allowNaughty;
   if (app.my.role == "SysAdmin") {
     app.definePossibleChallenges();
     document.title = app.my.role + " | " + gameTitle;
   } else {
     document.title = app.my.name + " | " + gameTitle;
   }
-
-  
 });
 
 // The SysAdmin has picked a password challenge.

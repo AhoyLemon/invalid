@@ -9,6 +9,7 @@ var app = new Vue({
     rules: rules,
     playerCount: 0,
     maxRounds: 0,
+    allowNaughty: true,
     my: {
       employeeNumber: randomNumber(10000,99999),
       name: '',
@@ -213,19 +214,44 @@ var app = new Vue({
         roomCode: self.roomCode,
         players: self.players,
         maxRounds: self.maxRounds,
-        sysAdminIndex: self.my.playerIndex
+        sysAdminIndex: self.my.playerIndex,
+        allowNaughty: self.allowNaughty
       });
 
     },
 
     ////////////////////////////////////////////////////////////////
     // SysAdmin Methods
-    // This is gonna shuffle & filter the possible categories...
+    //
     definePossibleChallenges() {
       const self = this;
-      let c = shuffle(challenges);
-      c.length = 3;
-      self.round.possibleChallenges = c;
+      self.round.possibleChallenges = [];
+
+      let n = 0;
+
+      // Create some possible challenges, based on some rulesets.
+      while (n < defaults.numberOfPossibleChallenges) {
+        let randomChallenge = randomFrom(challenges);
+
+        let appendThisChallenge = true;
+        if (randomChallenge.naughty && !self.allowNaughty) {
+          // This challenge is too naughty for this game, pick again.
+          appendThisChallenge = false;
+        } else if (self.round.possibleChallenges.length != []) {
+          
+          self.round.possibleChallenges.forEach(function(c) {
+            if (c.id == randomChallenge.id) {
+              // This challenge already exists in your list.
+              appendThisChallenge = false;
+            }
+          });
+        }
+
+        if (appendThisChallenge) {
+          self.round.possibleChallenges.push(randomChallenge);
+          n++;
+        }
+      }
     },
 
     chooseAChallenge() {
@@ -633,22 +659,6 @@ var app = new Vue({
       
 
       if (crashCheck) {
-
-        // TODO: Remove pubnub crashedServer
-        /*
-        pubnub.publish({
-          channel : self.roomCode,
-          message : {
-            type: 'crashedServer',
-            data: {
-              playerIndex: self.my.playerIndex,
-              pwAttempt: attempt,
-              attemptCount: self.my.passwordAttempts,
-              result: "crash"
-            }
-          },
-        });
-        */
 
         socket.emit("crashedServer", {
           roomCode: self.roomCode,
