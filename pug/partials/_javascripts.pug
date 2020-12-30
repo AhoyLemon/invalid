@@ -12,4 +12,10 @@
 
   script(src="js/libraries/howler.min.js")
 
+  script(src="/socket.io/socket.io.js")
+  script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+  script.
+    //var socket = io();
+    var socket = io.connect('http://localhost:3000');
+
   script(src="js/min/site.min.js?updated"+lastUpdated)

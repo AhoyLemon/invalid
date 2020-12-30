@@ -1,12 +1,19 @@
 .pregame { height:99.9vh; display: grid; grid-template-columns: 1fr 160px; font-family: $sans-serif;
 
-  .sign-in { display: flex; align-items: center; }
+  .sign-in { display: flex; align-items: center; justify-content: center; }
   form { width:280px; margin-left: auto; margin-right: auto; display:grid; grid-template-columns: 1fr; gap:10px;
     fieldset { display: block; position: relative;
       input { font-family: inherit; font-size:20px; padding:15px 10px 2px 10px; display: block; width:100%; }
       label { @include position(absolute,2px,null,null,10px); font-size:14px; letter-spacing: 0.1em; font-weight: 700; }
     }
-    button { display: block; width:100%; font-family: inherit; background:$blue; border:1px solid currentColor; font-size:16px; padding:10px; cursor: pointer; }
+    button { display: block; width:100%; font-family: inherit; background:$blue; border:1px solid currentColor; font-size:16px; padding:10px; cursor: pointer;
+      &:hover, &:focus { background: saturate($blue, 15%); }
+    }
+  }
+  .start-button { margin-top: 1em;
+    button { display: block; width:100%; font-family: inherit; background:$red; border:1px solid currentColor; font-size:16px; padding:10px; cursor: pointer;
+      &:hover, &:focus { background: saturate($red, 15%); }
+    }
   }
 
   .players { padding:1rem;
@@ -14,7 +21,7 @@
       &.is-me { background:$black; }
     }
     .number { font-style: italic; }
-    .name { font-size: 1.25em; font-weight: $bold; padding-top:0.25em; padding-left: 0.5em; }
+    .name { font-size: 1.25em; font-weight: $bold; padding-top:0.25em; padding-left: 0.5em; word-break: break-word; }
     .host { @include position(absolute,6px,6px); color:$white;
       svg { width:26px; height: 26px; }
 
@@ -29,4 +36,5 @@
     .inside { max-width: 68ch; }
     h2 { margin-bottom: 1em; }
   }
+  
 }

@@ -1,0 +1,9 @@
+{
+  "name": "the-rules-have-changed",
+  "version": "0.2.1",
+  "description": "A trivia game of unnecessary suffering.",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.0.4"
+  }
+}

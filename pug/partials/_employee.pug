@@ -18,8 +18,11 @@
       p(v-if="round.phase == 'create password'") Create Your Password.
       ul
         li(v-if="round.challenge && round.challenge.nameAsRule") {{round.challenge.nameAsRule}}
+        li(v-if="round.challenge && round.challenge.hint") 
+          strong HINT: 
+          |  {{round.challenge.hint}}
         li(v-for="(rule,index) in round.rules") {{rule.message}}
-        li Passwords are case-insensitive
+        li(v-if="round.challenge && round.challenge.nameAsRule") Passwords are case-insensitive
         li(v-if="round.bugs && round.bugs.length > 0 ") 
           span(v-if="round.bugs.length == 1") There is a system bug.
           span(v-else) There are {{round.bugs.length}} system bugs.

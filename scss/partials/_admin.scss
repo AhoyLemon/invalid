@@ -94,7 +94,7 @@
 
 
 
-.admin-screen { min-height: 99.9vh; display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 120px; 
+.admin-screen { min-height: 99.9vh; display:grid;
 
   form {
     fieldset { position: relative; 
@@ -137,4 +137,15 @@
     }
   }
 
+}
+
+@media (max-width:720px) {
+  .admin-screen { grid-template-columns: 1fr;
+    .scorekeeper { grid-column:unset; }
+  }
+}
+
+@media (min-width:721px) {
+  .admin-screen { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 120px;
+  }
 }

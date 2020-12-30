@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;500&amp;family=Fira+Code:wght@300;600&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
-    <link href="css/site.css" rel="stylesheet">
+    <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-29@10:04:08">
+    <meta http-equiv="last-modified" content="2020-11-29@22:45:28">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -39,22 +39,24 @@
           </div>
         </div>
         <div class="sign-in" v-if="isRoomHost || players.length &gt; 0">
-          <form class="pregame-form" @submit.prevent="updatePlayer()">
-            <fieldset>
-              <input v-model="my.employeeNumber" type="text" readonly disabled>
-              <label>Employee Number</label>
-            </fieldset>
-            <fieldset>
-              <input v-model="my.name" type="text" v-focus>
-              <label>Employee Name</label>
-            </fieldset>
-            <div class="button-holder">
-              <button type="submit"> <span v-if="!ui.appliedForJob">Apply For Job</span><span v-if="ui.appliedForJob">Update Resume</span></button>
-            </div>
+          <div class="inside">
+            <form class="pregame-form" @submit.prevent="updatePlayer()">
+              <fieldset>
+                <input v-model="my.employeeNumber" type="text" readonly disabled>
+                <label>Employee Number</label>
+              </fieldset>
+              <fieldset>
+                <input v-model="my.name" type="text" v-focus maxlength="24">
+                <label>Employee Name</label>
+              </fieldset>
+              <div class="button-holder">
+                <button type="submit"> <span v-if="!ui.appliedForJob">Apply For Job</span><span v-if="ui.appliedForJob">Update Resume</span></button>
+              </div>
+            </form>
             <div class="start-button" v-if="isRoomHost &amp;&amp; ui.appliedForJob &amp;&amp; players.length &gt; 1">
-              <button @click="startTheGame()">Start The Game</button>
+              <button type="button" @click="startTheGame()">Start The Game</button>
             </div>
-          </form>
+          </div>
         </div>
         <div class="players">
           <div class="player" v-for="player in players" :class="{ 'is-me' : (my.employeeNumber == player.employeeNumber), 'is-host': player.isRoomHost }">
@@ -86,18 +88,18 @@
               </select>
               <label>Password Challenge</label>
             </fieldset>
-            <button type="submit">Choose</button>
           </form>
         </div>
         <div class="panel rules-summary" v-if="ui.challengeID != null &amp;&amp; round.phase != 'crashed' &amp;&amp; !ui.roundOver">
           <ul>
             <li>{{round.challenge.nameAsRule}}</li>
+            <li v-if="round.challenge.hint">{{round.challenge.hint}}</li>
             <li class="admin-only">There are {{round.possibleAnswerCount}} possible</li>
             <li class="admin-only">Average password size is {{round.averageSize}} characters</li>
             <li class="admin-only">There's an average of {{round.averageVowels}} vowels</li>
             <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
             <li>Passwords are case-insensitive</li>
-            <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
+            <li v-if="round.bugs.length &gt; 0"> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
             <li class="admin-only" v-for="(bug,index) in round.bugs">{{bug}} will cause a system crash.</li>
           </ul>
           <p class="admin-only">Info in this color is for admin eyes only.</p>
@@ -179,7 +181,7 @@
           </form>
         </div>
         <div class="panel bug-setup" v-if="round.phase == 'add bugs'">
-          <div class="first-bug-intro" v-if="!round.bugs || round.bugs.length &lt; 1">
+          <div class="first-bug-intro" v-if="!round.bugs">
             <h2>Add a bug to the system.</h2>
             <p>Enter a word to use as a bug.</p>
             <p>If a player tries to use that word as a password, the system will crash (and you earn points.)</p>
@@ -188,7 +190,7 @@
           <div class="additional-bug" v-else-if="my.rulebux &gt; 0">
             <p>You may add {{my.rulebux}} additional bugs to the system</p>
           </div>
-          <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length &lt; 1 || my.rulebux &gt; 0">
+          <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux &gt; 0">
             <fieldset> 
               <label for="BugPassword">Set a Bug on </label>
               <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase v-focus placeholder="PASSWORD">
@@ -202,19 +204,20 @@
             <button @click="onboardEmployees()" :disabled="ui.addBug.length &gt; 0">Onboard Employees</button>
           </div>
         </div>
-        <div class="panel attempt-console" v-if="round.phase == 'create password'">
+        <div class="panel attempt-console" v-if="round.phase == 'create password' || round.phase == 'crashed'">
           <h3 v-if="round.phase == 'create password'">Employees are trying to enter passwords...</h3>
+          <div class="crash-notification" v-if="round.phase == 'crashed'">
+            <h2>System Crash!</h2>
+            <p>Congratulations! <strong>{{round.crash.player.name}}</strong> has crashed the system with the password <strong>{{round.crash.word}}</strong></p>
+            <p>You have earned <strong>100</strong> points</p>
+          </div>
           <ol>
             <li v-for="a in round.attempts" :class="a.result">
               <template v-if="a.result == 'failed'"><span class="name">{{players[a.playerIndex].name}}</span> tried <span class="pass">{{a.pwAttempt}}</span></template>
-              <template v-else><span class="name">{{players[a.playerIndex].name}}</span> guessed one correctly!</template>
+              <template v-else-if="a.result == 'success'"><span class="name">{{players[a.playerIndex].name}}</span> guessed one correctly</template>
+              <template v-else-if="a.result == 'crash'"><span class="name">{{players[a.playerIndex].name}}</span> crashed the server!</template>
             </li>
           </ol>
-        </div>
-        <div class="panel crash-notification" v-if="round.phase == 'crashed'">
-          <h2>System Crash!</h2>
-          <p>Congratulations! <strong>{{players[1].name}}</strong> has crashed the system with the password <strong>{{round.crash.word}}</strong></p>
-          <p>You have earned <strong>100</strong> points</p>
         </div>
         <div class="panel round-over" v-if="ui.roundOver">
           <h2>This round is over.</h2>
@@ -247,8 +250,9 @@
             <p v-if="round.phase == 'create password'">Create Your Password.</p>
             <ul>
               <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">{{round.challenge.nameAsRule}}</li>
+              <li v-if="round.challenge &amp;&amp; round.challenge.hint"> <strong>HINT: </strong> {{round.challenge.hint}}</li>
               <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
-              <li>Passwords are case-insensitive</li>
+              <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">Passwords are case-insensitive</li>
               <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
             </ul>
             <form class="password-form" v-if="round.phase == 'create password'" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
@@ -368,7 +372,14 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
       <script src="js/libraries/howler.min.js"></script>
-      <script src="js/min/site.min.js?updated2020-11-29@10:04:08"></script>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script>
+        //var socket = io();
+        var socket = io.connect('http://localhost:3000');
+        
+      </script>
+      <script src="js/min/site.min.js?updated2020-11-29@22:45:28"></script>
     </div>
   </body>
 </html>
