@@ -127,30 +127,11 @@ var app = new Vue({
       url.searchParams.set('room', self.roomCode);
       window.history.pushState({}, '', url);
 
-
-
     },
 
 
     /////////////////////////////////////////////////////////////////////
     // BEFORE GAME (game hasn't started yet)
-
-
-    // TODO: Remove entire PubNub requestPlayers apparatus.
-    /*
-    requestPlayers() {
-      const self = this;
-      if (self.roomCode) {
-        pubnub.publish({
-          channel : self.roomCode,
-          message : {
-            type: 'requestPlayers',
-            data: {}
-          }
-        });
-      }
-    },
-    */
 
     updatePlayer() {
       const self = this;
@@ -158,6 +139,7 @@ var app = new Vue({
       self.ui.appliedForJob = true;
       //Is this a new player or a player update
       let newPlayer = true;
+
       const p = {
         name: self.my.name,
         employeeNumber: self.my.employeeNumber,
@@ -184,6 +166,8 @@ var app = new Vue({
           self.my.playerIndex = index;
         }
       });
+      document.title =  self.my.name + " | " + gameTitle;
+
       if (self.my.playerIndex < 0) {
         alert('could not get a player index. this is a bug. this should not happen.');
       }
@@ -224,22 +208,6 @@ var app = new Vue({
       } else {
         self.maxRounds = self.players.length;
       }
-
-
-      // TODO: Remove PubNub startTheGame
-      /*
-      pubnub.publish({
-        channel : self.roomCode,
-        message : {
-          type: 'startTheGame',
-          data: {
-            players: self.players,
-            maxRounds: self.maxRounds,
-            sysAdminIndex: self.my.playerIndex
-          }
-        }
-      });
-      */
 
       socket.emit('startTheGame', {
         roomCode: self.roomCode,

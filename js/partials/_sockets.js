@@ -39,7 +39,12 @@ socket.on("startTheGame", function(msg) {
   app.round.sysAdminIndex = msg.sysAdminIndex;
   if (app.my.role == "SysAdmin") {
     app.definePossibleChallenges();
+    document.title = app.my.role + " | " + gameTitle;
+  } else {
+    document.title = app.my.name + " | " + gameTitle;
   }
+
+  
 });
 
 // The SysAdmin has picked a password challenge.
@@ -181,9 +186,12 @@ socket.on("startNewRound", function(msg) {
     resetUI();
     resetRoundVariables();
 
-    // If your the SysAdmin, set up some challenges for you to choose from.
+    // If you're the SysAdmin, set up some challenges for you to choose from.
     if (app.my.role == "SysAdmin") {
       app.definePossibleChallenges();
+      document.title = app.my.role + " | " + gameTitle;
+    } else {
+      document.title = app.my.name + " | " + gameTitle;
     }
 
   }

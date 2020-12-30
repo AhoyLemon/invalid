@@ -48,6 +48,7 @@ const challenges = [
     id: 2,
     name: "Bob's Burgers",
     nameAsRule: "Your password must be the first name of a Bob's Burgers character",
+    hint: "Looking for recurring character with wikia pages",
     failedMessage: "[PASS] is not a Bob's Burgers character",
     possible: [
       "Mike",
@@ -402,6 +403,7 @@ const challenges = [
     id: 10,
     name: "World Languages",
     nameAsRule: "Your password must be an Official Language of any country",
+    hint: "Primary, secondary, and tertiary languages counted",
     failedMessage: "[PASS] is not a language recognized by any country.",
     possible: [
       "ABKHAZ",
@@ -2627,7 +2629,7 @@ const challenges = [
   
   {
     id: 37,
-    name: "Gravity Falls Characters",
+    name: "Gravity Falls",
     nameAsRule: "Your password needs to be a character from Gravity Falls.",
     failedMessage: "[PASS] isn't quite right. Try again.",
     possible: [
