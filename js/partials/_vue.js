@@ -222,12 +222,36 @@ var app = new Vue({
 
     ////////////////////////////////////////////////////////////////
     // SysAdmin Methods
-    // This is gonna shuffle & filter the possible categories...
+    //
     definePossibleChallenges() {
       const self = this;
-      let c = shuffle(challenges);
-      c.length = 3;
-      self.round.possibleChallenges = c;
+      self.round.possibleChallenges = [];
+
+      let n = 0;
+
+      // Create some possible challenges, based on some rulesets.
+      while (n < defaults.numberOfPossibleChallenges) {
+        let randomChallenge = randomFrom(challenges);
+
+        let appendThisChallenge = true;
+        if (randomChallenge.naughty && !self.allowNaughty) {
+          // This challenge is too naughty for this game, pick again.
+          appendThisChallenge = false;
+        } else if (self.round.possibleChallenges.length != []) {
+          
+          self.round.possibleChallenges.forEach(function(c) {
+            if (c.id == randomChallenge.id) {
+              // This challenge already exists in your list.
+              appendThisChallenge = false;
+            }
+          });
+        }
+
+        if (appendThisChallenge) {
+          self.round.possibleChallenges.push(randomChallenge);
+          n++;
+        }
+      }
     },
 
     chooseAChallenge() {
