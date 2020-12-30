@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-30@15:42:59">
+    <meta http-equiv="last-modified" content="2020-11-30@15:52:06">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -46,7 +46,7 @@
                 <label>Employee Number</label>
               </fieldset>
               <fieldset>
-                <input v-model="my.name" type="text" v-focus maxlength="24">
+                <input v-model="my.name" type="text" v-focus maxlength="24" required>
                 <label>Employee Name</label>
               </fieldset>
               <div class="button-holder">
@@ -415,7 +415,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2020-11-30@15:42:59"></script>
+      <script src="js/min/site.min.js?updated2020-11-30@15:52:06"></script>
     </div>
   </body>
 </html>
