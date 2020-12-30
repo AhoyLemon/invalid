@@ -241,24 +241,10 @@ var app = new Vue({
       self.countLettersInEachWord();
       self.startAdminTimer();
 
-      // TODO: Remove PubNub password challenge.
-      /*
-      pubnub.publish({
-        channel : self.roomCode,
-        message : {
-          type: 'updatePasswordChallenge',
-          data: {
-            challenge: self.round.challenge
-          }
-        },
-      });
-      */
-
       socket.emit("updatePasswordChallenge", {
         roomCode: self.roomCode,
         challenge: self.round.challenge
       });
-
 
     },
 
@@ -328,20 +314,6 @@ var app = new Vue({
       if (self.round.possibleAnswerCount >= self.players.length) {
         // Pay for it.
         self.my.rulebux = (self.my.rulebux - rule.cost);
-        
-        
-        // TODO: Remove pubnub updatePasswordRules
-        /*
-        pubnub.publish({
-          channel : self.roomCode,
-          message : {
-            type: 'updatePasswordRules',
-            data: {
-              rules: self.round.rules
-            }
-          },
-        });
-        */
 
         // Inform the other players.
         socket.emit("updatePasswordRules", {
@@ -400,20 +372,6 @@ var app = new Vue({
       self.ui.addBug = '';
       self.round.bugs.push(bug);
 
-
-      // TODO: Remove PubNub updateBugs
-      /*
-      pubnub.publish({
-        channel : self.roomCode,
-        message : {
-          type: 'updateBugs',
-          data: {
-            bugs: self.round.bugs
-          }
-        },
-      });
-      */
-
       socket.emit("updateBugs", {
         roomCode: self.roomCode,
         bugs: self.round.bugs
@@ -423,19 +381,6 @@ var app = new Vue({
     onboardEmployees() {
       const self = this;
       self.resetAdminTimer();
-
-      // TODO: Remove PubNub startGuessing
-      /*
-      pubnub.publish({
-        channel : self.roomCode,
-        message : {
-          type: 'startGuessing',
-          data: {
-            sysAdminIndex: self.my.playerIndex
-          }
-        },
-      });
-      */
 
       socket.emit("startGuessing", {
         roomCode: self.roomCode,
@@ -520,17 +465,6 @@ var app = new Vue({
       self.round.roundTimer = setInterval(() => {
         self.round.finalTimeLeft -= 1;
         if (self.round.finalTimeLeft <= 0) {
-
-          // TODO: Remove PubNub gameover
-          /*
-          pubnub.publish({
-            channel : self.roomCode,
-            message : {
-              type: 'gameOver'
-            }
-          });
-          */
-
           socket.emit("gameOver", {
             roomCode: self.roomCode
           });
@@ -542,18 +476,8 @@ var app = new Vue({
     // EMPLOYEE FUNCTIONS
     endTheGuessingRound() {
       const self = this;
-      
-      // TODO: Remove pubnub roundover
-      /*
-      pubnub.publish({
-        channel : self.roomCode,
-        message : {
-          type: 'roundOver'
-        },
-      });
-      */
 
-      // TODO: Figure out why this fires for each player, and try to make it only fire once.
+      // BUG: Figure out why this fires for each player, and try to make it only fire once.
       socket.emit("roundOver", {
         roomCode: self.roomCode
       });
@@ -641,11 +565,22 @@ var app = new Vue({
 
     tryToFindDuplicatePassword(attempt) {
       const self = this;
+      attempt = attempt.toUpperCase();
+      /*
       if (self.round.claimedPasswords.includes(attempt)) {
         return true;
       } else {
         return false;
       }
+      */
+
+      let foundDupe = false;
+      self.round.claimedPasswords.forEach(function(claimedPW) {
+        if (attempt.replace(/[^0-9a-z]/gi, '') == claimedPW.toUpperCase().replace(/[^0-9a-z]/gi, '')) {
+          foundDupe = true;
+        }
+      });
+      return foundDupe;
     },
 
     tryToFind(attempt) {
@@ -654,7 +589,7 @@ var app = new Vue({
 
       let foundOne = false;
       self.round.challenge.possible.forEach(function(possibility) {
-        if (attempt.toUpperCase() == possibility.toUpperCase()) {
+        if (attempt.replace(/[^0-9a-z]/gi, '') == possibility.toUpperCase().replace(/[^0-9a-z]/gi, '')) {
           foundOne = true;
         }
       });
@@ -859,23 +794,6 @@ var app = new Vue({
       // Let's change the UI to reflect you having won.
       self.ui.passwordSucceeded = true;
 
-      // TODO: Remove pubnub passwordSuccess
-      /*
-      pubnub.publish({
-        channel : self.roomCode,
-        message : {
-          type: 'passwordSuccess',
-          data: {
-            playerIndex: self.my.playerIndex,
-            pwAttempt: attempt,
-            attemptCount: self.my.passwordAttempts,
-            playerScore: self.my.score,
-            result: "success"
-          }
-        },
-      });
-      */
-
       socket.emit("passwordSuccess", {
         roomCode: self.roomCode,
         playerIndex: self.my.playerIndex,
@@ -889,20 +807,6 @@ var app = new Vue({
 
     startNextRoundClicked() {
       const self = this;
-
-      // TODO: Remove pubnub StartnewRound
-      /*
-      pubnub.publish({
-        channel : self.roomCode,
-        message : {
-          type: 'startNewRound',
-          data: {
-            playerIndex: self.my.playerIndex,
-            players: self.players
-          }
-        },
-      });
-      */
 
       socket.emit("startNewRound", {
         roomCode: self.roomCode,
@@ -929,7 +833,8 @@ var app = new Vue({
       let matchIndex = -1;
 
       self.allEmployeePasswords.forEach(function(p, i) {
-        if (p.pw == attempt) {
+
+        if (p.pw.replace(/[^0-9a-z]/gi, '') == attempt.replace(/[^0-9a-z]/gi, '')) {
           pwMatch = true;
           if (p.name == self.my.name || p.playerIndex == self.my.playerIndex) {
             soundYouIdiot.play();

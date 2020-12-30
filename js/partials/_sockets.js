@@ -158,6 +158,7 @@ socket.on("startNewRound", function(msg) {
     // Then do FINAL ROUND stuff.
     app.round.phase = "FINAL ROUND";
     app.startCountdownToFinalRound();
+    document.title = "FINAL ROUND | " +gameTitle;
     
   } else {
 
