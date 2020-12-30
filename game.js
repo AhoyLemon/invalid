@@ -58,7 +58,8 @@ io.on('connection', (socket) => {
     io.in(msg.roomCode).emit('startTheGame', {
       players: msg.players,
       maxRounds: msg.maxRounds,
-      sysAdminIndex: msg.sysAdminIndex
+      sysAdminIndex: msg.sysAdminIndex,
+      allowNaughty: msg.allowNaughty
     });
     console.table(msg.players);
   });

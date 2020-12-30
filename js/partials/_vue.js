@@ -9,6 +9,7 @@ var app = new Vue({
     rules: rules,
     playerCount: 0,
     maxRounds: 0,
+    allowNaughty: true,
     my: {
       employeeNumber: randomNumber(10000,99999),
       name: '',
@@ -213,7 +214,8 @@ var app = new Vue({
         roomCode: self.roomCode,
         players: self.players,
         maxRounds: self.maxRounds,
-        sysAdminIndex: self.my.playerIndex
+        sysAdminIndex: self.my.playerIndex,
+        allowNaughty: self.allowNaughty
       });
 
     },
@@ -633,22 +635,6 @@ var app = new Vue({
       
 
       if (crashCheck) {
-
-        // TODO: Remove pubnub crashedServer
-        /*
-        pubnub.publish({
-          channel : self.roomCode,
-          message : {
-            type: 'crashedServer',
-            data: {
-              playerIndex: self.my.playerIndex,
-              pwAttempt: attempt,
-              attemptCount: self.my.passwordAttempts,
-              result: "crash"
-            }
-          },
-        });
-        */
 
         socket.emit("crashedServer", {
           roomCode: self.roomCode,

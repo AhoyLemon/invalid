@@ -24,6 +24,10 @@
           button(type="submit") 
             span(v-if="!ui.appliedForJob") Apply For Job
             span(v-if="ui.appliedForJob") Update Resume
+
+        fieldset.checkbox(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
+          input(v-model="allowNaughty" type="checkbox" id="AllowNaughtyChallenges")
+          label(for="AllowNaughtyChallenges" title="Checking this will allow adult challenges & passwords to be selected") Naughty Challenges
             
       .start-button(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
         button(type="button" @click="startTheGame()") Start The Game

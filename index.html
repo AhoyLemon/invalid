@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-30@11:02:37">
+    <meta http-equiv="last-modified" content="2020-11-30@12:08:26">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -52,6 +52,10 @@
               <div class="button-holder">
                 <button type="submit"> <span v-if="!ui.appliedForJob">Apply For Job</span><span v-if="ui.appliedForJob">Update Resume</span></button>
               </div>
+              <fieldset class="checkbox" v-if="isRoomHost &amp;&amp; ui.appliedForJob &amp;&amp; players.length &gt; 1">
+                <input v-model="allowNaughty" type="checkbox" id="AllowNaughtyChallenges">
+                <label for="AllowNaughtyChallenges" title="Checking this will allow adult challenges &amp; passwords to be selected">Naughty Challenges</label>
+              </fieldset>
             </form>
             <div class="start-button" v-if="isRoomHost &amp;&amp; ui.appliedForJob &amp;&amp; players.length &gt; 1">
               <button type="button" @click="startTheGame()">Start The Game</button>
@@ -221,7 +225,12 @@
         </div>
         <div class="panel round-over" v-if="ui.roundOver">
           <h2>This round is over.</h2>
-          <p>You have been fired for no particular reason.</p>
+          <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
+          <div v-else>
+            <p>Middle management is unsatisfied with the passwords provided. A new SysAdmin will be named.</p>
+            <p>BigCorp thanks you for your service! 🙂</p>
+            <p>Now clean out your desk immediately.</p>
+          </div>
           <p>
             <button type="button" @click="startNextRoundClicked()">Start Next Round</button>
           </p>
@@ -282,7 +291,8 @@
         </div>
         <div class="inner" v-if="ui.roundOver">
           <h1>This round is over.</h1>
-          <p>Please stand by. All employees will be fired and rehired at a 6.5% salary reduction.</p>
+          <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
+          <p v-else>Your passwords have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.</p>
         </div>
         <div class="crash-screen" v-if="round.phase == 'crashed'">
           <div class="inside">
@@ -379,7 +389,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2020-11-30@11:02:37"></script>
+      <script src="js/min/site.min.js?updated2020-11-30@12:08:26"></script>
     </div>
   </body>
 </html>
