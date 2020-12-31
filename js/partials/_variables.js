@@ -31,6 +31,10 @@ const settings = {
     forCrackingPassword: 40,
     forHavingPasswordCracked: -40,
     forCrackingOwnPassword: -50
+  },
+  timer: {
+    countdownToFinal: 20,
+    finalRound: 600
   }
 };
 

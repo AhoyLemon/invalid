@@ -55,6 +55,7 @@ var app = new Vue({
       }
     },
     allEmployeePasswords: [],
+    allPlayedRounds: [],
     ui: {
       appliedForJob: false,
       enterCode: {
@@ -472,7 +473,7 @@ var app = new Vue({
     // Countdown to final round.
     startCountdownToFinalRound() {
       const self = this;
-      self.round.hurryTime = (defaults.hurryTime * 2);
+      self.round.hurryTime = settings.timer.countdownToFinal;
       self.round.hurryTimer = setInterval(() => {
         self.round.hurryTime -= 1;
         if (self.round.hurryTime <= 0) {
@@ -486,7 +487,7 @@ var app = new Vue({
 
     startFinalRoundCounter() {
       const self = this;
-      self.round.finalTimeLeft = defaults.finalTimeLeft;
+      self.round.finalTimeLeft = settings.timer.finalRound;
       self.round.roundTimer = setInterval(() => {
         self.round.finalTimeLeft -= 1;
         if (self.round.finalTimeLeft <= 0) {
@@ -799,6 +800,7 @@ var app = new Vue({
 
     startNextRoundClicked() {
       const self = this;
+      self.allPlayedRounds.push(self.round.challenge.name);
 
       socket.emit("startNewRound", {
         roomCode: self.roomCode,
@@ -949,10 +951,8 @@ var app = new Vue({
     }
 
 
-    // FAKE EMPLOYEE.
-    
-    
-    /*
+    /////////////////////////////////////////////
+    // FAKE A PLAYER IN THE FINAL ROUND.
     self.my.role = "employee";
     self.my.name = "Lemon";
     self.my.playerIndex = 1;
@@ -967,13 +967,20 @@ var app = new Vue({
     self.allEmployeePasswords = [
       { pw: "SCORPION", name: "Carlos", playerIndex:0, claimed: false },
       { pw: "RAIDEN", name: "Pablo", playerIndex:2, claimed: false },
-      { pw: "GORO", name: "Carlos", playerIndex:0, claimed: false },
+      { pw: "GORO", name: "Lemon", playerIndex:1, claimed: false },
       { pw: "MILEENA", name: "Pablo", playerIndex:2, claimed: false },
-      { pw: "KITANA", name: "Carlos", playerIndex:0, claimed: false },
+      { pw: "KITANA", name: "Lemon", playerIndex:1, claimed: false },
       { pw: "KANO", name: "Pablo", playerIndex:2, claimed: false },
     ];
+    self.allPlayedRounds = [
+      "Top 100 SNES Games",
+      "Human Organs",
+      "Classic Board Games",
+      "Periodic Table of Elements",
+      "Types of Cookies",
+      "Types of Cheese"
+    ];
     self.startCountdownToFinalRound();
-    */
     
     //self.ui.passwordSucceded = true;
     //self.ui.roundOver = true;

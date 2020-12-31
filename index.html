@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-30@17:09:39">
+    <meta http-equiv="last-modified" content="2020-11-30@22:16:02">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -392,6 +392,12 @@ EMpoyeeNAME:         {{round.crash.player.name}}
             <p>There are {{computedUnclaimedPasswords}} unclaimed passwords in the system.</p>
           </template>
         </div>
+        <div class="round-reminder" :class="{'visible': (round.hurryTime &lt;= 10)}">
+          <h3>Played rounds...</h3>
+          <ol>
+            <li v-for="round in allPlayedRounds">{{round}}</li>
+          </ol>
+        </div>
         <div class="timer final-timer" v-if="round.roundTimer != undefined">
           <time>{{round.finalTimeLeft}}</time>
         </div>
@@ -415,7 +421,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2020-11-30@17:09:39"></script>
+      <script src="js/min/site.min.js?updated2020-11-30@22:16:02"></script>
     </div>
   </body>
 </html>

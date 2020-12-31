@@ -148,6 +148,7 @@ socket.on("startNewRound", function(msg) {
   console.log("new round started.");
 
   app.players = msg.players;
+  app.allPlayedRounds = msg.allPlayedRounds;
   
   // Hey, what round is it? Is it time for the final round?
   if (app.round.number >= app.maxRounds) {

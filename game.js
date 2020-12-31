@@ -144,7 +144,8 @@ io.on('connection', (socket) => {
     console.log(msg.roomCode+' - new round started');
     io.in(msg.roomCode).emit("startNewRound", {
       playerIndex: msg.playerIndex,
-      players: msg.players
+      players: msg.players,
+      allPlayedRounds: msg.allPlayedRounds
     });
   });
 
