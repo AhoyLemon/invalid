@@ -9,62 +9,74 @@
     .round-number ROUND {{round.number}} / {{maxRounds}}
     .attempts
       span(v-if="my.passwordAttempts > 0") {{my.passwordAttempts}} tries
-    .score SCORE: {{my.score}}
+    .score SCORE: {{players[my.playerIndex].score}}
 
-  .inner(v-if="!ui.roundOver")
 
-    //- You haven't entered a successful password yet.
-    .content(v-if="!ui.passwordSucceeded")
-      p(v-if="round.phase == 'create password'") Create Your Password.
-      ul
-        li(v-if="round.challenge && round.challenge.nameAsRule") {{round.challenge.nameAsRule}}
-        li(v-if="round.challenge && round.challenge.hint") 
-          strong HINT: 
-          |  {{round.challenge.hint}}
-        li(v-for="(rule,index) in round.rules") {{rule.message}}
-        li(v-if="round.challenge && round.challenge.nameAsRule") Passwords are case-insensitive
-        li(v-if="round.bugs && round.bugs.length > 0 ") 
-          span(v-if="round.bugs.length == 1") There is a system bug.
-          span(v-else) There are {{round.bugs.length}} system bugs.
+  .interface
+    .inner(v-if="!ui.roundOver")
+
+      //- You haven't entered a successful password yet.
+      .content(v-if="!ui.passwordSucceeded")
+        p(v-if="round.phase == 'create password'") Create Your Password.
+        ul
+          li(v-if="round.challenge && round.challenge.nameAsRule") {{round.challenge.nameAsRule}}
+          li(v-if="round.challenge && round.challenge.hint") 
+            strong HINT: 
+            |  {{round.challenge.hint}}
+          li(v-for="(rule,index) in round.rules") {{rule.message}}
+          li(v-if="round.challenge && round.challenge.nameAsRule") Passwords are case-insensitive
+          li(v-if="round.bugs && round.bugs.length > 0 ") 
+            span(v-if="round.bugs.length == 1") There is a system bug.
+            span(v-else) There are {{round.bugs.length}} system bugs.
+      
+
+        // Shibboleth Entry.
+        div(v-if="computedShibbolethRequired && round.phase == 'create password'")
+          form.shibboleth-form(@submit.prevent="ui.shibboleth = ''")
+            fieldset
+              input(type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus)
+              label(for="ShibbolethInput") Type {{round.shibboleth}}
+                sup.requred *
+
+        div(v-else-if="round.phase == 'create password'")
+          form.password-form(@submit.prevent="tryThisPassword(ui.passwordAttempt)")
+            fieldset
+              input(type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" required v-touppercase v-focus)
+              label(for="PasswordAttempt") Create A Password
+                sup.required *
+            .button-holder
+              button(type="submit") Submit
+
+        .stand-by(v-if="round.phase != 'create password'")
+          p Your password rules are still being created by {{computedSysAdminName}}, your friendly and helpful System Administrator. Please stand by.
+
+        .password-errors(v-if="ui.passwordAttemptErrors && ui.passwordAttemptErrors.length > 0")
+          .error(v-if="ui.passwordAttemptErrors.length == 1") {{ui.passwordAttemptErrors[0]}}
+          ul(v-if="ui.passwordAttemptErrors.length > 1")
+            li.error(v-for="(err,index) in ui.passwordAttemptErrors") {{err}}
     
+      //- You've entered a password and it was successful
+      .content(v-if="ui.passwordSucceeded")
+        h1 SUCCESS!
+        p You've set a password.
+        p Please stand by while your coworkers try to do the same.
 
-      // Shibboleth Entry.
-      div(v-if="computedShibbolethRequired && round.phase == 'create password'")
-        form.shibboleth-form(@submit.prevent="ui.shibboleth = ''")
-          fieldset
-            input(type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus)
-            label(for="ShibbolethInput") Type {{round.shibboleth}}
-              sup.requred *
+    .inner(v-if="ui.roundOver")
+      h1 This round is over.
 
-      div(v-else-if="round.phase == 'create password'")
-        form.password-form(@submit.prevent="tryThisPassword(ui.passwordAttempt)")
-          fieldset
-            input(type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus)
-            label(for="PasswordAttempt") Create A Password
-              sup.required *
-          .button-holder
-            button(type="submit") Submit
+      p(v-if="round.number == maxRounds") BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.
+      p(v-else) Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.
 
-      .stand-by(v-if="round.phase != 'create password'")
-        p Your password rules are still being created by {{computedSysAdminName}}, your friendly and helpful System Administrator. Please stand by.
+  include _scores.pug
 
-      .password-errors(v-if="ui.passwordAttemptErrors && ui.passwordAttemptErrors.length > 0")
-        .error(v-if="ui.passwordAttemptErrors.length == 1") {{ui.passwordAttemptErrors[0]}}
-        ul(v-if="ui.passwordAttemptErrors.length > 1")
-          li.error(v-for="(err,index) in ui.passwordAttemptErrors") {{err}}
-  
-    //- You've entered a password and it was successful
-    .content(v-if="ui.passwordSucceeded")
-      h1 SUCCESS!
-      p You've set a password.
-      p Please stand by while your coworkers try to do the same.
-
-  .inner(v-if="ui.roundOver")
-    h1 This round is over.
-
-    p(v-if="round.number == maxRounds") BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.
-    p(v-else) Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.
-
+  .hurry-timer(v-if="round.hurryTimer != undefined")
+    .time-left(v-if="round.hurryTime >= 10")
+      span.integer.double-digit {{parseInt(round.hurryTime)}}
+    .time-left(v-else-if="round.hurryTime < 10")
+      span.integer {{round.hurryTime.toFixed(1).split('.')[0]}}
+      | .
+      sup.decimal {{round.hurryTime.toFixed(1).split('.')[1]}}
+    .label(v-if="!ui.passwordSucceded") Hurry Up
 
   .crash-screen(v-if="round.phase == 'crashed'")
     .inside
@@ -109,16 +121,3 @@
         strong Version Information:
         br
         code BigCorp Framework Version 4.00.1134.Release5-Final--Version2.TestBuild-5
-
-  .hurry-timer(v-if="round.hurryTimer != undefined")
-    .time-left(v-if="round.hurryTime >= 10")
-      span.integer.double-digit {{parseInt(round.hurryTime)}}
-    .time-left(v-else-if="round.hurryTime < 10")
-      span.integer {{round.hurryTime.toFixed(1).split('.')[0]}}
-      | .
-      sup.decimal {{round.hurryTime.toFixed(1).split('.')[1]}}
-    .label(v-if="!ui.passwordSucceded") Hurry Up
-
-
-  include _scores.pug
-

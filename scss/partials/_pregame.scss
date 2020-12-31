@@ -1,4 +1,4 @@
-.pregame { height:99.9vh; display: grid; grid-template-columns: 1fr 160px; font-family: $sans-serif;
+.pregame { height:99.9vh; font-family: $sans-serif; padding:$padding;
 
   .sign-in { display: flex; align-items: center; justify-content: center; }
   form { width:280px; margin-left: auto; margin-right: auto; display:grid; grid-template-columns: 1fr; gap:10px;
@@ -20,19 +20,18 @@
     }
   }
 
-  .players { padding:1rem;
+  .players {
     .player { display:block; padding:1rem; margin-bottom: 1rem; background:rgba($black,0.75); color:$white; box-shadow: -6px 6px 6px rgba(0,0,0,0.15); position: relative;
       &.is-me { background:$black; }
     }
     .number { font-style: italic; }
-    .name { font-size: 1.25em; font-weight: $bold; padding-top:0.25em; padding-left: 0.5em; word-break: break-word; }
+    .name { text-transform: uppercase; letter-spacing: 0.1em; word-break: break-word; margin-top:0.5em; font-size: 130%;  }
     .host { @include position(absolute,6px,6px); color:$white;
       svg { width:26px; height: 26px; }
-
     }
   }
 
-  .room-code { @include position(fixed,20px,null,null,20px); text-align: center;
+  .room-code { text-align: center;
     .display { font-weight: 700; font-size:325%; }
   }
 
@@ -41,4 +40,10 @@
     h2 { margin-bottom: 1em; }
   }
   
+}
+
+@media (min-width:721px) {
+  .pregame { display: grid; grid-template-columns: $scorebard-width 1fr $scorebard-width;  gap:$gap;
+    
+  }
 }

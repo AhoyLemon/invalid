@@ -55,6 +55,7 @@ var app = new Vue({
       }
     },
     allEmployeePasswords: [],
+    allPlayedRounds: [],
     ui: {
       appliedForJob: false,
       enterCode: {
@@ -472,7 +473,7 @@ var app = new Vue({
     // Countdown to final round.
     startCountdownToFinalRound() {
       const self = this;
-      self.round.hurryTime = (defaults.hurryTime * 2);
+      self.round.hurryTime = settings.timer.countdownToFinal;
       self.round.hurryTimer = setInterval(() => {
         self.round.hurryTime -= 1;
         if (self.round.hurryTime <= 0) {
@@ -486,7 +487,7 @@ var app = new Vue({
 
     startFinalRoundCounter() {
       const self = this;
-      self.round.finalTimeLeft = defaults.finalTimeLeft;
+      self.round.finalTimeLeft = settings.timer.finalRound;
       self.round.roundTimer = setInterval(() => {
         self.round.finalTimeLeft -= 1;
         if (self.round.finalTimeLeft <= 0) {
@@ -654,8 +655,8 @@ var app = new Vue({
 
       // Deal with the results of the attempt.
       self.my.passwordAttempts++;
-      self.ui.passwordAttempt = '';
-      
+      self.ui.passwordAttempt = "";
+      self.ui.shibboleth = "";
 
       if (crashCheck) {
 
@@ -799,6 +800,7 @@ var app = new Vue({
 
     startNextRoundClicked() {
       const self = this;
+      self.allPlayedRounds.push(self.round.challenge.name);
 
       socket.emit("startNewRound", {
         roomCode: self.roomCode,
@@ -948,10 +950,27 @@ var app = new Vue({
       */
     }
 
+    /////////////////////////////////////////////
+    // FAKE A SYSADMIN
+    /*
+    self.my.role = "SysAdmin";
+    self.my.name = "Lemon";
+    self.my.playerIndex = 0;
+    self.currentlyInGame = true;
+    self.round.number = 1;
+    self.players = [
+      { name: "Lemon", role:"employee", employeeNumber:1, score:0  },
+      { name: "Carlos", role:"SysAdmin", employeeNumber:2, score:0  },
+      { name: "Pablo", role:"employee", employeeNumber:3, score:0  }
+    ];
+    self.maxRounds = 6;
+    self.round.phase = "choose rules";
+    self.definePossibleChallenges();
+    */
 
-    // FAKE EMPLOYEE.
-    
-    
+
+    /////////////////////////////////////////////
+    // FAKE A PLAYER IN THE FINAL ROUND.
     /*
     self.my.role = "employee";
     self.my.name = "Lemon";
@@ -967,17 +986,21 @@ var app = new Vue({
     self.allEmployeePasswords = [
       { pw: "SCORPION", name: "Carlos", playerIndex:0, claimed: false },
       { pw: "RAIDEN", name: "Pablo", playerIndex:2, claimed: false },
-      { pw: "GORO", name: "Carlos", playerIndex:0, claimed: false },
+      { pw: "GORO", name: "Lemon", playerIndex:1, claimed: false },
       { pw: "MILEENA", name: "Pablo", playerIndex:2, claimed: false },
-      { pw: "KITANA", name: "Carlos", playerIndex:0, claimed: false },
+      { pw: "KITANA", name: "Lemon", playerIndex:1, claimed: false },
       { pw: "KANO", name: "Pablo", playerIndex:2, claimed: false },
+    ];
+    self.allPlayedRounds = [
+      "Top 100 SNES Games",
+      "Human Organs",
+      "Classic Board Games",
+      "Periodic Table of Elements",
+      "Types of Cookies",
+      "Types of Cheese"
     ];
     self.startCountdownToFinalRound();
     */
-    
-    //self.ui.passwordSucceded = true;
-    //self.ui.roundOver = true;
-    //self.startHurryTimer();
 
 
   },

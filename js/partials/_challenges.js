@@ -1236,9 +1236,9 @@ const challenges = [
 
   {
     id: 22,
-    name: "Parts of the Human Body",
+    name: "Human Organs",
     nameAsRule: "Your password must be an organ in the human body.",
-    failedMessage: "[PASS] might be found in your body, but can't be found in the normal human.",
+    failedMessage: "[PASS] is not an organ in the human body.",
     possible: [
       "SKELETON",
       "TEETH",
@@ -1736,7 +1736,7 @@ const challenges = [
 
   {
     id: 27,
-    name: "Modern and Post-Modern Western Architectural Styles",
+    name: "Modern Architecture",
     nameAsRule: "Your password must be the name of a Modern or Post-Modern Western architectural style or school.",
     failedMessage: "[PASS] is not a style or school used in Western architecture.",
     possible: [

@@ -30,6 +30,11 @@
       
       p There are {{computedUnclaimedPasswords}} unclaimed passwords in the system.
 
+  .round-reminder(:class="{'visible': (round.hurryTime <= 10)}")
+    h3 Played rounds...
+    ol
+      li(v-for="round in allPlayedRounds") {{round}}
+
   .timer.final-timer(v-if="round.roundTimer != undefined")
     time {{round.finalTimeLeft}}
 

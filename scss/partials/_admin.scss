@@ -1,4 +1,6 @@
-.admin-screen { background:$black; color:$white; padding:$gap; padding-top:($gap * 2); font-family: $monospace; display:grid; grid-template-columns: 1fr; gap:$gap; position: relative; overflow-y: auto;
+// TODO: The Admin stylesheet is a MESS. Clean it up.
+
+.admin-screen { background:$black; color:$white; padding:$gap; padding-top:($gap * 2); font-family: $monospace; display:grid; gap:$gap; position: relative; overflow-y: auto;
 
   .top-info { background: $adminPanelColor; @include position(absolute,0,0,null,0); border-bottom: 1px solid rgba(255,255,255,0.15);
     padding:10px $gap; display:grid; grid-template-columns: repeat(5,1fr);
@@ -8,8 +10,7 @@
     &[disabled]:not(.active) { color:rgba($white,0.65); border-color:rgba($white,0.65); }
     &:hover:not([disabled]) { border-color:$green; color:$green; }
   }
-
-
+  
   .panel { border:1px solid rgba(255,255,255,0.15); padding:$padding; background:$adminPanelColor; box-shadow: 10px 10px 10px rgba(0,0,0,0.1); }
 
   .rules-panel {
@@ -125,6 +126,19 @@
 }
 
 @media (min-width:721px) {
-  .admin-screen { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 120px;
+  .admin-screen { grid-template-columns: 1fr $scorebard-width;
+
+    .panels { 
+      .panel { margin-bottom: 1em; }
+    }
+
+    .scorekeeper { grid-column: 2; 
+      .player { border: 1px solid currentColor; padding:$padding; margin-bottom: 1em; 
+        .name { text-transform: uppercase; letter-spacing: 0.1em;}
+        .score { font-size:220%; }
+        color:rgba(255,255,255,0.65); background:rgba(0,0,0,0.2);
+        &.you { color:rgba(255,255,255,1); background:rgba(0,0,0,0.6); }
+      }
+    }
   }
 }
