@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-30@22:16:02">
+    <meta http-equiv="last-modified" content="2020-11-30@23:32:54">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -40,6 +40,7 @@
         </div>
         <div class="sign-in" v-if="isRoomHost || players.length &gt; 0">
           <div class="inside">
+            <h1>Welcome to BigCorp</h1>
             <form class="pregame-form" @submit.prevent="updatePlayer()">
               <fieldset>
                 <input v-model="my.employeeNumber" type="text" readonly disabled>
@@ -80,175 +81,174 @@
           <div class="job">SysAdmin</div>
           <div class="rulebux">{{my.rulebux}}<sup>ƒ</sup></div>
           <div class="round-number">ROUND {{round.number}} / {{maxRounds}}</div>
-          <div class="score">SCORE: {{my.score}}</div>
+          <div class="score">SCORE: {{players[my.playerIndex].score}}</div>
         </div>
-        <div class="panel challenge-select" v-if="ui.challengeID == null">
-          <p>First, select your password challenge.</p>
-          <form @submit.prevent="chooseAChallenge()">
-            <fieldset>
-              <select v-model="ui.challengeID" @change="chooseAChallenge()">
-                <option disabled selected></option>
-                <option v-for="option in round.possibleChallenges" :value="option.id">{{option.name}}</option>
-              </select>
-              <label>Password Challenge</label>
-            </fieldset>
-          </form>
-        </div>
-        <div class="panel rules-summary" v-if="ui.challengeID != null &amp;&amp; round.phase != 'crashed' &amp;&amp; !ui.roundOver">
-          <ul>
-            <li>{{round.challenge.nameAsRule}}</li>
-            <li v-if="round.challenge.hint">{{round.challenge.hint}}</li>
-            <li class="admin-only">There are {{round.possibleAnswerCount}} possible</li>
-            <li class="admin-only">Average password size is {{round.averageSize}} characters</li>
-            <li class="admin-only">There's an average of {{round.averageVowels}} vowels</li>
-            <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
-            <li>Passwords are case-insensitive</li>
-            <li v-if="round.bugs.length &gt; 0"> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
-            <li class="admin-only" v-for="(bug,index) in round.bugs">{{bug}} will cause a system crash.</li>
-          </ul>
-          <p class="admin-only">Info in this color is for admin eyes only.</p>
-        </div>
-        <div class="panel rules-panel" v-if="ui.challengeID != null &amp;&amp; round.phase == 'choose rules'">
-          <h2>Add a Password Rule</h2>
-          <p>You have <span class="rulebux">{{my.rulebux}}<sup>ƒ</sup></span> to spend</p>
-          <div class="rules">
-            <!--button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")-->
-            <button class="rule" v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost &gt; my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost &gt; my.rulebux)">
-              <div class="name">{{rule.name}}</div>
-              <div class="cost">{{rule.cost}}<sup>ƒ</sup></div>
-            </button>
-            <button class="finished" type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing">FINISH RULES</button>
+        <div class="panels">
+          <div class="panel challenge-select" v-if="ui.challengeID == null">
+            <p>First, select your password challenge.</p>
+            <form @submit.prevent="chooseAChallenge()">
+              <fieldset>
+                <select v-model="ui.challengeID" @change="chooseAChallenge()">
+                  <option disabled selected></option>
+                  <option v-for="option in round.possibleChallenges" :value="option.id">{{option.name}}</option>
+                </select>
+                <label>Password Challenge</label>
+              </fieldset>
+            </form>
           </div>
-        </div>
-        <div class="panel rule-details" v-if="ui.currentRule.editing &amp;&amp; (round.phase == 'choose rules')">
-          <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Demand A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)">
-            <fieldset>
-              <label for="DemandTheLetter">Demand the letter</label>
-              <select class="letter" v-model="ui.currentRule.inputValue" id="DemandTheLetter" required>
-                <option disabled selected value="">?</option>
-                <option v-for="letter in round.demandableLetters" :value="letter">{{letter}}</option>
-              </select>
-            </fieldset>
-            <button type="submit">Set</button>
-          </form>
-          <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Ban A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)">
-            <fieldset>
-              <label for="BanTheLetter">Ban the letter</label>
-              <input v-model="ui.currentRule.inputValue" type="text" id="BanTheLetter" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?">
-            </fieldset>
-            <button type="submit">Set</button>
-          </form>
-          <form class="select-and-button" v-if="ui.currentRule.name == 'Set A Maximum'" v-on:submit.prevent="saveRule(ui.currentRule)" v-focus>
-            <select v-model="ui.currentRule.inputValue" required>
-              <option selected disabled value="">How would you like to phrase this rule?</option>
-              <option>Your password cannot exceed {{(round.averageSize + round.maxOffset)}} characters</option>
-              <option>Your password must be less than {{(round.averageSize + round.maxOffset + 1)}} characters</option>
-              <option>Password must be {{(round.averageSize + round.maxOffset)}} characters in length or less</option>
-              <option>Password can be a maximum of {{(round.averageSize + round.maxOffset)}} characters</option>
-              <option>Password can not be {{(round.averageSize + round.maxOffset + 1)}} characters or more.</option>
-              <option>Password must not exceed {{(round.averageSize + round.maxOffset)}} characters.</option>
-            </select>
-            <button type="submit">Set</button>
-          </form>
-          <form class="select-and-button" v-if="ui.currentRule.name == 'Set A Minimum'" v-on:submit.prevent="saveRule(ui.currentRule)" v-focus>
-            <select v-model="ui.currentRule.inputValue" required>
-              <option selected disabled value="">How would you like to phrase this rule?</option>
-              <option>Your password must be at least {{(round.averageSize - round.minOffset)}} characters long</option>
-              <option>Your password must be more than {{(round.averageSize - round.minOffset - 1)}} characters</option>
-              <option>Password must be {{(round.averageSize - round.minOffset)}} characters or more</option>
-              <option>Password minimum is {{(round.averageSize - round.minOffset)}}</option>
-              <option>Password must exceed {{(round.averageSize - round.minOffset - 1)}} characters</option>
-              <option>Your password must contain {{(round.averageSize - round.minOffset - 1)}} characters or more</option>
-            </select>
-            <button type="submit">Set</button>
-          </form>
-          <form class="select-and-button" v-if="ui.currentRule.name == 'Limit Vowels'" v-on:submit.prevent="saveRule(ui.currentRule)" v-focus>
-            <select v-model="ui.currentRule.inputValue" required>
-              <option selected disabled value="">How would you like to phrase this rule?</option>
-              <option>Your password cannot exceed {{(round.averageVowels + round.vowelOffset)}} vowels</option>
-              <option>Your password must have less than {{(round.averageVowels + round.vowelOffset + 1)}} vowels</option>
-              <option>Vowels in your password are limited to {{(round.averageVowels + round.vowelOffset)}}</option>
-              <option>Password vowels cannot exceed {{(round.averageVowels + round.vowelOffset)}}</option>
-              <option>Your password may not contain {{(round.averageVowels + round.vowelOffset + 1)}} vowels or more</option>
-              <option>The vowel count in your password must be less than {{(round.averageVowels + round.vowelOffset + 1)}}</option>
-            </select>
-            <button type="submit">Set</button>
-          </form>
-          <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Ban A Combo'" v-on:submit.prevent="saveRule(ui.currentRule)">
-            <fieldset>
-              <label for="FirstBannedLetter">Ban The Letter </label>
-              <input v-model="ui.currentRule.inputValue" type="text" id="FirstBannedLetter" maxlength="1" minlength="1" required v-touppercase v-focus>
-              <label for="SecondBannedLetter">from being used with </label>
-              <input v-model="ui.currentRule.inputValueTwo" type="text" id="SecondBannedLetter" maxlength="1" minlength="1" required v-touppercase>
-            </fieldset>
-            <button type="submit">Set</button>
-          </form>
-          <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Shibboleth'" v-on:submit.prevent="saveRule(ui.currentRule)">
-            <fieldset><span style="font-size:16px">Before an employee can type a password</span>
+          <div class="panel rules-summary" v-if="ui.challengeID != null &amp;&amp; round.phase != 'crashed' &amp;&amp; !ui.roundOver">
+            <ul>
+              <li>{{round.challenge.nameAsRule}}</li>
+              <li v-if="round.challenge.hint">{{round.challenge.hint}}</li>
+              <li class="admin-only">There are {{round.possibleAnswerCount}} possible</li>
+              <li class="admin-only">Average password size is {{round.averageSize}} characters</li>
+              <li class="admin-only">There's an average of {{round.averageVowels}} vowels</li>
+              <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
+              <li>Passwords are case-insensitive</li>
+              <li v-if="round.bugs.length &gt; 0"> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
+              <li class="admin-only" v-for="(bug,index) in round.bugs">{{bug}} will cause a system crash.</li>
+            </ul>
+            <p class="admin-only">Info in this color is for admin eyes only.</p>
+          </div>
+          <div class="panel rules-panel" v-if="ui.challengeID != null &amp;&amp; round.phase == 'choose rules'">
+            <h2>Add a Password Rule</h2>
+            <p>You have <span class="rulebux">{{my.rulebux}}<sup>ƒ</sup></span> to spend</p>
+            <div class="rules">
+              <!--button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")-->
+              <button class="rule" v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost &gt; my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost &gt; my.rulebux)">
+                <div class="name">{{rule.name}}</div>
+                <div class="cost">{{rule.cost}}<sup>ƒ</sup></div>
+              </button>
+              <button class="finished" type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing">FINISH RULES</button>
+            </div>
+          </div>
+          <div class="panel rule-details" v-if="ui.currentRule.editing &amp;&amp; (round.phase == 'choose rules')">
+            <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Demand A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)">
+              <fieldset>
+                <label for="DemandTheLetter">Demand the letter</label>
+                <select class="letter" v-model="ui.currentRule.inputValue" id="DemandTheLetter" required>
+                  <option disabled selected value="">?</option>
+                  <option v-for="letter in round.demandableLetters" :value="letter">{{letter}}</option>
+                </select>
+              </fieldset>
+              <button type="submit">Set</button>
+            </form>
+            <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Ban A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)">
+              <fieldset>
+                <label for="BanTheLetter">Ban the letter</label>
+                <input v-model="ui.currentRule.inputValue" type="text" id="BanTheLetter" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?">
+              </fieldset>
+              <button type="submit">Set</button>
+            </form>
+            <form class="select-and-button" v-if="ui.currentRule.name == 'Set A Maximum'" v-on:submit.prevent="saveRule(ui.currentRule)" v-focus>
               <select v-model="ui.currentRule.inputValue" required>
-                <option selected disabled value="">they must first type...</option>
-                <option>LOVE</option>
-                <option>SECRET</option>
-                <option v-if="allowNaughty">SEX</option>
-                <option>SWORDFISH</option>
-                <option>QWERTY</option>
-                <option v-if="allowNaughty">FUCKTHIS</option>
-                <option>PASSWORD1</option>
+                <option selected disabled value="">How would you like to phrase this rule?</option>
+                <option>Your password cannot exceed {{(round.averageSize + round.maxOffset)}} characters</option>
+                <option>Your password must be less than {{(round.averageSize + round.maxOffset + 1)}} characters</option>
+                <option>Password must be {{(round.averageSize + round.maxOffset)}} characters in length or less</option>
+                <option>Password can be a maximum of {{(round.averageSize + round.maxOffset)}} characters</option>
+                <option>Password can not be {{(round.averageSize + round.maxOffset + 1)}} characters or more.</option>
+                <option>Password must not exceed {{(round.averageSize + round.maxOffset)}} characters.</option>
               </select>
-            </fieldset>
-            <button type="submit">Set</button>
-          </form>
-        </div>
-        <div class="panel bug-setup" v-if="round.phase == 'add bugs'">
-          <div class="first-bug-intro" v-if="!round.bugs">
-            <h2>Add a bug to the system.</h2>
-            <p>Enter a word to use as a bug.</p>
-            <p>If a player tries to use that word as a password, the system will crash (and you earn points.)</p>
-            <p v-if="my.rulebux &lt; 1">FYI, next time you're SysAdmin, you can buy additional bugs for 1<sup>ƒ</sup>.</p>
+              <button type="submit">Set</button>
+            </form>
+            <form class="select-and-button" v-if="ui.currentRule.name == 'Set A Minimum'" v-on:submit.prevent="saveRule(ui.currentRule)" v-focus>
+              <select v-model="ui.currentRule.inputValue" required>
+                <option selected disabled value="">How would you like to phrase this rule?</option>
+                <option>Your password must be at least {{(round.averageSize - round.minOffset)}} characters long</option>
+                <option>Your password must be more than {{(round.averageSize - round.minOffset - 1)}} characters</option>
+                <option>Password must be {{(round.averageSize - round.minOffset)}} characters or more</option>
+                <option>Password minimum is {{(round.averageSize - round.minOffset)}}</option>
+                <option>Password must exceed {{(round.averageSize - round.minOffset - 1)}} characters</option>
+                <option>Your password must contain {{(round.averageSize - round.minOffset - 1)}} characters or more</option>
+              </select>
+              <button type="submit">Set</button>
+            </form>
+            <form class="select-and-button" v-if="ui.currentRule.name == 'Limit Vowels'" v-on:submit.prevent="saveRule(ui.currentRule)" v-focus>
+              <select v-model="ui.currentRule.inputValue" required>
+                <option selected disabled value="">How would you like to phrase this rule?</option>
+                <option>Your password cannot exceed {{(round.averageVowels + round.vowelOffset)}} vowels</option>
+                <option>Your password must have less than {{(round.averageVowels + round.vowelOffset + 1)}} vowels</option>
+                <option>Vowels in your password are limited to {{(round.averageVowels + round.vowelOffset)}}</option>
+                <option>Password vowels cannot exceed {{(round.averageVowels + round.vowelOffset)}}</option>
+                <option>Your password may not contain {{(round.averageVowels + round.vowelOffset + 1)}} vowels or more</option>
+                <option>The vowel count in your password must be less than {{(round.averageVowels + round.vowelOffset + 1)}}</option>
+              </select>
+              <button type="submit">Set</button>
+            </form>
+            <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Ban A Combo'" v-on:submit.prevent="saveRule(ui.currentRule)">
+              <fieldset>
+                <label for="FirstBannedLetter">Ban The Letter </label>
+                <input v-model="ui.currentRule.inputValue" type="text" id="FirstBannedLetter" maxlength="1" minlength="1" required v-touppercase v-focus>
+                <label for="SecondBannedLetter">from being used with </label>
+                <input v-model="ui.currentRule.inputValueTwo" type="text" id="SecondBannedLetter" maxlength="1" minlength="1" required v-touppercase>
+              </fieldset>
+              <button type="submit">Set</button>
+            </form>
+            <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Shibboleth'" v-on:submit.prevent="saveRule(ui.currentRule)">
+              <fieldset><span style="font-size:16px">Before an employee can type a password</span>
+                <select v-model="ui.currentRule.inputValue" required>
+                  <option selected disabled value="">they must first type...</option>
+                  <option>LOVE</option>
+                  <option>SECRET</option>
+                  <option v-if="allowNaughty">SEX</option>
+                  <option>SWORDFISH</option>
+                  <option>QWERTY</option>
+                  <option v-if="allowNaughty">FUCKTHIS</option>
+                  <option>PASSWORD1</option>
+                </select>
+              </fieldset>
+              <button type="submit">Set</button>
+            </form>
           </div>
-          <div class="additional-bug" v-else-if="my.rulebux &gt; 0">
-            <p>You may add {{my.rulebux}} additional bugs to the system</p>
+          <div class="panel bug-setup" v-if="round.phase == 'add bugs'">
+            <div class="first-bug-intro" v-if="!round.bugs">
+              <h2>Add a bug to the system.</h2>
+              <p>Enter a word to use as a bug.</p>
+              <p>If a player tries to use that word as a password, the system will crash (and you earn points.)</p>
+              <p v-if="my.rulebux &lt; 1">FYI, next time you're SysAdmin, you can buy additional bugs for 1<sup>ƒ</sup>.</p>
+            </div>
+            <div class="additional-bug" v-else-if="my.rulebux &gt; 0">
+              <p>You may add {{my.rulebux}} additional bugs to the system</p>
+            </div>
+            <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux &gt; 0">
+              <fieldset> 
+                <label for="BugPassword">Set a Bug on </label>
+                <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase v-focus placeholder="PASSWORD">
+              </fieldset>
+              <button type="Submit">Set</button>
+            </form>
           </div>
-          <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux &gt; 0">
-            <fieldset> 
-              <label for="BugPassword">Set a Bug on </label>
-              <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase v-focus placeholder="PASSWORD">
-            </fieldset>
-            <button type="Submit">Set</button>
-          </form>
-          <ul class="bug-errors" v-if="ui.addBugErrors">
-            <li v-for="(e,index) in ui.addBugErrors">{{e}}</li>
-          </ul>
-          <div class="button-holder">
-            <button @click="onboardEmployees()" :disabled="ui.addBug.length &gt; 0">Onboard Employees</button>
+          <div class="panel onboard-button" v-if="round.phase == 'add bugs' &amp;&amp; !ui.addBug">
+            <button @click="onboardEmployees()">Onboard Employees</button>
           </div>
-        </div>
-        <div class="panel attempt-console" v-if="round.phase == 'create password' || round.phase == 'crashed'">
-          <h3 v-if="round.phase == 'create password'">Employees are trying to enter passwords...</h3>
-          <div class="crash-notification" v-if="round.phase == 'crashed'">
-            <h2>System Crash!</h2>
-            <p>Congratulations! <strong>{{round.crash.player.name}}</strong> has crashed the system with the password <strong>{{round.crash.word}}</strong></p>
-            <p>You have earned <strong>100</strong> points</p>
+          <div class="panel attempt-console" v-if="round.phase == 'create password' || round.phase == 'crashed'">
+            <h3 v-if="round.phase == 'create password'">Employees are trying to enter passwords...</h3>
+            <div class="crash-notification" v-if="round.phase == 'crashed'">
+              <h2>System Crash!</h2>
+              <p>Congratulations! <strong>{{round.crash.player.name}}</strong> has crashed the system with the password <strong>{{round.crash.word}}</strong></p>
+              <p>You have earned <strong>100</strong> points</p>
+            </div>
+            <ol>
+              <li v-for="a in round.attempts" :class="a.result">
+                <template v-if="a.result == 'failed'"><span class="name">{{players[a.playerIndex].name}}</span> tried <span class="pass">{{a.pwAttempt}}</span></template>
+                <template v-else-if="a.result == 'success'"><span class="name">{{players[a.playerIndex].name}}</span> guessed one correctly</template>
+                <template v-else-if="a.result == 'crash'"><span class="name">{{players[a.playerIndex].name}}</span> crashed the server!</template>
+              </li>
+            </ol>
           </div>
-          <ol>
-            <li v-for="a in round.attempts" :class="a.result">
-              <template v-if="a.result == 'failed'"><span class="name">{{players[a.playerIndex].name}}</span> tried <span class="pass">{{a.pwAttempt}}</span></template>
-              <template v-else-if="a.result == 'success'"><span class="name">{{players[a.playerIndex].name}}</span> guessed one correctly</template>
-              <template v-else-if="a.result == 'crash'"><span class="name">{{players[a.playerIndex].name}}</span> crashed the server!</template>
-            </li>
-          </ol>
-        </div>
-        <div class="panel round-over" v-if="ui.roundOver">
-          <h2>This round is over.</h2>
-          <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
-          <div v-else>
-            <p>Middle management is unsatisfied with the passwords provided. A new SysAdmin will be named.</p>
-            <p>BigCorp thanks you for your service! 🙂</p>
-            <p>Now clean out your desk immediately.</p>
+          <div class="panel round-over" v-if="ui.roundOver">
+            <h2>This round is over.</h2>
+            <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
+            <div v-else>
+              <p>Middle management is unsatisfied with the passwords provided. A new SysAdmin will be named.</p>
+              <p>BigCorp thanks you for your service! 🙂</p>
+              <p>Now clean out your desk immediately.</p>
+            </div>
+            <p>
+              <button type="button" @click="startNextRoundClicked()">Start Next Round</button>
+            </p>
           </div>
-          <p>
-            <button type="button" @click="startNextRoundClicked()">Start Next Round</button>
-          </p>
         </div>
         <div class="admin-timer" v-if="round.adminTimer != undefined">
           <div class="label">TIME LEFT</div>
@@ -256,6 +256,11 @@
         </div>
         <div class="scorekeeper" :player-count="players.length">
           <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
+            <div class="admin-icon" v-if="index == round.sysAdminIndex">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
+              </svg>
+            </div>
             <div class="name">{{player.name}}</div>
             <div class="score">{{player.score}}</div>
           </div>
@@ -267,58 +272,76 @@
           <div class="job"> <span>Employee </span><sup>#</sup><span>{{my.employeeNumber}}</span></div>
           <div class="round-number">ROUND {{round.number}} / {{maxRounds}}</div>
           <div class="attempts"><span v-if="my.passwordAttempts &gt; 0">{{my.passwordAttempts}} tries</span></div>
-          <div class="score">SCORE: {{my.score}}</div>
+          <div class="score">SCORE: {{players[my.playerIndex].score}}</div>
         </div>
-        <div class="inner" v-if="!ui.roundOver">
-          <div class="content" v-if="!ui.passwordSucceeded">
-            <p v-if="round.phase == 'create password'">Create Your Password.</p>
-            <ul>
-              <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">{{round.challenge.nameAsRule}}</li>
-              <li v-if="round.challenge &amp;&amp; round.challenge.hint"> <strong>HINT: </strong> {{round.challenge.hint}}</li>
-              <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
-              <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">Passwords are case-insensitive</li>
-              <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
-            </ul>
-            <!-- Shibboleth Entry.-->
-            <div v-if="computedShibbolethRequired &amp;&amp; round.phase == 'create password'">
-              <form class="shibboleth-form" @submit.prevent="ui.shibboleth = ''">
-                <fieldset>
-                  <input type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus>
-                  <label for="ShibbolethInput">Type {{round.shibboleth}}<sup class="requred">*</sup></label>
-                </fieldset>
-              </form>
-            </div>
-            <div v-else-if="round.phase == 'create password'">
-              <form class="password-form" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
-                <fieldset>
-                  <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus>
-                  <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
-                </fieldset>
-                <div class="button-holder">
-                  <button type="submit">Submit</button>
-                </div>
-              </form>
-            </div>
-            <div class="stand-by" v-if="round.phase != 'create password'">
-              <p>Your password rules are still being created by {{computedSysAdminName}}, your friendly and helpful System Administrator. Please stand by.</p>
-            </div>
-            <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
-              <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
-              <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
-                <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
+        <div class="interface">
+          <div class="inner" v-if="!ui.roundOver">
+            <div class="content" v-if="!ui.passwordSucceeded">
+              <p v-if="round.phase == 'create password'">Create Your Password.</p>
+              <ul>
+                <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">{{round.challenge.nameAsRule}}</li>
+                <li v-if="round.challenge &amp;&amp; round.challenge.hint"> <strong>HINT: </strong> {{round.challenge.hint}}</li>
+                <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
+                <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">Passwords are case-insensitive</li>
+                <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
               </ul>
+              <!-- Shibboleth Entry.-->
+              <div v-if="computedShibbolethRequired &amp;&amp; round.phase == 'create password'">
+                <form class="shibboleth-form" @submit.prevent="ui.shibboleth = ''">
+                  <fieldset>
+                    <input type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus>
+                    <label for="ShibbolethInput">Type {{round.shibboleth}}<sup class="requred">*</sup></label>
+                  </fieldset>
+                </form>
+              </div>
+              <div v-else-if="round.phase == 'create password'">
+                <form class="password-form" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
+                  <fieldset>
+                    <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" required v-touppercase v-focus>
+                    <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
+                  </fieldset>
+                  <div class="button-holder">
+                    <button type="submit">Submit</button>
+                  </div>
+                </form>
+              </div>
+              <div class="stand-by" v-if="round.phase != 'create password'">
+                <p>Your password rules are still being created by {{computedSysAdminName}}, your friendly and helpful System Administrator. Please stand by.</p>
+              </div>
+              <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
+                <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
+                <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
+                  <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
+                </ul>
+              </div>
+            </div>
+            <div class="content" v-if="ui.passwordSucceeded">
+              <h1>SUCCESS!</h1>
+              <p>You've set a password.</p>
+              <p>Please stand by while your coworkers try to do the same.</p>
             </div>
           </div>
-          <div class="content" v-if="ui.passwordSucceeded">
-            <h1>SUCCESS!</h1>
-            <p>You've set a password.</p>
-            <p>Please stand by while your coworkers try to do the same.</p>
+          <div class="inner" v-if="ui.roundOver">
+            <h1>This round is over.</h1>
+            <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
+            <p v-else>Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.</p>
           </div>
         </div>
-        <div class="inner" v-if="ui.roundOver">
-          <h1>This round is over.</h1>
-          <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
-          <p v-else>Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.</p>
+        <div class="scorekeeper" :player-count="players.length">
+          <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
+            <div class="admin-icon" v-if="index == round.sysAdminIndex">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
+              </svg>
+            </div>
+            <div class="name">{{player.name}}</div>
+            <div class="score">{{player.score}}</div>
+          </div>
+        </div>
+        <div class="hurry-timer" v-if="round.hurryTimer != undefined">
+          <div class="time-left" v-if="round.hurryTime &gt;= 10"><span class="integer double-digit">{{parseInt(round.hurryTime)}}</span></div>
+          <div class="time-left" v-else-if="round.hurryTime &lt; 10"><span class="integer">{{round.hurryTime.toFixed(1).split('.')[0]}}</span>.<sup class="decimal">{{round.hurryTime.toFixed(1).split('.')[1]}}</sup></div>
+          <div class="label" v-if="!ui.passwordSucceded">Hurry Up</div>
         </div>
         <div class="crash-screen" v-if="round.phase == 'crashed'">
           <div class="inside">
@@ -342,17 +365,6 @@ EMpoyeeNAME:         {{round.crash.player.name}}
             <pre><code>D:\Code\Projects\BigCorp\Profiles\Scum\Auth\Processes\FuckItThisWillWorkForNow.aspx
 </code></pre>
             <footer><strong>Version Information:</strong><br><code>BigCorp Framework Version 4.00.1134.Release5-Final--Version2.TestBuild-5</code></footer>
-          </div>
-        </div>
-        <div class="hurry-timer" v-if="round.hurryTimer != undefined">
-          <div class="time-left" v-if="round.hurryTime &gt;= 10"><span class="integer double-digit">{{parseInt(round.hurryTime)}}</span></div>
-          <div class="time-left" v-else-if="round.hurryTime &lt; 10"><span class="integer">{{round.hurryTime.toFixed(1).split('.')[0]}}</span>.<sup class="decimal">{{round.hurryTime.toFixed(1).split('.')[1]}}</sup></div>
-          <div class="label" v-if="!ui.passwordSucceded">Hurry Up</div>
-        </div>
-        <div class="scorekeeper" :player-count="players.length">
-          <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
-            <div class="name">{{player.name}}</div>
-            <div class="score">{{player.score}}</div>
           </div>
         </div>
       </div>
@@ -403,6 +415,11 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         </div>
         <div class="scorekeeper" :player-count="players.length">
           <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
+            <div class="admin-icon" v-if="index == round.sysAdminIndex">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
+              </svg>
+            </div>
             <div class="name">{{player.name}}</div>
             <div class="score">{{player.score}}</div>
           </div>
@@ -421,7 +438,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2020-11-30@22:16:02"></script>
+      <script src="js/min/site.min.js?updated2020-11-30@23:32:54"></script>
     </div>
   </body>
 </html>

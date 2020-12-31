@@ -655,8 +655,8 @@ var app = new Vue({
 
       // Deal with the results of the attempt.
       self.my.passwordAttempts++;
-      self.ui.passwordAttempt = '';
-      
+      self.ui.passwordAttempt = "";
+      self.ui.shibboleth = "";
 
       if (crashCheck) {
 
@@ -950,9 +950,28 @@ var app = new Vue({
       */
     }
 
+    /////////////////////////////////////////////
+    // FAKE A SYSADMIN
+    /*
+    self.my.role = "SysAdmin";
+    self.my.name = "Lemon";
+    self.my.playerIndex = 0;
+    self.currentlyInGame = true;
+    self.round.number = 1;
+    self.players = [
+      { name: "Lemon", role:"employee", employeeNumber:1, score:0  },
+      { name: "Carlos", role:"SysAdmin", employeeNumber:2, score:0  },
+      { name: "Pablo", role:"employee", employeeNumber:3, score:0  }
+    ];
+    self.maxRounds = 6;
+    self.round.phase = "choose rules";
+    self.definePossibleChallenges();
+    */
+
 
     /////////////////////////////////////////////
     // FAKE A PLAYER IN THE FINAL ROUND.
+    /*
     self.my.role = "employee";
     self.my.name = "Lemon";
     self.my.playerIndex = 1;
@@ -981,10 +1000,7 @@ var app = new Vue({
       "Types of Cheese"
     ];
     self.startCountdownToFinalRound();
-    
-    //self.ui.passwordSucceded = true;
-    //self.ui.roundOver = true;
-    //self.startHurryTimer();
+    */
 
 
   },

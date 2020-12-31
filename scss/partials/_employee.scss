@@ -1,5 +1,8 @@
-.employee-screen { background:$white; padding:$gap; padding-top:($gap * 2); font-family: $serif; position: relative;
-  .top-info { background: $employeePanelColor; @include position(absolute,0,0,null,0); border-bottom: 1px solid rgba(0,0,0,0.15);
+//TODO: While the employee screen is less messy than the admin screen, it still sucks. Fix it.
+
+
+.employee-screen { background:$white; font-family: $serif; position: relative;
+  .top-info { background: $employeePanelColor; border-bottom: 1px solid rgba(0,0,0,0.15);
     padding:10px $gap; display:grid; grid-template-columns: repeat(5,1fr);
   }
 
@@ -40,9 +43,8 @@
 }
 
 
-.employee-screen { min-height: 99.9vh; display:grid; grid-template-columns: 1fr; grid-template-rows: 1fr 120px;
-  .inner { margin-left: auto; margin-right:auto;}
-
+.employee-screen {
+  .interface { display:flex;  }
   .hurry-timer { width:6vw; height: 6vw; background:white; border-radius: 50%; @include position(absolute,55px,25px); text-align: center; padding-top:0.5vw; border:2px solid rgba(0,0,0,0.15); box-shadow: -9px 9px 9px rgba(0,0,0,0.35);
     .label { text-transform: uppercase; font-weight: 700; margin-top: 10px; background:rgb(40,40,40); color:white; padding:0.25em; border-radius: 4px; box-shadow: -9px 9px 9px rgba(0,0,0,0.35); }
     .time-left { font-size:4vw; line-height: 100%;
@@ -51,6 +53,18 @@
       }
       .decimal { display: inline-block; width:0.8ch; transform: translate(-40%,6px); }
     }
+  }
+}
 
+
+@media (min-width:721px) {
+  .employee-screen { min-height: 99.99vh; display:grid; grid-template-columns: $padding 1fr $scorebard-width $padding; gap:$gap; grid-template-rows: 40px 1fr;
+    .top-info { order: 1; grid-row: 1; grid-column: span 4; }
+    .interface { order: 2; grid-row: 2; grid-column:2; height:100%; justify-content: center; align-items: center; }
+    .scorekeeper { order: 2; grid-row: 2; grid-column:3; height: 100%; }
+    .player { 
+      color:rgba(0,0,0,0.82); background:rgba(255,255,255,0.2);
+      &.you { color:rgba(0,0,0,1); background:rgba(255,255,255,0.6); }
+    }
   }
 }
