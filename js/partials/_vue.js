@@ -210,7 +210,7 @@ var app = new Vue({
       } else if (self.players.length == 3) {
         self.maxRounds = 6;
       } else if (self.players.length == 4) {
-        self.maxRounds = 4;
+        self.maxRounds = 8;
       } else {
         self.maxRounds = self.players.length;
       }
@@ -345,9 +345,8 @@ var app = new Vue({
         if (r.inputValue == r.inputValueTwo) {
           r.message = "You may only use the letter " + r.inputValue + ' once';
         } else {
-          r.message = 'You may not use the letters ' +  r.inputValue + ' and ' + r.inputValueTwo + " together";
+          r.message = "Your password cannot contain both " +  r.inputValue + " and " + r.inputValueTwo + " (simultanously)";
         }
-        
       }
 
       // Add it to the rule list.
@@ -866,7 +865,12 @@ var app = new Vue({
             socket.emit("passwordCracked", {
               roomCode: self.roomCode,
               players: self.players,
-              allEmployeePasswords: self.allEmployeePasswords
+              allEmployeePasswords: self.allEmployeePasswords,
+              crackSummary: {
+                pw: attempt,
+                attackerIndex: self.my.playerIndex,
+                victimIndex: self.my.playerIndex
+              }
             });
           } else if (p.claimed) {
             soundTooSlow.play();

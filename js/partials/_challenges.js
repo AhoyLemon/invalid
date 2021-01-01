@@ -283,36 +283,42 @@ const challenges = [
 
   {
     id: 7,
-    name: "State Birds",
-    nameAsRule: "Your password must be a U.S. state bird",
-    failedMessage: "Sorry, no US State made [PASS] their official bird.",
+    name: "Hockey Teams",
+    nameAsRule: "Your password must be an NHL hockey team name",
+    failedMessage: "Sorry! There are no [PASS] in the NHL.",
     possible: [
-      "YELLOWHAMMER",
-      "WILLOW PTARMIGAN",
-      "WREN",
-      "MOCKINGBIRD",
-      "QUAIL",
-      "LARK",
-      "ROBIN",
-      "BLUE HEN",
-      "THRUSH",
-      "THRASHER",
-      "GOOSE",
-      "BLUEBIRD",
-      "CARDINAL",
-      "GOLDFINCH",
-      "FINCH",
-      "MEADOWLARK",
-      "PELICAN",
-      "CHICKADEE",
-      "ORIOLE",
-      "LOON",
-      "ROADRUNNER",
-      "FRUIT DOVE",
-      "GROUSE",
-      "RHODE ISLAND RED",
-      "PHEASANT",
-      "GULL",
+      "HURRICANES",
+      "BLUE JACKETS",
+      "DEVILS",
+      "ISLANDERS",
+      "RANGERS",
+      "FLYERS",
+      "PENGUINS",
+      "CAPITALS",
+      "BRUINS",
+      "SABRES",
+      "RED WINGS",
+      "PANTHERS",
+      "CANADIENS",
+      "SENATORS",
+      "LIGHTNING",
+      "MAPLE LEAFS",
+      "BLACKHAWKS",
+      "AVALANCHE",
+      "STARS",
+      "WILD",
+      "PREDATORS",
+      "BLUES",
+      "JETS",
+      "DUCKS",
+      "COYOTES",
+      "FLAMES",
+      "OILERS",
+      "KINGS",
+      "SHARKS",
+      "CANUCKS",
+      "GOLDEN KNIGHTS",
+      "KRAKEN"
     ]
   },
 
@@ -357,8 +363,7 @@ const challenges = [
       "DOWNCAST",
       "CAST DOWN",
       "TEARFUL",
-      "DOWN IN THE DUMPS",
-      "DOWN IN THE MOUTH",
+      "DOWN",
       "FED UP",
       "INDECENT",
       "DIRTY",
@@ -528,14 +533,47 @@ const challenges = [
   },
 
   {
+    id: 12,
+    name: "State Birds",
+    nameAsRule: "Your password must be a U.S. state bird",
+    failedMessage: "Sorry, no US State made [PASS] their official bird.",
+    possible: [
+      "YELLOWHAMMER",
+      "WILLOW PTARMIGAN",
+      "WREN",
+      "MOCKINGBIRD",
+      "QUAIL",
+      "LARK",
+      "ROBIN",
+      "BLUE HEN",
+      "THRUSH",
+      "THRASHER",
+      "GOOSE",
+      "BLUEBIRD",
+      "CARDINAL",
+      "GOLDFINCH",
+      "FINCH",
+      "MEADOWLARK",
+      "PELICAN",
+      "CHICKADEE",
+      "ORIOLE",
+      "LOON",
+      "ROADRUNNER",
+      "FRUIT DOVE",
+      "GROUSE",
+      "RHODE ISLAND RED",
+      "PHEASANT",
+      "GULL",
+    ]
+  },
+
+  {
     id: 13,
     name: "Worst Actors",
     nameAsRule: "Your password must be the LAST name of a “Worst Actor” award winner.",
     hint: "“Worst Actor” is a separate category from “Worst Actress”",
     failedMessage: "[PASS] never won a Razzie",
     possible: [
-
-      // ACTORS
       "DIAMOND",
       "SPILSBURY",
       "OLIVIER",
@@ -578,7 +616,6 @@ const challenges = [
     hint: "“Worst Actress” is a separate category from “Worst Actor”",
     failedMessage: "[PASS] never won a Razzie",
     possible: [
-      // ACTRESSES
       "SHIELDS",
       "DEREK",
       "DUNAWAY",
@@ -1100,21 +1137,24 @@ const challenges = [
     source: "https://en.wikipedia.org/wiki/List_of_recurring_The_Simpsons_characters"
   },
 
+  // This round has too many complications. Removing.
+  /*
   {
     id: 21,
     name: "Top 100 SNES Games",
-    nameAsRule: "Your password must be a Super Nintendo game considered to be one of the top 100 best.",
+    nameAsRule: "Your password must be a Super Nintendo game considered by IGN to be one of the top 100 best.",
     failedMessage: "[PASS] is not considered one of the Top 100 SNES games, according to IGN.",
     possible: [
       "FINAL FIGHT",
-      "TINY TOON ADVENTURES: BUSTER BUSTS LOOSE",
+      "TINY TOON ADVENTURES",
       // ALSO
-      // "TINY TOON ADVENTURES"
+      //"TINY TOON ADVENTURES: BUSTER BUSTS LOOSE",
       "UNIRACERS",
-      "ULTIMATE MORTAL KOMBAT 3",
+      "MORTAL KOMBAT 3",
       // ALSO
       // "MORTAL KOMBAT 3"
       // "MORTAL KOMBAT III"
+      //"ULTIMATE MORTAL KOMBAT 3",
       // "ULTIMATE MORTAL KOMBAT III"
       "STREET FIGHTER ALPHA 2",
       "TOP GEAR 2",
@@ -1122,24 +1162,22 @@ const challenges = [
       "SUPER TURRICAN 2",
       "SUPER DOUBLE DRAGON",
       "SUPER STAR WARS: THE EMPIRE STRIKES BACK",
-      // ALSO
-      // "STAR WARS THE EMPIRE STRIKES BACK"
       "BLACKTHORNE",
       "SUPER BOMBERMAN 2",
       "SUNSET RIDERS",
       "SPARKSTER",
       "STUNT RACE FX",
-      "SPIDER-MAN AND VENOM: MAXIMUM CARNAGE",
+      "SPIDER MAN AND VENOM",
       // ALSO
-      // "SPIDER MAN AND VENOM"
+      // "SPIDER-MAN AND VENOM: MAXIMUM CARNAGE",
       "SUPER TENNIS",
       "SUPER STAR WARS",
       "KILLER INSTINCT",
       "DEATH AND RETURN OF SUPERMAN",
       "PILOTWINGS",
-      "FLASHBACK: THE QUEST FOR IDENTITY",
+      "FLASHBACK",
       // ALSO
-      // "FLASHBACK"
+      //"FLASHBACK: THE QUEST FOR IDENTITY",
       "X-MEN: MUTANT APOCALYPSE",
       "SHADOWRUN",
       "SOUL BLAZER",
@@ -1153,17 +1191,16 @@ const challenges = [
       "KIRBY'S AVALANCHE",
       "MEGA MAN X3",
       "THE LION KING",
-      "R-TYPE III: THE THIRD LIGHTNING",
+      "R-TYPE 3",
       // ALSO
       // "R-TYPE III",
-      // "R-TYPE 3"
+      //  "R-TYPE III: THE THIRD LIGHTNING",
       "INTERNATIONAL SUPERSTAR SOCCER",
       "FATAL FURY 2",
       "KIRBY'S DREAM LAND 3",
-      "JOE AND MAC 2: LOST IN THE TROPICS",
+      "JOE AND MAC 2",
       // ALSO
-      // "JOE AND MAC 2",
-      // "JOE & MAC"
+      // "JOE AND MAC 2: LOST IN THE TROPICS",
       "ALADDIN",
       "NHL '94",
       "DONKEY KONG COUNTRY 3",
@@ -1171,9 +1208,9 @@ const challenges = [
       "ALIEN 3",
       "AXELAY",
       "BUST-A-MOVE",
-      "BREATH OF FIRE II",
+      "BREATH OF FIRE 2",
       // ALSO
-      // "BREATH OF FIRE 2"
+      // "BREATH OF FIRE II",
       "KEN GRIFFEY JR.'S WINNING RUN",
       // ALSO
       // "KEN GRIFFEY JRS WINNING RUN"
@@ -1186,24 +1223,23 @@ const challenges = [
       "GRADIUS III",
       "DEMON'S CREST",
       "BREATH OF FIRE",
-      "EVO: SEARCH FOR EDEN",
+      "EVO",
       // ALSO
-      // "EVO SEARCH FOR EDEN",
-      // "EVO"
+      // "EVO: SEARCH FOR EDEN",
       "OGRE BATTLE",
       "EARTHWORM JIM 2",
-      "TEENAGE MUTANT NINJA TURTLES: TURTLES IN TIME",
+      "TURTLES IN TIME",
       // ALSO
       // "TMNT: TURTLES IN TIME",
       // "TMNT TURTLES IN TIME",
-      // "TURTLES IN TIME"
+      // "TEENAGE MUTANT NINJA TURTLES: TURTLES IN TIME",
       "KIRBY'S DREAM COURSE",
       "UN SQUADRON",
       "NBA JAM",
       "SIM CITY",
-      "LUFIA II",
+      "LUFIA 2",
       // ALSO
-      // "LUFIA 2"
+      // "LUFIA II",
       // "LUFIA II: RISE OF THE SINISTRALS",
       // "LUFIA 2: RISE OF THE SINISTRALS"
       "METAL WARRIORS",
@@ -1216,27 +1252,27 @@ const challenges = [
       "SUPER STAR WARS: RETURN OF THE JEDI",
       // ALSO
       // "STAR WARS: RETURN OF THE JEDI"
-      "MORTAL KOMBAT II",
+      "MORTAL KOMBAT 2",
       // ALSO
-      // "MORTAL KOMBAT 2"
-      "CONTRA III",
+      // "MORTAL KOMBAT II",
+      "CONTRA 3",
       // ALSO
-      // "CONTRA 3"
+      // "CONTRA III",
       "THE MAGICAL QUEST",
       "MARIO PAINT",
-      "SUPER CASTLEVANIA IV",
+      "CASTLEVANIA 4",
       // ALSO
       // "CASTLEVANIA IV",
-      // "CASTLEVANIA 4"
+      // "SUPER CASTLEVANIA IV",
       "SUPER MARIO ALL-STARS",
       "ACTRAISER",
       "F-ZERO",
       "SUPER PUNCH-OUT",
       "DONKEY KONG COUNTRY 2",
       "TETRIS ATTACK",
-      "FINAL FANTASY IV",
+      "FINAL FANTASY 4",
       // ALSO
-      // "FINAL FANTASY 4"
+      // "FINAL FANTASY IV",
       "EARTHBOUND",
       "MEGA MAN X",
       "SECRET OF MANA",
@@ -1248,17 +1284,19 @@ const challenges = [
       // ALSO
       // "SUPER STREET FIGHTER 2 TURBO"
       "SUPER MARIO WORLD",
-      "FINAL FANTASY VI",
+      "FINAL FANTASY 6",
       // ALSO
-      // "FINAL FANTASY 6"
+      // "FINAL FANTASY VI",
       "SUPER METROID",
       "CHRONO TRIGGER",
-      "LEGEND OF ZELDA: LINK TO THE PAST",
+      "LINK TO THE PAST",
       // ALSO
       // "ZELDA: LINK TO THE PAST",
       // "LINK TO THE PAST"
+      // "LEGEND OF ZELDA: LINK TO THE PAST",
     ]
   },
+  */
 
   {
     id: 22,
@@ -1382,7 +1420,7 @@ const challenges = [
   {
     id: 23,
     name: "1980's US One-Hit Wonders",
-    nameAsRule: "Your password must be the name of a one-hit wonder band from the 1980s.",
+    nameAsRule: "Your password must be the name of a one-hit wonder artist from the 1980s.",
     failedMessage: "[PASS] is not considered a 1980s one-hit wonder, according to VH1.",
     possible: [
       "DEXYS MIDNIGHT RUNNERS",
@@ -1496,7 +1534,7 @@ const challenges = [
   {
     id: 24,
     name: "1990's US One-Hit Wonders",
-    nameAsRule: "Your password must be the name of a one-hit wonder band from the 1990s.",
+    nameAsRule: "Your password must be the name of a one-hit wonder artist from the 1990s.",
     failedMessage: "[PASS] is not considered a 1990s one-hit wonder, according to Wikipedia.",
     possible: [
       "JANE CHILD",
@@ -1639,7 +1677,7 @@ const challenges = [
     failedMessage: "[PASS] is not a Western art period, according to Wikipedia.",
     possible: [
       "EARLY CHRISTIAN",
-      "MIGRATION PERIOD",
+      "MIGRATION",
       // ALSO
       // "MIGRATION"
       "ANGLO-SAXON",
@@ -1687,9 +1725,9 @@ const challenges = [
       // "MODERN ART"
       "COS COB ART COLONY",
       "IMPRESSIONISM",
-      "ARTS AND CRAFTS MOVEMENT",
+      "ARTS AND CRAFTS",
       // ALSO
-      // "ARTS AND CRAFTS"
+      // "ARTS AND CRAFTS MOVEMENT",
       "TONALISM",
       "SYMBOLISM",
       "POST-IMPRESSIONISM",
@@ -1790,18 +1828,18 @@ const challenges = [
       "BRUTALISM",
       "STRUCTURALISM",
       "METABOLIST",
-      "DANISH FUNTIONALISM",
+      "FUNCTIONALISM",
       // ALSO
-      // "FUNCTIONALISM"
+      // "DANISH FUNTIONALISM",
       "STRUCTURAL EXPRESSIONISM",
       "RANCH",
       "CONSTRUCTIVISM",
       "POSTCONSTRUCTIVISM",
       "STALINIST",
       "FASCIST",
-      "SHED STYLE",
+      "SHED",
       // ALSO
-      // "SHED"
+      // "SHED STYLE",
       "ARCOLOGY",
       "DECONSTRUCTIVISM",
       "CRITICLA REGIONALISM",
@@ -2172,9 +2210,9 @@ const challenges = [
       "PETER PAN",
       "LADY AND THE TRAMP",
       "SLEEPING BEAUTY",
-      "ONE HUNDRED AND ONE DALMATIONS",
+      "101 DALMATIONS",
       // ALSO
-      // "101 DALMATIONS"
+      // "ONE HUNDRED AND ONE DALMATIONS",
       "THE SWORD IN THE STONE",
       "THE JUNGLE BOOK",
       "THE ARISTOCATS",
@@ -2650,6 +2688,8 @@ const challenges = [
 	source:"https://en.wikipedia.org/wiki/List_of_Muppets"
   },
 
+  // Comenting this one for now as "too esoteric".
+  /*
   {
     id: 39,
     name: "Cryptozoology",
@@ -2783,11 +2823,13 @@ const challenges = [
     ],
 	source:"https://en.wikipedia.org/wiki/List_of_cryptids"
   },
+  */
 
   {
     id: 40,
     name: "Looney Tunes Characters",
     nameAsRule: "Your password must be the full name of a Looney Tunes character.",
+    hint: "First and last names required in some (but not all) cases.",
     failedMessage: "[PASS] must have gotten lost on their way to Albuquerque. Try again.",
     possible: [
       "BABBI AND CATSTELLO",
@@ -2800,9 +2842,9 @@ const challenges = [
       "BEAKY BUZZARD",
       "CLAUDE CAT",
       "CHARLIE DOG",
-      "CLYDE BUNNY",
+      "CLYDE",
       "COLONEL SHUFFLE",
-      "CONRAD THE CAT",
+      "CONRAD",
       "COOL CAT",
       "DAFFY DUCK",
       "EGGHEAD JR.",
@@ -3061,6 +3103,91 @@ const challenges = [
       "BUZZARD",
       "ANDEAN CONDOR"
     ],
+  },
+  {
+    id: 43,
+    name: "Smash Bros.",
+    nameAsRule: "Your password must be a playable character in Super Smash Bros.",
+    hint: "Not including DLC",
+    failedMessage: "[PASS] isn't a playable character in Super Smash Bros. Ultimate",
+    possible: [
+      "BAYONETTA",
+      "BOWSER",
+      "BOWSER JR.",
+      "CAPTAIN FALCON",
+      "CHARIZARD",
+      "CHROM",
+      "CLOUD",
+      "CORRIN",
+      "DAISY",
+      "DARK PIT",
+      "DARK SAMUS",
+      "DIDDY KONG",
+      "DONKEY KONG",
+      "DR. MARIO",
+      "DUCK HUNT",
+      "FALCO",
+      "FOX",
+      "GANONDORF",
+      "GRENINJA",
+      "ICE CLIMBERS",
+      "IKE",
+      "INCINEROAR",
+      "INKLING",
+      "ISABELLE",
+      "IVYSAUR",
+      "JIGGLYPUFF",
+      "KEN",
+      "KING DEDEDE",
+      "KING K. ROOL",
+      "KIRBY",
+      "LINK",
+      "LITTLE MAC",
+      "LUCARIO",
+      "LUCAS",
+      "LUCINA",
+      "LUIGI",
+      "MARIO",
+      "MARTH",
+      "MEGA MAN",
+      "META KNIGHT",
+      "MEWTWO",
+      "MII BRAWLER",
+      "MII SWORDFIGHTER",
+      "MII GUNNER",
+      "MR. GAME & WATCH",
+      "NESS",
+      "OLIMAR",
+      "PAC-MAN",
+      "PALUTENA",
+      "PEACH",
+      "PICHU",
+      "PIKACHU",
+      "PIT",
+      "RICHTER",
+      "RIDLEY",
+      "R.O.B.",
+      "ROBIN",
+      "ROSALINA & LUMA",
+      "ROY",
+      "RYU",
+      "SAMUS",
+      "SHEIK",
+      "SHULK",
+      "SIMON",
+      "SNAKE",
+      "SONIC",
+      "SQUIRTLE",
+      "TOON LINK",
+      "VILLAGER",
+      "WARIO",
+      "WII FIT TRAINER",
+      "WOLF",
+      "YOSHI",
+      "YOUNG LINK",
+      "ZELDA",
+      "ZERO SUIT SAMUS"
+    ]
   }
 
 ];
