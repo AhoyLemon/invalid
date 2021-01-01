@@ -5,9 +5,10 @@
     template(v-if="!ui.enterFinalPasswords")
       h1 This is the final round!
       p In the final round, your goal is to hack into accounts of your coworkers.
-      p When the timer starts, type in any password you think any of your coworkers may have used successfully.
-      p This password must be one that they used successfully in a previous round.
-      p If you're right, you'll steal 40 points from that player
+      p When the timer starts, type in any password you think any of your coworkers may have used successfully. If you're right, you'll 
+        em steal 
+        | 40 points from that player!
+      p You can type as many passwords as you like, but if you crack your own password, you will be punished.
       //-p
         button(@click="ui.enterFinalPasswords = true") Start
       h2 Round begins in {{round.hurryTime}} seconds.

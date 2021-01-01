@@ -149,6 +149,7 @@ socket.on("startNewRound", function(msg) {
 
   app.players = msg.players;
   app.allPlayedRounds = msg.allPlayedRounds;
+  app.roundSummary.push(msg.summary);
   
   // Hey, what round is it? Is it time for the final round?
   if (app.round.number >= app.maxRounds) {
@@ -171,7 +172,7 @@ socket.on("startNewRound", function(msg) {
 
     // Who's the SysAdmin?
     // Let's make the next player the SysAdmin.
-    //Unless there is no next player, in which case let's start over at 0.
+    // Unless there is no next player, in which case let's start over at 0.
     let i = app.round.sysAdminIndex + 1;
     if (i >= app.players.length) {
       app.round.sysAdminIndex = 0;
@@ -207,6 +208,7 @@ socket.on("startNewRound", function(msg) {
 socket.on("passwordCracked", function(msg) {
   app.players = msg.players;
   app.allEmployeePasswords = msg.allEmployeePasswords;
+  app.crackSummary.push(msg.crackSummary);
 });
 
 // Some player (could be anyone) said the game is over.

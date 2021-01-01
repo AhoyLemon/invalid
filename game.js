@@ -145,7 +145,8 @@ io.on('connection', (socket) => {
     io.in(msg.roomCode).emit("startNewRound", {
       playerIndex: msg.playerIndex,
       players: msg.players,
-      allPlayedRounds: msg.allPlayedRounds
+      allPlayedRounds: msg.allPlayedRounds,
+      summary: msg.summary
     });
   });
 
@@ -154,7 +155,8 @@ io.on('connection', (socket) => {
     console.log(msg.roomCode+' - password cracked');
     io.to(msg.roomCode).emit("passwordCracked", {
       players: msg.players,
-      allEmployeePasswords: msg.allEmployeePasswords
+      allEmployeePasswords: msg.allEmployeePasswords,
+      crackSummary: msg.crackSummary
     });
   });
 

@@ -1,0 +1,41 @@
+
+main.game-over { font-family: $serif; background:#e4e72c; min-height: 99.999vh;
+  h1 { font-size:9vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
+  h2 { font-size:5.5vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
+
+  .round-summaries { display:flex; background:#111; padding:$gap; overflow-y: auto; margin-top:$gap; margin-bottom: ($gap * 3);
+    .round-summary { flex-basis: 380px; flex-shrink: 0; margin-right:$gap; }
+  }
+
+
+  .round-summary { background:#fff; padding:$padding; border-radius: 3px;
+    .number { font-size:300%; float: right; font-weight: 600; }
+    .challenge { font-size:160%; }
+    .rules { margin-top: 1em; margin-bottom: 1em;
+      li { margin-left: 1.5em; }
+    }
+    .attempts { margin-top: 1em;
+      li { margin-left: 1.2em; padding-left: 0.25em; list-style-type: decimal; margin-bottom: 0.3em; }
+      .failed { color:rgba(128,18,18); }
+      .success { color:rgba(18,118,18); }
+      .crash { color: rgba(190,1,1); }
+    } 
+  }
+
+
+  .cracks { display:grid; grid-template-columns: repeat( auto-fit, minmax(270px, 1fr) ); gap:$gap; background:#111; padding:$gap; overflow-y: auto; margin-top:$gap; margin-bottom: ($gap * 3); padding-bottom: ($gap * 2);
+    .no-crack { background:#fff; padding:$padding; border-radius: 3px; }
+    .crack-headline { color:#fff; grid-column: 1 / -1; font-size:3vw; }
+    .crack { background:#fff; padding:$padding; border-radius: 3px; flex-basis: 280px; flex-grow: 1;
+      .inside { display:grid; grid-template-columns: 22px 1fr; gap:($padding / 2); }
+      .password { font-size:200%; font-family: $monospace; grid-column: span 2; color:rgb(47, 82, 47); } 
+      .icon { grid-column: 1; }
+      .attacker { grid-column: 2; color:rgba(18,118,18); font-size:108%; font-weight: 700; }
+      .victim { grid-column: 2; color:rgba(128,18,18); font-size:108%; }
+      &.self-own {
+        .password { color:rgb(82, 47, 47); }
+        .attacker { color:rgba(128,18,18); }
+      }
+    }
+  }
+}
