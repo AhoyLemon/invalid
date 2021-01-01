@@ -919,7 +919,7 @@ var app = new Vue({
       const self = this;
       clearInterval(self.round.roundTimer);
       self.round.roundTimer = undefined;
-      self.phase.round = "GAME OVER";
+      self.round.phase = "GAME OVER";
       soundGameOver.play();
     },
 

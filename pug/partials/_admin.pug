@@ -132,16 +132,16 @@
         button(type="submit") Set
 
     .panel.bug-setup(v-if="round.phase == 'add bugs'")
-      .first-bug-intro(v-if="!round.bugs")
+      .first-bug-intro(v-if="!round.bugs || round.bugs.length < 1")
         h2 Add a bug to the system.
         p Enter a word to use as a bug.
         p If a player tries to use that word as a password, the system will crash (and you earn points.)
-        p(v-if="my.rulebux < 1") FYI, next time you're SysAdmin, you can buy additional bugs for 1
+        p(v-if="(!round.bugs || round.bugs.length < 1 ) && my.rulebux < 1") FYI, next time you're SysAdmin, you can buy additional bugs for 1
           sup ƒ
           | .
       .additional-bug(v-else-if="my.rulebux > 0")
         p You may add {{my.rulebux}} additional bugs to the system
-      form.fieldset-and-button(v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux > 0")
+      form.fieldset-and-button(v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length < 1 || my.rulebux > 0")
         fieldset 
           label(for="BugPassword") Set a Bug on 
           input(type="text" id="BugPassword" v-model="ui.addBug" v-touppercase  v-focus placeholder="PASSWORD")

@@ -19,7 +19,7 @@ main.game-over(v-if="round.phase == 'GAME OVER'")
           ol
             li(v-for="a in r.attempts" :class="a.result") {{players[a.playerIndex].name}} tried 
               strong {{a.pwAttempt}}
-              span(v-if="a.result == 'crash'") , and that crashed the server.
+              span(v-if="a.result == 'crash'") , which crashed the server.
 
   h2 In the final round...
   

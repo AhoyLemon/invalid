@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2021-00-01@13:17:32">
+    <meta http-equiv="last-modified" content="2021-00-01@13:46:54">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -232,16 +232,16 @@
             </form>
           </div>
           <div class="panel bug-setup" v-if="round.phase == 'add bugs'">
-            <div class="first-bug-intro" v-if="!round.bugs">
+            <div class="first-bug-intro" v-if="!round.bugs || round.bugs.length &lt; 1">
               <h2>Add a bug to the system.</h2>
               <p>Enter a word to use as a bug.</p>
               <p>If a player tries to use that word as a password, the system will crash (and you earn points.)</p>
-              <p v-if="my.rulebux &lt; 1">FYI, next time you're SysAdmin, you can buy additional bugs for 1<sup>ƒ</sup>.</p>
+              <p v-if="(!round.bugs || round.bugs.length &lt; 1 ) &amp;&amp; my.rulebux &lt; 1">FYI, next time you're SysAdmin, you can buy additional bugs for 1<sup>ƒ</sup>.</p>
             </div>
             <div class="additional-bug" v-else-if="my.rulebux &gt; 0">
               <p>You may add {{my.rulebux}} additional bugs to the system</p>
             </div>
-            <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || my.rulebux &gt; 0">
+            <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length &lt; 1 || my.rulebux &gt; 0">
               <fieldset> 
                 <label for="BugPassword">Set a Bug on </label>
                 <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase v-focus placeholder="PASSWORD">
@@ -470,7 +470,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
               </ul>
               <div class="attempts">
                 <ol>
-                  <li v-for="a in r.attempts" :class="a.result">{{players[a.playerIndex].name}} tried <strong>{{a.pwAttempt}}</strong><span v-if="a.result == 'crash'">, and that crashed the server.</span></li>
+                  <li v-for="a in r.attempts" :class="a.result">{{players[a.playerIndex].name}} tried <strong>{{a.pwAttempt}}</strong><span v-if="a.result == 'crash'">, which crashed the server.</span></li>
                 </ol>
               </div>
             </div>
@@ -555,7 +555,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-01@13:17:32"></script>
+      <script src="js/min/site.min.js?updated2021-00-01@13:46:54"></script>
     </div>
   </body>
 </html>

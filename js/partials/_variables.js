@@ -32,8 +32,8 @@ const settings = {
     forCrackingOwnPassword: -50
   },
   timer: {
-    countdownToFinal: 20,
-    finalRound: 600
+    countdownToFinal: 30,
+    finalRound: 60
   }
 };
 
@@ -93,6 +93,7 @@ function resetUI() {
   app.ui.addBug = "";
   app.ui.addBugErrors = [];
   app.ui.passwordAttempt = null;
+  app.ui.passwordAttemptErrors = [];
   app.ui.passwordInputError = false;
   app.ui.passwordSucceeded = false;
   app.ui.currentRule.editing = false;
