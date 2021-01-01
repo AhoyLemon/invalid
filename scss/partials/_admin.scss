@@ -133,9 +133,8 @@
     }
 
     .scorekeeper { grid-column: 2; 
-      .player { border: 1px solid currentColor; padding:$padding; margin-bottom: 1em; 
-        .name { text-transform: uppercase; letter-spacing: 0.1em;}
-        .score { font-size:220%; }
+      .player {
+        
         color:rgba(255,255,255,0.65); background:rgba(0,0,0,0.2);
         &.you { color:rgba(255,255,255,1); background:rgba(0,0,0,0.6); }
       }

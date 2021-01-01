@@ -13,9 +13,7 @@
   .sign-in(v-if="isRoomHost || players.length > 0")
 
     .inside
-
       h1 Welcome to BigCorp
-      
       form.pregame-form(@submit.prevent="updatePlayer()")
         fieldset
           input(v-model="my.employeeNumber" type="text" readonly disabled)

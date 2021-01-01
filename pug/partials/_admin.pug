@@ -42,8 +42,17 @@
           sup ƒ
         |  to spend
       .rules
-        //button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")
-        button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost > my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost > my.rulebux)")
+        //-button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")
+
+        +ruleButton('Demand A Letter', 5)
+        +ruleButton('Ban A Letter', 3)
+        +ruleButton('Shibboleth', 3, true)
+        +ruleButton('Set A Maximum', 2, true)
+        +ruleButton('Set A Minimum', 2, true)
+        +ruleButton('Limit Vowels', 1, true)
+        +ruleButton('Ban A Combo', 1)
+
+        //-button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost > my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost > my.rulebux)")
           .name {{rule.name}}
           .cost {{rule.cost}}
             sup ƒ

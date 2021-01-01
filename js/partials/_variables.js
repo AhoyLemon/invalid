@@ -6,7 +6,6 @@ const employeeNumberSeed = randomNumber(10000,99999);
 
 // TODO: Refactor this category into structured settings.
 const defaults = {
-  rulebux: 7,
   maxOffset: 2,
   minOffset: 2,
   vowelOffset: 1,
@@ -37,14 +36,6 @@ const settings = {
     finalRound: 600
   }
 };
-
-// TODO: Remove this object
-const myDefaults = {
-  rulebux: 7,
-  passwordAttempts: 0
-};
-
-
 
 const roundDefaults = {
   possibleChallenges: [],

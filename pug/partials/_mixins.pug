@@ -23,3 +23,14 @@ mixin formatDate(d)
 
 mixin outsideLink(title,url)
   a.link(href=url target="_blank" noopener @click="trackLink('"+title+"', '"+url+"')")= title
+
+
+mixin ruleButton(name,cost,unique)
+  if !unique
+    - unique = false
+  else
+    - unique = true
+  button.rule( @click="chooseRule({name:'"+name+"', cost:"+cost+"})" :class="{ active: (ui.currentRule.name == '"+name+"'), 'too-expensive': (my.rulebux < "+cost+") }" :disabled="isRuleButtonDisabled('"+name+"',"+cost+","+unique+")")
+    .name= name
+    .cost= cost
+      sup ƒ

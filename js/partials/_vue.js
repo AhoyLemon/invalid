@@ -9,7 +9,7 @@ var app = new Vue({
     rules: rules,
     playerCount: 0,
     maxRounds: 0,
-    allowNaughty: true,
+    allowNaughty: false,
     my: {
       employeeNumber: randomNumber(10000,99999),
       name: '',
@@ -283,6 +283,24 @@ var app = new Vue({
       self.ui.currentRule.cost = rule.cost;
       self.ui.currentRule.editing = true;
     },
+
+    isRuleButtonDisabled(ruleName, ruleCost, ruleUnique) {
+      let self = this;
+
+      let buttonDisabled = false;
+      
+      if (self.my.rulebux < ruleCost) {
+        // Too expensive!
+        buttonDisabled = true;
+      } else if (self.ui.currentRule.editing) {
+        // You're in edit mode.
+        buttonDisabled = true;
+      } else if (ruleUnique && self.computedUsedRuleNames.includes(ruleName)) {
+        buttonDisabled = true;
+      }
+      return buttonDisabled;
+    },
+
 
     saveRule(rule) {
       const self = this;
@@ -906,6 +924,15 @@ var app = new Vue({
     computedSysAdminIndex() {
       const self = this;
       return self.round.sysAdminIndex;
+    },
+
+    computedUsedRuleNames() {
+      let self = this;
+      let u = [];
+      self.round.rules.forEach(function(r) {
+        u.push(r.type);
+      });
+      return u;
     },
 
     computedShibbolethRequired() {

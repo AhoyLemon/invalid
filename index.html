@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2020-11-30@23:32:54">
+    <meta http-equiv="last-modified" content="2020-11-31@20:28:55">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -114,10 +114,33 @@
             <h2>Add a Password Rule</h2>
             <p>You have <span class="rulebux">{{my.rulebux}}<sup>ƒ</sup></span> to spend</p>
             <div class="rules">
-              <!--button.rule(v-for="(rule,index) in rules" @click="chooseRule(rule)")-->
-              <button class="rule" v-for="(rule,index) in rules" @click="chooseRule(rule)" :class="{ active: (rule.name == ui.currentRule.name), 'too-expensive': (rule.cost &gt; my.rulebux) }" :disabled="ui.currentRule.editing || (rule.cost &gt; my.rulebux)">
-                <div class="name">{{rule.name}}</div>
-                <div class="cost">{{rule.cost}}<sup>ƒ</sup></div>
+              <button class="rule" @click="chooseRule({name:'Demand A Letter', cost:5})" :class="{ active: (ui.currentRule.name == 'Demand A Letter'), 'too-expensive': (my.rulebux &lt; 5) }" :disabled="isRuleButtonDisabled('Demand A Letter',5,false)">
+                <div class="name">Demand A Letter</div>
+                <div class="cost">5<sup>ƒ</sup></div>
+              </button>
+              <button class="rule" @click="chooseRule({name:'Ban A Letter', cost:3})" :class="{ active: (ui.currentRule.name == 'Ban A Letter'), 'too-expensive': (my.rulebux &lt; 3) }" :disabled="isRuleButtonDisabled('Ban A Letter',3,false)">
+                <div class="name">Ban A Letter</div>
+                <div class="cost">3<sup>ƒ</sup></div>
+              </button>
+              <button class="rule" @click="chooseRule({name:'Shibboleth', cost:3})" :class="{ active: (ui.currentRule.name == 'Shibboleth'), 'too-expensive': (my.rulebux &lt; 3) }" :disabled="isRuleButtonDisabled('Shibboleth',3,true)">
+                <div class="name">Shibboleth</div>
+                <div class="cost">3<sup>ƒ</sup></div>
+              </button>
+              <button class="rule" @click="chooseRule({name:'Set A Maximum', cost:2})" :class="{ active: (ui.currentRule.name == 'Set A Maximum'), 'too-expensive': (my.rulebux &lt; 2) }" :disabled="isRuleButtonDisabled('Set A Maximum',2,true)">
+                <div class="name">Set A Maximum</div>
+                <div class="cost">2<sup>ƒ</sup></div>
+              </button>
+              <button class="rule" @click="chooseRule({name:'Set A Minimum', cost:2})" :class="{ active: (ui.currentRule.name == 'Set A Minimum'), 'too-expensive': (my.rulebux &lt; 2) }" :disabled="isRuleButtonDisabled('Set A Minimum',2,true)">
+                <div class="name">Set A Minimum</div>
+                <div class="cost">2<sup>ƒ</sup></div>
+              </button>
+              <button class="rule" @click="chooseRule({name:'Limit Vowels', cost:1})" :class="{ active: (ui.currentRule.name == 'Limit Vowels'), 'too-expensive': (my.rulebux &lt; 1) }" :disabled="isRuleButtonDisabled('Limit Vowels',1,true)">
+                <div class="name">Limit Vowels</div>
+                <div class="cost">1<sup>ƒ</sup></div>
+              </button>
+              <button class="rule" @click="chooseRule({name:'Ban A Combo', cost:1})" :class="{ active: (ui.currentRule.name == 'Ban A Combo'), 'too-expensive': (my.rulebux &lt; 1) }" :disabled="isRuleButtonDisabled('Ban A Combo',1,false)">
+                <div class="name">Ban A Combo</div>
+                <div class="cost">1<sup>ƒ</sup></div>
               </button>
               <button class="finished" type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing">FINISH RULES</button>
             </div>
@@ -438,7 +461,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2020-11-30@23:32:54"></script>
+      <script src="js/min/site.min.js?updated2020-11-31@20:28:55"></script>
     </div>
   </body>
 </html>
