@@ -6,7 +6,7 @@ main.game-over { font-family: $serif; background:#e4e72c; min-height: 99.999vh; 
   h2 { font-size:5.5vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
 
   .round-summaries { background:#111; padding:$gap; margin-top:$gap;
-    .summaries { display:flex; overflow-y: auto; }
+    .summaries { display:flex; overflow-y: auto; padding-top: $padding; padding-bottom: $padding; }
     .round-summary { flex-basis: 380px; flex-shrink: 0; margin-right:$gap; }
   }
 
