@@ -1029,7 +1029,7 @@ const challenges = [
   {
     id: 20,
     name: "Simpsons Characters",
-    nameAsRule: "Your password must be the first name of a recurring Simpsons character.",
+    nameAsRule: "Your password must be the first name of a recurring Simpsons character who DOESN'T have the last name of Simpson",
     hint: "Fat Tony's first name isn't Tony.",
     failedMessage: "[PASS] is not a Simpsons character. Or is. It's 32+ seasons.",
     possible: [
@@ -1041,34 +1041,60 @@ const challenges = [
       "ARTIE",
       "BARNEY",
       "BARRY", // <-- DUFFMAN
+      "BOB",
       "BRANDINE",
       "CARL",
+      "CHARLES", // <-- MONTY BURNS
       "CLANCY",
       "JEFF", // <- COMIC BOOK GUY
       "COOKIE",
-      "BOB",
-      "DATABASE",
       "DEWEY",
+      "DORIS", // <-- LUNCHLADY DORIS
       "DREDERICK",
       "EDDIE",
       "EDNA",
       "ELIZABETH", // <-- MISS HOOVER
-      "FRANKIE",  // FRANKIE THE SQUEALER
+      "FRANKIE",  // <-- FRANKIE THE SQUEALER
+      "GARY", // <-- SUPERNINTENDO CHALMERS
       "GIL",
       "HANS",
       "HELEN",
       "JIMBO",
-      "JOHNNY",
+      "JOE", // <-- DIAMOND JOE QUIMBY
+      "JOHNNY", // <-- JOHNNY TIGHTLIPS
+      "JOHN", // <-- PROFESSOR FRINK
       "JULIUS",
       "KEARNEY",
       "KENT",
       "KIRK",
       "KRUSTY",
       "LENNY",
+      "LINDSEY",
+      "LIONEL",
+      "LOU",
+      "LUANN",
+      "LUIGI",
+      "MEL",
+      "MILHOUSE",
+      "MANJULA",
       "MARION", // <-- THERE'S FAT TONY!
+      "MARVIN", // <-- MARVIN MONROE
+      "MARTIN",
+      "MOE",
       "MURPHY", // <- BLEEDING GUMS MURPHY
+      "NED",
       "NICK", // <-- DR. NICK
+      "OTTO",
+      "PATTY",
+      "RAINIER",
+      "RALPH",
+      "ROD", 
+      "TODD",
+      "TROY",
+      "SELMA",
+      "SEYMOUR",
       "STU", // <- DISCO STU
+      "WAYLON", // <-- SMITHERS
       "WILLIE"
     ],
     source: "https://en.wikipedia.org/wiki/List_of_recurring_The_Simpsons_characters"

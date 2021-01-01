@@ -1,4 +1,4 @@
-.employee-screen(v-if="my.role == 'employee'")
+.employee-screen(v-if="my.role == 'employee' && (round.phase == 'choose rules' || round.phase == 'create password' || round.phase == 'crashed')")
 
   .top-info
     .name {{my.name}}

@@ -49,3 +49,7 @@ const soundYouIdiot = new Howl({
 const soundTooSlow = new Howl({
   src: [ audioSrc + 'too_slow.mp3' ]
 });
+
+const soundGameOver = new Howl({
+  src: [ audioSrc + 'you_made_it_to_the_end_of_the_game.mp3' ]
+});

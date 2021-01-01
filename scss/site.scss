@@ -10,14 +10,13 @@
 // SITE SPECIFIC
 @import "partials/_variables";
 @import "partials/_z-index";
-@import "partials/_extends";
 @import "partials/_default";
+@import "partials/_scores";
 
-@import "partials/create-or-join";
-
+// SCREENS
 @import "partials/pregame";
-
+@import "partials/create-or-join";
 @import "partials/_admin";
 @import "partials/_employee";
 @import "partials/_final";
-@import "partials/_scores";
+@import "partials/_game-over";

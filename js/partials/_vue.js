@@ -55,7 +55,9 @@ var app = new Vue({
       }
     },
     allEmployeePasswords: [],
-    allPlayedRounds: [],
+    //allPlayedRounds: [],
+    roundSummary: [],
+    crackSummary: [],
     ui: {
       appliedForJob: false,
       enterCode: {
@@ -818,12 +820,20 @@ var app = new Vue({
 
     startNextRoundClicked() {
       const self = this;
-      self.allPlayedRounds.push(self.round.challenge.name);
+
+      var summary = {
+        challenge: self.round.challenge.name,
+        sysAdmin: self.my.name,
+        rules: self.round.rules,
+        bugs: self.round.bugs,
+        attempts: self.round.attempts,
+      };
 
       socket.emit("startNewRound", {
         roomCode: self.roomCode,
         playerIndex: self.my.playerIndex,
-        players: self.players
+        players: self.players,
+        summary: summary
       });
 
     },
@@ -886,7 +896,12 @@ var app = new Vue({
         socket.emit("passwordCracked", {
           roomCode: self.roomCode,
           players: self.players,
-          allEmployeePasswords: self.allEmployeePasswords
+          allEmployeePasswords: self.allEmployeePasswords,
+          crackSummary: {
+            pw: attempt,
+            attackerIndex: self.my.playerIndex,
+            victimIndex: pwPlayerIndex
+          }
         });
 
         if (self.computedUnclaimedPasswords < 1) {
@@ -904,10 +919,9 @@ var app = new Vue({
       const self = this;
       clearInterval(self.round.roundTimer);
       self.round.roundTimer = undefined;
-
-      // TODO: Create a game over screen.
-      alert('IMAGINE A GAME OVER SCREEN GOES HERE.');
-    }
+      self.round.phase = "GAME OVER";
+      soundGameOver.play();
+    },
 
   },
 
@@ -956,6 +970,28 @@ var app = new Vue({
         });
         return n;
       }
+    },
+    computedUncrackedPasswords() {
+      const self = this;
+      if (self.allEmployeePasswords.length < 1) {
+        return [];
+      } else {
+        let arr = [];
+        self.allEmployeePasswords.forEach(function(p) {
+          if (!p.claimed) {
+            arr.push(p);
+          }
+        });
+        return arr;
+      }
+    },
+    computedPlayersByScore() {
+      const self = this;
+      let arr = self.players;
+      arr.sort( ( a, b) => {
+        return a.score - b.score;
+      });
+      return arr.reverse();
     }
 
   },
@@ -965,16 +1001,6 @@ var app = new Vue({
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('room')) {
       self.roomCode = urlParams.get('room');
-
-      // TODO: Remove PubNub subscription
-      /*
-      setTimeout(function(){
-        pubnub.subscribe({
-          channels: [self.roomCode],
-          withPresence: true
-        });
-      }, 1000);
-      */
     }
 
     /////////////////////////////////////////////
@@ -1028,6 +1054,157 @@ var app = new Vue({
     ];
     self.startCountdownToFinalRound();
     */
+
+    /////////////////////////////////////////////
+    // FAKE A GAME OVER SCREEN.
+
+
+    /*
+    self.my.role = "employee";
+    self.my.name = "Lemon";
+    self.my.playerIndex = 0;
+    self.currentlyInGame = true;
+    self.players = [
+      { name: "Lemon", role:"employee", employeeNumber:1, score:118  },
+      { name: "Boots", role:"SysAdmin", employeeNumber:2, score:320  },
+      { name: "Sanguinary Novel", role:"employee", employeeNumber:3, score:212  },
+      { name: "Bunnybread", role:"employee", employeeNumber:5, score:-40  },
+      { name: "Achilles' Heelies", role:"employee", employeeNumber:99, score:131  },
+      { name: "Victor Laszlo", role:"employee", employeeNumber:8, score:0  },
+    ];
+    self.round.phase = "GAME OVER";
+    
+    self.roundSummary = [
+      { 
+        challenge: "Top 100 SNES Games",
+        sysAdmin: "Lemon",
+        rules: [
+          { message: "You may not use the letter R", },
+          { message: "Before entering a password, you must type SWORDFISH", },
+          { message: "You may not use the letter A and I together", },
+        ],
+        bugs: [
+          "SONIC", "MARIO", "WARIO"
+        ],
+        attempts: [
+          { playerIndex: 1, pwAttempt: "DSHJDKSHK", result: "failed" },
+          { playerIndex: 2, pwAttempt: "CALL OF DUTY", result: "failed" },
+          { playerIndex: 3, pwAttempt: "ALADDIN", result: "success" },
+          { playerIndex: 4, pwAttempt: "MORTAL KOMBAT", result: "failed" },
+          { playerIndex: 1, pwAttempt: "SUPER MARIO WORLD", result: "success" },
+          { playerIndex: 2, pwAttempt: "SONIC", result: "crash" },
+        ]
+      },
+      { 
+        challenge: "2000's US One-Hit Wonders",
+        sysAdmin: "Boots",
+        rules: [
+          { message: "You must use the letter D", },
+          { message: "The maximum letters allowed is 10", },
+          { message: "You may not use the letter A and I together", },
+        ],
+        bugs: [
+          "EVERYTHING BUT THE GIRL"
+        ],
+        attempts: [
+          { playerIndex: 0, pwAttempt: "SEMISONIC", result: "success" },
+          { playerIndex: 2, pwAttempt: "EVENESENCE", result: "failed" },
+          { playerIndex: 2, pwAttempt: "EVANASANCE", result: "failed" },
+          { playerIndex: 3, pwAttempt: "HANSON", result: "success" },
+          { playerIndex: 4, pwAttempt: "MORTAL KOMBAT", result: "failed" },
+          { playerIndex: 2, pwAttempt: "LIT", result: "success" },
+        ]
+      },
+      { 
+        challenge: "Gemstones Used in Jewelry",
+        sysAdmin: "Sanguinary Novel",
+        rules: [],
+        bugs: [
+          "RUBY", "SAPPHIRE", "PEARL", "DIAMOND", "GARNET", "OPAL", "ONYX"
+        ],
+        attempts: [
+          { playerIndex: 5, pwAttempt: "RUBY", result: "crash" },
+        ]
+      },
+      { 
+        challenge: "Football Teams",
+        sysAdmin: "Bunnybread",
+        rules: [
+          { message: "You may not use the letter R", },
+          { message: "You must use the letter A", },
+          { message: "You may not use the letter O", },
+        ],
+        attempts: [
+          { playerIndex: 1, pwAttempt: "RAVENS", result: "failed" },
+          { playerIndex: 2, pwAttempt: "BADGERS", result: "failed" },
+          { playerIndex: 0, pwAttempt: "PIRATES", result: "failed" },
+          { playerIndex: 4, pwAttempt: "PACKERS", result: "failed" },
+          { playerIndex: 4, pwAttempt: "PACKERS?", result: "failed" },
+          { playerIndex: 5, pwAttempt: "COLTS", result: "failed" },
+          { playerIndex: 4, pwAttempt: "PACKERS?", result: "failed" },
+          { playerIndex: 5, pwAttempt: "COLTS", result: "failed" },
+        ]
+      },
+      { 
+        challenge: "Top 100 SNES Games",
+        sysAdmin: "Achilles' Heelies",
+        rules: [
+          { message: "You may not use the letter R", },
+          { message: "Before entering a password, you must type SWORDFISH", },
+          { message: "You may not use the letter A and I together", },
+        ],
+        bugs: [
+          "SONIC", "MARIO", "WARIO"
+        ],
+        attempts: [
+          { playerIndex: 1, pwAttempt: "DSHJDKSHK", result: "failed" },
+          { playerIndex: 2, pwAttempt: "CALL OF DUTY", result: "failed" },
+          { playerIndex: 3, pwAttempt: "ALADDIN", result: "success" },
+          { playerIndex: 4, pwAttempt: "MORTAL KOMBAT", result: "failed" },
+          { playerIndex: 1, pwAttempt: "SUPER MARIO WORLD", result: "success" },
+          { playerIndex: 2, pwAttempt: "SONIC", result: "crash" },
+        ]
+      },
+      { 
+        challenge: "Top 100 SNES Games",
+        sysAdmin: "Victor Laszlo",
+        rules: [
+          { message: "You may not use the letter R", },
+          { message: "Before entering a password, you must type SWORDFISH", },
+          { message: "You may not use the letter A and I together", },
+        ],
+        attempts: [
+          { playerIndex: 1, pwAttempt: "DSHJDKSHK", result: "failed" },
+          { playerIndex: 2, pwAttempt: "CALL OF DUTY", result: "failed" },
+          { playerIndex: 3, pwAttempt: "ALADDIN", result: "success" },
+          { playerIndex: 4, pwAttempt: "MORTAL KOMBAT", result: "failed" },
+          { playerIndex: 1, pwAttempt: "SUPER MARIO WORLD", result: "success" },
+          { playerIndex: 2, pwAttempt: "SONIC", result: "crash" },
+        ]
+      }
+    ];
+    self.allEmployeePasswords = [
+      { pw: "SCORPION", name: "Lemon", playerIndex:0, claimed: false },
+      { pw: "RAIDEN", name: "Sanguinary Novel", playerIndex:2, claimed: true },
+      { pw: "GORO", name: "Boots", playerIndex:1, claimed: false },
+      { pw: "MILEENA", name: "Sanguinary Novel", playerIndex:2, claimed: true },
+      { pw: "KITANA", name: "Boots", playerIndex:1, claimed: false },
+      { pw: "KANO", name: "Bunnybread", playerIndex:4, claimed: false },
+      { pw: "SIAMESE", name: "Boots", playerIndex:1, claimed: false },
+      { pw: "PERSIAN", name: "Bunnybread", playerIndex:4, claimed: false }
+    ];
+    self.crackSummary = [
+      { pw: "ALADDIN", attackerIndex: 1, victimIndex: 3 },
+      { pw: "HANSON", attackerIndex: 5, victimIndex: 3 },
+      { pw: "GENE", attackerIndex: 5, victimIndex: 5 },
+      { pw: "AMBER", attackerIndex: 4, victimIndex: 0 },
+      { pw: "SUGAR COOKIE", attackerIndex: 4, victimIndex: 2 },
+      { pw: "AMBER", attackerIndex: 0, victimIndex: 0 },
+      { pw: "DIPPER", attackerIndex: 3, victimIndex: 1 },
+      { pw: "SOMALI", attackerIndex: 2, victimIndex: 3 },
+    ];
+    */
+    
 
 
   },
