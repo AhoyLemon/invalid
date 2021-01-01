@@ -27,7 +27,7 @@ main.game-over(v-if="round.phase == 'GAME OVER'")
     template(v-if="crackSummary || crackSummary.length > 0")
       .crack-headline {{crackSummary.length}} passwords were cracked.
       .cracks
-        .crack(v-for="c in crackSummary" :class="{'self-own': (c.attackerIndex == c.victimIndex)}")
+        .crack(v-for="c in crackSummary" v-if="c" :class="{'self-own': (c.attackerIndex == c.victimIndex)}")
           .inside
             .password {{c.pw}}
             .icon.attacker-icon
