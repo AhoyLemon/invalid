@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2021-00-01@11:53:10">
+    <meta http-equiv="last-modified" content="2021-00-01@13:17:32">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -75,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div class="admin-screen" v-if="my.role == 'SysAdmin' &amp;&amp; (round.phase == 'choose rules' || round.phase == 'create password' || round.phase == 'crashed')">
+      <div class="admin-screen" v-if="my.role == 'SysAdmin' &amp;&amp; (round.phase == 'choose rules' || round.phase == 'add bugs' || round.phase == 'create password' || round.phase == 'crashed')">
         <div class="top-info">
           <div class="name">{{my.name}}</div>
           <div class="job">SysAdmin</div>
@@ -436,7 +436,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         <div class="round-reminder" :class="{'visible': (round.hurryTime &lt;= 10)}">
           <h3>Played rounds...</h3>
           <ol>
-            <li v-for="round in allPlayedRounds">{{round}}</li>
+            <li v-for="round in roundSummary">{{round.challenge}}</li>
           </ol>
         </div>
         <div class="timer final-timer" v-if="round.roundTimer != undefined">
@@ -457,20 +457,22 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <main class="game-over" v-if="round.phase == 'GAME OVER'">
         <h1>Game Over!</h1>
         <section class="round-summaries">
-          <div class="round-summary" v-for="(r, index) in roundSummary">
-            <div class="number">{{(index + 1)}}</div>
-            <div class="sysadmin">{{r.sysAdmin}} presented...</div>
-            <div class="challenge">{{r.challenge}}</div>
-            <ul class="rules">
-              <li class="rule" v-for="m in r.rules">{{m.message}}</li>
-              <li class="rule" v-if="!r.rules || r.rules.length &lt; 1">{{r.sysAdmin}} didn't set any rules.</li>
-              <li class="bug" v-for="b in r.bugs"> <strong>{{b}} </strong> was a bug</li>
-              <li class="bug" v-if="!r.bugs || r.bugs.length &lt; 1">{{r.sysAdmin}} didn't create any bugs.</li>
-            </ul>
-            <div class="attempts">
-              <ol>
-                <li v-for="a in r.attempts" :class="a.result">{{players[a.playerIndex].name}} tried <strong>{{a.pwAttempt}}</strong><span v-if="a.result == 'crash'">, and that crashed the server.</span></li>
-              </ol>
+          <div class="summaries">
+            <div class="round-summary" v-for="(r, index) in roundSummary">
+              <div class="number">{{(index + 1)}}</div>
+              <div class="sysadmin">{{r.sysAdmin}} presented...</div>
+              <div class="challenge">{{r.challenge}}</div>
+              <ul class="rules">
+                <li class="rule" v-for="m in r.rules">{{m.message}}</li>
+                <li class="rule" v-if="!r.rules || r.rules.length &lt; 1">{{r.sysAdmin}} didn't set any rules.</li>
+                <li class="bug" v-for="b in r.bugs"> <strong>{{b}} </strong> was a bug</li>
+                <li class="bug" v-if="!r.bugs || r.bugs.length &lt; 1">{{r.sysAdmin}} didn't create any bugs.</li>
+              </ul>
+              <div class="attempts">
+                <ol>
+                  <li v-for="a in r.attempts" :class="a.result">{{players[a.playerIndex].name}} tried <strong>{{a.pwAttempt}}</strong><span v-if="a.result == 'crash'">, and that crashed the server.</span></li>
+                </ol>
+              </div>
             </div>
           </div>
         </section>
@@ -553,7 +555,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-01@11:53:10"></script>
+      <script src="js/min/site.min.js?updated2021-00-01@13:17:32"></script>
     </div>
   </body>
 </html>

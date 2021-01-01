@@ -55,7 +55,7 @@ var app = new Vue({
       }
     },
     allEmployeePasswords: [],
-    allPlayedRounds: [],
+    //allPlayedRounds: [],
     roundSummary: [],
     crackSummary: [],
     ui: {
@@ -820,12 +820,12 @@ var app = new Vue({
 
     startNextRoundClicked() {
       const self = this;
-      self.allPlayedRounds.push(self.round.challenge.name);
 
       var summary = {
         challenge: self.round.challenge.name,
         sysAdmin: self.my.name,
         rules: self.round.rules,
+        bugs: self.round.bugs,
         attempts: self.round.attempts,
       };
 
@@ -919,14 +919,9 @@ var app = new Vue({
       const self = this;
       clearInterval(self.round.roundTimer);
       self.round.roundTimer = undefined;
-
-      // TODO: Create a game over screen.
-      alert('IMAGINE A GAME OVER SCREEN GOES HERE.');
+      self.phase.round = "GAME OVER";
+      soundGameOver.play();
     },
-
-    sortArrayBy(arr,key) {
-      
-    }
 
   },
 
@@ -1063,7 +1058,8 @@ var app = new Vue({
     /////////////////////////////////////////////
     // FAKE A GAME OVER SCREEN.
 
-    
+
+    /*
     self.my.role = "employee";
     self.my.name = "Lemon";
     self.my.playerIndex = 0;
@@ -1207,6 +1203,7 @@ var app = new Vue({
       { pw: "DIPPER", attackerIndex: 3, victimIndex: 1 },
       { pw: "SOMALI", attackerIndex: 2, victimIndex: 3 },
     ];
+    */
     
 
 

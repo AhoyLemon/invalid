@@ -3,22 +3,23 @@ main.game-over(v-if="round.phase == 'GAME OVER'")
   h1 Game Over!
 
   section.round-summaries
-    .round-summary(v-for="(r, index) in roundSummary")
-      .number {{(index + 1)}}
-      .sysadmin {{r.sysAdmin}} presented...
-      .challenge {{r.challenge}}
-      ul.rules
-        li.rule(v-for="m in r.rules") {{m.message}}
-        li.rule(v-if="!r.rules || r.rules.length < 1") {{r.sysAdmin}} didn't set any rules.
-        li.bug(v-for="b in r.bugs") 
-          strong {{b}} 
-          |  was a bug
-        li.bug(v-if="!r.bugs || r.bugs.length < 1") {{r.sysAdmin}} didn't create any bugs.
-      .attempts
-        ol
-          li(v-for="a in r.attempts" :class="a.result") {{players[a.playerIndex].name}} tried 
-            strong {{a.pwAttempt}}
-            span(v-if="a.result == 'crash'") , and that crashed the server.
+    .summaries
+      .round-summary(v-for="(r, index) in roundSummary")
+        .number {{(index + 1)}}
+        .sysadmin {{r.sysAdmin}} presented...
+        .challenge {{r.challenge}}
+        ul.rules
+          li.rule(v-for="m in r.rules") {{m.message}}
+          li.rule(v-if="!r.rules || r.rules.length < 1") {{r.sysAdmin}} didn't set any rules.
+          li.bug(v-for="b in r.bugs") 
+            strong {{b}} 
+            |  was a bug
+          li.bug(v-if="!r.bugs || r.bugs.length < 1") {{r.sysAdmin}} didn't create any bugs.
+        .attempts
+          ol
+            li(v-for="a in r.attempts" :class="a.result") {{players[a.playerIndex].name}} tried 
+              strong {{a.pwAttempt}}
+              span(v-if="a.result == 'crash'") , and that crashed the server.
 
   h2 In the final round...
   

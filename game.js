@@ -145,7 +145,6 @@ io.on('connection', (socket) => {
     io.in(msg.roomCode).emit("startNewRound", {
       playerIndex: msg.playerIndex,
       players: msg.players,
-      allPlayedRounds: msg.allPlayedRounds,
       summary: msg.summary
     });
   });
