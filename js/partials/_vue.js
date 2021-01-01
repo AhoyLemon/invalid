@@ -922,6 +922,10 @@ var app = new Vue({
 
       // TODO: Create a game over screen.
       alert('IMAGINE A GAME OVER SCREEN GOES HERE.');
+    },
+
+    sortArrayBy(arr,key) {
+      
     }
 
   },
@@ -971,6 +975,28 @@ var app = new Vue({
         });
         return n;
       }
+    },
+    computedUncrackedPasswords() {
+      const self = this;
+      if (self.allEmployeePasswords.length < 1) {
+        return [];
+      } else {
+        let arr = [];
+        self.allEmployeePasswords.forEach(function(p) {
+          if (!p.claimed) {
+            arr.push(p);
+          }
+        });
+        return arr;
+      }
+    },
+    computedPlayersByScore() {
+      const self = this;
+      let arr = self.players;
+      arr.sort( ( a, b) => {
+        return a.score - b.score;
+      });
+      return arr.reverse();
     }
 
   },
@@ -1047,7 +1073,7 @@ var app = new Vue({
       { name: "Boots", role:"SysAdmin", employeeNumber:2, score:320  },
       { name: "Sanguinary Novel", role:"employee", employeeNumber:3, score:212  },
       { name: "Bunnybread", role:"employee", employeeNumber:5, score:-40  },
-      { name: "Achilles' Heelies", role:"employee", employeeNumber:99, score:0  },
+      { name: "Achilles' Heelies", role:"employee", employeeNumber:99, score:131  },
       { name: "Victor Laszlo", role:"employee", employeeNumber:8, score:0  },
     ];
     self.round.phase = "GAME OVER";
@@ -1160,6 +1186,16 @@ var app = new Vue({
           { playerIndex: 2, pwAttempt: "SONIC", result: "crash" },
         ]
       }
+    ];
+    self.allEmployeePasswords = [
+      { pw: "SCORPION", name: "Lemon", playerIndex:0, claimed: false },
+      { pw: "RAIDEN", name: "Sanguinary Novel", playerIndex:2, claimed: true },
+      { pw: "GORO", name: "Boots", playerIndex:1, claimed: false },
+      { pw: "MILEENA", name: "Sanguinary Novel", playerIndex:2, claimed: true },
+      { pw: "KITANA", name: "Boots", playerIndex:1, claimed: false },
+      { pw: "KANO", name: "Bunnybread", playerIndex:4, claimed: false },
+      { pw: "SIAMESE", name: "Boots", playerIndex:1, claimed: false },
+      { pw: "PERSIAN", name: "Bunnybread", playerIndex:4, claimed: false }
     ];
     self.crackSummary = [
       { pw: "ALADDIN", attackerIndex: 1, victimIndex: 3 },
