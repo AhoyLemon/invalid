@@ -29,9 +29,9 @@ socket.on("updatePlayers", function(msg) {
   app.players = msg.players;
 
   // NOTE: This bit may be unnecessary, but confirms & updates your own playerIndex every time the players get updated.
-  app.players.forEach(function(p) {
+  app.players.forEach(function(p, index) {
     if (p.employeeNumber == app.my.employeeNumber) {
-      app.my.playerIndex = p.playerIndex;
+      app.my.playerIndex = index;
     }
   });
 });
@@ -153,6 +153,12 @@ socket.on("roundOver", function() {
 // The SysAdmin (which might be me) started a new round.
 socket.on("startNewRound", function(msg) {
   console.log("new round started.");
+
+  msg.players.forEach(function(p, index) {
+    if (p.employeeNumber == app.players[index].employeeNumber) {
+      app.players[index].score = p.score;
+    }
+  });
 
   app.players = msg.players;
   app.roundSummary.push(msg.summary);

@@ -510,9 +510,7 @@ var app = new Vue({
       self.round.roundTimer = setInterval(() => {
         self.round.finalTimeLeft -= 1;
         if (self.round.finalTimeLeft <= 0) {
-          socket.emit("gameOver", {
-            roomCode: self.roomCode
-          });
+          self.setGameOver();
         }
       }, 1001);
     },
@@ -526,7 +524,6 @@ var app = new Vue({
       socket.emit("roundOver", {
         roomCode: self.roomCode
       });
-
     },
 
     tryToFailThis(attempt) {
@@ -909,11 +906,7 @@ var app = new Vue({
         });
 
         if (self.computedUnclaimedPasswords < 1) {
-
-          socket.emit("gameOver", {
-            roomCode: self.roomCode
-          });
-
+          self.setGameOver();
         }
 
       }
@@ -991,13 +984,18 @@ var app = new Vue({
     },
     computedPlayersByScore() {
       const self = this;
-      let arr = self.players;
-      arr.sort( ( a, b) => {
-        return a.score - b.score;
-      });
-      return arr.reverse();
+      const computedPlayers = [...self.players];
+      
+      function compare(a, b) {
+        if (a.score < b.score)
+          return 1;
+        if (a.score > b.score)
+          return -1;
+        return 0;
+      }
+      
+      return computedPlayers.sort(compare);
     }
-
   },
 
   mounted: function() {
