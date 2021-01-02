@@ -4291,6 +4291,235 @@ const challenges = [
       "RIC FLAIR"
     ],
 	source:"https://www.si.com/extra-mustard/2016/07/26/wwe-wcw-ecw-100-best-wrestlers-all-time"
+  },
+
+  {
+    id: 58,
+    name: "Words for Penis",
+    nameAsRule: "Your password must be a common synonym for penis",
+    failedMessage: "[PASS] is not on the list, please try again.",
+	  naughty: true,
+    possible: [
+      "PHALLUS",
+      "DICK",
+      "PRICK",
+      "MEMBER",
+      "TOOL",
+      "ORGAN",
+      "COCK",
+      "WANG",
+      "KNOB",
+      "CHOPPER",
+      "PLONKER",
+      "DONG",
+      "WINKLE",
+      "JOYSTICK",
+      "PECKER",
+      "JOHN THOMAS",
+      "WEENIE",
+      "WHANG",
+      "TADGER",
+      "SCHLONG",
+      "PIZZLE",
+      "WILLIE",
+      "WILLY",
+      "TOCKLEY",
+      "MANHOOD",
+      "JOHNSON",
+      "MEAT",
+      "BONER",
+      "JUNK"
+    ],
+	source:"https://www.collinsdictionary.com/us/dictionary/english-thesaurus/penis"
+  },
+
+  {
+    id: 59,
+    name: "Words for Vagina",
+    nameAsRule: "Your password must be a common synonym for vagina",
+    failedMessage: "[PASS] is not on the list, please try again.",
+	  naughty: true,
+    possible: [
+      "VULVA",
+      "PUSSY",
+      "CUNT",
+      "BOX",
+      "HOLE",
+      "CRACK",
+      "SNATCH",
+      "FANNY",
+      "BEAVER",
+      "MUFF",
+      "TWAT",
+      "QUIM",
+      "YONI",
+      "MINGE",
+      "PUNANI",
+      "GASH"
+    ],
+	source:"http"
+  },
+
+  {
+    id: 60,
+    name: "Sex and BSDM Toys",
+    nameAsRule: "Your password must be a toy used in sex or BDSM",
+    failedMessage: "[PASS] is not on the list, please try again.",
+	  naughty: true,
+    possible: [
+      "BERKLEY HORSE",
+      "SPANKING BENCH",
+      "FISTING SLING",
+      "SEX SWING",
+      "BEN WA BALLS",
+      "DILDO",
+      "STRAP ON",
+      "HORSESHOE",
+      "ANAL BEADS",
+      "BUTT PLUG",
+      "VIBRATOR",
+      "PROSTRATE MASSAGER",
+      "BULLET VIBRATOR",
+      "NIPPLE CLAMPS",
+      "COCK RING",
+      "DOCKING SLEEVE",
+      "FTM STROKER",
+      "FLESHLIGHT",
+      "ARMBINDER",
+      "ANAL HOOK",
+      "BALL LOCK",
+      "CUFFS",
+      "HARNESS",
+      "BREAST BINDER",
+      "HOOD",
+      "TAPE",
+      "ROPE",
+      "CHASTITY CAGE",
+      "HOBBLE SKIRT",
+      "COLLAR",
+      "CHAIN",
+      "HUMAN PONY HARNESS",
+      "MONOGLOVE",
+      "HUMBLER",
+      "MOUTH GAG",
+      // ALSO
+      // "BALL GAG",
+      // "DENTAL GAG",
+      // "BIT GAG",
+      // "MUZZLE GAG",
+      // "PENIS GAG"
+      "NOSE HOOK",
+      "PLASTIC WRAP",
+      "SHACKLES",
+      "SPECULUM",
+      "SPREADER BAR",
+      "STOCKS",
+      "STRAITJACKETS",
+      "SUSPENSION CUFFS",
+      "A-FRAME",
+      "INVERSION TABLE",
+      "QUEENING STOOL",
+      "RACK",
+      "SAWHORSE",
+      "SMOTHERBOX",
+      "SAINT ANDREW'S CROSS",
+      "BLINDFOLD",
+      "GAS MASKS",
+      "SLEEPSACKS",
+      "VACUUM BED",
+      "CANE",
+      "ENEMA",
+      "FLOGGER",
+      "RIDING CROP",
+      "SPANKING PADDLE",
+      "SPANDING BELT",
+      "WHIP"
+    ],
+  },
+
+  {
+    id: 61,
+    name: "Common Fetishes and Kinks",
+    nameAsRule: "Your password must be a common fetish or kink.",
+    failedMessage: "[PASS] is not on the list, please try again.",
+	  naughty: true,
+    possible: [
+      "AGE PLAY",
+      // ALSO
+      // "ABDL",
+      // "INFANTILISM"
+      "BONDAGE",
+      "CUCKOLD",
+      "DOMINANCE",
+      "ELECTROSTIMULATION",
+      // ALSO
+      // "ELECTRIC PLAY"
+      "FEET",
+      "GAGGING",
+      "HUMILIATION",
+      "IMPACT PLAY",
+      // ALSO
+      // "SPANKING",
+      // "FLOGGING",
+      // "PADDLING"
+      "KINBAKU",
+      "SHIBARI",
+      "KLISMAPHILIA",
+      "MASOCHISM",
+      // ALSO
+      // "SADISM"
+      "NYLONS",
+      // ALSO
+      // "STOCKINGS"
+      "OBJECTUM",
+      "PREGNANCY",
+      "HANDS",
+      "ROLE PLAY",
+      "SPECTROPHILIA",
+      // ALSO
+      // "GHOST",
+      // "SUCCUBUS",
+      // "DEMON"
+      "TENTACLES",
+      "UROPHILIA",
+      // ALSO
+      // "PISS PLAY"
+      // "WATERSPORTS",
+      // "PEE",
+      // "GOLDEN SHOWERS"
+      "VOYEURISM",
+      "WAX PLAY",
+      "BREATH PLAY",
+      "EDGE PLAY",
+      "COCK BALL TORTURE",
+      // ALSO
+      // "CBT"
+      "FISTING",
+      "GROUP SEX",
+      "SENSATION PLAY",
+      "LATEX",
+      "WHIPPING",
+      "UNIFORM",
+      // ALSO
+      // "NURSE",
+      // "COP",
+      // "POLICE",
+      // "SCHOOLGIRL",
+      // "DOCTOR"
+      "PIERCINGS",
+      "HAIR",
+      "ARMPITS",
+      "CHASTITY",
+      "BALLOONS",
+      "EXHIBITIONISM",
+      "FOOD PLAY",
+      // ALSO
+      // "FEEDERISM",
+      // "FEEDER"
+      "LEATHER",
+      "LINGERIE"
+    ],
+	source:"https://www.glamour.com/story/a-to-z-kinks-and-fetishes"
   }
 
 ];
