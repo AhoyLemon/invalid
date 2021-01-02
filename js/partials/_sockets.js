@@ -27,6 +27,13 @@ socket.on("requestPlayers", function(msg) {
 socket.on("updatePlayers", function(msg) {
   console.log("THE PLAYERS HAVE BEEN UPDATED!!!!!!!!");  
   app.players = msg.players;
+
+  // NOTE: This bit may be unnecessary, but confirms & updates your own playerIndex every time the players get updated.
+  app.players.forEach(function(p) {
+    if (p.employeeNumber == app.my.employeeNumber) {
+      app.my.playerIndex = p.playerIndex;
+    }
+  });
 });
 
 // The host has started the game!
