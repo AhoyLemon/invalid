@@ -185,6 +185,7 @@ const challenges = [
     id: 5,
     name: "European Countries",
     nameAsRule: "Your password must be a country in Europe",
+    hint: "Not including the United Kingdom",
     failedMessage: "Sorry! [PASS] is not a European Country.",
     possible: [
       "ALBANIA",
@@ -236,7 +237,6 @@ const challenges = [
       "SWITZERLAND",
       "TURKEY",
       "UKRAINE",
-      "UNITED KINGDOM",
       "VATICAN CITY"
     ]
   },
@@ -3105,7 +3105,7 @@ const challenges = [
     ],
   },
   {
-    id: 43,
+    id: 44,
     name: "Smash Bros.",
     nameAsRule: "Your password must be a playable character in Super Smash Bros.",
     hint: "Not including DLC",
@@ -3187,6 +3187,44 @@ const challenges = [
       "YOUNG LINK",
       "ZELDA",
       "ZERO SUIT SAMUS"
+    ]
+  },
+
+  {
+    id: 45,
+    name: "World Currencies",
+    nameAsRule: "Your password must be a form of currency traded on the foreign exhange market",
+    hint: "Currency name only",
+    failedMessage: "[PASS] isn't a form of world currency",
+    possible: [
+      "DOLLAR",
+      "EURO",
+      "YEN",
+      "POUND",
+      // "POUND STERLING",
+      "FRANC",
+      "RENMINBI",
+      "YUAN",
+      "KRONA",
+      "WON",
+      "KRONE",
+      "PESO",
+      "RUPEE",
+      "RUBLE",
+      "RAND",
+      "LIRA",
+      "REAL",
+      "ZLOTY",
+      "BAHT",
+      "RUPIAH",
+      "FORINT",
+      "KORUNA",
+      "SHEKEL",
+      // "NEW SHEKEL",
+      "DIRHAM",
+      "RIYAL",
+      "RINGGIT",
+      "LEU"
     ]
   }
 
