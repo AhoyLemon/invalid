@@ -10,7 +10,7 @@ const defaults = {
   minOffset: 2,
   vowelOffset: 1,
   hurryTime: 20,
-  adminTimeLeft: 900,
+  adminTimeLeft: 90,
   employeeMaxTime: 50,
   finalTimeLeft: 60,
   numberOfPossibleChallenges: 3,
@@ -32,14 +32,16 @@ const settings = {
     forCrackingOwnPassword: -50
   },
   timer: {
+    employeeMaxTime: 500,
     hurryTime: 20,
-    adminTimeLeft: 900,
+    adminTimeLeft: 90,
     countdownToFinal: 30,
     finalRound: 60,
     finalTimeLeft: 60,
   }
 };
 
+// I'm pretty sure this object doesn't do anything.
 const roundDefaults = {
   possibleChallenges: [],
   challenge: {},
@@ -80,9 +82,9 @@ function resetRoundVariables() {
   app.round.adminTimer = undefined;
   app.round.roundTimer = undefined;
   app.round.hurryTimer = undefined;
-  app.round.hurryTime = defaults.hurryTime;
-  app.round.adminTimeLeft = defaults.adminTimeLeft;
-  app.round.finalTimeLeft = defaults.finalTimeLeft;
+  app.round.hurryTime = settings.timer.hurryTime;
+  app.round.adminTimeLeft = settings.timer.adminTimeLeft;
+  app.round.finalTimeLeft = settings.timer.finalTimeLeft;
   app.round.crash.active = false;
   app.round.crash.word = "";
   app.round.crash.player = [];

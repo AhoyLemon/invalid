@@ -178,9 +178,11 @@ $admin-panel-color: #101010;
     .panels { padding-left: $gap; }
 
     .scorekeeper { grid-column: 2;
-      .player {
-        color:rgba(255,255,255,0.72); background:rgba(0,0,0,0.4);
-        &.you { color:rgba(255,255,255,0.9); background:rgba(0,0,0,0.6); }
+      .player { color:rgba(255,255,255,0.72);
+        &:before { background:rgba(0,0,0,0.2); }
+        &.you { color:rgba(255,255,255,0.9);
+          &:before { background:rgba(0,0,0,0.4); }
+        }
       }
     }
   }

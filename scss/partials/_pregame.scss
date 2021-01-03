@@ -24,7 +24,7 @@
   }
   .start-button { margin-top: 1em; position: relative;
     button { display: block; width:100%; font-family: inherit; background:linear-gradient(to bottom, #650524, #e4084f, #650527); border:1px solid currentColor; font-size:16px; padding:10px; cursor: pointer; border-radius: 8px; color:white; border:none; box-shadow: 0 0 8px rgba(0,0,0,0.5);
-      &:hover, &:focus { background: saturate($red, 15%); }
+      &:hover, &:focus { background:linear-gradient(to bottom, #650524, #e4084f, #e4084f, #650527); }
     }
   }
 

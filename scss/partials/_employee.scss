@@ -1,12 +1,68 @@
 //TODO: While the employee screen is less messy than the admin screen, it still sucks. Fix it.
 
 
-.employee-screen { background:$white; font-family: $serif; position: relative;
-  .top-info { background: $employeePanelColor; border-bottom: 1px solid rgba(0,0,0,0.15);
-    padding:10px $gap; display:grid; grid-template-columns: repeat(5,1fr);
+.employee-screen { min-height: 100vh; background-image:url(https://picsum.photos/1920/1080); background-size:cover; background-position: center; font-family: $sans-serif;
+  display:grid; grid-template-columns: 1fr ($scorebard-width + $gap); gap:$gap; grid-template-rows: 40px 1fr;
+  &:before { content:""; @include position(absolute,0,0,0,0); background:linear-gradient(139deg, rgba(255,255,255,0.8), rgba(255,255,255,0.1)); }
+  .top-info { grid-column:span 2; background:$employeePanelColor; border-bottom: 1px solid rgba(0,0,0,0.15); padding:10px $gap; display:grid; grid-template-columns: repeat(5,1fr); position: relative; }
+  .interface { display:flex; align-items: center; justify-content: center;
+    .inside { max-width: 720px; display:grid; grid-template-columns: repeat(2,1fr); min-height: 420px; }
   }
 
-  display:flex; align-items: center; justify-content: center;
+  .info { padding:$gap $padding; position: relative; backdrop-filter:blur(4px); color:white;
+    &:before { content: ""; @include position(absolute,0,0,0,0); background:$purple; opacity: 0.8; border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
+    .content { position: relative; }
+  }
+
+  .entry { padding:$gap $padding; position: relative; backdrop-filter:blur(4px);
+    &:before { content: ""; @include position(absolute,0,0,0,0); background:white; opacity: 0.8; border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
+    .content { position: relative; }
+    form { border-radius: 12px; border:3px solid #aaa; overflow: hidden;
+      &.disabled { position: relative; border-color: rgba(0,0,0,0.15);
+        fieldset, button { opacity: 0.15; filter:grayscale(0.8); }
+        &:hover .disabled-reason { opacity: 1;}
+      }
+      .disabled-reason { position: absolute; top: 25px; left: 10px; color: #aa0000; opacity: 0; }
+      .required { color:red; }
+      fieldset { position: relative;
+        input { display: block; width: 100%; font-family: inherit; font-size: 130%; padding: 23px 10px 12px 10px; outline:none; border:none; text-transform: uppercase; }
+        //&.shibboleth { border-bottom-left-radius:12px; border-bottom-right-radius: 12px; }
+        label { @include position(absolute,5px,null,null,10px); font-size:80%; }
+      }
+      button { display: block; width: 100%; font-family: inherit; font-size: 120%; padding: 10px; border:none; outline: none;  background: linear-gradient(to bottom, #f953c6, #b91d73); color:white; letter-spacing: 0.2em; text-transform: uppercase;
+        &:not(disabled) { cursor: pointer; }
+        background: linear-gradient(to bottom, saturate(#f953c6,15%), saturate(#b91d73,15%));
+      }
+    }
+    .password-errors { color: #aa1111; margin-top: 2em; }
+    form.shibboleth-form { margin-bottom: 2em; }
+  }
+
+  .scorekeeper { padding-right: $gap;
+    .player { color:rgba(0,0,0,0.72);
+      &:before { background:rgba(255,255,255,0.1); }
+      &.you { color:rgba(0,0,0,0.9);
+        &:before { background:rgba(255,255,255,0.3); }
+      }
+    }
+  }
+
+
+  .crash-screen { background:white; color:black; padding:$padding; @include position(absolute,0,0,0,0); display: flex; // align-items: center; justify-content: center;
+    .inside { width:100%; }
+    h1 { color: red; border-bottom: 3px solid currentColor; display:block; margin-bottom: 2em; }
+    pre { background: #ffffcc; font-weight: bold; padding:1em; margin-bottom:2em; }
+    footer { border-top:2px solid black; }
+  }
+}
+
+/*
+.employee-screen { background:$white; font-family: $serif; position: relative;
+  .top-info { background: $employeePanelColor; border-bottom: 1px solid rgba(0,0,0,0.15);
+    
+  }
+
+  
   .inner { width:100%; max-width: 500px; background: $employeePanelColor; border: 1px solid rgba(0,0,0,0.15); padding:$padding; box-shadow: 2px 2px 18px rgba(0,0,0,0.3); border-radius: 20px; }
 
 
@@ -68,3 +124,4 @@
     }
   }
 }
+*/

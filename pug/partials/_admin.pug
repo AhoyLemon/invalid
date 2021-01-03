@@ -150,7 +150,7 @@
         form.fieldset-and-button(v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length < 1 || my.rulebux > 0")
           fieldset 
             label(for="BugPassword") Set a Bug on 
-            input(type="text" id="BugPassword" v-model="ui.addBug" v-touppercase  v-focus placeholder="PASSWORD")
+            input(type="text" id="BugPassword" v-model="ui.addBug" v-touppercase autocomplete="off" v-focus placeholder="PASSWORD")
           button(type="Submit") Set
 
     .panel.onboard-button(v-if="round.phase == 'add bugs' && !ui.addBug" :class="{focus: ((round.bugs && round.bugs.length > 0) && my.rulebux < 1)}")

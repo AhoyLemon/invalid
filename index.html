@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2021-00-02@23:55:48">
+    <meta http-equiv="last-modified" content="2021-00-03@13:36:00">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -256,7 +256,7 @@
               <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length &lt; 1 || my.rulebux &gt; 0">
                 <fieldset> 
                   <label for="BugPassword">Set a Bug on </label>
-                  <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase v-focus placeholder="PASSWORD">
+                  <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase autocomplete="off" v-focus placeholder="PASSWORD">
                 </fieldset>
                 <button type="Submit">Set</button>
               </form>
@@ -305,17 +305,19 @@
         </div>
         <div class="scorekeeper" :player-count="players.length">
           <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
-            <div class="admin-icon" v-if="index == round.sysAdminIndex">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
-              </svg>
+            <div class="inside">
+              <div class="admin-icon" v-if="index == round.sysAdminIndex">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                  <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
+                </svg>
+              </div>
+              <div class="name">{{player.name}}</div>
+              <div class="score">{{player.score}}</div>
             </div>
-            <div class="name">{{player.name}}</div>
-            <div class="score">{{player.score}}</div>
           </div>
         </div>
       </div>
-      <div class="employee-screen" v-if="my.role == 'employee' &amp;&amp; (round.phase == 'choose rules' || round.phase == 'create password' || round.phase == 'crashed')">
+      <main class="employee-screen" v-if="my.role == 'employee' &amp;&amp; (round.phase == 'choose rules' || round.phase == 'create password' || round.phase == 'crashed')">
         <div class="top-info">
           <div class="name">{{my.name}}</div>
           <div class="job"> <span>Employee </span><sup>#</sup><span>{{my.employeeNumber}}</span></div>
@@ -324,67 +326,107 @@
           <div class="score">SCORE: {{players[my.playerIndex].score}}</div>
         </div>
         <div class="interface">
-          <div class="inner" v-if="!ui.roundOver">
-            <div class="content" v-if="!ui.passwordSucceeded">
-              <p v-if="round.phase == 'create password'">Create Your Password.</p>
-              <ul>
-                <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">{{round.challenge.nameAsRule}}</li>
-                <li v-if="round.challenge &amp;&amp; round.challenge.hint"> <strong>HINT: </strong> {{round.challenge.hint}}</li>
-                <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
-                <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">Passwords are case-insensitive</li>
-                <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
-              </ul>
-              <!-- Shibboleth Entry.-->
-              <div v-if="computedShibbolethRequired &amp;&amp; round.phase == 'create password'">
-                <form class="shibboleth-form" @submit.prevent="ui.shibboleth = ''">
-                  <fieldset>
-                    <input type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus>
-                    <label for="ShibbolethInput">Type {{round.shibboleth}}<sup class="requred">*</sup></label>
-                  </fieldset>
-                </form>
-              </div>
-              <div v-else-if="round.phase == 'create password'">
-                <form class="password-form" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
-                  <fieldset>
-                    <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" required v-touppercase v-focus>
-                    <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
-                  </fieldset>
-                  <div class="button-holder">
-                    <button type="submit">Submit</button>
-                  </div>
-                </form>
-              </div>
-              <div class="stand-by" v-if="round.phase != 'create password'">
-                <p>Your password rules are still being created by {{computedSysAdminName}}, your friendly and helpful System Administrator. Please stand by.</p>
-              </div>
-              <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
-                <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
-                <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
-                  <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
+          <div class="inside">
+            <!-- This tells you about criteria and status-->
+            <div class="info">
+              <div class="content">
+                <ul>
+                  <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">{{round.challenge.nameAsRule}}</li>
+                  <li v-if="round.challenge &amp;&amp; round.challenge.hint"> <strong>HINT: </strong> {{round.challenge.hint}}</li>
+                  <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
+                  <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">Passwords are case-insensitive</li>
+                  <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
                 </ul>
+                <div class="stand-by" v-if="round.phase != 'create password' &amp;&amp; !ui.roundOver">
+                  <p>Your password rules are still being created by {{computedSysAdminName}}, your friendly and helpful System Administrator.</p>
+                </div>
               </div>
             </div>
-            <div class="content" v-if="ui.passwordSucceeded">
-              <h1>SUCCESS!</h1>
-              <p>You've set a password.</p>
-              <p>Please stand by while your coworkers try to do the same.</p>
+            <!-- This is where you put in the password, and get feedback about your password.-->
+            <div class="entry">
+              <div class="content">
+                <h2 v-if="round.phase != 'create password'">Please Wait.</h2>
+                <h2 v-else-if="ui.roundOver">This round is over.</h2>
+                <h2 v-else-if="ui.passwordSucceeded">SUCCESS!</h2>
+                <h2 v-else>Create Your Password.</h2>
+                <!-- IDEA: Show disabled forms if you can't enter yet.-->
+                <!-- However, since the UX is better if the form is inserted in, we're going to swap disabled forms with active forms.-->
+                <template v-if="!ui.roundOver &amp;&amp; !ui.passwordSucceeded">
+                  <template v-if="computedShibbolethRequired || ui.shibboleth">
+                    <template v-if="ui.roundOver || round.phase != 'create password' || !computedShibbolethRequired">
+                      <form class="shibboleth-form disabled">
+                        <fieldset>
+                          <input class="shibboleth" type="text" v-model="ui.shibboleth" disabled>
+                          <label>Type {{round.shibboleth}}<sup class="required">*</sup></label>
+                        </fieldset>
+                        <div class="disabled-reason" v-if="ui.roundOver || round.phase != 'create password'">Please wait for {{computedSysAdminName}} to finish creating password rules.</div>
+                      </form>
+                    </template>
+                    <template v-else>
+                      <!-- This is where the working Shibboleth form goes.-->
+                      <form class="shibboleth-form" @submit.prevent="ui.shibboleth = ''" v-if="computedShibbolethRequired">
+                        <fieldset>
+                          <input class="shibboleth" type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus>
+                          <label for="ShibbolethInput">Type {{round.shibboleth}}<sup class="required">*</sup></label>
+                        </fieldset>
+                      </form>
+                    </template>
+                  </template>
+                  <template v-if="ui.roundOver || round.phase != 'create password' || computedShibbolethRequired">
+                    <form class="password-form disabled">
+                      <fieldset>
+                        <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" autocomplete="off" required v-touppercase disabled>
+                        <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
+                      </fieldset>
+                      <div class="button-holder">
+                        <button type="submit" disabled>Submit</button>
+                      </div>
+                      <div class="disabled-reason" v-if="round.phase != 'create password'">Please wait for {{computedSysAdminName}} to finish creating password rules.</div>
+                      <div class="disabled-reason" v-else-if="computedShibbolethRequired">You must type {{round.shibboleth}} first.</div>
+                    </form>
+                  </template>
+                  <template v-else>
+                    <!-- Okay, here's the working password form.-->
+                    <form class="password-form" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
+                      <fieldset>
+                        <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" v-focus :class="{ 'error' : ui.passwordInputError }" autocomplete="off" required v-touppercase>
+                        <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
+                      </fieldset>
+                      <div class="button-holder">
+                        <button type="submit">Submit</button>
+                      </div>
+                    </form>
+                  </template>
+                </template>
+                <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
+                  <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
+                  <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
+                    <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
+                  </ul>
+                </div>
+                <template v-if="ui.passwordSucceeded &amp;&amp; !ui.roundOver">
+                  <p>You've set a password.</p>
+                  <p>Please stand by while your coworkers try to do the same.</p>
+                </template>
+                <div v-if="ui.roundOver">
+                  <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
+                  <p v-else>Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.</p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="inner" v-if="ui.roundOver">
-            <h1>This round is over.</h1>
-            <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
-            <p v-else>Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.</p>
           </div>
         </div>
         <div class="scorekeeper" :player-count="players.length">
           <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
-            <div class="admin-icon" v-if="index == round.sysAdminIndex">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
-              </svg>
+            <div class="inside">
+              <div class="admin-icon" v-if="index == round.sysAdminIndex">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                  <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
+                </svg>
+              </div>
+              <div class="name">{{player.name}}</div>
+              <div class="score">{{player.score}}</div>
             </div>
-            <div class="name">{{player.name}}</div>
-            <div class="score">{{player.score}}</div>
           </div>
         </div>
         <div class="hurry-timer" v-if="round.hurryTimer != undefined">
@@ -416,7 +458,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
             <footer><strong>Version Information:</strong><br><code>BigCorp Framework Version 4.00.1134.Release5-Final--Version2.TestBuild-5</code></footer>
           </div>
         </div>
-      </div>
+      </main>
       <div class="final-round" v-if="round.phase == 'FINAL ROUND'">
         <video class="fullscreen" muted autoplay loop poster="img/polygons.jpg">
           <source src="video/polygons.mp4">
@@ -463,13 +505,15 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         </div>
         <div class="scorekeeper" :player-count="players.length">
           <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
-            <div class="admin-icon" v-if="index == round.sysAdminIndex">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
-              </svg>
+            <div class="inside">
+              <div class="admin-icon" v-if="index == round.sysAdminIndex">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                  <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
+                </svg>
+              </div>
+              <div class="name">{{player.name}}</div>
+              <div class="score">{{player.score}}</div>
             </div>
-            <div class="name">{{player.name}}</div>
-            <div class="score">{{player.score}}</div>
           </div>
         </div>
       </div>
@@ -574,7 +618,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-02@23:55:48"></script>
+      <script src="js/min/site.min.js?updated2021-00-03@13:36:00"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({
