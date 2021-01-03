@@ -1,5 +1,6 @@
 // TODO: The Admin stylesheet is a MESS. Clean it up.
 
+/*
 .admin-screen { background:$black; color:$white; padding:$gap; padding-top:($gap * 2); font-family: $monospace; display:grid; gap:$gap; position: relative; overflow-y: auto;
 
   .top-info { background: $adminPanelColor; @include position(absolute,0,0,null,0); border-bottom: 1px solid rgba(255,255,255,0.15);
@@ -53,11 +54,7 @@
 
   h2 { text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1em; }
 
-  @keyframes blinkRed { 
-    0%   { color:rgba(255,0,0,0); }
-    50%  { color:rgba(255,0,0,1); }
-    100% { color:rgba(255,0,0,0); }
-  }
+  
   .crash-notification { 
     h2 { color:$red; animation: blinkRed 0.5s linear infinite; font-size:200%; letter-spacing: 0.2em; }
     button { font-weight: $medium; color:$white; border:1px solid $white; border-radius: 3px; padding:$padding; position: relative; background:transparent; cursor: pointer; font-size:18px; padding:16px 24px; text-transform: uppercase; 
@@ -70,11 +67,49 @@
 
   button { font-family: inherit; }
 }
+*/
 
 
 
+@keyframes blinkRed { 
+  0%   { color:rgba(255,0,0,0); }
+  50%  { color:rgba(255,0,0,1); }
+  100% { color:rgba(255,0,0,0); }
+}
+$admin-panel-color: #101010;
 
-.admin-screen { min-height: 99.9vh; display:grid;
+.admin-screen { min-height: 100vh; display:grid; background-image:url('../img/bg/escheresque_ste.png'); font-family: $monospace;
+
+  .top-info { background: $admin-panel-color; color:$white; border-bottom: 1px solid rgba($adminAccent,0.4); }
+
+  .panels { height: fit-content; }
+  .panel { margin-bottom: 1em; padding:$padding;
+
+    filter: drop-shadow(-3px -3px 0 rgba($adminAccent,0.1)) drop-shadow(-1px -1px 0 rgba($adminAccent,0.5)) drop-shadow(1px 1px 0 rgba($adminAccent,0.5));
+    
+    .notched { clip-path: polygon(100% 0, 100% calc(100% - 26px), calc(100% - 26px) 100%, 0% 100%, 0% 0%); background:$admin-panel-color; color:white; padding:$padding }
+    .admin-only { color:$adminOnly; }
+
+    &.focus { filter: drop-shadow(-16px -16px 0 rgba($adminAccent,0.25)) drop-shadow(-8px -8px 0 rgba($adminAccent,0.5)) drop-shadow(-4px -4px 0 rgba($adminAccent,0.75)) drop-shadow(-1px -1px 0 rgba($adminAccent,0.5)) drop-shadow(1px 1px 0 rgba($adminAccent,0.5)); }
+  }
+
+
+  .add-a-rule {
+    .rules { display:grid; grid-template-columns:repeat(3,1fr); max-width: 600px; gap:$padding; }
+    .rule { position: relative; padding-top:40px; position: relative; padding-top: 32px; padding-bottom: 16px;
+      .cost { @include position(absolute,5px,5px); border:1px solid rgba(255,255,255,0.25); border-radius: 50%; width:2em; height: 2em; line-height: 2em; font-size:80%; }
+    }
+    .finished { grid-column: span 2; }
+  }
+
+  button { background:rgba(0,0,0,0.5); border:3px solid rgba(255,255,255,0.25); color:white; font-family: inherit; font-size:16px;  cursor: pointer; box-shadow: -2px -2px 1px rgba(0,0,0,0.5);
+    &:hover, &:focus { border-color: rgba($adminAccent,0.75); color:$adminAccent;  }
+    &[disabled] { opacity: 0.5; cursor: not-allowed;
+      &:hover, &:focus { border-color:rgba(255,255,255,0.25); color:white;  }
+    }
+    &.onboard-employees, 
+    &.start-next-round { font-size: 130%; padding: 0.5em 2.5em; }
+  }
 
   form {
     fieldset { position: relative; 
@@ -84,16 +119,19 @@
     }
     &.fieldset-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px;
       input { background:transparent; border:none; border-bottom:0.15em solid currentColor; color:$white; outline:none; font-size:23px; font-family: $monospace; padding-left:0.3em; padding-right: 0.3em; margin-left: 1em;
-        &:focus, &:hover { border-color:$green; color:$green;
-          &::placeholder { color:rgba($green,0.6)}
+        &[maxlength= "1"] { width:2em; }
+        &:focus, &:hover { border-color:$adminAccent; color:$adminAccent;
+          &::placeholder { color:rgba($adminAccent,0.6); }
         }
       }
-      select { background:#010101; color:$white;
+      select { background:#010101; color:$white; padding:0;
+        &:hover { color:$adminAccent; }
+        &.letter { width:2.5em; }
         option { color:$white; }
       }
       label { position: relative; margin-right: 1em; }
     }
-    &.select-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px; margin-left: 1em;
+    &.select-and-button { display:grid; grid-template-columns: 1fr 120px; gap:10px; margin-left: 1em; font-family: inherit;
       select { background:transparent; color:$white; border:0; font-weight: 500;
         &:focus { background:#000; }
       }
@@ -110,8 +148,12 @@
     .success { color:rgba(56,255,56,1); }
   }
 
-  .admin-timer { background:black; @include position(fixed,null,$gap,$gap); padding:$padding;
-    time { color:$green; }
+  .crash-notification { 
+    h2 { color:$red; animation: blinkRed 0.5s linear infinite; font-size:200%; letter-spacing: 0.2em; }
+  }
+
+  .admin-timer { background:$admin-panel-color; @include position(fixed,null,$gap,$gap); padding:$padding; color:white;
+    time { color:$adminAccent; }
     time { font-size:280%;
       sup {font-size:85%; top:unset }
     }
@@ -126,18 +168,26 @@
 }
 
 @media (min-width:721px) {
-  .admin-screen { grid-template-columns: 1fr $scorebard-width;
+  .admin-screen { grid-template-columns: 1fr $scorebard-width; gap:$gap; grid-template-rows: 40px 1fr;
 
-    .panels { 
-      .panel { margin-bottom: 1em; }
+    .top-info { grid-column: span 3; display:grid; grid-template-columns: repeat(4,1fr); padding-left: $gap; padding-right: $gap;
+      > * { padding:9px; text-align: center; }
+      > :first-child { text-align: left; }
+      > :last-child { text-align: right; }
     }
+    .panels { padding-left: $gap; }
 
-    .scorekeeper { grid-column: 2; 
+    .scorekeeper { grid-column: 2;
       .player {
-        
-        color:rgba(255,255,255,0.65); background:rgba(0,0,0,0.2);
-        &.you { color:rgba(255,255,255,1); background:rgba(0,0,0,0.6); }
+        color:rgba(255,255,255,0.72); background:rgba(0,0,0,0.4);
+        &.you { color:rgba(255,255,255,0.9); background:rgba(0,0,0,0.6); }
       }
     }
+  }
+}
+
+@media (min-width:1150px) { 
+  .admin-screen {
+    .panels { display:grid; grid-template-columns: repeat(2,1fr); }
   }
 }

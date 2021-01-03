@@ -3,8 +3,8 @@
   background-image:url(../img/tom-conway-tKSYZE5RTzw-unsplash.jpg); background-size:cover; background-position: center;
 
   .sign-in { display: flex; align-items: center; justify-content: center; }
-  .inside { padding:60px; position: relative; 
-    &:before {  @include position(absolute,0,0,0,0); content:""; background: linear-gradient(to top left, #4c1265, #f80759); opacity: 0.75; backdrop-filter:blur(8px); }
+  .inside { padding:90px 60px; position: relative; backdrop-filter:blur(4px);
+    &:before {  @include position(absolute,0,0,0,0); content:""; background: linear-gradient(to top left, #4c1265, #f80759); opacity: 0.75; }
     h1 { position: relative; color:white; }
   }
   form { width:280px; margin-left: auto; margin-right: auto; display:grid; grid-template-columns: 1fr; gap:10px; position: relative;
@@ -22,8 +22,8 @@
       &:hover, &:focus { background: linear-gradient(to top, #0f0c29, #574ccc, #24243e); } 
     }
   }
-  .start-button { margin-top: 1em;
-    button { display: block; width:100%; font-family: inherit; background:$red; border:1px solid currentColor; font-size:16px; padding:10px; cursor: pointer;
+  .start-button { margin-top: 1em; position: relative;
+    button { display: block; width:100%; font-family: inherit; background:linear-gradient(to bottom, #650524, #e4084f, #650527); border:1px solid currentColor; font-size:16px; padding:10px; cursor: pointer; border-radius: 8px; color:white; border:none; box-shadow: 0 0 8px rgba(0,0,0,0.5);
       &:hover, &:focus { background: saturate($red, 15%); }
     }
   }

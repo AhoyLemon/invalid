@@ -6,11 +6,11 @@ const employeeNumberSeed = randomNumber(10000,99999);
 
 // TODO: Refactor this category into structured settings.
 const defaults = {
-  maxOffset: 2,
+  maxOffset: 1,
   minOffset: 2,
   vowelOffset: 1,
   hurryTime: 20,
-  adminTimeLeft: 90,
+  adminTimeLeft: 900,
   employeeMaxTime: 50,
   finalTimeLeft: 60,
   numberOfPossibleChallenges: 3,
@@ -32,8 +32,11 @@ const settings = {
     forCrackingOwnPassword: -50
   },
   timer: {
+    hurryTime: 20,
+    adminTimeLeft: 900,
     countdownToFinal: 30,
-    finalRound: 60
+    finalRound: 60,
+    finalTimeLeft: 60,
   }
 };
 
@@ -52,9 +55,9 @@ const roundDefaults = {
   adminTimer: undefined,
   roundTimer: undefined,
   hurryTimer: undefined,
-  hurryTime: defaults.hurryTime,
-  adminTimeLeft: defaults.adminTimeLeft,
-  finalTimeLeft: defaults.finalTimeLeft,
+  hurryTime: settings.timer.hurryTime,
+  adminTimeLeft: settings.timer.adminTimeLeft,
+  finalTimeLeft: settings.timer.finalTimeLeft,
   crash: {
     active: false,
     word: "",

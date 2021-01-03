@@ -13,6 +13,7 @@ var app = new Vue({
     my: {
       employeeNumber: randomNumber(10000,99999),
       name: '',
+      color: '#ff0000',
       playerIndex: -1, // This is assigned in updatePlayer()
       role: null,
       rulebux: settings.default.rulebux,
@@ -45,9 +46,9 @@ var app = new Vue({
       adminTimer: undefined,
       roundTimer: undefined,
       hurryTimer: undefined,
-      hurryTime: defaults.hurryTime,
-      adminTimeLeft: defaults.adminTimeLeft,
-      finalTimeLeft: defaults.finalTimeLeft,
+      hurryTime: settings.timer.hurryTime,
+      adminTimeLeft: settings.timer.adminTimeLeft,
+      finalTimeLeft: settings.timer.finalTimeLeft,
       crash: {
         active: false,
         word: "",
@@ -1022,7 +1023,6 @@ var app = new Vue({
     self.round.phase = "choose rules";
     self.definePossibleChallenges();
     */
-
 
     /////////////////////////////////////////////
     // FAKE A PLAYER IN THE FINAL ROUND.
