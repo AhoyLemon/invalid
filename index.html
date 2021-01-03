@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2021-00-02@14:17:09">
+    <meta http-equiv="last-modified" content="2021-00-02@16:48:13">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -58,7 +58,6 @@
                 <label for="AllowNaughtyChallenges" title="Checking this will allow profane and/or sexual challenges, passwords and options to be available">Allow naughty things.</label>
               </fieldset>
             </form>
-            <h2>Your PlayerIndex is {{my.playerIndex}}</h2>
             <div class="start-button" v-if="isRoomHost &amp;&amp; ui.appliedForJob &amp;&amp; players.length &gt; 1">
               <button type="button" @click="startTheGame()">Start The Game</button>
             </div>
@@ -556,7 +555,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-02@14:17:09"></script>
+      <script src="js/min/site.min.js?updated2021-00-02@16:48:13"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({

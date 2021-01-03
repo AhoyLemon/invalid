@@ -30,8 +30,6 @@
         fieldset.checkbox(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
           input(v-model="allowNaughty" type="checkbox" id="AllowNaughtyChallenges")
           label(for="AllowNaughtyChallenges" title="Checking this will allow profane and/or sexual challenges, passwords and options to be available") Allow naughty things.
-
-      h2 Your PlayerIndex is {{my.playerIndex}}
             
       .start-button(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
         button(type="button" @click="startTheGame()") Start The Game
