@@ -6,15 +6,15 @@
   &:before { content:""; @include position(absolute,0,0,0,0); background:linear-gradient(139deg, rgba(255,255,255,0.8), rgba(255,255,255,0.1)); }
   .top-info { grid-column:span 2; background:$employeePanelColor; border-bottom: 1px solid rgba(0,0,0,0.15); padding:10px $gap; display:grid; grid-template-columns: repeat(5,1fr); position: relative; }
   .interface { display:flex; align-items: center; justify-content: center;
-    .inside { max-width: 720px; display:grid; grid-template-columns: repeat(2,1fr); min-height: 420px; }
+    .inside { max-width: 690px; display:grid; grid-template-columns: repeat(2,1fr); min-height: 390px; }
   }
 
-  .info { padding:$gap $padding; position: relative; backdrop-filter:blur(4px); color:white;
+  .info { padding:$gap; position: relative; backdrop-filter:blur(4px); color:white;
     &:before { content: ""; @include position(absolute,0,0,0,0); background:$purple; opacity: 0.8; border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
     .content { position: relative; }
   }
 
-  .entry { padding:$gap $padding; position: relative; backdrop-filter:blur(4px);
+  .entry { padding:$gap; position: relative; backdrop-filter:blur(4px);
     &:before { content: ""; @include position(absolute,0,0,0,0); background:white; opacity: 0.8; border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
     .content { position: relative; }
     form { border-radius: 12px; border:3px solid #aaa; overflow: hidden;
@@ -47,6 +47,16 @@
     }
   }
 
+  .hurry-timer { width:110px; height: 110px; background:white; border-radius: 50%; @include position(absolute,null,25px,60px); text-align: center; padding-top:0.5vw; border:2px solid rgba(0,0,0,0.15); box-shadow: -9px 9px 9px rgba(0,0,0,0.35);
+    .label { text-transform: uppercase; font-weight: 700; margin-top: 10px; background:rgb(40,40,40); color:white; padding:0.25em; border-radius: 4px; box-shadow: -9px 9px 9px rgba(0,0,0,0.35); }
+    .time-left { font-size:72px; line-height: 100%;
+      .integer { display: inline-block; width:1ch;
+        &.double-digit { width:2ch; }
+      }
+      .decimal { display: inline-block; width:0.8ch; transform: translate(-40%,6px); }
+    }
+  }
+
 
   .crash-screen { background:white; color:black; padding:$padding; @include position(absolute,0,0,0,0); display: flex; // align-items: center; justify-content: center;
     .inside { width:100%; }
@@ -54,6 +64,8 @@
     pre { background: #ffffcc; font-weight: bold; padding:1em; margin-bottom:2em; }
     footer { border-top:2px solid black; }
   }
+
+
 }
 
 /*

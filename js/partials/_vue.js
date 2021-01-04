@@ -459,7 +459,7 @@ var app = new Vue({
       self.round.roundTimer = setInterval(() => {
         self.round.elapsedTime += 1;
         self.players[self.round.sysAdminIndex].score += 1;
-        if ((self.round.elapsedTime >= (settings.timer.employeeMaxTime - defaults.hurryTime)) && (self.round.hurryTimer == undefined)) {
+        if ((self.round.elapsedTime >= (settings.timer.employeeMaxTime - settings.timer.hurryTime)) && (self.round.hurryTimer == undefined)) {
           self.startHurryTimer();
         }
       }, 1000);
@@ -910,6 +910,7 @@ var app = new Vue({
           self.setGameOver();
         }
 
+        document.getElementById("PasswordAttempt").focus();
       }
     },
 
@@ -1046,13 +1047,13 @@ var app = new Vue({
       { pw: "KITANA", name: "Lemon", playerIndex:1, claimed: false },
       { pw: "KANO", name: "Pablo", playerIndex:2, claimed: false },
     ];
-    self.allPlayedRounds = [
-      "Top 100 SNES Games",
-      "Human Organs",
-      "Classic Board Games",
-      "Periodic Table of Elements",
-      "Types of Cookies",
-      "Types of Cheese"
+    self.roundSummary = [
+      { challenge: "Top 100 SNES Games" },
+      { challenge: "Human Organs" },
+      { challenge: "Classic Board Games" },
+      { challenge: "Periodic Table of Elements" },
+      { challenge: "Types of Cookies" },
+      { challenge: "Types of Cheese" }
     ];
     self.startCountdownToFinalRound();
     */

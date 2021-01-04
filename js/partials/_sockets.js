@@ -145,6 +145,7 @@ socket.on("roundOver", function() {
   console.log("The round is over.");
   app.ui.roundOver = true;
   app.ui.passwordSucceeded = false;
+  app.ui.passwordAttemptErrors = [];
   app.resetHurryTimer();
   app.resetRoundTimer();
 });

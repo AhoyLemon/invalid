@@ -1,6 +1,8 @@
 // TODO: Get the players display on FINAL ROUND to match the other 3 views.
 
-.final-round { @include position(fixed,0,0,0,0); display:flex; align-items: center; font-family: $serif;
+.final-round { @include position(fixed,0,0,0,0); font-family: $serif; display:grid; grid-template-columns: 1fr ($scorebard-width + $gap);
+  .interface { display:flex; align-items: center; justify-content: center; padding-left: 100px; }
+  
   .inside { width:100%; max-width: 62ch; margin-left: auto; margin-right: auto; background:rgba(15,15,15,0.6); backdrop-filter:blur(8px); padding:1.5em; color:white; }
 
   video.fullscreen { @include position(fixed,0,0,0,0);
@@ -16,30 +18,35 @@
     background-size: cover;
   }
 
-  .password-form { margin-top:$padding; margin-bottom: $padding;
+
+
+  .password-form { max-width: 360px; margin:$gap auto;
 
     fieldset { position: relative;
-      input { font-size:2rem; font-family: inherit; display: block; padding:20px 0 5px 20px; width:100%; border:2px solid rgba(0,0,0,0.2); outline:none; background:transparent; color:white; border-color:white;
+      input { font-size:2rem; font-family: inherit; display: block; padding:20px 0 5px 20px; width:100%; border:2px solid rgba(0,0,0,0.2); outline:none; background:transparent; color:white; border-color:white; text-transform: uppercase;
         .error { border-color:$red; }
       }
       label { @include position(absolute,5px,5px,null,25px); display: block; color:white; font-size:14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
     }
     .required { color:$red; }
     button[type="submit"] { display:block; width:100%; font-family: inherit; font-weight: $bold; text-transform: uppercase; font-size:26px; background:white; border:none; border-radius: 0; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; padding:0.35em 2em; font-weight: 900; letter-spacing: 0.3em; cursor: pointer;
-      &:hover, &:focus { background:$blue; }
+      &:hover, &:focus { background:#000; color:#fff; }
     }
   
     input, button { border-radius: 0; }
     input { border-top-left-radius: 16px; border-top-right-radius: 16px; }
   }
 
-  .password-errors { color:$red; margin-bottom: 1em;}
-  .success { color:$green; }
+  .password-errors { color:#eb3939; margin-bottom: 1em; font-weight: 700; }
+  .success { color:$green; font-weight: 700; }
+  .there-are-unclaimed { font-weight: 700;
+    .count { font-size:130%; }
+  }
 
 
-  .scorekeeper { @include position(fixed,0,0); width:200px; display:grid; grid-template-columns: 1fr; gap:10px;
-    .player { background: rgba(15,15,15,0.6); backdrop-filter:blur(8px); color:rgba(255,255,255,0.7);
-      &.you { background:rgba(5,5,5,0.75); color:rgba(255,255,255,1); }
+  .scorekeeper { padding:($gap * 2) $gap 0 0;
+    .player { backdrop-filter:blur(8px); color:rgba(255,255,255,0.7);
+      &.you { color:rgba(255,255,255,1); }
     }
   }
 

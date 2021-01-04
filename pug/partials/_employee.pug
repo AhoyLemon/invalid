@@ -104,11 +104,11 @@ main.employee-screen(v-if="my.role == 'employee' && (round.phase == 'choose rule
   .hurry-timer(v-if="round.hurryTimer != undefined")
     .time-left(v-if="round.hurryTime >= 10")
       span.integer.double-digit {{parseInt(round.hurryTime)}}
-    .time-left(v-else-if="round.hurryTime < 10")
+    .time-left(v-else-if="round.hurryTime < 10 && round.hurryTime > 0")
       span.integer {{round.hurryTime.toFixed(1).split('.')[0]}}
       | .
       sup.decimal {{round.hurryTime.toFixed(1).split('.')[1]}}
-    .label(v-if="!ui.passwordSucceded") Hurry Up
+    .label(v-if="!ui.passwordSucceeded") Hurry Up
 
   .crash-screen(v-if="round.phase == 'crashed'")
     .inside

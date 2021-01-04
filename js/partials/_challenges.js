@@ -4437,12 +4437,14 @@ const challenges = [
     ],
   },
 
+  /*
+
   {
     id: 61,
     name: "Common Fetishes and Kinks",
     nameAsRule: "Your password must be a common fetish or kink.",
     failedMessage: "[PASS] is not on the list, please try again.",
-	  naughty: true,
+    naughty: true,
     possible: [
       "AGE PLAY",
       // ALSO
@@ -4521,6 +4523,7 @@ const challenges = [
     ],
 	source:"https://www.glamour.com/story/a-to-z-kinks-and-fetishes"
   },
+  */
 
   {
     id: 62,
@@ -4653,6 +4656,7 @@ const challenges = [
 	source:"https://www.orsymphony.org/learning-community/instruments/strings/"
   },
 
+  /*
   {
     id: 64,
     name: "Artist Pigments",
@@ -4718,6 +4722,7 @@ const challenges = [
     ],
 	source:"https://gamblincolors.com/mineral-modern-colors/"
   },
+  */
 
   {
     id: 65,
@@ -4940,7 +4945,7 @@ const challenges = [
 
   {
     id: 68,
-    name: "Types of Textiles",
+    name: "Textiles",
     nameAsRule: "Your password must a type of textile or fabric.",
     failedMessage: "[PASS] is not on the list, please try again.",
     possible: [
@@ -4998,7 +5003,7 @@ const challenges = [
 
   {
     id: 69,
-    name: "Ingredients in Sushi",
+    name: "Sushi",
     nameAsRule: "Your password must be an ingredient used in sushi.",
     failedMessage: "[PASS] is not on the list, please try again.",
     possible: [
@@ -5075,10 +5080,11 @@ const challenges = [
 	source:"https://www.umami-insider.com/common-japanese-sushi-ingredients-guide/"
   },
 
+  /*
   {
     id: 70,
-    name: "Great Barrier Reef Organisms",
-    nameAsRule: "Your password must be a well-known organism found in the Great Barrier Reef.",
+    name: "The Barrier Reef",
+    nameAsRule: "Your password must be an organism found in the Great Barrier Reef.",
     failedMessage: "[PASS] is not on the list, please try again.",
     possible: [
       "MANTA RAY",
@@ -5157,11 +5163,13 @@ const challenges = [
       "ALGAE"
     ],
   },
+  */
 
   {
     id: 71,
-    name: "Houses in Game of Thrones",
-    nameAsRule: "Your password must be a notable house found in Game of Thrones (A Song of Ice and Fire series).",
+    name: "Game of Thrones",
+    nameAsRule: "Your password must be a Great House from Game of Thrones / A Song of Ice & Fire",
+    hint: "You needn't type the word HOUSE",
     failedMessage: "[PASS] is not on the list, please try again.",
     possible: [
       "TARGARYEN",
@@ -5195,10 +5203,12 @@ const challenges = [
 	source:"https://awoiaf.westeros.org/index.php/Great_Houses"
   },
 
+
+  /*
   {
     id: 72,
     name: "Popular Car Brands",
-    nameAsRule: "Your password must be a popular car brand.",
+    nameAsRule: "Your password must be a brand of ",
     failedMessage: "[PASS] is not on the list, please try again.",
     possible: [
       "TOYOTA",
@@ -5254,12 +5264,13 @@ const challenges = [
     ],
 	source:"https://www.carlogos.org/popular-car-brands/"
   },
+  */
 
   {
     id: 73,
-    name: "Major League Baseball Teams",
-    nameAsRule: "Your password must be a baseball team listed by the Major League Baseball organization.",
-    failedMessage: "[PASS] is not on the list, please try again.",
+    name: "MLB Baseball",
+    nameAsRule: "Your password must be an MLB baseball team name",
+    failedMessage: "Sorry! There are no [PASS] in the MLB.",
     possible: [
       "ORIOLES",
       "RED SOX",
@@ -5295,9 +5306,10 @@ const challenges = [
 	source:"https://en.wikipedia.org/wiki/Major_League_Baseball"
   },
 
+  /*
   {
     id: 74,
-    name: "International Fast Food Chains",
+    name: "Fast Food Chains",
     nameAsRule: "Your password must be an international fast food chain.",
     failedMessage: "[PASS] is not on the list, please try again.",
     possible: [
@@ -5364,7 +5376,9 @@ const challenges = [
     ],
 	source:"https://en.wikipedia.org/wiki/List_of_fast_food_restaurant_chains"
   },
+  */
 
+ /*
   {
     id: 75,
     name: "Pizza Toppings",
@@ -5427,5 +5441,6 @@ const challenges = [
       "CAPICOLA"
     ],
   }
+  */
 
 ];

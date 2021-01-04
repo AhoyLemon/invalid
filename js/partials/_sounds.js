@@ -35,7 +35,7 @@ const soundCorrect = new Howl({
 });
 
 const soundNo = new Howl({
-  src: [ audioSrc + 'no.mp3' ]
+  src: [ audioSrc + 'no2.mp3' ]
 });
 
 const soundCracked = new Howl({
@@ -51,5 +51,5 @@ const soundTooSlow = new Howl({
 });
 
 const soundGameOver = new Howl({
-  src: [ audioSrc + 'you_made_it_to_the_end_of_the_game.mp3' ]
+  src: [ audioSrc + 'end-song.mp3' ]
 });

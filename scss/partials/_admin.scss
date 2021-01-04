@@ -76,6 +76,13 @@
   50%  { color:rgba(255,0,0,1); }
   100% { color:rgba(255,0,0,0); }
 }
+
+@keyframes panelFocus {
+  0%   { filter: drop-shadow(-6px -6px 0 rgba($adminAccent,0.1)) drop-shadow(-3px -3px 0 rgba($adminAccent,0.5)) drop-shadow(1px 1px 0 rgba($adminAccent,0.5)); }
+  //50%  { color:rgba(255,0,0,1); }
+  100% { filter: drop-shadow(-16px -16px 0 rgba($adminAccent,0.25)) drop-shadow(-8px -8px 0 rgba($adminAccent,0.5)) drop-shadow(1px 1px 0 rgba($adminAccent,0.5)) drop-shadow(-4px -4px 0 rgba($adminAccent,0.75)); }
+}
+
 $admin-panel-color: #101010;
 
 .admin-screen { min-height: 100vh; display:grid; background-image:url('../img/bg/escheresque_ste.png'); font-family: $monospace;
@@ -90,7 +97,8 @@ $admin-panel-color: #101010;
     .notched { clip-path: polygon(100% 0, 100% calc(100% - 26px), calc(100% - 26px) 100%, 0% 100%, 0% 0%); background:$admin-panel-color; color:white; padding:$padding }
     .admin-only { color:$adminOnly; }
 
-    &.focus { filter: drop-shadow(-16px -16px 0 rgba($adminAccent,0.25)) drop-shadow(-8px -8px 0 rgba($adminAccent,0.5)) drop-shadow(-4px -4px 0 rgba($adminAccent,0.75)) drop-shadow(-1px -1px 0 rgba($adminAccent,0.5)) drop-shadow(1px 1px 0 rgba($adminAccent,0.5)); }
+    &.focus { animation-name: panelFocus; animation-duration: 1.5s; animation-direction: alternate; animation-iteration-count: infinite; animation-timing-function: linear;
+    }
   }
 
 

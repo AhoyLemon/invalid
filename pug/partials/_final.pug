@@ -1,35 +1,41 @@
 .final-round(v-if="round.phase == 'FINAL ROUND'")
   video.fullscreen(muted autoplay loop poster="img/polygons.jpg")
     source(src="video/polygons.mp4")
-  .inside
-    template(v-if="!ui.enterFinalPasswords")
-      h1 This is the final round!
-      p In the final round, your goal is to hack into accounts of your coworkers.
-      p When the timer starts, type in any password you think any of your coworkers may have used successfully. If you're right, you'll 
-        em steal 
-        | 40 points from that player!
-      p You can type as many passwords as you like, but if you crack your own password, you will be punished.
-      //-p
-        button(@click="ui.enterFinalPasswords = true") Start
-      h2 Round begins in {{round.hurryTime}} seconds.
-    template(v-if="ui.enterFinalPasswords")
+  .interface
 
-      template(v-if="ui.passwordSuccessMessage") 
-        h2.success Success!
-        p {{ui.passwordSuccessMessage}}
-      form.password-form(@submit.prevent="tryToCrackWith(ui.passwordAttempt)")
-        fieldset
-          input(type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus)
-          label(for="PasswordAttempt") Enter A Password
-            sup.required *
-        .button-holder
-          button(type="submit") Submit
-      .password-errors(v-if="ui.passwordAttemptErrors && ui.passwordAttemptErrors.length > 0")
-        .error(v-if="ui.passwordAttemptErrors.length == 1") {{ui.passwordAttemptErrors[0]}}
-        ul(v-if="ui.passwordAttemptErrors.length > 1")
-          li.error(v-for="(err,index) in ui.passwordAttemptErrors") {{err}}
-      
-      p There are {{computedUnclaimedPasswords}} unclaimed passwords in the system.
+    .inside
+      template(v-if="!ui.enterFinalPasswords")
+        h1 This is the final round!
+        p In the final round, your goal is to hack into accounts of your coworkers.
+        p When the timer starts, type in any password you think any of your coworkers may have used successfully. If you're right, you'll 
+          em steal 
+          | 40 points from that player!
+        p You can type as many passwords as you like, but if you crack your own password, you will be punished.
+        //-p
+          button(@click="ui.enterFinalPasswords = true") Start
+        h2 Round begins in {{round.hurryTime}} seconds.
+      template(v-if="ui.enterFinalPasswords")
+
+        h2.success(v-if="ui.passwordSuccessMessage") Success!
+        h2(v-else) Crack your Coworkers
+        form.password-form(@submit.prevent="tryToCrackWith(ui.passwordAttempt)")
+          fieldset
+            input(type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" autocomplete="off" required v-focus)
+            label(for="PasswordAttempt") Enter A Password
+              sup.required *
+          .button-holder
+            button(type="submit") Submit
+        .password-errors(v-if="ui.passwordAttemptErrors && ui.passwordAttemptErrors.length > 0")
+          .error(v-if="ui.passwordAttemptErrors.length == 1") {{ui.passwordAttemptErrors[0]}}
+          ul(v-if="ui.passwordAttemptErrors.length > 1")
+            li.error(v-for="(err,index) in ui.passwordAttemptErrors") {{err}}
+
+        .success(v-if="ui.passwordSuccessMessage")
+          p.success {{ui.passwordSuccessMessage}}
+        
+        p.there-are-unclaimed There are 
+          span.count {{computedUnclaimedPasswords}}
+          |  unclaimed passwords in the system.
 
   .round-reminder(:class="{'visible': (round.hurryTime <= 10)}")
     h3 Played rounds...

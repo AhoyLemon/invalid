@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2021-00-03@13:36:00">
+    <meta http-equiv="last-modified" content="2021-00-03@15:34:34">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -431,8 +431,8 @@
         </div>
         <div class="hurry-timer" v-if="round.hurryTimer != undefined">
           <div class="time-left" v-if="round.hurryTime &gt;= 10"><span class="integer double-digit">{{parseInt(round.hurryTime)}}</span></div>
-          <div class="time-left" v-else-if="round.hurryTime &lt; 10"><span class="integer">{{round.hurryTime.toFixed(1).split('.')[0]}}</span>.<sup class="decimal">{{round.hurryTime.toFixed(1).split('.')[1]}}</sup></div>
-          <div class="label" v-if="!ui.passwordSucceded">Hurry Up</div>
+          <div class="time-left" v-else-if="round.hurryTime &lt; 10 &amp;&amp; round.hurryTime &gt; 0"><span class="integer">{{round.hurryTime.toFixed(1).split('.')[0]}}</span>.<sup class="decimal">{{round.hurryTime.toFixed(1).split('.')[1]}}</sup></div>
+          <div class="label" v-if="!ui.passwordSucceeded">Hurry Up</div>
         </div>
         <div class="crash-screen" v-if="round.phase == 'crashed'">
           <div class="inside">
@@ -463,36 +463,39 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         <video class="fullscreen" muted autoplay loop poster="img/polygons.jpg">
           <source src="video/polygons.mp4">
         </video>
-        <div class="inside">
-          <template v-if="!ui.enterFinalPasswords">
-            <h1>This is the final round!</h1>
-            <p>In the final round, your goal is to hack into accounts of your coworkers.</p>
-            <p>When the timer starts, type in any password you think any of your coworkers may have used successfully. If you're right, you'll <em>steal </em>40 points from that player!</p>
-            <p>You can type as many passwords as you like, but if you crack your own password, you will be punished.</p>
-            <h2>Round begins in {{round.hurryTime}} seconds.</h2>
-          </template>
-          <template v-if="ui.enterFinalPasswords">
-            <template v-if="ui.passwordSuccessMessage"> 
-              <h2 class="success">Success!</h2>
-              <p>{{ui.passwordSuccessMessage}}</p>
+        <div class="interface">
+          <div class="inside">
+            <template v-if="!ui.enterFinalPasswords">
+              <h1>This is the final round!</h1>
+              <p>In the final round, your goal is to hack into accounts of your coworkers.</p>
+              <p>When the timer starts, type in any password you think any of your coworkers may have used successfully. If you're right, you'll <em>steal </em>40 points from that player!</p>
+              <p>You can type as many passwords as you like, but if you crack your own password, you will be punished.</p>
+              <h2>Round begins in {{round.hurryTime}} seconds.</h2>
             </template>
-            <form class="password-form" @submit.prevent="tryToCrackWith(ui.passwordAttempt)">
-              <fieldset>
-                <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" v-touppercase v-focus>
-                <label for="PasswordAttempt">Enter A Password<sup class="required">*</sup></label>
-              </fieldset>
-              <div class="button-holder">
-                <button type="submit">Submit</button>
+            <template v-if="ui.enterFinalPasswords">
+              <h2 class="success" v-if="ui.passwordSuccessMessage">Success!</h2>
+              <h2 v-else>Crack your Coworkers</h2>
+              <form class="password-form" @submit.prevent="tryToCrackWith(ui.passwordAttempt)">
+                <fieldset>
+                  <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" autocomplete="off" required v-focus>
+                  <label for="PasswordAttempt">Enter A Password<sup class="required">*</sup></label>
+                </fieldset>
+                <div class="button-holder">
+                  <button type="submit">Submit</button>
+                </div>
+              </form>
+              <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
+                <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
+                <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
+                  <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
+                </ul>
               </div>
-            </form>
-            <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
-              <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
-              <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
-                <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
-              </ul>
-            </div>
-            <p>There are {{computedUnclaimedPasswords}} unclaimed passwords in the system.</p>
-          </template>
+              <div class="success" v-if="ui.passwordSuccessMessage">
+                <p class="success">{{ui.passwordSuccessMessage}}</p>
+              </div>
+              <p class="there-are-unclaimed">There are <span class="count">{{computedUnclaimedPasswords}}</span> unclaimed passwords in the system.</p>
+            </template>
+          </div>
         </div>
         <div class="round-reminder" :class="{'visible': (round.hurryTime &lt;= 10)}">
           <h3>Played rounds...</h3>
@@ -618,7 +621,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-03@13:36:00"></script>
+      <script src="js/min/site.min.js?updated2021-00-03@15:34:34"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({
