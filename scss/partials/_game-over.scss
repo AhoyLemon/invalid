@@ -1,7 +1,9 @@
 
-main.game-over { font-family: $serif; background:#e4e72c; min-height: 100vh; padding-top:($gap * 2);
+main.game-over { font-family: $serif; background:#e4e72c; min-height: 100vh;
 
   section { margin-bottom: ($gap * 5); }
+
+  section.headline { min-height: 85vh; margin-bottom: $gap; display: flex; align-items: center; justify-content: center; }
   h1 { font-size:9vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
   h2 { font-size:5.5vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
 

@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2021-00-03@15:34:34">
+    <meta http-equiv="last-modified" content="2021-00-03@22:52:02">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -521,7 +521,9 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         </div>
       </div>
       <main class="game-over" v-if="round.phase == 'GAME OVER'">
-        <h1>Game Over!</h1>
+        <section class="headline">
+          <h1>Game Over!</h1>
+        </section>
         <section class="round-summaries">
           <div class="summaries">
             <div class="round-summary" v-for="(r, index) in roundSummary">
@@ -621,7 +623,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-03@15:34:34"></script>
+      <script src="js/min/site.min.js?updated2021-00-03@22:52:02"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({

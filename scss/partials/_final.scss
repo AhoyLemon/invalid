@@ -1,7 +1,4 @@
-// TODO: Get the players display on FINAL ROUND to match the other 3 views.
-
-.final-round { @include position(fixed,0,0,0,0); font-family: $serif; display:grid; grid-template-columns: 1fr ($scorebard-width + $gap);
-  .interface { display:flex; align-items: center; justify-content: center; padding-left: 100px; }
+.final-round { font-family: $serif;
   
   .inside { width:100%; max-width: 62ch; margin-left: auto; margin-right: auto; background:rgba(15,15,15,0.6); backdrop-filter:blur(8px); padding:1.5em; color:white; }
 
@@ -58,5 +55,17 @@
 
     transform: translateY(102%); transition: transform 8s ease;
     &.visible { transform: translateY(0); }
+  }
+}
+
+@media (max-width:720px) {
+  .final-round { position: relative; display: block;
+    .interface { padding:$gap $padding; }
+  }
+}
+
+@media (min-width:721px) {
+  .final-round { @include position(fixed,0,0,0,0); display:grid; grid-template-columns: 1fr ($scorebard-width + $gap);
+    .interface { display:flex; align-items: center; justify-content: center; padding-left: 100px; }
   }
 }

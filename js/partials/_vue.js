@@ -1056,11 +1056,10 @@ var app = new Vue({
       { challenge: "Types of Cheese" }
     ];
     self.startCountdownToFinalRound();
-    */
+    */    
 
     /////////////////////////////////////////////
     // FAKE A GAME OVER SCREEN.
-
 
     /*
     self.my.role = "employee";
@@ -1207,6 +1206,9 @@ var app = new Vue({
       { pw: "SOMALI", attackerIndex: 2, victimIndex: 3 },
     ];
     */
+
+    ///////////////////////////////////////////////
+    
     
 
 

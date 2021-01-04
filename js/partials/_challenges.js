@@ -570,7 +570,7 @@ const challenges = [
   {
     id: 13,
     name: "Worst Actors",
-    nameAsRule: "Your password must be the LAST name of a “Worst Actor” award winner.",
+    nameAsRule: "Your password must be the LAST name of a “Worst Actor” Razzie award winner",
     hint: "“Worst Actor” is a separate category from “Worst Actress”",
     failedMessage: "[PASS] never won a Razzie",
     possible: [
@@ -612,7 +612,7 @@ const challenges = [
   {
     id: 14,
     name: "Worst Actresses",
-    nameAsRule: "Your password must be the LAST name of a “Worst Actress” award winner",
+    nameAsRule: "Your password must be the LAST name of a “Worst Actress” Razzie award winner",
     hint: "“Worst Actress” is a separate category from “Worst Actor”",
     failedMessage: "[PASS] never won a Razzie",
     possible: [
@@ -998,7 +998,7 @@ const challenges = [
   {
     id: 19,
     name: "Classic Cocktails",
-    nameAsRule: "Your password must be a cocktail any bartender would be able to make.",
+    nameAsRule: "Your password must be a classic cocktail",
     failedMessage: "Did you find [PASS] on AllRecipes? Please try another cocktail.",
     possible: [
       "OLD FASHIONED",
@@ -2195,7 +2195,7 @@ const challenges = [
 
   {
     id: 32,
-    name: "Disney/Pixar Animated Films",
+    name: "Disney Movies",
     nameAsRule: "Your password must be a Disney or Pixar animated film (excluding sequels).",
     failedMessage: "[PASS] isn't an animated film by Disney or Pixar, please try again.",
     possible: [
@@ -3107,7 +3107,7 @@ const challenges = [
   {
     id: 44,
     name: "Smash Bros.",
-    nameAsRule: "Your password must be a playable character in Super Smash Bros.",
+    nameAsRule: "Your password must be a playable character in Super Smash Bros. Ultimate",
     hint: "Not including DLC",
     failedMessage: "[PASS] isn't a playable character in Super Smash Bros. Ultimate",
     possible: [
@@ -3230,7 +3230,7 @@ const challenges = [
 
   {
     id: 46,
-    name: "Notable Greek Deities",
+    name: "Greek Mythology",
     nameAsRule: "Your password must be a notable Greek god or goddess",
     failedMessage: "[PASS] isn't a part of the pantheon, try again.",
     possible: [
@@ -3567,6 +3567,7 @@ const challenges = [
 	source:"https://en.wikipedia.org/wiki/List_of_Egyptian_deities"
   },
 
+  /*
   {
     id: 49,
     name: "Notable Japanese Mythical Monsters",
@@ -3629,6 +3630,9 @@ const challenges = [
       "KAMAITACHI"
     ],
   },
+  */
+
+  /*
 
   {
     id: 50,
@@ -3745,7 +3749,9 @@ const challenges = [
     ],
 	source:"https://en.wikipedia.org/wiki/List_of_Aztec_gods_and_supernatural_beings"
   },
+  */
 
+  /*
   {
     id: 51,
     name: "Hawaiian Mythology",
@@ -3799,7 +3805,9 @@ const challenges = [
     ],
 	source:"https://en.wikipedia.org/wiki/List_of_figures_in_the_Hawaiian_religion"
   },
+  */
 
+  /*
   {
     id: 52,
     name: "Mythological Beings of Africa",
@@ -3852,10 +3860,11 @@ const challenges = [
     ],
 	source:"https://study.com/academy/lesson/african-mythological-creatures.html"
   },
+  */
 
   {
     id: 53,
-    name: "Top 100 Marvel Characters",
+    name: "Marvel Comics",
     nameAsRule: "Your password must be a notable Marvel character",
     failedMessage: "[PASS] isn't on the list, please try again",
     possible: [
@@ -3964,7 +3973,7 @@ const challenges = [
 
   {
     id: 54,
-    name: "Notable DC Comic Book Characters",
+    name: "DC Comics",
     nameAsRule: "Your password must be a notable DC comic book character",
     failedMessage: "[PASS] isn't on the list, please try again.",
     possible: [
@@ -4049,7 +4058,7 @@ const challenges = [
 
   {
     id: 55,
-    name: "Notable Characters from J.R.R. Tolkien's Middle-Earth Books",
+    name: "J.R.R. Tolkien",
     nameAsRule: "Your password must be the first name of a notable character from J.R.R. Tolkien's Middle-Earth books.",
     failedMessage: "[PASS] isn't on the list, please try again.",
     possible: [
@@ -4178,8 +4187,9 @@ const challenges = [
   
   {
     id: 57,
-    name: "Notable Wrestlers",
-    nameAsRule: "Your password must be a notable wrestler, both past and present.",
+    name: "WWE / WCW Wrestling",
+    nameAsRule: "Your password must one of Sports Illustrated's 100 Best Wrestlers of All Time",
+    hint: "This spans WWE, WCW and ECW",
     failedMessage: "[PASS] is not on the list, please try again.",
     possible: [
       "THE MIZ",
@@ -4296,234 +4306,76 @@ const challenges = [
   {
     id: 58,
     name: "Words for Penis",
-    nameAsRule: "Your password must be a common synonym for penis",
+    nameAsRule: "Your password must be one of Power Thesaurus' synomyms for “penis”",
     failedMessage: "[PASS] is not on the list, please try again.",
-	  naughty: true,
+    naughty: true,
     possible: [
-      "PHALLUS",
       "DICK",
-      "PRICK",
-      "MEMBER",
-      "TOOL",
-      "ORGAN",
       "COCK",
-      "WANG",
-      "KNOB",
-      "CHOPPER",
-      "PLONKER",
-      "DONG",
-      "WINKLE",
-      "JOYSTICK",
-      "PECKER",
-      "JOHN THOMAS",
-      "WEENIE",
-      "WHANG",
-      "TADGER",
-      "SCHLONG",
-      "PIZZLE",
-      "WILLIE",
-      "WILLY",
-      "TOCKLEY",
+      "PHALLUS",
+      "MEMBER",
       "MANHOOD",
+      "SCHLONG",
+      "DONG",
+      "HEAT-SEEKING MOISTURE MISSILE",
       "JOHNSON",
       "MEAT",
+      "SHAFT",
+      "WIENER",
+      "FUCK STICK",
+      "WILLY",
+      "BEAVER BASHER",
+      "WEE WEE",
       "BONER",
-      "JUNK"
+      "TOOL",
+      "POCKET ROCKET",
+      "PRICK",
+      "JOYSTICK",
+      "PECKER",
+      "DING DONG",
+      "JUNK",
+      "KNOB",
+      "LAP ROCKET"
     ],
-	source:"https://www.collinsdictionary.com/us/dictionary/english-thesaurus/penis"
+	source:"https://www.powerthesaurus.org/penis/synonyms"
   },
 
   {
     id: 59,
-    name: "Words for Vagina",
-    nameAsRule: "Your password must be a common synonym for vagina",
-    failedMessage: "[PASS] is not on the list, please try again.",
-	  naughty: true,
-    possible: [
-      "VULVA",
-      "PUSSY",
-      "CUNT",
-      "BOX",
-      "HOLE",
-      "CRACK",
-      "SNATCH",
-      "FANNY",
-      "BEAVER",
-      "MUFF",
-      "TWAT",
-      "QUIM",
-      "YONI",
-      "MINGE",
-      "PUNANI",
-      "GASH"
-    ],
-	source:"http"
-  },
-
-  {
-    id: 60,
-    name: "Sex and BSDM Toys",
-    nameAsRule: "Your password must be a toy used in sex or BDSM",
-    failedMessage: "[PASS] is not on the list, please try again.",
-	  naughty: true,
-    possible: [
-      "BERKLEY HORSE",
-      "SPANKING BENCH",
-      "FISTING SLING",
-      "SEX SWING",
-      "BEN WA BALLS",
-      "DILDO",
-      "STRAP ON",
-      "HORSESHOE",
-      "ANAL BEADS",
-      "BUTT PLUG",
-      "VIBRATOR",
-      "PROSTRATE MASSAGER",
-      "BULLET VIBRATOR",
-      "NIPPLE CLAMPS",
-      "COCK RING",
-      "DOCKING SLEEVE",
-      "FTM STROKER",
-      "FLESHLIGHT",
-      "ARMBINDER",
-      "ANAL HOOK",
-      "BALL LOCK",
-      "CUFFS",
-      "HARNESS",
-      "BREAST BINDER",
-      "HOOD",
-      "TAPE",
-      "ROPE",
-      "CHASTITY CAGE",
-      "HOBBLE SKIRT",
-      "COLLAR",
-      "CHAIN",
-      "HUMAN PONY HARNESS",
-      "MONOGLOVE",
-      "HUMBLER",
-      "MOUTH GAG",
-      // ALSO
-      // "BALL GAG",
-      // "DENTAL GAG",
-      // "BIT GAG",
-      // "MUZZLE GAG",
-      // "PENIS GAG"
-      "NOSE HOOK",
-      "PLASTIC WRAP",
-      "SHACKLES",
-      "SPECULUM",
-      "SPREADER BAR",
-      "STOCKS",
-      "STRAITJACKETS",
-      "SUSPENSION CUFFS",
-      "A-FRAME",
-      "INVERSION TABLE",
-      "QUEENING STOOL",
-      "RACK",
-      "SAWHORSE",
-      "SMOTHERBOX",
-      "SAINT ANDREW'S CROSS",
-      "BLINDFOLD",
-      "GAS MASKS",
-      "SLEEPSACKS",
-      "VACUUM BED",
-      "CANE",
-      "ENEMA",
-      "FLOGGER",
-      "RIDING CROP",
-      "SPANKING PADDLE",
-      "SPANDING BELT",
-      "WHIP"
-    ],
-  },
-
-  /*
-
-  {
-    id: 61,
-    name: "Common Fetishes and Kinks",
-    nameAsRule: "Your password must be a common fetish or kink.",
+    name: "Words for Vulva",
+    nameAsRule: "Your password must be one of Power Thesaurus' synomyms for “vulva”",
     failedMessage: "[PASS] is not on the list, please try again.",
     naughty: true,
     possible: [
-      "AGE PLAY",
-      // ALSO
-      // "ABDL",
-      // "INFANTILISM"
-      "BONDAGE",
-      "CUCKOLD",
-      "DOMINANCE",
-      "ELECTROSTIMULATION",
-      // ALSO
-      // "ELECTRIC PLAY"
-      "FEET",
-      "GAGGING",
-      "HUMILIATION",
-      "IMPACT PLAY",
-      // ALSO
-      // "SPANKING",
-      // "FLOGGING",
-      // "PADDLING"
-      "KINBAKU",
-      "SHIBARI",
-      "KLISMAPHILIA",
-      "MASOCHISM",
-      // ALSO
-      // "SADISM"
-      "NYLONS",
-      // ALSO
-      // "STOCKINGS"
-      "OBJECTUM",
-      "PREGNANCY",
-      "HANDS",
-      "ROLE PLAY",
-      "SPECTROPHILIA",
-      // ALSO
-      // "GHOST",
-      // "SUCCUBUS",
-      // "DEMON"
-      "TENTACLES",
-      "UROPHILIA",
-      // ALSO
-      // "PISS PLAY"
-      // "WATERSPORTS",
-      // "PEE",
-      // "GOLDEN SHOWERS"
-      "VOYEURISM",
-      "WAX PLAY",
-      "BREATH PLAY",
-      "EDGE PLAY",
-      "COCK BALL TORTURE",
-      // ALSO
-      // "CBT"
-      "FISTING",
-      "GROUP SEX",
-      "SENSATION PLAY",
-      "LATEX",
-      "WHIPPING",
-      "UNIFORM",
-      // ALSO
-      // "NURSE",
-      // "COP",
-      // "POLICE",
-      // "SCHOOLGIRL",
-      // "DOCTOR"
-      "PIERCINGS",
-      "HAIR",
-      "ARMPITS",
-      "CHASTITY",
-      "BALLOONS",
-      "EXHIBITIONISM",
-      "FOOD PLAY",
-      // ALSO
-      // "FEEDERISM",
-      // "FEEDER"
-      "LEATHER",
-      "LINGERIE"
+      "PUSSY",
+      "CUNT",
+      "VULVA",
+      "BOX",
+      "CHERRY",
+      "LADY PARTS",
+      "MUFF",
+      "PUDENDA",
+      "SLIT",
+      "SNATCH",
+      "TWAT",
+      "YONI",
+      "BEAVER",
+      "CLIT",
+      "CLUNGE",
+      "COOZE",
+      "CRACK",
+      "FANNY",
+      "FRONT BOTTOM",
+      "GASH",
+      "HONEYPOT",
+      "MINGE",
+      "PUNANI",
+      "QUIM",
+      "KITTY",
+      "AXE WOUND"
     ],
-	source:"https://www.glamour.com/story/a-to-z-kinks-and-fetishes"
+	source:"https://www.powerthesaurus.org/vulva/synonyms"
   },
-  */
 
   {
     id: 62,
@@ -4878,7 +4730,7 @@ const challenges = [
 
   {
     id: 67,
-    name: "Popular Fruits",
+    name: "Fruits",
     nameAsRule: "Your password must be a popular fruit; the name does not need a specific variety name.",
     failedMessage: "[PASS] is not on the list, please try again.",
     possible: [
@@ -5306,77 +5158,68 @@ const challenges = [
 	source:"https://en.wikipedia.org/wiki/Major_League_Baseball"
   },
 
-  /*
+  
   {
     id: 74,
     name: "Fast Food Chains",
-    nameAsRule: "Your password must be an international fast food chain.",
+    nameAsRule: "Your password must be an American fast food chain",
+    hint: "Must be among the top 50 fast food chains, listed by revenue",
     failedMessage: "[PASS] is not on the list, please try again.",
     possible: [
-      "A&W",
-      "ARBY'S",
-      "AUNTIE ANNE'S",
-      "BOSTON MARKET",
-      "BUFFALO WILD WINGS",
-      "CALIFORNIA PIZZA KITCHEN",
-      "CARL'S JR.",
-      "CHIPOTLE",
-      "CHUCK E. CHEESE",
-      "CHURCH'S CHICKEN",
-      "CICIS",
-      "CINNABON",
-      "CULVER'S",
-      "DAIRY QUEEN",
-      "DOMINO'S PIZZA",
-      "DUNKIN' DONUTS",
-      "FIVE GUYS",
-      "GATTI'S PIZZA",
-      "GODFATHER'S PIZZA",
-      "GOLDEN CHICK",
-      "HARDEE'S",
-      "IN-N-OUT BURGER",
-      "JACK IN THE BOX",
-      "JERSEY MIKE'S SUBS",
-      "JET'S PIZZA",
-      "JOLLIBEE",
-      "KFC",
-      "LITTLE CAESARS",
-      "LONG JOHN SILVER'S",
-      "LOUISIANA FAMOUS FRIED CHICKEN",
-      "MARCO'S PIZZA",
       "MCDONALD'S",
-      "MIAMI SUBS GRILL",
-      "MOD PIZZA",
-      "ORANGE JULIUS",
-      "PANDA EXPRESS",
-      "PAPA GINO'S",
-      "PAPA JOHN'S",
-      "PETER PIPER PIZZA",
-      "THE PIZZA COMPANY",
-      "PIZZA HUT",
-      "PIZZA INN",
-      "POLLO CAMPERO",
-      "POLLO TROPICAL",
-      "POPEYES",
-      "QUIZNO'S",
-      "SBARRO",
-      "SONIC",
       "STARBUCKS",
-      "SUBWAY",
+      "CHICK-FIL-A",
       "TACO BELL",
-      "TACO CABANA",
-      "TCBY",
-      "TIM HORTONS",
-      "TKK FRIED CHICKEN",
+      "BURGER KING",
+      "SUBWAY",
       "WENDY'S",
+      "DUNKIN'",
+      "DOMINO'S",
+      "PANERA",
+      "CHIPOTLE",
+      "PIZZA HUT",
+      "KFC",
+      "SONIC",
+      "ARBY'S",
+      "LITTLE CAESARS",
+      "PANDA EXPRESS",
+      "DAIRY QUEEN",
+      "POPEYES",
+      "JACK IN THE BOX",
+      "PAPA JOHN'S",
       "WHATABURGER",
-      "WHITE CASTLE",
+      "JIMMY JOHN'S",
+      "HARDEE'S",
+      "ZAXBY'S",
+      "CULVER'S",
+      "FIVE GUYS",
+      "RAISING CANE'S",
       "WINGSTOP",
-      "WINGSTREET"
+      "CARL'S JR.",
+      "JERSEY MIKE'S",
+      "BOJANGLES'",
+      "IN-N-OUT",
+      "STEAK 'N SHAKE",
+      "EL POLLO LOCO",
+      "QDOBA",
+      "CHECKERS",
+      "FIREHOUSE",
+      "DEL TACO",
+      "TIM HORTONS",
+      "MOE'S",
+      "PAPA MURPHY'S",
+      "MCALISTER'S",
+      "JASON'S",
+      "CHURCH'S",
+      "SHAKE SHACK",
+      "MARCO'S",
+      "BASKIN-ROBBINS",
+      "TROPICAL SMOOTHIE",
+      "AUNTIE ANNE'S"
     ],
-	source:"https://en.wikipedia.org/wiki/List_of_fast_food_restaurant_chains"
+	source:"https://www.visualcapitalist.com/top-50-fast-food-chains-ranked/"
   },
-  */
+  
 
  /*
   {
@@ -5443,4 +5286,73 @@ const challenges = [
   }
   */
 
+  {
+  id: 74,
+  name: "Adobe Products",
+  nameAsRule: "Your password must be an Adobe product",
+  hint: "Variants (such as Express, Elements or Rush) are not allowed. But discontinued products are.",
+  failedMessage: "Sorry! Adobe does not make [PASS]",
+  possible: [
+    "ACROBAT",
+    "ACROBAT READER",
+    "SIGN",
+    "ANALYTICS",
+    "MAGENTO",
+    "MARKETO",
+    "ANIMATE",
+    "FLASH",
+    "FLEX",
+    "AIR",
+    "SCOUT",
+    "AERO",
+    "BEHANCE",
+    "CONNECT",
+    "CREATIVE CLOUD",
+    "FRESCO",
+    "ILLUSTRATOR",
+    "LIGHTROOM",
+    "PHONEGAP",
+    "PHOTOSHOP",
+    "SCAN",
+    "SPARK",
+    "XD",
+    "CAPTIVATE",
+    "COLD FUSION",
+    "PREMIERE",
+    "FONTS",
+    "FONT FOLIO",
+    "AFTER EFFECTS",
+    "CHARACTER ANIMATOR",
+    "AUDITION",
+    "BRACKETS",
+    "BRIDGE",
+    "BUSINESS CATALYST",
+    "COLOR",
+    "CONTENT SERVER",
+    "DIGITAL EDITIONS",
+    "DIMENSION",
+    "DREAMWEAVER",
+    "INCOPY",
+    "INDESIGN",
+    "MUSE",
+    "FIREWORKS",
+    "ONLOCATION",
+    "BROWSERLAB",
+    "ATMOSPHERE",
+    "FLASHPAPER",
+    "GOLIVE",
+    "ENCORE",
+    "IMAGEREADY",
+    "LIVEMOTION",
+    "PAGEMAKER",
+    "PERSUASION",
+    "PHOTODELUXE",
+    "SOUNDBOOTH",
+    "SOCIAL",
+    "SPEEDGRADE",
+    "STOCK PHOTOS",
+    "STREAMLINE",
+    "ULTRA"
+    ]
+  }
 ];
