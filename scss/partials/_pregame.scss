@@ -1,4 +1,4 @@
-.pregame { height:100vh; font-family: $sans-serif; color:white; padding:$padding;
+.pregame { min-height:100vh; font-family: $sans-serif; color:white; padding:$padding;
 
   background-image:url(../img/bg/minneapolis.jpg); background-size:cover; background-position: center;
 
@@ -18,7 +18,7 @@
         input { width: auto; display: inline-block; }
       }
     }
-    button { display: block; width:100%; font-family: inherit; background: linear-gradient(to top, #0f0c29, #302b63, #24243e); background-size:100%; color:white; border:none; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.35); font-size:16px; padding:10px; cursor: pointer;
+    button { display: block; width:100%; font-family: inherit; background: linear-gradient(to top, #0f0c29, #302b63, #24243e); background-size:100%; color:white; border:none; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.35); font-size:16px; padding:10px; cursor: pointer; outline:none;
       &:hover, &:focus { background: linear-gradient(to top, #0f0c29, #574ccc, #24243e); } 
     }
   }
@@ -49,9 +49,23 @@
   }
   
 }
+@media (max-width:600px) {
+  .pregame {
+    .room-code { padding-bottom: $gap; }
+    .sign-in { padding-left: $padding; padding-right: $padding;
+      .inside { padding: $padding; }
+    }
+    .players { padding-top: $gap; display: flex; overflow-y: auto;
+      .player { max-width: 220px; flex-shrink: 0; margin-right: $padding; }
+    }
+  }
+}
+
 
 @media (min-width:721px) {
   .pregame { display: grid; grid-template-columns: $scorebard-width 1fr $scorebard-width;  gap:$gap;
-    
+    .sign-in {
+      
+    }
   }
 }

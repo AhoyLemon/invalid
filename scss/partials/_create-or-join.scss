@@ -40,3 +40,17 @@
     }
   }
 }
+
+
+@media (max-width:600px) {
+  .create-or-join {
+    .create { padding:$padding;
+      button { font-size:6.5vw; }
+    }
+    .or { transform: rotate(310deg) translate(5vw,1vw); }
+    .join { padding:$padding;
+      input { font-size:14vw; max-width: 5ch; padding-right: 0; }
+      button { font-size:6.5vw; }
+    }
+  }
+}

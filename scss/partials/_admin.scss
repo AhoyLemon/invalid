@@ -107,7 +107,7 @@ $admin-panel-color: #101010;
     .rule { position: relative; padding-top:40px; position: relative; padding-top: 32px; padding-bottom: 16px;
       .cost { @include position(absolute,5px,5px); border:1px solid rgba(255,255,255,0.25); border-radius: 50%; width:2em; height: 2em; line-height: 2em; font-size:80%; }
     }
-    .finished { grid-column: span 2; }
+    .finished { grid-column: span 2; padding:1em; }
   }
 
   button { background:rgba(0,0,0,0.5); border:3px solid rgba(255,255,255,0.25); color:white; font-family: inherit; font-size:16px;  cursor: pointer; box-shadow: -2px -2px 1px rgba(0,0,0,0.5);
@@ -167,10 +167,32 @@ $admin-panel-color: #101010;
     }
   }
 
+  .player { color:rgba(255,255,255,0.72);
+    &:before { background:rgba(0,0,0,0.2); }
+    &.you { color:rgba(255,255,255,0.9);
+      &:before { background:rgba(0,0,0,0.4); }
+    }
+  }
+
+}
+
+@media (max-width:600px) {
+  .admin-screen { grid-template-rows: 40px 1fr 320px; gap:$gap;
+    .top-info { display: grid; grid-template-columns: repeat(3,1fr); padding:10px;
+      .job { display:none; }
+    }
+    .panels {
+      .panel { padding-right: $padding;
+        .add-a-rule {
+          .rules { grid-template-columns:repeat(2,1fr); }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width:720px) {
-  .admin-screen { grid-template-columns: 1fr;
+  .admin-screen { display:block; margin-bottom: $gap;
     .scorekeeper { grid-column:unset; }
   }
 }
@@ -185,14 +207,8 @@ $admin-panel-color: #101010;
     }
     .panels { padding-left: $gap; }
 
-    .scorekeeper { grid-column: 2;
-      .player { color:rgba(255,255,255,0.72);
-        &:before { background:rgba(0,0,0,0.2); }
-        &.you { color:rgba(255,255,255,0.9);
-          &:before { background:rgba(0,0,0,0.4); }
-        }
-      }
-    }
+    .scorekeeper { grid-column: 2; }
+
   }
 }
 

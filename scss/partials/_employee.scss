@@ -68,6 +68,21 @@
 
 }
 
+
+@media (max-width:720px) {
+  .employee-screen { display:block; margin-bottom: repeat(3,1fr);
+    .top-info { grid-template-columns:repeat(3,1fr); margin-bottom: $gap;
+      .job, .score { display: none;}
+    }
+    .interface { display: block; padding:$padding;
+      .inside { min-height: unset; grid-template-columns: 1fr; max-width: unset;
+        .info:before { border-radius: 0; }
+        .entry:before { border-radius: 0; }
+      }
+    }
+  }
+}
+
 /*
 .employee-screen { background:$white; font-family: $serif; position: relative;
   .top-info { background: $employeePanelColor; border-bottom: 1px solid rgba(0,0,0,0.15);
