@@ -368,6 +368,7 @@ const challenges = [
       "INDECENT",
       "DIRTY",
       "RUDE",
+      "CRUDE",
       "COARSE",
       "VULGAR",
       "BAWDY",
@@ -4508,7 +4509,7 @@ const challenges = [
 	source:"https://www.orsymphony.org/learning-community/instruments/strings/"
   },
 
-  /*
+  
   {
     id: 64,
     name: "Artist Pigments",
@@ -4574,7 +4575,6 @@ const challenges = [
     ],
 	source:"https://gamblincolors.com/mineral-modern-colors/"
   },
-  */
 
   {
     id: 65,
@@ -4725,7 +4725,7 @@ const challenges = [
       "WOLF",
       "WYVERN"
     ],
-	source:"hhttps://www.hallofnames.org.uk/heraldry-symbols-and-what-they-mean/"
+	source:"https://www.hallofnames.org.uk/heraldry-symbols-and-what-they-mean/"
   },
 
   {
@@ -5157,7 +5157,6 @@ const challenges = [
     ],
 	source:"https://en.wikipedia.org/wiki/Major_League_Baseball"
   },
-
   
   {
     id: 74,
@@ -5221,73 +5220,62 @@ const challenges = [
   },
   
 
- /*
+  // I LIKE this category, I just want a list that seems a little bit more definitive.
+  
   {
     id: 75,
-    name: "Pizza Toppings",
-    nameAsRule: "Your password must be a pizza topping that can be found at most pizzerias",
-    failedMessage: "[PASS]? Do you happen to live in a sewer with your brothers?",
+    name: "Pizza Chain Toppings",
+    nameAsRule: "Your password must be a pizza topping available at a large chain.",
+    hint: "List sourced from Dominos, Pizza Hut, Little Caesars, Papa John's & Papa Murphy's",
+    failedMessage: "[PASS] isn't available at the largest pizza chains.",
     possible: [
-      "BLUE CHEESE",
-      "FETA",
-      "GOAT CHEESE",
-      "FIG",
-      "GOUDA",
-      "MOZZARELLA",
-      "PARMESAN",
-      "PROVOLONE",
-      "PEPPER JACK",
-      "ANCHOVIES",
-      "BUFFALO CHICKEN",
-      "BACON",
-      "CANADIAN BACON",
-      "GROUND BEEF",
-      "BBQ CHICKEN",
+      // ALL DOMINOS
+      "HAM",
+      "BEEF",
       "SALAMI",
-      "SAUSAGE",
-      // ALSO
-      // "ITALIAN SAUSAGE"
       "PEPPERONI",
-      "MOCK DUCK",
-      "ARTICHOKE HEART",
-      "ARUGULA",
-      "BANANA PEPPER",
-      "BASIL",
-      "PESTO",
-      "BLACK OLIVE",
-      "BROCCOLI",
-      "TOMATO",
-      "CARAMELIZED ONION",
-      "GARLIC",
-      "GIARDINIERA",
-      "GREEN OLIVE",
-      "GREEN ONION",
-      "GREEN PEPPER",
-      "PEPPER",
-      "JALAPENO",
-      "PICKLED JALAPENO",
-      "KALAMATA OLIVE",
-      "MUSHROOM",
+      "ITALIAN SAUSAGE",
+      "CHICKEN",
+      "BACON",
+      "PHILLY STEAK",
+      "BUFFALO SAUCE",
+      "JALAPENOS",
+      "ONIONS",
+      "BANANA PEPPERS",
+      "TOMATOES",
+      "BLACK OLIVES",
+      "GREEN OLIVES",
+      "MUSHROOMS",
       "PINEAPPLE",
-      "RED ONION",
-      "ONION",
+      "PROVOLONE",
+      "CHEDDAR",
+      "GREEN PEPPERS",
+      "RED PEPPERS",
       "SPINACH",
-      "ROASTED GARLIC",
-      "JACKFRUIT",
-      "TOFU",
-      "OLIVE OIL",
-      "ASIAGO",
-      "PROSCIUTTO",
+      "FETA",
+      "PARMESAN",
+      // +PIZZA HUT
       "MEATBALLS",
-      "PEPERONCINI",
-      "CHORIZO",
-      "CAPICOLA"
+      "RED ONIONS",
+      // +LITTLE CAESARS
+      // (NONE)
+      // +PAPA JOHN'S 
+      "CANADIAN BACON",
+      "SAUSAGE",
+      "HAMBURGER",
+      // (NONE)
+      // PAPA MURPHY'S
+      "ARTICHOKE HEARTS",
+      "GARLIC",
+      "ZUCCHINI",
+      "CRUSHED RED PEPPER",
+      "SUN DRIED TOMATOES",
+      "ROMA TOMATOES"
     ],
-  }
-  */
+  },
 
   {
-  id: 74,
+  id: 76,
   name: "Adobe Products",
   nameAsRule: "Your password must be an Adobe product",
   hint: "Variants (such as Express, Elements or Rush) are not allowed. But discontinued products are.",
@@ -5354,5 +5342,121 @@ const challenges = [
     "STREAMLINE",
     "ULTRA"
     ]
+  },
+  {
+    id: 77,
+    name: " Nestlé Brands",
+    nameAsRule: "Your password must be a brand owned by Nestlé",
+    hint: "Looking for brands, not products",
+    failedMessage: "[PASS] isn't on the list of Nestlé brands",
+    possible: [
+      "CARNATION",
+      "NESCAU",
+      "OVALTINE",
+      "CARO",
+      "LIBBY'S",
+      "NESQUIK",
+      "SWEET LEAF",
+      "PEACE",
+      "MILO",
+      "BLUE BOTTLE",
+      "PARTNER'S BLEND",
+      "BONKA",
+      "DULCE GUSTO",
+      "MOUNTAIN BLEND",
+      "TASTER'S CHOICE",
+      "CHAMELEON",
+      "NESCAFE",
+      //ALSO
+      //Nescafé
+      "NESPRESSO",
+      "PERRIER",
+      "ICE MOUNTAIN",
+      "PLANCOET",
+      "POLAND SPRING",
+      "MONTCLAIR",
+      "PURE LIFE",
+      "SAN PELLEGRINO",
+      "CRUNCH",
+      "LION",
+      "SHREDDIES",
+      "CINI MINIS",
+      "GOLDEN NUGGETS",
+      "AERO",
+      "QUALITY STREET",
+      "WONKA",
+      "BIG TURK",
+      "CALIFORNIA PIZZA KITCHEN",
+      "LEAN CUISINE",
+      "HOT POCKETS",
+      "DIGIORNO",
+      "STOUFFER'S",
+      "TOMBSTONE",
+      "JACK'S",
+      "PAPA GIUSEPPE",
+      "HAAGEN-DAZS",
+      "DRUMSTICK",
+      "BOOST",
+      "PETLIFE",
+      "TIDY CATS",
+      "WHOLE EARTH",
+      "PURINA",
+      "TOLL HOUSE",
+      "COFFEE-MATE"
+    ]
+  },
+  {
+    id: 78,
+    name: "Björk Albums",
+    nameAsRule: "Your password must be an album that Björk has sung on.",
+    hint: "Solo albums, side projects, and soundtracks all qualify. EPs and singles don't.",
+    failedMessage: "[PASS] isn't a Björk album",
+    possible: [
+      // SOLO
+      "DEBUT",
+      "POST",
+      "HOMOGENIC",
+      "VESPERTINE",
+      "MEDULLA",
+      "VOLTA",
+      "BIOPHILIA",
+      "VULNICURA",
+      "UTOPIA",
+      // SOUNDTRACKS
+      "SELMASONGS",
+      "DRAWING RESTRAINT 9",
+      "THE YOUNG AMERICANS",
+      "BEING JOHN MALKOVICH",
+      // COMPILATIONS
+      "GREATEST HITS",
+      "FAMILY TREE",
+      "SURROUNDED",
+      "LIVE BOX",
+      // REMIX ALBUMS
+      "TELEGRAM",
+      "ARMY OF ME",
+      "THE VOLTA MIXES",
+      "BASTARDS",
+      "VULNICURA STRINGS",
+      // SIDE PROJECTS
+      "MIRANDA",
+      "TAPPI TIKARRASS",
+      "THE EYE",
+      "HOLIDAYS IN EUROPE",
+      "LIFE'S TOO GOOD",
+      "HERE TODAY, TOMORROW NEXT WEEK!",
+      "STICK AROUND FOR JOY",
+      "GLING-GLO",
+      "COUNTRY CREATURES",
+      "MOUNT WITTENBERG ORCA",
+      "KICK I",
+      "SWANLIGHTS",
+      "STORMY WEATHER",
+      "BJÖRK",
+      "NEARLY GOD",
+      "NOT FOR THREES",
+      "EX:EL"
+    ]
   }
+  
 ];
