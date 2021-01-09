@@ -2,14 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>The Rules Have Changed</title>
+    <title>Invalid!</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;500&amp;family=Fira+Code:wght@300;600&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2021-00-08@23:08:32">
+    <meta name="description" content="A trivia game of unnecessary suffering.">
+    <meta http-equiv="last-modified" content="2021-00-09@15:35:10">
+    <!-- Twitter-->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@AhoyLemon">
+    <meta name="twitter:title" content="Invalid!">
+    <meta name="twitter:description" content="A trivia game of unnecessary suffering.">
+    <meta name="twitter:image" content="https://invalidgame.herokuapp.com/og-wide.png">
+    <meta name="twitter:url" content="https://invalidgame.herokuapp.com">
+    <meta property="og:title" content="Invalid!">
+    <meta property="og:type" content="website">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:description" content="A trivia game of unnecessary suffering.">
+    <meta property="og:url" content="https://invalidgame.herokuapp.com">
+    <meta property="og:image" content="https://invalidgame.herokuapp.com/og-wide.png">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -34,8 +48,10 @@
         </div>
         <div class="nobody-here" v-if="!isRoomHost &amp;&amp; players.length &lt; 1">
           <div class="inside">
-            <h2>There's nobody here.</h2>
-            <p>Either you have the wrong room code, or your host hasn't entered their name yet.</p>
+            <div class="content">
+              <h2>There's nobody here.</h2>
+              <p>Either you have the wrong room code, or your host hasn't entered their name yet.</p>
+            </div>
           </div>
         </div>
         <div class="sign-in" v-if="isRoomHost || players.length &gt; 0">
@@ -530,6 +546,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
               <div class="number">{{(index + 1)}}</div>
               <div class="sysadmin">{{r.sysAdmin}} presented...</div>
               <div class="challenge">{{r.challenge}}</div>
+              <div class="source" v-if="r.listSource"><a :href="r.listSource" target="_blank">List Source</a></div>
               <ul class="rules">
                 <li class="rule" v-for="m in r.rules">{{m.message}}</li>
                 <li class="rule" v-if="!r.rules || r.rules.length &lt; 1">{{r.sysAdmin}} didn't set any rules.</li>
@@ -548,8 +565,9 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         <h2>In the final round...</h2>
         <section class="crack-summary">
           <template v-if="crackSummary || crackSummary.length &gt; 0">
-            <div class="crack-headline">{{crackSummary.length}} passwords were cracked.</div>
-            <div class="cracks">
+            <div class="crack-headline" v-if="crackSummary.length &gt; 0">{{crackSummary.length}} passwords were cracked.</div>
+            <div class="crack-headline" v-else>There we no cracked passwords.</div>
+            <div class="cracks" v-if="crackSummary.length &gt; 0">
               <div class="crack" v-for="c in crackSummary" v-if="c" :class="{'self-own': (c.attackerIndex == c.victimIndex)}">
                 <div class="inside">
                   <div class="password">{{c.pw}}</div>
@@ -579,11 +597,9 @@ EMpoyeeNAME:         {{round.crash.player.name}}
               </div>
             </div>
           </template>
-          <div class="crack-headline" v-if="!crackSummary || crackSummary.length &lt; 1">
-            <h3>There were no cracked passwords.</h3>
-          </div>
-          <div class="crack-headline">There were {{computedUncrackedPasswords.length}} secure passwords</div>
-          <div class="cracks">
+          <div class="crack-headline" v-if="computedUncrackedPasswords.length &gt; 0">There were {{computedUncrackedPasswords.length}} secure passwords.</div>
+          <div class="crack-headline" v-else="">There were no secure passwords.</div>
+          <div class="cracks9" v-if="computedUncrackedPasswords.length &gt; 0">
             <div class="crack" v-for="u in computedUncrackedPasswords">
               <div class="inside">
                 <div class="password">{{u.pw}}</div>
@@ -613,7 +629,6 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       </main>
     </div>
     <div class="javascripts">
-      <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
       <script src="js/libraries/vue.full.js"></script>
       <script>const testing = true;</script>
       <script src="js/libraries/howler.min.js"></script>
@@ -624,12 +639,12 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-08@23:08:32"></script>
+      <script src="js/min/site.min.js?updated2021-00-09@15:35:10"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({
           token: "9947e081831c42b8aeb3a5fb81a152c4",
-          application: "TheRulesHaveChanged"
+          application: "invalidgame"
         });
       </script>
     </div>

@@ -5,10 +5,10 @@
     .display {{roomCode}}
 
   .nobody-here(v-if="!isRoomHost && players.length < 1")
-
     .inside
-      h2 There's nobody here.
-      p Either you have the wrong room code, or your host hasn't entered their name yet.
+      .content
+        h2 There's nobody here.
+        p Either you have the wrong room code, or your host hasn't entered their name yet.
 
   .sign-in(v-if="isRoomHost || players.length > 0")
 

@@ -230,7 +230,6 @@ socket.on("gameOver", function(msg) {
   // TODO: Try to get this to only fire once per game. Similar to the nextRound bug.
   console.log("GAME OVER ⚰️");
   //app.setGameOver();
-
   app.players[msg.playerIndex].passwordAttempts = msg.passwordAttempts;
 
 });

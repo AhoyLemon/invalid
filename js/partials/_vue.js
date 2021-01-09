@@ -914,6 +914,8 @@ var app = new Vue({
 
         document.getElementById("PasswordAttempt").focus();
       }
+
+      document.getElementById("PasswordAttempt").focus();
     },
 
     setGameOver() {
@@ -1063,8 +1065,8 @@ var app = new Vue({
       { challenge: "Types of Cheese" }
     ];
     self.startCountdownToFinalRound();
-    */    
-
+    */
+    
     /////////////////////////////////////////////
     // FAKE A GAME OVER SCREEN.
     /*

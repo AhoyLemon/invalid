@@ -2,6 +2,9 @@
 
   background-image:url(../img/bg/minneapolis.jpg); background-size:cover; background-position: center;
 
+  .nobody-here { 
+    .content { position: relative; }
+  }
   .sign-in { display: flex; align-items: center; justify-content: center; }
   .inside { padding:90px 60px; position: relative; backdrop-filter:blur(4px);
     &:before {  @include position(absolute,0,0,0,0); content:""; background: linear-gradient(to top left, #4c1265, #f80759); opacity: 0.75; }
