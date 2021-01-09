@@ -2044,7 +2044,7 @@ const challenges = [
 
   {
     id: 30,
-    name: "Gemstones Used in Jewelry",
+    name: "Gemstones",
     nameAsRule: "Your password must be a gemtone used in jewelry",
     failedMessage: "[PASS] isn't a precious gemstone, according to The Antique Jewelry Company",
     possible: [
