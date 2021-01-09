@@ -225,9 +225,12 @@ socket.on("passwordCracked", function(msg) {
 });
 
 // Some player (could be anyone) said the game is over.
-socket.on("gameOver", function() {
+socket.on("gameOver", function(msg) {
 
   // TODO: Try to get this to only fire once per game. Similar to the nextRound bug.
   console.log("GAME OVER ⚰️");
   app.setGameOver();
+
+  app.players[msg.playerIndex].passwordAttempts = msg.passwordAttempts;
+
 });

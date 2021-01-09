@@ -165,7 +165,10 @@ io.on('connection', (socket) => {
   // Any Player -> ALL
   socket.on("gameOver", msg => {
     console.log(msg.roomCode+' - GAME OVER ⚰️');
-    io.in(msg.roomCode).emit("gameOver");
+    io.in(msg.roomCode).emit("gameOver", {
+      playerIndex: msg.playerIndex,
+      passwordAttempts: msg.passwordAttempts
+    });
   });
 
 
