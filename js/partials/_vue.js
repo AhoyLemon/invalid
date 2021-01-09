@@ -824,7 +824,8 @@ var app = new Vue({
         rules: self.round.rules,
         bugs: self.round.bugs,
         attempts: self.round.attempts,
-        listSource: self.round.challenge.source
+        listSource: self.round.challenge.source,
+        possibleAnswers: self.round.possibleAnswerCount
       };
 
       socket.emit("startNewRound", {
@@ -921,6 +922,11 @@ var app = new Vue({
       self.round.roundTimer = undefined;
       self.round.phase = "GAME OVER";
       soundGameOver.play();
+      socket.emit("gameOver", {
+        roomCode: self.roomCode,
+        playerIndex: self.my.playerIndex,
+        passwordAttempts: self.my.passwordAttempts
+      });
     },
 
   },
