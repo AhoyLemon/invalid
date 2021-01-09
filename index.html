@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2021-00-08@22:45:30">
+    <meta http-equiv="last-modified" content="2021-00-08@23:08:32">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -536,6 +536,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
                 <li class="bug" v-for="b in r.bugs"> <strong>{{b}} </strong> was a bug</li>
                 <li class="bug" v-if="!r.bugs || r.bugs.length &lt; 1">{{r.sysAdmin}} didn't create any bugs.</li>
               </ul>
+              <div class="possible-count" v-if="r.possibleAnswers">There were {{r.possibleAnswers}} possible answers</div>
               <div class="attempts">
                 <ol>
                   <li v-for="a in r.attempts" :class="a.result">{{players[a.playerIndex].name}} tried <strong>{{a.pwAttempt}}</strong><span v-if="a.result == 'crash'">, which crashed the server.</span></li>
@@ -623,7 +624,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-08@22:45:30"></script>
+      <script src="js/min/site.min.js?updated2021-00-08@23:08:32"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({

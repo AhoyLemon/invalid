@@ -16,6 +16,7 @@ main.game-over(v-if="round.phase == 'GAME OVER'")
             strong {{b}} 
             |  was a bug
           li.bug(v-if="!r.bugs || r.bugs.length < 1") {{r.sysAdmin}} didn't create any bugs.
+        .possible-count(v-if="r.possibleAnswers") There were {{r.possibleAnswers}} possible answers
         .attempts
           ol
             li(v-for="a in r.attempts" :class="a.result") {{players[a.playerIndex].name}} tried 

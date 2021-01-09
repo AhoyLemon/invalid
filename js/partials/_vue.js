@@ -824,6 +824,7 @@ var app = new Vue({
         rules: self.round.rules,
         bugs: self.round.bugs,
         attempts: self.round.attempts,
+        listSource: self.round.challenge.source
       };
 
       socket.emit("startNewRound", {
@@ -1060,7 +1061,6 @@ var app = new Vue({
 
     /////////////////////////////////////////////
     // FAKE A GAME OVER SCREEN.
-
     /*
     self.my.role = "employee";
     self.my.name = "Lemon";
@@ -1095,7 +1095,8 @@ var app = new Vue({
           { playerIndex: 4, pwAttempt: "MORTAL KOMBAT", result: "failed" },
           { playerIndex: 1, pwAttempt: "SUPER MARIO WORLD", result: "success" },
           { playerIndex: 2, pwAttempt: "SONIC", result: "crash" },
-        ]
+        ],
+        listSource: ""
       },
       { 
         challenge: "2000's US One-Hit Wonders",
@@ -1126,7 +1127,8 @@ var app = new Vue({
         ],
         attempts: [
           { playerIndex: 5, pwAttempt: "RUBY", result: "crash" },
-        ]
+        ],
+        listSource:"https://www.antiquejewellerycompany.com/gemstone-guide/"
       },
       { 
         challenge: "Football Teams",
@@ -1206,9 +1208,8 @@ var app = new Vue({
       { pw: "SOMALI", attackerIndex: 2, victimIndex: 3 },
     ];
     */
-
-    ///////////////////////////////////////////////
     
+    ///////////////////////////////////////////////    
     
 
 
