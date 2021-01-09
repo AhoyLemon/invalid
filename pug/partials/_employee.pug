@@ -37,7 +37,7 @@ main.employee-screen(v-if="my.role == 'employee' && (round.phase == 'choose rule
 
       .entry
         .content
-          h2(v-if="round.phase != 'create password'") Please Wait.
+          h2.please-wait(v-if="round.phase != 'create password'") Please Wait
           h2(v-else-if="ui.roundOver") This round is over.
           h2(v-else-if="ui.passwordSucceeded") SUCCESS!
           h2(v-else) Create Your Password.

@@ -1,5 +1,10 @@
-//TODO: While the employee screen is less messy than the admin screen, it still sucks. Fix it.
-
+@keyframes animatedElipsis {
+  0% { content: '.'; } 
+  20% { content: '..'; } 
+  40% { content: '...'; } 
+  60% { content: '....'; } 
+  80% { content: '.....'; } 
+}
 
 .employee-screen { min-height: 100vh; background-image:url(https://picsum.photos/1920/1080); background-size:cover; background-position: center; font-family: $sans-serif;
   display:grid; grid-template-columns: 1fr ($scorebard-width + $gap); gap:$gap; grid-template-rows: 40px 1fr;
@@ -14,6 +19,9 @@
     .content { position: relative; }
   }
 
+  .please-wait {
+    &:after { content:'.'; animation-name:animatedElipsis; animation-duration: 3s; animation-iteration-count: infinite; }
+  }
   .entry { padding:$gap; position: relative; backdrop-filter:blur(4px);
     &:before { content: ""; @include position(absolute,0,0,0,0); background:white; opacity: 0.8; border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
     .content { position: relative; }

@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta http-equiv="last-modified" content="2021-00-03@22:52:02">
+    <meta http-equiv="last-modified" content="2021-00-08@22:45:30">
   </head>
   <body>
     <div id="app" v-cloak>
@@ -345,7 +345,7 @@
             <!-- This is where you put in the password, and get feedback about your password.-->
             <div class="entry">
               <div class="content">
-                <h2 v-if="round.phase != 'create password'">Please Wait.</h2>
+                <h2 class="please-wait" v-if="round.phase != 'create password'">Please Wait</h2>
                 <h2 v-else-if="ui.roundOver">This round is over.</h2>
                 <h2 v-else-if="ui.passwordSucceeded">SUCCESS!</h2>
                 <h2 v-else>Create Your Password.</h2>
@@ -623,7 +623,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-03@22:52:02"></script>
+      <script src="js/min/site.min.js?updated2021-00-08@22:45:30"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({
