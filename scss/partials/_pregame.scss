@@ -32,14 +32,20 @@
   }
 
   .players {
-    .player { display:block; padding:1rem; margin-bottom: 1rem; background:rgba($black,0.75); color:$white; box-shadow: -6px 6px 6px rgba(0,0,0,0.15); position: relative;
-      &.is-me { background:$black; }
+    .player { display:block; padding:1rem; margin-bottom: 1rem; color:$white; box-shadow: -6px 6px 6px rgba(0,0,0,0.15); backdrop-filter:blur(4px);  position: relative;
+      .player-inside { position: relative; }
+      &:before { @include position(absolute,0,0,0,0); background:rgba(#650524,0.66); content:''; }
+      &.is-me {
+        &:before { background:rgba(#650524,0.88); }
+      }
     }
     .number { font-style: italic; }
     .name { text-transform: uppercase; letter-spacing: 0.1em; word-break: break-word; margin-top:0.5em; font-size: 130%;  }
     .host { @include position(absolute,6px,6px); color:$white;
       svg { width:26px; height: 26px; }
     }
+
+    
   }
 
   .room-code { text-align: center;
@@ -51,6 +57,14 @@
     h2 { margin-bottom: 1em; }
   }
   
+  .instructions-banner { backdrop-filter:blur(4px); color:#313131; @include position(fixed,null,0,0); padding: $padding;
+    &:before { background:rgba(255,255,255,0.82); content: ''; @include position(absolute,0,0,0,0); }
+    .banner-inside { position: relative; line-height: 130%; }
+    a { color:$purple; font-weight: 700; text-decoration: none;
+      &:hover, &focus { text-decoration: underline; }
+    }
+  }
+
 }
 @media (max-width:600px) {
   .pregame {

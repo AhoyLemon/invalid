@@ -13,8 +13,8 @@ app.get('/help', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
-
+  const socketID = socket.id;
+  console.log('a user connected with the ID of'+socketID);
 
   // Any Client -> The Entire Planet
   socket.on('createRoom', (msg) => {
@@ -218,7 +218,7 @@ io.on('connection', (socket) => {
   
 
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log("The socket "+socketID+ "disconnected.");
   });
 
 
