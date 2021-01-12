@@ -59,7 +59,7 @@
   
   .instructions-banner { backdrop-filter:blur(4px); color:#313131; @include position(fixed,null,0,0); padding: $padding;
     &:before { background:rgba(255,255,255,0.82); content: ''; @include position(absolute,0,0,0,0); }
-    .banner-inside { position: relative; line-height: 130%; }
+    .banner-inside { position: relative; line-height: 140%; }
     a { color:$purple; font-weight: 700; text-decoration: none;
       &:hover, &focus { text-decoration: underline; }
     }
@@ -81,8 +81,6 @@
 
 @media (min-width:721px) {
   .pregame { display: grid; grid-template-columns: $scorebard-width 1fr $scorebard-width;  gap:$gap;
-    .sign-in {
-      
-    }
+    .players { max-height: calc(100% - 90px); overflow: auto; }
   }
 }

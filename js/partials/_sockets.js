@@ -1,4 +1,26 @@
 
+// Inform the player of their own socketID
+socket.on("getSocketID", function(msg) {
+  console.info("Player socketID is "+msg);
+  app.my.socketID = msg;
+});
+
+
+// A client disconnected!
+// Let's try to deal with it.
+socket.on("clientDisconnect", function(msg) {
+  console.warn("The socket "+msg+" disconnected.");
+
+
+  // TODO: See if that socketID is in your game. Remove them if so.
+  app.players.forEach(function(p,index) {
+    if (p.socketID == msg) {
+      app.players.splice(index, 1);
+    }
+  });
+
+});
+
 // Someone created a room.
 socket.on("createRoom", function(msg) {
   // Don't do anything.
