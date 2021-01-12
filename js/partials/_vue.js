@@ -7,7 +7,6 @@ var app = new Vue({
     roomCode: null,
     isRoomHost: false,
     rules: rules,
-    playerCount: 0,
     maxRounds: 0,
     allowNaughty: false,
     my: {
@@ -83,6 +82,7 @@ var app = new Vue({
       enterFinalPasswords: false,
       passwordSuccessMessage: null
     },
+    // TODO: Deprecate this?
     messages: []
   },
 
