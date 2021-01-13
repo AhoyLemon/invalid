@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-00-11@19:03:09">
+    <meta http-equiv="last-modified" content="2021-00-12@21:42:08">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
@@ -612,7 +612,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
           </template>
           <div class="crack-headline" v-if="computedUncrackedPasswords.length &gt; 0">There were {{computedUncrackedPasswords.length}} secure passwords.</div>
           <div class="crack-headline" v-else="">There were no secure passwords.</div>
-          <div class="cracks9" v-if="computedUncrackedPasswords.length &gt; 0">
+          <div class="cracks" v-if="computedUncrackedPasswords.length &gt; 0">
             <div class="crack" v-for="u in computedUncrackedPasswords">
               <div class="inside">
                 <div class="password">{{u.pw}}</div>
@@ -652,7 +652,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-11@19:03:09"></script>
+      <script src="js/min/site.min.js?updated2021-00-12@21:42:08"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({
