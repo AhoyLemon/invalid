@@ -1018,7 +1018,7 @@ var app = new Vue({
 
     /////////////////////////////////////////////
     // FAKE A SYSADMIN
-    /*
+    
     self.my.role = "SysAdmin";
     self.my.name = "Lemon";
     self.my.playerIndex = 0;
@@ -1032,7 +1032,7 @@ var app = new Vue({
     self.maxRounds = 6;
     self.round.phase = "choose rules";
     self.definePossibleChallenges();
-    */
+    
 
     /////////////////////////////////////////////
     // FAKE A PLAYER IN THE FINAL ROUND.
@@ -1057,14 +1057,42 @@ var app = new Vue({
       { pw: "KANO", name: "Pablo", playerIndex:2, claimed: false },
     ];
     self.roundSummary = [
-      { challenge: "Top 100 SNES Games" },
-      { challenge: "Human Organs" },
-      { challenge: "Classic Board Games" },
-      { challenge: "Periodic Table of Elements" },
-      { challenge: "Types of Cookies" },
-      { challenge: "Types of Cheese" }
+      { challenge: "Top 100 SNES Games",
+        rules: [
+          { type: "Ban A Letter", inputValue: "D" },
+          { type: "Ban A Letter", inputValue: "S" },
+        ]
+      },
+      { challenge: "Human Organs",
+      rules: [
+        { type: "Set A Maximum", inputValue: 15 },
+        { type: "Limit Vowels", inputValue: 6 },
+        { type: "Ban A Combo", inputValue: "O", inputValueTwo:"U" },
+      ]
+      },
+      { challenge: "Classic Board Games",
+        rules: [
+          { type: "Ban A Combo", inputValue: "E", inputValueTwo:"S" },
+          { type: "Ban A Letter", inputValue: "E" },
+        ]
+      },
+      { challenge: "Periodic Table of Elements",
+        rules: [
+          { type: "Demand A Letter", inputValue: "I" },
+          { type: "Set A Maximum", inputValue: 12 },
+        ]
+      },
+      { challenge: "Types of Cookies",
+        rules: [
+          { type: "Demand A Letter", inputValue: "I" },
+          { type: "Set A Minimum", inputValue: 6 },
+        ] 
+      },
+
+
     ];
     self.startCountdownToFinalRound();
+    
     */
     
     /////////////////////////////////////////////

@@ -24,8 +24,8 @@ const settings = {
   points: {
     forGoodPassword: 100,
     forFirstPassword: 20,
-    perSecondPlayed: 1,
-    forFailedPassword: 3,
+    perSecondPlayed: 3,
+    forFailedPassword: 0,
     forServerCrash: 100,
     forCrackingPassword: 40,
     forHavingPasswordCracked: -40,

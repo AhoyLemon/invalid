@@ -43,7 +43,7 @@
           .desc
             h2 Add a Password Rule
             p You have 
-              span.rulebux {{my.rulebux}}
+              strong.rulebux {{my.rulebux}}
                 sup ƒ
               |  to spend
           .rules
@@ -63,6 +63,8 @@
                 sup ƒ
 
             button.finished(type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing") FINISH RULES
+              .tooltip
+                span Set rules and enter in {{my.rulebux + 1}} system bugs
       
     .panel.rule-details.focus(v-if="ui.currentRule.editing && (round.phase == 'choose rules')")
       .notched

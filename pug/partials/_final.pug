@@ -11,9 +11,10 @@
           em steal 
           | 40 points from that player!
         p You can type as many passwords as you like, but if you crack your own password, you will be punished.
-        //-p
-          button(@click="ui.enterFinalPasswords = true") Start
+        p There are {{computedUnclaimedPasswords}} crackable passwords in the system.
         h2 Round begins in {{round.hurryTime}} seconds.
+
+        
       template(v-if="ui.enterFinalPasswords")
 
         h2.success(v-if="ui.passwordSuccessMessage") Success!
@@ -40,7 +41,25 @@
   .round-reminder(:class="{'visible': (round.hurryTime <= 10)}")
     h3 Played rounds...
     ol
-      li(v-for="round in roundSummary") {{round.challenge}}
+      li(v-for="round in roundSummary") 
+        .challenge-name {{round.challenge}}
+        ul
+          template(v-for="rule in round.rules")
+            li(v-if="rule.type=='Demand A Letter'") Required 
+              strong {{rule.inputValue}} 
+            li(v-if="rule.type=='Ban A Letter'") Banned 
+              strong {{rule.inputValue}} 
+            li(v-if="rule.type=='Ban A Combo'") Can't use 
+              strong {{rule.inputValue}} 
+              | with 
+              strong {{rule.inputValueTwo}}
+            li(v-if="rule.type=='Set A Minimum'") Min of 
+              strong {{rule.inputValue}}
+            li(v-if="rule.type=='Set A Maximum'") Max of 
+              strong {{rule.inputValue}}
+            li(v-if="rule.type=='Limit Vowels'") Vowel limit of 
+              strong {{rule.inputValue}}
+            
 
   .timer.final-timer(v-if="round.roundTimer != undefined")
     time {{round.finalTimeLeft}}

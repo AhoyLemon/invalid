@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-00-12@21:42:08">
+    <meta http-equiv="last-modified" content="2021-00-12@22:58:57">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
@@ -147,45 +147,61 @@
               <div class="add-a-rule">
                 <div class="desc">
                   <h2>Add a Password Rule</h2>
-                  <p>You have <span class="rulebux">{{my.rulebux}}<sup>ƒ</sup></span> to spend</p>
+                  <p>You have <strong class="rulebux">{{my.rulebux}}<sup>ƒ</sup></strong> to spend</p>
                 </div>
                 <div class="rules">
                   <button class="rule" @click="chooseRule({name:'Demand A Letter', cost:5})" :class="{ active: (ui.currentRule.name == 'Demand A Letter'), 'too-expensive': (my.rulebux &lt; 5) }" :disabled="isRuleButtonDisabled('Demand A Letter',5,false)">
                     <div class="name">Demand A Letter</div>
                     <div class="cost">5<sup>ƒ</sup></div>
                     <div class="disabled-reason"></div>
+                    <div class="tooltip"><span>A letter of your choosing must be in the password.</span>
+                    </div>
                   </button>
                   <button class="rule" @click="chooseRule({name:'Ban A Letter', cost:3})" :class="{ active: (ui.currentRule.name == 'Ban A Letter'), 'too-expensive': (my.rulebux &lt; 3) }" :disabled="isRuleButtonDisabled('Ban A Letter',3,false)">
                     <div class="name">Ban A Letter</div>
                     <div class="cost">3<sup>ƒ</sup></div>
                     <div class="disabled-reason"></div>
+                    <div class="tooltip"><span>A letter of your choosing cannot be in the password.</span>
+                    </div>
                   </button>
                   <button class="rule" @click="chooseRule({name:'Shibboleth', cost:3})" :class="{ active: (ui.currentRule.name == 'Shibboleth'), 'too-expensive': (my.rulebux &lt; 3) }" :disabled="isRuleButtonDisabled('Shibboleth',3,true)">
                     <div class="name">Shibboleth</div>
                     <div class="cost">3<sup>ƒ</sup></div>
                     <div class="disabled-reason"></div>
+                    <div class="tooltip"><span>Employees must type a special word before typing their password</span>
+                    </div>
                   </button>
                   <button class="rule" @click="chooseRule({name:'Set A Maximum', cost:2})" :class="{ active: (ui.currentRule.name == 'Set A Maximum'), 'too-expensive': (my.rulebux &lt; 2) }" :disabled="isRuleButtonDisabled('Set A Maximum',2,true)">
                     <div class="name">Set A Maximum</div>
                     <div class="cost">2<sup>ƒ</sup></div>
                     <div class="disabled-reason"></div>
+                    <div class="tooltip"><span>Maximum Characters, defined by the list average</span>
+                    </div>
                   </button>
                   <button class="rule" @click="chooseRule({name:'Set A Minimum', cost:2})" :class="{ active: (ui.currentRule.name == 'Set A Minimum'), 'too-expensive': (my.rulebux &lt; 2) }" :disabled="isRuleButtonDisabled('Set A Minimum',2,true)">
                     <div class="name">Set A Minimum</div>
                     <div class="cost">2<sup>ƒ</sup></div>
                     <div class="disabled-reason"></div>
+                    <div class="tooltip"><span>Minimum Characters, defined by the list average</span>
+                    </div>
                   </button>
                   <button class="rule" @click="chooseRule({name:'Limit Vowels', cost:1})" :class="{ active: (ui.currentRule.name == 'Limit Vowels'), 'too-expensive': (my.rulebux &lt; 1) }" :disabled="isRuleButtonDisabled('Limit Vowels',1,true)">
                     <div class="name">Limit Vowels</div>
                     <div class="cost">1<sup>ƒ</sup></div>
                     <div class="disabled-reason"></div>
+                    <div class="tooltip"><span>Maximum Vowels, defined by the list average</span>
+                    </div>
                   </button>
                   <button class="rule" @click="chooseRule({name:'Ban A Combo', cost:1})" :class="{ active: (ui.currentRule.name == 'Ban A Combo'), 'too-expensive': (my.rulebux &lt; 1) }" :disabled="isRuleButtonDisabled('Ban A Combo',1,false)">
                     <div class="name">Ban A Combo</div>
                     <div class="cost">1<sup>ƒ</sup></div>
                     <div class="disabled-reason"></div>
+                    <div class="tooltip"><span>Ban Two Letters From Being Used Together</span>
+                    </div>
                   </button>
-                  <button class="finished" type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing">FINISH RULES</button>
+                  <button class="finished" type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing">FINISH RULES
+                    <div class="tooltip"><span>Set rules and enter in {{my.rulebux + 1}} system bugs</span></div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -499,6 +515,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
               <p>In the final round, your goal is to hack into accounts of your coworkers.</p>
               <p>When the timer starts, type in any password you think any of your coworkers may have used successfully. If you're right, you'll <em>steal </em>40 points from that player!</p>
               <p>You can type as many passwords as you like, but if you crack your own password, you will be punished.</p>
+              <p>There are {{computedUnclaimedPasswords}} crackable passwords in the system.</p>
               <h2>Round begins in {{round.hurryTime}} seconds.</h2>
             </template>
             <template v-if="ui.enterFinalPasswords">
@@ -529,7 +546,19 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         <div class="round-reminder" :class="{'visible': (round.hurryTime &lt;= 10)}">
           <h3>Played rounds...</h3>
           <ol>
-            <li v-for="round in roundSummary">{{round.challenge}}</li>
+            <li v-for="round in roundSummary"> 
+              <div class="challenge-name">{{round.challenge}}</div>
+              <ul>
+                <template v-for="rule in round.rules">
+                  <li v-if="rule.type=='Demand A Letter'">Required <strong>{{rule.inputValue}} </strong></li>
+                  <li v-if="rule.type=='Ban A Letter'">Banned <strong>{{rule.inputValue}} </strong></li>
+                  <li v-if="rule.type=='Ban A Combo'">Can't use <strong>{{rule.inputValue}} </strong>with <strong>{{rule.inputValueTwo}}</strong></li>
+                  <li v-if="rule.type=='Set A Minimum'">Min of <strong>{{rule.inputValue}}</strong></li>
+                  <li v-if="rule.type=='Set A Maximum'">Max of <strong>{{rule.inputValue}}</strong></li>
+                  <li v-if="rule.type=='Limit Vowels'">Vowel limit of <strong>{{rule.inputValue}}</strong></li>
+                </template>
+              </ul>
+            </li>
           </ol>
         </div>
         <div class="timer final-timer" v-if="round.roundTimer != undefined">
@@ -652,7 +681,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-12@21:42:08"></script>
+      <script src="js/min/site.min.js?updated2021-00-12@22:58:57"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({
