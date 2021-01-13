@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-00-12@22:58:57">
+    <meta http-equiv="last-modified" content="2021-00-13@12:41:28">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
@@ -171,6 +171,13 @@
                     <div class="tooltip"><span>Employees must type a special word before typing their password</span>
                     </div>
                   </button>
+                  <button class="rule" @click="chooseRule({name:'Flying Pig', cost:3})" :class="{ active: (ui.currentRule.name == 'Flying Pig'), 'too-expensive': (my.rulebux &lt; 3) }" :disabled="isRuleButtonDisabled('Flying Pig',3,true)">
+                    <div class="name">Flying Pig</div>
+                    <div class="cost">3<sup>ƒ</sup></div>
+                    <div class="disabled-reason"></div>
+                    <div class="tooltip"><span>Summon a flying pig to offer the employees unhelpful suggestions.</span>
+                    </div>
+                  </button>
                   <button class="rule" @click="chooseRule({name:'Set A Maximum', cost:2})" :class="{ active: (ui.currentRule.name == 'Set A Maximum'), 'too-expensive': (my.rulebux &lt; 2) }" :disabled="isRuleButtonDisabled('Set A Maximum',2,true)">
                     <div class="name">Set A Maximum</div>
                     <div class="cost">2<sup>ƒ</sup></div>
@@ -223,42 +230,6 @@
                   <label for="BanTheLetter">Ban the letter</label>
                   <input v-model="ui.currentRule.inputValue" type="text" id="BanTheLetter" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?">
                 </fieldset>
-                <button type="submit">Set</button>
-              </form>
-              <form class="select-and-button" v-if="ui.currentRule.name == 'Set A Maximum'" v-on:submit.prevent="saveRule(ui.currentRule)" v-focus>
-                <select v-model="ui.currentRule.inputValue" required>
-                  <option selected disabled value="">How would you like to phrase this rule?</option>
-                  <option>Your password cannot exceed {{(round.averageSize + round.maxOffset)}} characters</option>
-                  <option>Your password must be less than {{(round.averageSize + round.maxOffset + 1)}} characters</option>
-                  <option>Password must be {{(round.averageSize + round.maxOffset)}} characters in length or less</option>
-                  <option>Password can be a maximum of {{(round.averageSize + round.maxOffset)}} characters</option>
-                  <option>Password can not be {{(round.averageSize + round.maxOffset + 1)}} characters or more.</option>
-                  <option>Password must not exceed {{(round.averageSize + round.maxOffset)}} characters.</option>
-                </select>
-                <button type="submit">Set</button>
-              </form>
-              <form class="select-and-button" v-if="ui.currentRule.name == 'Set A Minimum'" v-on:submit.prevent="saveRule(ui.currentRule)" v-focus>
-                <select v-model="ui.currentRule.inputValue" required>
-                  <option selected disabled value="">How would you like to phrase this rule?</option>
-                  <option>Your password must be at least {{(round.averageSize - round.minOffset)}} characters long</option>
-                  <option>Your password must be more than {{(round.averageSize - round.minOffset - 1)}} characters</option>
-                  <option>Password must be {{(round.averageSize - round.minOffset)}} characters or more</option>
-                  <option>Password minimum is {{(round.averageSize - round.minOffset)}}</option>
-                  <option>Password must exceed {{(round.averageSize - round.minOffset - 1)}} characters</option>
-                  <option>Your password must contain {{(round.averageSize - round.minOffset - 1)}} characters or more</option>
-                </select>
-                <button type="submit">Set</button>
-              </form>
-              <form class="select-and-button" v-if="ui.currentRule.name == 'Limit Vowels'" v-on:submit.prevent="saveRule(ui.currentRule)" v-focus>
-                <select v-model="ui.currentRule.inputValue" required>
-                  <option selected disabled value="">How would you like to phrase this rule?</option>
-                  <option>Your password cannot exceed {{(round.averageVowels + round.vowelOffset)}} vowels</option>
-                  <option>Your password must have less than {{(round.averageVowels + round.vowelOffset + 1)}} vowels</option>
-                  <option>Vowels in your password are limited to {{(round.averageVowels + round.vowelOffset)}}</option>
-                  <option>Password vowels cannot exceed {{(round.averageVowels + round.vowelOffset)}}</option>
-                  <option>Your password may not contain {{(round.averageVowels + round.vowelOffset + 1)}} vowels or more</option>
-                  <option>The vowel count in your password must be less than {{(round.averageVowels + round.vowelOffset + 1)}}</option>
-                </select>
                 <button type="submit">Set</button>
               </form>
               <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Ban A Combo'" v-on:submit.prevent="saveRule(ui.currentRule)">
@@ -457,6 +428,9 @@
                   <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
                   <p v-else>Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.</p>
                 </div>
+              </div>
+              <div class="flying-pig" v-if="round.flyingPig.active">
+                <div class="speech" v-html="round.flyingPig.message"></div><img src="img/flying-pig.png">
               </div>
             </div>
           </div>
@@ -681,7 +655,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-12@22:58:57"></script>
+      <script src="js/min/site.min.js?updated2021-00-13@12:41:28"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({

@@ -1,9 +1,13 @@
 const audioSrc = 'audio/';
 
 
-
+/////////////////////////////////
 // Employee Sounds
-// Final Round Sounds.
+const soundOink = new Howl({
+  src: [ audioSrc + 'oink1.mp3' ],
+  volume: 0.9,
+});
+
 const soundNewRule = new Howl({
   src: [ audioSrc + 'odqid3.mp3' ],
   volume: 0.25,
@@ -29,6 +33,7 @@ const soundSystemCrash = new Howl({
   volume: 0.8,
 });
 
+/////////////////////////////////
 // Final Round Sounds.
 const soundCorrect = new Howl({
   src: [ audioSrc + 'correct.mp3' ]
@@ -49,6 +54,9 @@ const soundYouIdiot = new Howl({
 const soundTooSlow = new Howl({
   src: [ audioSrc + 'too_slow.mp3' ]
 });
+
+/////////////////////////////////
+// Game Over sounds.
 
 const soundGameOver = new Howl({
   src: [ audioSrc + 'end-song.mp3' ]

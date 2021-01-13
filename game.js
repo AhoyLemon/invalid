@@ -86,6 +86,12 @@ io.on('connection', (socket) => {
   });
 
   // SysAdmin -> Employees
+  socket.on("summonThePig", msg => {
+    console.log(msg.roomCode+' - The Flying Pig has been summoned!');
+    io.to(msg.roomCode).emit("summonThePig");
+  });
+
+  // SysAdmin -> Employees
   socket.on("updateBugs", msg => {
     console.log(msg.roomCode+' - new bug');
     console.table(msg.bugs);

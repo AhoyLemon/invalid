@@ -74,6 +74,28 @@
   }
 
 
+
+  @keyframes flyingPigHover {
+    0%  {transform: translateY(2px);}
+    50% {transform: translatey(-7px);}
+    100% { transform: translatey(2px); }
+  }
+
+  .flying-pig { @include position(absolute,null,0,0); transform:translate(80%, 80px); filter: drop-shadow(4px 4px 4px black);
+    img { width:160px; margin-top:18px; animation: flyingPigHover 4s ease-in-out infinite; }
+    .speech { background:#f1afdd; position: relative; padding:1em; border-radius: 10px; max-width: 30ch;
+      code { font-size:120%; font-weight: 600; }
+      &::after {
+        border-left: 20px solid transparent;
+        border-top: 20px solid #f1afdd;
+        bottom: -20px;
+        content: "";
+        position: absolute;
+        left: 20px;
+      }
+    }
+  }
+
 }
 
 
