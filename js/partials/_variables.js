@@ -1,4 +1,4 @@
-const gameTitle = "Invalid";
+const gameTitle = "Invalid!";
 const siteURL = "";
 const playerID = randomNumber(1,100);
 const employeeNumberSeed = randomNumber(10000,99999);
