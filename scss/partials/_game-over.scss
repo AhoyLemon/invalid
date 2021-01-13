@@ -82,4 +82,9 @@ main.game-over { font-family: $serif; background:#e4e72c; min-height: 100vh;
       &:hover span { color: #c85c0d; }
     }
   }
+  .final-links { background:$black; text-align: center; padding:4rem;
+    a { color:#c85c0d; display: inline-block; margin-right: 1em; font-size:5vw; text-decoration: none;
+      &:hover, &:focus { text-decoration: underline; }
+    }
+  }
 }

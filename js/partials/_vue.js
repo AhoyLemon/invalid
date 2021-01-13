@@ -1229,7 +1229,7 @@ var app = new Vue({
     
     /////////////////////////////////////////////
     // FAKE A GAME OVER SCREEN.
-    /*
+    
     self.my.role = "employee";
     self.my.name = "Lemon";
     self.my.playerIndex = 0;
@@ -1375,7 +1375,7 @@ var app = new Vue({
       { pw: "DIPPER", attackerIndex: 3, victimIndex: 1 },
       { pw: "SOMALI", attackerIndex: 2, victimIndex: 3 },
     ];
-    */
+    
     
     ///////////////////////////////////////////////    
     
