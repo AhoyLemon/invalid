@@ -1018,7 +1018,7 @@ var app = new Vue({
 
     /////////////////////////////////////////////
     // FAKE A SYSADMIN
-    
+    /*
     self.my.role = "SysAdmin";
     self.my.name = "Lemon";
     self.my.playerIndex = 0;
@@ -1032,6 +1032,7 @@ var app = new Vue({
     self.maxRounds = 6;
     self.round.phase = "choose rules";
     self.definePossibleChallenges();
+    */
     
 
     /////////////////////////////////////////////
