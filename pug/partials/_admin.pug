@@ -83,7 +83,7 @@
             input(v-model="ui.currentRule.inputValue" type="text" id="BanTheLetter" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?")
           button(type="submit") Set
 
-        form.select-and-button(v-if="ui.currentRule.name == 'Set A Maximum'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
+        //-form.select-and-button(v-if="ui.currentRule.name == 'Set A Maximum'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
           select(v-model="ui.currentRule.inputValue" required)
             option(selected disabled value="") How would you like to phrase this rule?
             option Your password cannot exceed {{(round.averageSize + round.maxOffset)}} characters
@@ -95,7 +95,7 @@
 
           button(type="submit") Set
 
-        form.select-and-button(v-if="ui.currentRule.name == 'Set A Minimum'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
+        //-form.select-and-button(v-if="ui.currentRule.name == 'Set A Minimum'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
           select(v-model="ui.currentRule.inputValue" required)
             option(selected disabled value="") How would you like to phrase this rule?
             option Your password must be at least {{(round.averageSize - round.minOffset)}} characters long
@@ -106,7 +106,7 @@
             option Your password must contain {{(round.averageSize - round.minOffset - 1)}} characters or more
           button(type="submit") Set
 
-        form.select-and-button(v-if="ui.currentRule.name == 'Limit Vowels'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
+        //-form.select-and-button(v-if="ui.currentRule.name == 'Limit Vowels'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
           select(v-model="ui.currentRule.inputValue" required)
             option(selected disabled value="") How would you like to phrase this rule?
             option Your password cannot exceed {{(round.averageVowels + round.vowelOffset)}} vowels

@@ -288,14 +288,12 @@ var app = new Vue({
     chooseRule(rule) {
       const self = this;
       if (rule.name == "Flying Pig") {
+        // Special process for summoning a flying pig.
         self.my.rulebux -= rule.cost;
         self.round.flyingPig.active = true;
         self.round.rules.push({
           type:"Flying Pig", message: "Look at the flying pig."
         });
-
-
-
         // Inform the other players.
         socket.emit("updatePasswordRules", {
           roomCode: self.roomCode,
@@ -305,6 +303,39 @@ var app = new Vue({
         socket.emit('summonThePig',{
           roomCode: self.roomCode,
         });
+
+      } else if (rule.name == "Set A Maximum" || rule.name == "Set A Minimum" || rule.name == "Limit Vowels") {
+        // For situations where you DON'T have a second rule input.
+        let r = { type: rule.name, message: "",inputValue: "",inputValueTwo: "" };
+
+        if (rule.name == "Set A Maximum") {
+          r.inputValue = self.round.averageSize + self.round.maxOffset;
+          r.message = randomFrom(rulePhrasings.max);
+        } else if (rule.name == "Set A Minimum") {
+          r.inputValue = self.round.averageSize - self.round.minOffset;
+          r.message = randomFrom(rulePhrasings.min);
+        } else if (rule.name == "Limit Vowels") {
+          r.inputValue = self.round.averageVowels + self.round.vowelOffset;
+          r.message = randomFrom(rulePhrasings.min);
+        }
+
+        r.message = r.message.replace("[SIZE]", r.inputValue);
+        r.message = r.message.replace("[SIZE+1]", (r.inputValue + 1));
+        r.message = r.message.replace("[SIZE-1]", (r.inputValue - 1));
+
+        // Pay for it.
+        self.my.rulebux = (self.my.rulebux - rule.cost);
+        self.round.rules.push(r);
+        // Recalculate Possible Right Answers.
+        self.findPossibleRightAnswers();
+        
+        // Inform the other players.
+        socket.emit("updatePasswordRules", {
+          roomCode: self.roomCode,
+          rules: self.round.rules,
+          shibboleth: self.round.shibboleth
+        });
+
 
       } else {
         self.ui.currentRule.name = rule.name;

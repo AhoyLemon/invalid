@@ -142,6 +142,32 @@ const rules = [
 ];
 
 
+const rulePhrasings= {
+  max: [
+    "Your password cannot exceed [SIZE] characters",
+    "Your password must be less than [SIZE+1] characters",
+    "Password must be [SIZE] characters in length or less",
+    "Password can be a maximum of [SIZE] characters",
+    "Password can not be [SIZE+1] characters or more",
+    "Password must not exceed [SIZE] characters.",
+  ],
+  min: [
+    "Your password must be at least [SIZE] characters long",
+    "Your password must be more than [SIZE-1] characters",
+    "Password must be [SIZE] characters or more",
+    "Password minimum is [SIZE]",
+    "Password must exceed [SIZE-1] characters",
+  ],
+  vowels: [
+    "Your password cannot exceed [SIZE] vowels",
+    "Your password must have less than [SIZE+1] vowels",
+    "Vowels in your password are limited to [SIZE]",
+    "Password vowels cannot exceed [SIZE]",
+    "Your password may not contain [SIZE+1] vowels or more"
+  ]
+}
+
+
 const flyingPigLines = {
   intro: [
     "Entering in a password, huh?<br /><br />Well, I'm <code>THE FLYING PIG</code>, and I'm here to give you in helpful suggestions!",
