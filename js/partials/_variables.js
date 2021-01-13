@@ -141,3 +141,39 @@ const rules = [
   }
 ];
 
+
+const flyingPigLines = {
+  intro: [
+    "Entering in a password, huh?<br /><br />Well, I'm <code>THE FLYING PIG</code>, and I'm here to give you in helpful suggestions!",
+    "Hey, it's me!<br /><br /> <code>THE FLYING PIG</code>, and I'm here to give you in helpful suggestions!"
+  ],
+  beforeGame: [
+    "Don't worry about any of these rules, <code>THE FLYING PIG</code> is here, and I'll give you all sorts of helpful suggestions!",
+    "Passwords can be tricky, but I'm <code>THE FLYING PIG</code>, and I can help you create a remarkable password!",
+    "Don't be worried! I'm <code>THE FLYING PIG</code>, and I can help you create a remarkable password!",
+  ],
+  guessing: [
+    "Have you tried <code>RIVERDALE</code>? That's the school from Archie comics! It's also a popular WB show!",
+    "Your password should be secure. And what's more secure than <code>FORT KNOX</code>? Maybe you should type that!",
+    "I'm having <code>FUN</code> thinking up passwords with you!",
+    "I'm <code>THE FLYING PIG</code>!",
+    "Look at me! I'm <code>THE FLYING PIG</code>!",
+    "<code>HOMINY</code> is a food produced from dried maize kernels that have been treated with an alkali! That seems like a good password!",
+    "In the legal profession, an <code>AFFIDAVIT</code> is a written statement. You could write that!",
+    "The 21st American president was <code>CHESTER A. ARTHUR</code>! Does that help?",
+    "The only member of ZZ Top without a beard is named <code>FRANK BEARD</code>!",
+    "The Scandanavian spirit with a distinct caroway flavor can either be spelled <code>AQUAVIT</code> or <code>AKVAVIT</code>! You could try both!",
+    "Pets.com was a dot-com enterprise headquartered in <code>SAN FRANCISCO</code>. It went defunct in 2000!",
+    "In August 1484, <code>INNOCENT VIII</code> was made pope. He served for 7 years, 331 days!",
+    "Vestments are liturgical garments most associated with the <code>CHRSITIAN</code> religion. I'm The Flying Pig!",
+    "The 4th most populated city in Colorado is <code>FORT COLLINS</code> with a population of 165,000!",
+    "Clippy was originally introduced in <code>MICROSOFT OFFICE</code>. That thing was annoying!",
+    "Have you thought of a password yet? Try <code>RASPBERRIES</code>!",
+  ],
+  afterCorrect: [
+
+  ],
+  roundComplete: [
+
+  ]
+}

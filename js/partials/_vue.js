@@ -48,6 +48,10 @@ var app = new Vue({
       hurryTime: settings.timer.hurryTime,
       adminTimeLeft: settings.timer.adminTimeLeft,
       finalTimeLeft: settings.timer.finalTimeLeft,
+      flyingPig: {
+        active: false,
+        message: ""
+      },
       crash: {
         active: false,
         word: "",
@@ -282,9 +286,30 @@ var app = new Vue({
 
     chooseRule(rule) {
       const self = this;
-      self.ui.currentRule.name = rule.name;
-      self.ui.currentRule.cost = rule.cost;
-      self.ui.currentRule.editing = true;
+      if (rule.name == "Flying Pig") {
+        self.my.rulebux -= rule.cost;
+        self.round.flyingPig.active = true;
+        self.round.rules.push({
+          type:"Flying Pig", message: "Look at the flying pig."
+        });
+
+
+
+        // Inform the other players.
+        socket.emit("updatePasswordRules", {
+          roomCode: self.roomCode,
+          rules: self.round.rules,
+          shibboleth: self.round.shibboleth,
+          flyingPig: self.round.flyingPig
+        });
+
+
+      } else {
+        self.ui.currentRule.name = rule.name;
+        self.ui.currentRule.cost = rule.cost;
+        self.ui.currentRule.editing = true;
+      }
+      
     },
 
     isRuleButtonDisabled(ruleName, ruleCost, ruleUnique) {
@@ -364,7 +389,8 @@ var app = new Vue({
         socket.emit("updatePasswordRules", {
           roomCode: self.roomCode,
           rules: self.round.rules,
-          shibboleth: self.round.shibboleth
+          shibboleth: self.round.shibboleth,
+          flyingPig: self.round.flyingPig
         });
 
       } else {
@@ -1016,6 +1042,7 @@ var app = new Vue({
       self.roomCode = urlParams.get('room');
     }
 
+    
     /////////////////////////////////////////////
     // FAKE A SYSADMIN
     /*
@@ -1024,6 +1051,26 @@ var app = new Vue({
     self.my.playerIndex = 0;
     self.currentlyInGame = true;
     self.round.number = 1;
+    self.round.sysAdminIndex = 0;
+    self.players = [
+      { name: "Lemon", role:"SysAdmin", employeeNumber:1, score:0  },
+      { name: "Carlos", role:"employee", employeeNumber:2, score:0  },
+      { name: "Pablo", role:"employee", employeeNumber:3, score:0  }
+    ];
+    self.maxRounds = 6;
+    self.round.phase = "choose rules";
+    self.definePossibleChallenges();
+    */
+
+    /////////////////////////////////////////////
+    // FAKE AN EMPLOYEE
+    /*
+    self.my.role = "employee";
+    self.my.name = "Lemon";
+    self.my.playerIndex = 0;
+    self.currentlyInGame = true;
+    self.round.number = 1;
+    self.round.sysAdminIndex = 1;
     self.players = [
       { name: "Lemon", role:"employee", employeeNumber:1, score:0  },
       { name: "Carlos", role:"SysAdmin", employeeNumber:2, score:0  },
@@ -1031,9 +1078,14 @@ var app = new Vue({
     ];
     self.maxRounds = 6;
     self.round.phase = "choose rules";
+  
     self.definePossibleChallenges();
+
+    self.round.phase = "create password";
+    self.round.challenge = {"id":29,"name":"Periodic Table of Elements","nameAsRule":"Your password must be an element on the Periodic Table.","failedMessage":"[PASS]? Next you'll tell me unobtanium is real. Try again.","possible":["ACTINIUM","ALUMINUM","AMERICIUM","ANTIMONY","ARGON","ARSENIC","ASTATINE","BARIUM","BERKELIUM","BERYLLIUM","BISMUTH","BOHRIUM","BORON","BROMINE","CADMIUM","CALCIUM","CALIFORNIUM","CARBON","CERIUM","CESIUM","CHLORINE","CHROMIUM","COBALT","COPPER","CURIUM","DARMSTADTIUM","DUBNIUM","DYSPROSIUM","EINSTEINIUM","ERBIUM","EUROPIUM","FERMIUM","FLOURINE","FRANCIUM","GADOLINIUM","GALLIUM","GERMANIUM","GOLD","HAFNIUM","HASSIUM","HELIUM","HOLMIUM","HYDROGEN","INDIUM","IODINE","IRIDIUM","IRON","KRYPTON","LANTHANUM","LAWRENCIUM","LEAD","LITHIUM","LUTETIUM","MAGNESIUM","MANGANESE","MEITNERIUM","MENDELEVIUM","MERCURY","MOLYBDENUM","NEODYMIUM","NEON","NEPTUNIUM","NICKEL","NIOBIUM","NITROGEN","NOBELIUM","OGANESSON","OSMIUM","OXYGEN","PALLADIUM","PHOSPHORUS","PLATINUM","PLUTONIUM","POTASSIUM","PRASEODYMIUM","PROMETHIUM","PROTACTINIUM","RADIUM","RADON","RHENIUM","RHODIUM","ROENTGENIUM","RUBIDIUM","RUTHENIUM","RUTHERFORDIUM","SAMARIUM","SCANDIUM","SEABORGIUM","SELENIUM","SILICON","SILVER","SODIUM","STRONTIUM","SULFUR","TANTALUM","TECHNETIUM","TELLURIUM","TERBIUM","THALLIUM","THORIUM","THULIUM","TIN","TITANIUM","TUNGSTEN","UNUNBIUM","UNUNHEXIUM","UNUNQUADIUM","UNUNSEPTIUM","UNUNTRIUM","URANIUM","VANADIUM","XENON","YTTERBIUM","YTTRIUM","ZINC","ZIRCONIUM"]};
+    self.round.bugs = ["FART"];
+    self.round.rules = [{"type":"Set A Minimum","message":"Your password must be more than 5 characters","inputValue":6,"inputValueTwo":null}];
     */
-    
 
     /////////////////////////////////////////////
     // FAKE A PLAYER IN THE FINAL ROUND.

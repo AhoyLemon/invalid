@@ -74,6 +74,20 @@
   }
 
 
+  .flying-pig { @include position(absolute,null,0,0); transform:translate(80%, 80px); filter: drop-shadow(4px 4px 4px black);
+    img { width:160px; margin-top:18px; }
+    .speech { background:#f1afdd; position: relative; padding:1em; border-radius: 10px; max-width: 30ch;
+      &::after {
+        border-left: 20px solid transparent;
+        border-top: 20px solid #f1afdd;
+        bottom: -20px;
+        content: "";
+        position: absolute;
+        left: 20px;
+      }
+    }
+  }
+
 }
 
 

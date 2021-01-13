@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-00-12@22:58:57">
+    <meta http-equiv="last-modified" content="2021-00-13@00:32:37">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
@@ -169,6 +169,13 @@
                     <div class="cost">3<sup>ƒ</sup></div>
                     <div class="disabled-reason"></div>
                     <div class="tooltip"><span>Employees must type a special word before typing their password</span>
+                    </div>
+                  </button>
+                  <button class="rule" @click="chooseRule({name:'Flying Pig', cost:3})" :class="{ active: (ui.currentRule.name == 'Flying Pig'), 'too-expensive': (my.rulebux &lt; 3) }" :disabled="isRuleButtonDisabled('Flying Pig',3,true)">
+                    <div class="name">Flying Pig</div>
+                    <div class="cost">3<sup>ƒ</sup></div>
+                    <div class="disabled-reason"></div>
+                    <div class="tooltip"><span>Summon a flying pig to offer the employees unhelpful suggestions.</span>
                     </div>
                   </button>
                   <button class="rule" @click="chooseRule({name:'Set A Maximum', cost:2})" :class="{ active: (ui.currentRule.name == 'Set A Maximum'), 'too-expensive': (my.rulebux &lt; 2) }" :disabled="isRuleButtonDisabled('Set A Maximum',2,true)">
@@ -380,6 +387,7 @@
                   <li v-if="round.challenge &amp;&amp; round.challenge.hint"> <strong>HINT: </strong> {{round.challenge.hint}}</li>
                   <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
                   <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">Passwords are case-insensitive</li>
+                  <li v-if="round.flyingPig.active">A flying pig has been added.</li>
                   <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
                 </ul>
                 <div class="stand-by" v-if="round.phase != 'create password' &amp;&amp; !ui.roundOver">
@@ -457,6 +465,9 @@
                   <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
                   <p v-else>Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.</p>
                 </div>
+              </div>
+              <div class="flying-pig" v-if="round.flyingPig.active">
+                <div class="speech" v-html="round.flyingPig.message"></div><img src="img/flying-pig.png">
               </div>
             </div>
           </div>
@@ -681,7 +692,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-12@22:58:57"></script>
+      <script src="js/min/site.min.js?updated2021-00-13@00:32:37"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({

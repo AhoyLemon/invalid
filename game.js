@@ -81,7 +81,8 @@ io.on('connection', (socket) => {
     console.table(msg.rules);
     io.to(msg.roomCode).emit("updatePasswordRules", {
       rules: msg.rules,
-      shibboleth: msg.shibboleth
+      shibboleth: msg.shibboleth,
+      flyingPig: msg.flyingPig
     });
   });
 
