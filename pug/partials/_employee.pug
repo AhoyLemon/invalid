@@ -26,7 +26,6 @@ main.employee-screen(v-if="my.role == 'employee' && (round.phase == 'choose rule
               |  {{round.challenge.hint}}
             li(v-for="(rule,index) in round.rules") {{rule.message}}
             li(v-if="round.challenge && round.challenge.nameAsRule") Passwords are case-insensitive
-            li(v-if="round.flyingPig.active") A flying pig has been added.
             li(v-if="round.bugs && round.bugs.length > 0 ") 
               span(v-if="round.bugs.length == 1") There is a system bug.
               span(v-else) There are {{round.bugs.length}} system bugs.

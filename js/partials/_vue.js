@@ -50,7 +50,8 @@ var app = new Vue({
       finalTimeLeft: settings.timer.finalTimeLeft,
       flyingPig: {
         active: false,
-        message: ""
+        message: "",
+        timer: undefined
       },
       crash: {
         active: false,
@@ -299,10 +300,11 @@ var app = new Vue({
         socket.emit("updatePasswordRules", {
           roomCode: self.roomCode,
           rules: self.round.rules,
-          shibboleth: self.round.shibboleth,
-          flyingPig: self.round.flyingPig
+          shibboleth: self.round.shibboleth
         });
-
+        socket.emit('summonThePig',{
+          roomCode: self.roomCode,
+        });
 
       } else {
         self.ui.currentRule.name = rule.name;
@@ -389,8 +391,7 @@ var app = new Vue({
         socket.emit("updatePasswordRules", {
           roomCode: self.roomCode,
           rules: self.round.rules,
-          shibboleth: self.round.shibboleth,
-          flyingPig: self.round.flyingPig
+          shibboleth: self.round.shibboleth
         });
 
       } else {
@@ -489,6 +490,29 @@ var app = new Vue({
           self.startHurryTimer();
         }
       }, 1000);
+
+      // Also, get the Flying Pig talking if he should be....
+
+      if (self.round.flyingPig.active && self.my.role == "employee") {
+
+        if (self.round.phase == "create password") {
+          self.round.flyingPig.message = randomFrom(flyingPigLines.guessing);
+        }
+        self.round.flyingPig.timer = setInterval(() => {
+          if (!self.round.flyingPig.active) {
+            // if the pig isn't active, kill the pig.
+            clearInterval(self.round.flyingPig.timer);
+            self.round.flyingPig.timer = undefined;
+          } else {
+            // Otherwise, let's generate a new line for the pig.
+            if (self.round.phase == "create password") {
+              self.round.flyingPig.message = randomFrom(flyingPigLines.guessing);
+              soundOink.play();
+            }
+          }
+        }, 6501);
+      }
+
     },
     
     resetRoundTimer() {
@@ -544,6 +568,24 @@ var app = new Vue({
 
     /////////////////////////////
     // EMPLOYEE FUNCTIONS
+
+
+    summonTheFlyingPig() {
+      const self = this;
+      self.round.flyingPig.active = true;
+      if (self.my.role == "employee") {
+        self.round.flyingPig.message = randomFrom(flyingPigLines.intro);
+      }
+    },
+
+    killThePig() {
+      const self = this;
+      self.round.flyingPig.active = false;
+      clearInterval(self.round.flyingPig.timer);
+      self.round.flyingPig.timer = undefined;
+    },
+
+
     endTheGuessingRound() {
       const self = this;
 
@@ -839,6 +881,12 @@ var app = new Vue({
         result: "success"
       });
 
+      if (self.round.flyingPig.active) {
+        self.round.flyingPig.message = randomFrom(flyingPigLines.afterCorrect);
+        clearInterval(self.round.flyingPig.timer);
+        self.round.flyingPig.timer = undefined;
+        soundOink.play();
+      }
     },
 
     startNextRoundClicked() {

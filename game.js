@@ -81,9 +81,14 @@ io.on('connection', (socket) => {
     console.table(msg.rules);
     io.to(msg.roomCode).emit("updatePasswordRules", {
       rules: msg.rules,
-      shibboleth: msg.shibboleth,
-      flyingPig: msg.flyingPig
+      shibboleth: msg.shibboleth
     });
+  });
+
+  // SysAdmin -> Employees
+  socket.on("summonThePig", msg => {
+    console.log(msg.roomCode+' - The Flying Pig has been summoned!');
+    io.to(msg.roomCode).emit("summonThePig");
   });
 
   // SysAdmin -> Employees

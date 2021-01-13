@@ -145,7 +145,7 @@ const rules = [
 const flyingPigLines = {
   intro: [
     "Entering in a password, huh?<br /><br />Well, I'm <code>THE FLYING PIG</code>, and I'm here to give you in helpful suggestions!",
-    "Hey, it's me!<br /><br /> <code>THE FLYING PIG</code>, and I'm here to give you in helpful suggestions!"
+    "Hey, it's me!<br /><br />I'm <code>THE FLYING PIG</code>, and I'm here to give you in helpful suggestions!"
   ],
   beforeGame: [
     "Don't worry about any of these rules, <code>THE FLYING PIG</code> is here, and I'll give you all sorts of helpful suggestions!",
@@ -169,11 +169,36 @@ const flyingPigLines = {
     "The 4th most populated city in Colorado is <code>FORT COLLINS</code> with a population of 165,000!",
     "Clippy was originally introduced in <code>MICROSOFT OFFICE</code>. That thing was annoying!",
     "Have you thought of a password yet? Try <code>RASPBERRIES</code>!",
+    "The third Harry Potter movie is <code>THE PRISONER OF AZKABIN</code>. That could be your password!",
+    "Those plastic things at the end of shoelaces are called <code>AGLETS</code>. I'm The Flying Pig!",
+    "The second bestselling No Doubt album is <code>ROCK STEADY</code>. It went double platinum!",
+    "The Four Shire Stone is a boundary marker at the edge of <code>WARWICKSHIRE</code>, <code>OXFORDSHIRE</code>, <code>GLOUCESTERSHIRE</code> and <code>WIRCESTERSHIRE</code>.",
+    "There are 6 fossilferous stratigraphic units in <code>LUXEMBOURG</code>. Five are from the Jurassic period!",
+    "A short Kurta is known as a <code>KURTI</code>. It's mostly worn by women in Northern India!",
+    "The 2019 Major League Lacrosse champions were the <code>CHESAPEAKE BAYHAWKS</code>. The final score was 10-9!",
+    "There were 21 gangs featured in the 1979 film The Warriors. One of them was <code>THE ELECTRIC ELIMINATORS</code>!",
+    "The largest city in Transylvania is <code>CLUJ-NAPOCA</code>. It's nickname is The Treasure City!",
+    "Minton is a small village located in <code>SASKATCHEWAN</code>. It has a population of 55!",
+    "Russia sent 190 athletes to the 2006 Winter Olympics. One of them was <code>TATIANA BORODULINA</code>!",
+    "Yasutoshi Yoshida is the real name of the Japanese noise musician <code>GOVERNMENT ALPHA</code>!",
+    "The Japanese toy maker <code>BANDAI</code> was founded in July 5, 1950. I'm The Flying Pig!",
+    "Hollonville is unincorporated land in <code>PIKE COUNTY</code>, Georgia. It has two churches and a general store!",
+    "The Welsh city of <code>CARDIFF</code> is the UK's eleventh-largest city. Their motto is The Red Dragon Will Lead The Way!",
+    "Frontier was a television show about the North American Fur Trade! It was co-produced by <code>DISCOVERY CANADA</code>.",
+    "We all know <code>PASSWORD</code> is a bad password. But <code>PASSWORD1</code>? That seems pretty good!",
+    "The Red Devils is a nickname given to <code>MANCHESTER UNITED</code>, a Premier League football club!",
+    "The second largest of the great lakes by volume is <code>LAKE MICHIGAN</code>. But it's the third largest by surface area!",
+    "Meat Loaf's 2008 European Summer Tour was called <code>THE CASA DE CARNE</code>. It never went to a Spanish-speaking nation!",
+    "Stephen King was born in the Maine city of <code>PORTLAND</code>, which was incorporated 65 years before the one in <code>OREGON</code>!",
+    "On November 23, 2014, <code>CHICAGO</code> became the second longest-running Broadway show, surpassing Cats!",
+    "The role of Chief Inspector Clouseau was played by <code>PETER SELLERS</code>, which is also the name of a New Zealand sports broadcaster!",
+    "Ivan II resigned as <code>TSAR OF BULGARIA</code> in 1299. He died as a monk in exile a year later!",
+    "The Salmon River in Oregon begins and ends in <code>LINCOLN COUNTY</code>, but touches other counties as well!"
   ],
   afterCorrect: [
-
+    "Wow! We did a great job thinking up passwords together!",
+    "Excellent work with your password! I love you!",
+    "I'm so happy we thought of a password together!",
+    "That's a great password! Good job to the both of us!",
   ],
-  roundComplete: [
-
-  ]
-}
+};

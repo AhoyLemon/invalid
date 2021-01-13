@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-00-13@00:32:37">
+    <meta http-equiv="last-modified" content="2021-00-13@10:48:22">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
@@ -387,7 +387,6 @@
                   <li v-if="round.challenge &amp;&amp; round.challenge.hint"> <strong>HINT: </strong> {{round.challenge.hint}}</li>
                   <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
                   <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">Passwords are case-insensitive</li>
-                  <li v-if="round.flyingPig.active">A flying pig has been added.</li>
                   <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
                 </ul>
                 <div class="stand-by" v-if="round.phase != 'create password' &amp;&amp; !ui.roundOver">
@@ -692,7 +691,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-13@00:32:37"></script>
+      <script src="js/min/site.min.js?updated2021-00-13@10:48:22"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({
