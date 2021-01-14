@@ -2,9 +2,6 @@
 
   background-image:url(../img/bg/minneapolis.jpg); background-size:cover; background-position: center;
 
-  .nobody-here { 
-    .content { position: relative; }
-  }
   .sign-in { display: flex; align-items: center; justify-content: center; }
   .inside { padding:90px 60px; position: relative; backdrop-filter:blur(4px);
     &:before {  @include position(absolute,0,0,0,0); content:""; background: linear-gradient(to top left, #4c1265, #f80759); opacity: 0.75; }
@@ -52,14 +49,15 @@
     .display { font-weight: 700; font-size:325%; }
   }
 
-  .nobody-here { display: flex; align-items: center; justify-content: center;
+  .nobody-here, .game-started { display: flex; align-items: center; justify-content: center;
     .inside { max-width: 68ch; }
+    .content { position: relative; }
     h2 { margin-bottom: 1em; }
   }
   
   .instructions-banner { backdrop-filter:blur(4px); color:#313131; @include position(fixed,null,0,0); padding: $padding;
     &:before { background:rgba(255,255,255,0.82); content: ''; @include position(absolute,0,0,0,0); }
-    .banner-inside { position: relative; line-height: 130%; }
+    .banner-inside { position: relative; line-height: 140%; }
     a { color:$purple; font-weight: 700; text-decoration: none;
       &:hover, &focus { text-decoration: underline; }
     }
@@ -81,8 +79,6 @@
 
 @media (min-width:721px) {
   .pregame { display: grid; grid-template-columns: $scorebard-width 1fr $scorebard-width;  gap:$gap;
-    .sign-in {
-      
-    }
+    .players { max-height: calc(100% - 90px); overflow: auto; }
   }
 }

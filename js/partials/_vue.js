@@ -4,6 +4,7 @@ var app = new Vue({
   el: '#app',
   data: {
     currentlyInGame: false,
+    gameStarted: false,
     roomCode: null,
     isRoomHost: false,
     rules: rules,
@@ -17,7 +18,8 @@ var app = new Vue({
       role: null,
       rulebux: settings.default.rulebux,
       passwordAttempts: 0,
-      score: 0
+      score: 0,
+      socketID: ""
     },
 
     players: [],
@@ -155,6 +157,7 @@ var app = new Vue({
       const p = {
         name: self.my.name,
         employeeNumber: self.my.employeeNumber,
+        socketID: self.my.socketID,
         isRoomHost: self.isRoomHost,
         role: null,
         score: 0
@@ -171,7 +174,6 @@ var app = new Vue({
       if (newPlayer) {
         self.players.push(p);
       }
-
 
       self.players.forEach(function(player, index) {
         if (player.employeeNumber == self.my.employeeNumber) {
@@ -193,7 +195,8 @@ var app = new Vue({
 
       const d = {
         roomCode: self.roomCode,
-        players: self.players
+        players: self.players,
+        gameStarted: self.gameStarted
       };
 
       socket.emit('updatePlayers', d);

@@ -1,4 +1,28 @@
 
+// Inform the player of their own socketID
+socket.on("getSocketID", function(msg) {
+  console.info("Player socketID is "+msg);
+  app.my.socketID = msg;
+});
+
+
+// A client disconnected!
+// Let's try to deal with it.
+socket.on("clientDisconnect", function(msg) {
+  console.warn("The socket "+msg+" disconnected.");
+
+
+  // TODO: See if that socketID is in your game. Remove them if so.
+  if (!app.gameStarted) {
+    app.players.forEach(function(p,index) {
+      if (p.socketID == msg) {
+        app.players.splice(index, 1);
+      }
+    });
+  }
+
+});
+
 // Someone created a room.
 socket.on("createRoom", function(msg) {
   // Don't do anything.
@@ -15,18 +39,22 @@ socket.on("joinRoom", function(msg) {
 
 socket.on("requestPlayers", function(msg) {
   console.log("The client wants players from me!");
-  socket.emit("updatePlayers", {
-    roomCode: app.roomCode,
-    players: app.players
-  });
-  console.log("I gave the room all the players I know about!");
+  if (app.isRoomHost) {
+    socket.emit("updatePlayers", {
+      roomCode: app.roomCode,
+      players: app.players,
+      gameStarted: app.gameStarted
+    });
+    console.log("I'm the host! I gave the room all the players I know about!");
+  }
 });
 
 
-// Someone updated a player (this should )
+// Someone updated a player (this should have been the game host)
 socket.on("updatePlayers", function(msg) {
   console.log("THE PLAYERS HAVE BEEN UPDATED!!!!!!!!");  
   app.players = msg.players;
+  app.gameStarted = msg.gameStarted;
 
   // NOTE: This bit may be unnecessary, but confirms & updates your own playerIndex every time the players get updated.
   app.players.forEach(function(p, index) {
@@ -41,6 +69,7 @@ socket.on("startTheGame", function(msg) {
   app.players = msg.players;
   app.my.role = msg.players[app.my.playerIndex].role;
   app.round.phase = "choose rules";
+  app.gameStarted = true;
   app.round.number = 1;
   app.maxRounds = msg.maxRounds;
   app.round.sysAdminIndex = msg.sysAdminIndex;

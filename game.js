@@ -16,6 +16,11 @@ io.on('connection', (socket) => {
   const socketID = socket.id;
   console.log('a user connected with the ID of'+socketID);
 
+
+
+  io.to(socketID).emit("getSocketID", socketID);
+
+
   // Any Client -> The Entire Planet
   socket.on('createRoom', (msg) => {
     io.emit('createRoom', msg);
@@ -47,7 +52,8 @@ io.on('connection', (socket) => {
     console.table(msg.players);
 
     const d = {
-      players: msg.players
+      players: msg.players,
+      gameStarted: msg.gameStarted
     };
     // TODO: Probably change this to go from game host to anybody else in the room?
     io.in(msg.roomCode).emit('updatePlayers', d);
@@ -224,11 +230,10 @@ io.on('connection', (socket) => {
   
 
   socket.on('disconnect', () => {
-    console.log("The socket "+socketID+ "disconnected.");
+    console.log("The socket "+socketID+ " disconnected.");
+
+    io.emit('clientDisconnect', socketID);
   });
-
-
-
   
 });
 
