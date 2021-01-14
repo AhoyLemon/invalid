@@ -53,7 +53,7 @@ main.game-over(v-if="round.phase == 'GAME OVER'")
 
     .crack-headline(v-if="computedUncrackedPasswords.length > 0") There were {{computedUncrackedPasswords.length}} secure passwords.
     .crack-headline(v-else="") There were no secure passwords.
-    .cracks9(v-if="computedUncrackedPasswords.length > 0")
+    .cracks(v-if="computedUncrackedPasswords.length > 0")
       .crack(v-for="u in computedUncrackedPasswords")
         .inside
           .password {{u.pw}}
@@ -77,3 +77,7 @@ main.game-over(v-if="round.phase == 'GAME OVER'")
       h3 This game is 
         span by Lemon.
       img(src="svg/lemon.svg" alt="Lemon")
+  
+  section.final-links
+    a(href="https://github.com/AhoyLemon/invalid") GitHub Repo.
+    a(href=siteURL) Play Again.

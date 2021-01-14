@@ -35,3 +35,21 @@ mixin ruleButton(name,cost,unique)
     .cost= cost
       sup ƒ
     .disabled-reason
+
+    .tooltip
+      if name == "Demand A Letter"
+        span A letter of your choosing must be in the password.
+      else if name == "Ban A Letter"
+        span A letter of your choosing cannot be in the password.
+      else if name == "Shibboleth"
+        span Employees must type a special word before typing their password
+      else if name == "Flying Pig"
+        span Summon a flying pig to offer the employees unhelpful suggestions.
+      else if name == "Set A Maximum"
+        span Maximum Characters, defined by the list average
+      else if name == "Set A Minimum"
+        span Minimum Characters, defined by the list average
+      else if name == "Limit Vowels"
+        span Maximum Vowels, defined by the list average
+      else if name == "Ban A Combo"
+        span Ban Two Letters From Being Used Together

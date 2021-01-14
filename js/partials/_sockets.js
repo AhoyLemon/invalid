@@ -97,6 +97,12 @@ socket.on("updatePasswordRules", function(msg) {
   soundNewRule.play();
 });
 
+// The Flying Pig has been summoned!
+socket.on("summonThePig", function() {
+  console.log("Look everybody! It's a flying pig!");  
+  app.summonTheFlyingPig();
+});
+
 // The SysAdmin has a new bug!
 socket.on("updateBugs", function(msg) {
   console.log("I (an employee) am being updated on the round bugs.");  
@@ -111,6 +117,7 @@ socket.on("startGuessing", function(msg) {
   app.round.sysAdminIndex = msg.sysAdminIndex;
   app.roundStartTimer();
   soundStartGuessing.play();
+
 });
 
 // Some player (other than me) tried a password (and failed)
@@ -139,6 +146,7 @@ socket.on("crashedServer", function(msg) {
     app.my.score += settings.points.forServerCrash;
   }
   app.endTheGuessingRound();
+  app.killThePig();
 });
 
 // Some player (other than me) successfully guessed a password.
@@ -177,6 +185,8 @@ socket.on("roundOver", function() {
   app.ui.passwordAttemptErrors = [];
   app.resetHurryTimer();
   app.resetRoundTimer();
+  app.killThePig();
+  
 });
 
 

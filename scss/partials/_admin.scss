@@ -102,16 +102,34 @@ $admin-panel-color: #101010;
   }
 
 
-  .add-a-rule {
+  .add-a-rule { padding-bottom: 2em;
     .rules { display:grid; grid-template-columns:repeat(3,1fr); max-width: 600px; gap:$padding; }
     .rule { position: relative; padding-top:40px; position: relative; padding-top: 32px; padding-bottom: 16px;
       .cost { @include position(absolute,5px,5px); border:1px solid rgba(255,255,255,0.25); border-radius: 50%; width:2em; height: 2em; line-height: 2em; font-size:80%; }
     }
-    .finished { grid-column: span 2; padding:1em; }
+    .finished { grid-column: span 2; padding:1em; position: relative; }
+    .tooltip { @include position(absolute,100%,0,null,0); background-color: $adminAccent; color:$black; font-size: 11px; z-index:$z-button-tooltip; padding:4px; opacity: 0; pointer-events: none;
+      &:after {
+        bottom: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba($adminAccent, 0);
+        border-bottom-color: $adminAccent;
+        border-width: 10px;
+        margin-left: -10px;
+      }
+    }
   }
 
   button { background:rgba(0,0,0,0.5); border:3px solid rgba(255,255,255,0.25); color:white; font-family: inherit; font-size:16px;  cursor: pointer; box-shadow: -2px -2px 1px rgba(0,0,0,0.5);
-    &:hover, &:focus { border-color: rgba($adminAccent,0.75); color:$adminAccent;  }
+    &:hover, &:focus { border-color: rgba($adminAccent,0.75); color:$adminAccent;
+      &:not([disabled]) .tooltip { opacity: 1; transition: opacity 0.5s linear; transition-delay: 1s; }
+    }
     &[disabled] { opacity: 0.5; cursor: not-allowed;
       &:hover, &:focus { border-color:rgba(255,255,255,0.25); color:white;  }
     }

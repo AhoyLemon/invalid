@@ -50,8 +50,13 @@
   .timer { @include position(fixed,null,20px,20px); background:rgba(255,255,255,0.6); width:5vw; height:5vw; border-radius: 50%; line-height: 5vw; text-align: center; font-size:3.6vw;
   }
 
-  .round-reminder { @include position(fixed,null,null,0,0); background:rgba(255,255,255,0.85); backdrop-filter:blur(8px); padding:$padding;
-    li { margin-left: 1em; list-style: decimal; padding-left: 1em; margin-bottom: 0.5em; }
+  .round-reminder { @include position(fixed,null,null,0,0); background:rgba(255,255,255,0.85); backdrop-filter:blur(8px); padding:$padding; max-height: 95vh; overflow-y: auto;
+    h3 { font-size:135%; }
+    .challenge-name { font-weight: 600; margin-bottom: 0.25em; }
+    ol > li { margin-left: 1em; list-style: decimal; padding-left: 0.25em; padding-bottom:0.5em; margin-bottom: 0.5em; border-bottom: 1px solid rgba(0,0,0,0.2);
+      &:last-child { border-bottom: none; margin-bottom: 0; }
+    }
+    ul > li { margin-bottom: 0; font-size:90%; margin-left: 1.5em; }
 
     transform: translateY(102%); transition: transform 8s ease;
     &.visible { transform: translateY(0); }
