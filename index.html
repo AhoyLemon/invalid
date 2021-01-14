@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-00-11@20:23:08">
+    <meta http-equiv="last-modified" content="2021-00-13@21:35:02">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
@@ -62,7 +62,15 @@
             </div>
           </div>
         </div>
-        <div class="sign-in" v-if="isRoomHost || players.length &gt; 0">
+        <div class="game-started" v-if="gameStarted">
+          <div class="inside">
+            <div class="content">
+              <h2>The game has already started.</h2>
+              <p>Ask the game host to start a new game, so you can join.</p>
+            </div>
+          </div>
+        </div>
+        <div class="sign-in" v-if="(isRoomHost || players.length &gt; 0) &amp;&amp; !gameStarted">
           <div class="inside">
             <h1>Welcome to BigCorp</h1>
             <form class="pregame-form" @submit.prevent="updatePlayer()">
@@ -652,7 +660,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-11@20:23:08"></script>
+      <script src="js/min/site.min.js?updated2021-00-13@21:35:02"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({

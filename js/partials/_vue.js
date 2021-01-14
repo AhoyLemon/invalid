@@ -4,6 +4,7 @@ var app = new Vue({
   el: '#app',
   data: {
     currentlyInGame: false,
+    gameStarted: false,
     roomCode: null,
     isRoomHost: false,
     rules: rules,
@@ -189,7 +190,8 @@ var app = new Vue({
 
       const d = {
         roomCode: self.roomCode,
-        players: self.players
+        players: self.players,
+        gameStarted: self.gameStarted
       };
 
       socket.emit('updatePlayers', d);

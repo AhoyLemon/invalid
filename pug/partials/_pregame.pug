@@ -10,7 +10,13 @@
         h2 There's nobody here.
         p Either you have the wrong room code, or your host hasn't entered their name yet.
 
-  .sign-in(v-if="isRoomHost || players.length > 0")
+  .game-started(v-if="gameStarted")
+    .inside
+      .content
+        h2 The game has already started.
+        p Ask the game host to start a new game, so you can join.
+
+  .sign-in(v-if="(isRoomHost || players.length > 0) && !gameStarted")
 
     .inside
       h1 Welcome to BigCorp
@@ -33,6 +39,8 @@
             
       .start-button(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
         button(type="button" @click="startTheGame()") Start The Game
+
+
 
   .players
     .player(v-for="player in players" :class="{ 'is-me' : (my.employeeNumber == player.employeeNumber), 'is-host': player.isRoomHost }")

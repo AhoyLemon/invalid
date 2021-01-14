@@ -52,7 +52,8 @@ io.on('connection', (socket) => {
     console.table(msg.players);
 
     const d = {
-      players: msg.players
+      players: msg.players,
+      gameStarted: msg.gameStarted
     };
     // TODO: Probably change this to go from game host to anybody else in the room?
     io.in(msg.roomCode).emit('updatePlayers', d);

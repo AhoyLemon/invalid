@@ -2,9 +2,6 @@
 
   background-image:url(../img/bg/minneapolis.jpg); background-size:cover; background-position: center;
 
-  .nobody-here { 
-    .content { position: relative; }
-  }
   .sign-in { display: flex; align-items: center; justify-content: center; }
   .inside { padding:90px 60px; position: relative; backdrop-filter:blur(4px);
     &:before {  @include position(absolute,0,0,0,0); content:""; background: linear-gradient(to top left, #4c1265, #f80759); opacity: 0.75; }
@@ -52,8 +49,9 @@
     .display { font-weight: 700; font-size:325%; }
   }
 
-  .nobody-here { display: flex; align-items: center; justify-content: center;
+  .nobody-here, .game-started { display: flex; align-items: center; justify-content: center;
     .inside { max-width: 68ch; }
+    .content { position: relative; }
     h2 { margin-bottom: 1em; }
   }
   
