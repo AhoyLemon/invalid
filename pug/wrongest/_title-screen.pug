@@ -1,0 +1,20 @@
+.title-screen(v-if="!inRoom")
+
+  .logo-holder
+    figure.logo
+      img(src="svg/wrongest.svg")
+  
+  .create
+    button(@click="createRoom()") Create a New Room
+  
+  .or
+    span or
+
+  .join
+    form(@submit.prevent="joinRoom()")
+      button(v-if="roomCode && roomCode.length > 3" type="submit") Join this room.
+      input(type="text" minlength="4" maxlength="4" required v-model="roomCode"
+        @input="roomCode = $event.target.value.toUpperCase()"
+        placeholder="Enter A Room Code"
+      )
+      .enter-a-room-code

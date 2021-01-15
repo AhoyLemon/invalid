@@ -1,12 +1,13 @@
 {
-  "name": "invalid",
-  "version": "0.8.1",
-  "description": "A trivia game of unnecessary suffering.",
+  "name": "kinda-fun",
+  "version": "0.0.1",
+  "description": "Games made by Lemon.",
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^3.0.4"
   },
   "scripts": {
-    "start": "node game.js"
+    "invalid": "node game.js",
+    "wrongest": "node wrongest.js"
   }
 }

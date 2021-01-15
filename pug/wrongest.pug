@@ -1,0 +1,31 @@
+- var pageTitle = "";
+include partials/_variables
+
+html
+  head
+    - var testing = true
+    title The Wrongest Words
+    link(rel="preconnect" href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;600&display=swap" rel="stylesheet")
+    link(href="css/wrongest.css" type="text/css" rel="stylesheet")
+body
+  #app
+    include wrongest/_title-screen.pug
+    include wrongest/_pregame.pug
+
+  .javascripts
+    if testing
+      script(src="js/libraries/vue.full.js")
+      script.
+        const testing = true;
+    else
+      script(src="js/libraries/vue.min.js")
+      script.
+        const testing = false;
+
+    script(src="/socket.io/socket.io.js")
+    script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+    script.
+      var socket = io.connect();
+
+    script(src="js/min/wrongest.min.js?updated"+lastUpdated)
