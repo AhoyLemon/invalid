@@ -1,25 +1,25 @@
-.title-screen { display: grid; grid-template-columns: 1fr 8vw 1fr; grid-template-rows: 1fr 105px; height: 100vh; background: radial-gradient(#ffffff, #d3d3d3);
+.title-screen { display: grid; grid-template-columns: 1fr 80px 1fr; grid-template-rows: 1fr 105px; height: 100vh; background: radial-gradient(#ffffff, #d3d3d3);
   .logo-holder { grid-column: span 3; display: flex; align-items: center; }
   figure.logo { width: 100%;
-    svg * { fill:#ee2f26; }
-    svg { width:80vw; display: block; margin-left: auto; margin-right: auto; }
+    svg { max-width: 340px; display: block; margin-left: auto; margin-right: auto; overflow: visible;
+      * { fill:#ee2f26; }
+    }
   }
-
   .create { text-align: right;
-    button { font-size:4vw; background:transparent; color:#b39153; font-family: $serif; border:none; cursor: pointer; line-height: 95%; padding:10px; border-bottom: 3px solid transparent;
+    button { font-size:36px; background:transparent; color:#b39153; font-family: $serif; border:none; cursor: pointer; line-height: 95%; padding:10px; border-bottom: 3px solid transparent;
       &:hover, &:focus { color: orange; }
     }
   }
-  .or { font-size:4vw; color:rgba(20,20,20,0.35); font-family:$sans-serif; text-align: center;
+  .or { font-size:24px; color:rgba(20,20,20,0.35); font-family:$sans-serif; text-align: center; padding-top:7px;
   }
   .join { position: relative;
-    input { font-size:4vw; color:#32758a; font-family: $serif; display:block; width:15ch; border:none; outline:none; background: transparent;
+    input { font-size:36px; color:#23a0c7; font-family: $serif; display:block; width:15ch; border:none; outline:none; background: transparent;
       &::placeholder { color:#50666d; }
-      &:hover, &:focus { border-color:#32758a;
-        &::placeholder { color:#32758a; }
+      &:hover, &:focus { border-color:#23a0c7;
+        &::placeholder { color:#23a0c7; }
       }
     }
-    button { @include position(absolute,0,null,null,13vw); line-height: 180%; font-family: $serif; color:#32758a; font-size: 2.8vw; cursor: pointer; border:none; background:transparent;
+    button { @include position(absolute,0,null,null,110px); line-height: 180%; font-family: $serif; color:#23a0c7; font-size: 32px; cursor: pointer; border:none; background:transparent;
       &:hover, &:focus { text-decoration: underline; }
     }
   }
