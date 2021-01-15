@@ -1,6 +1,6 @@
 {
-  "name": "the-rules-have-changed",
-  "version": "0.2.1",
+  "name": "invalid",
+  "version": "0.8.1",
   "description": "A trivia game of unnecessary suffering.",
   "dependencies": {
     "express": "^4.17.1",
