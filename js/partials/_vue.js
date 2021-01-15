@@ -1121,7 +1121,7 @@ var app = new Vue({
     const self = this;
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('room')) {
-      self.roomCode = urlParams.get('room');
+      self.roomCode = urlParams.get('room').toUpperCase();
     }
 
     

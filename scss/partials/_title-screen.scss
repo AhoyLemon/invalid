@@ -1,3 +1,32 @@
+.title-screen { display: grid; grid-template-columns: 1fr 8vw 1fr; grid-template-rows: 1fr 105px; height: 100vh; background: radial-gradient(#ffffff, #d3d3d3);
+  .logo-holder { grid-column: span 3; display: flex; align-items: center; }
+  figure.logo { width: 100%;
+    svg * { fill:#ee2f26; }
+    svg { width:80vw; display: block; margin-left: auto; margin-right: auto; }
+  }
+
+  .create { text-align: right;
+    button { font-size:4vw; background:transparent; color:#b39153; font-family: $serif; border:none; cursor: pointer; line-height: 95%; padding:10px; border-bottom: 3px solid transparent;
+      &:hover, &:focus { color: orange; }
+    }
+  }
+  .or { font-size:4vw; color:rgba(20,20,20,0.35); font-family:$sans-serif; text-align: center;
+  }
+  .join { position: relative;
+    input { font-size:4vw; color:#32758a; font-family: $serif; display:block; width:15ch; border:none; outline:none; background: transparent;
+      &::placeholder { color:#50666d; }
+      &:hover, &:focus { border-color:#32758a;
+        &::placeholder { color:#32758a; }
+      }
+    }
+    button { @include position(absolute,0,null,null,13vw); line-height: 180%; font-family: $serif; color:#32758a; font-size: 2.8vw; cursor: pointer; border:none; background:transparent;
+      &:hover, &:focus { text-decoration: underline; }
+    }
+  }
+}
+
+
+/*
 .create-or-join {
 
   input,
@@ -8,24 +37,6 @@
     }
   }
   .or { font-size:max(7vw, 50px); text-align: center; color:white; @include position(absolute,50%,50%); z-index: 4; display: block;  transform:rotate(334deg) translate(53px, -40px); text-transform: uppercase; font-family: $sans-serif;  }
-  /*
-  .join {
-    input { background:transparent;
-      &::placeholder { color:$black; }
-      &:hover {
-        &::placeholder { color:$blue; }
-      }
-      &:focus { color: $blue; border: 2px solid $blue; outline: none;
-        &::placeholder { color:rgba($blue,0.4); }
-      }
-    }
-    form { width:100%; position: relative; }
-    button { background:$blue; color:$white;
-      @include position(absolute,null,0,0,0);
-      font-size:24px;
-    }
-  }
-  */
 
 
   .join { background: linear-gradient(to top left, #4b0fc2, #8e2de2); @include position(absolute,0,0,0,0); clip-path: polygon(0 100%, 100% 100%, 100% 0);  padding:4em; display: flex; align-items:flex-end; justify-content: flex-end;
@@ -54,3 +65,4 @@
     }
   }
 }
+*/

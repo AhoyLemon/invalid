@@ -9,7 +9,7 @@
     <link href="css/site.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-00-13@21:45:22">
+    <meta http-equiv="last-modified" content="2021-00-15@09:36:59">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
@@ -99,18 +99,24 @@
   </head>
   <body>
     <div id="app" v-cloak>
-      <div class="create-or-join" v-if="!currentlyInGame">
-        <div class="inside">
-          <div class="create">
-            <button @click="createRoom()">Create a New Room</button>
-          </div>
-          <div class="or"><span>or</span></div>
-          <div class="join">
-            <form @submit.prevent="joinRoom()">
-              <button v-if="roomCode &amp;&amp; roomCode.length &gt; 3" type="submit">Join this room.</button>
-              <input type="text" minlength="4" maxlength="4" required v-model="roomCode" @input="roomCode = $event.target.value.toUpperCase()" placeholder="Enter A Room Code">
-            </form>
-          </div>
+      <div class="title-screen" v-if="!currentlyInGame">
+        <div class="logo-holder">
+          <figure class="logo">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 100 33.7" space="preserve">
+              <path d="M10.3 5.4l-.5-1.5c-.1-.3-.4-.4-.7-.3L6.2 5l.5-3.3c0-.3-.2-.6-.5-.6H4.6c-.3 0-.5.3-.5.6L4.6 5l-3-1.4c-.2-.1-.5 0-.6.3L.4 5.4c0 .3.1.6.4.6l3.2.6-2.2 2.3c-.2.2-.2.6 0 .8l1.3 1c.2.2.6.1.7-.2l1.5-2.9 1.5 2.9c.1.3.5.3.7.2l1.3-1c.4-.2.4-.5.2-.8L6.7 6.6 9.9 6c.3 0 .5-.3.4-.6z"></path>
+              <path d="M97.7 27.2c.6 0 1.2-.1 1.9-.1v2.2h-5.7c-.1-.4-.1-.8-.2-1.3-.1.1-.2.1-.3.2-2.6 2.6-7.6 2.2-9.3-1.7-1.5-3.5-1.4-7 .9-10.1 1.6-2.2 4.7-3.2 7.4-2.4.3.1.7.2 1.1.3V9.6h-2V7.4c.8-.2 1.7-.3 2.5-.4.7-.1 1.3-.4 1.9-.6.6-.1 1.1-.1 1.8-.2v21zM93.5 21v-4.2c0-.2-.1-.4-.2-.5-1.4-.8-3.9-.8-4.8 1.3-.3.8-.6 1.7-.7 2.5-.2 1.8-.1 3.5.6 5.2.9 1.9 2.9 2.4 4.5 1 .4-.3.7-.7.7-1.4-.2-1.2-.1-2.6-.1-3.9zM20.2 29.3h-7.9v-1.8l.1-.1c1.2-.2 1.6-.6 1.6-1.8 0-1.6.1-3.3.1-4.9v-3.8h-2v-2.2c.9-.1 1.8-.1 2.7-.3.6-.1 1.2-.4 1.8-.5.5-.1 1.1-.1 1.7-.2.1.6.1 1 .2 1.6.3-.2.5-.3.7-.4 1.1-.7 2.2-1.2 3.4-1.3 2.2-.1 4.4.4 5.1 3.2.3 1.2.4 2.4.4 3.6 0 2.1 0 4.3-.1 6.4v.3c.6 0 1.2-.1 1.9-.1v2.2H22v-1.8s0-.1.1-.1c1.3-.2 1.7-.6 1.7-1.9 0-2.3 0-4.6-.1-6.8-.1-1.9-1.5-2.7-3.4-2.1-.1 0-.3.1-.4.1-1.2.5-1.4.7-1.4 2 0 2.7-.1 5.4-.1 8v.4h1.9c-.1.8-.1 1.5-.1 2.3zM60 27.2c.7 0 1.3-.1 1.9-.1v2.3h-5.1c-.5 0-.7-.1-.7-.6 0-.2 0-.4-.1-.8-.2.2-.4.3-.5.4-1.8 1.4-3.8 2-5.9 1.1-2.5-1-3.1-4.6-1.2-6.7.8-.9 1.8-1.4 2.9-1.7 1.3-.4 2.6-.6 3.9-.8.2 0 .4-.1.7-.1-.1-.9 0-1.9-.2-2.7-.3-1.5-1.7-2-3.2-1.4-.3.1-.6.4-1 .6.1.2.2.3.2.5.3.8.1 1.7-.5 2.2-.5.5-1.5.6-2.2.3-.8-.4-1-1.1-1-1.9 0-1.3.8-2.2 1.9-2.8 1.5-.9 3.2-1.2 4.9-1.1.7 0 1.5.2 2.2.4 1.9.6 2.7 2.1 3 4 .1.7.1 1.4.1 2.1 0 2.2-.1 4.4-.1 6.6v.2zm-4.1-4.9c-1.2.1-2.2.4-3.2 1-.3.2-.5.4-.7.7-.7 1-.4 2.3.7 2.7 1 .3 2.4-.1 3.1-.9.1-.1.1-.2.1-.2v-3.3zM63.1 9.4V7.2c.9 0 1.8-.1 2.6-.2.6-.1 1.3-.4 1.9-.5.6-.1 1.2-.1 1.8-.2v20.9c.6 0 1.2-.1 1.9-.1v2.2h-7.9v-1.8c1.4-.3 1.7-.6 1.7-2.1 0-3.7 0-7.4.1-11.1 0-1.5.1-3 .1-4.5v-.3c-.8-.1-1.5-.1-2.2-.1zM40.5 17h4.4c1.5 0 1.6.2 1.4 1.7 0 .1-.1.3-.2.3-.7.3-1.2.8-1.5 1.4l-2.7 6.3c-.7 1.7-1.4 3.5-2.1 5.2-.1.3-.3.5-.7.5h-1.8c-.2 0-.5-.2-.5-.3-1.7-3.6-3.3-7.3-5-10.9-.3-.6-.4-1.2-.6-1.8h-1v-2.2h7V19c-1 .3-1.2.8-.9 1.8.5 1.5 1.1 3 1.7 4.4.3.8.7 1.7 1.1 2.6 1.1-2.9 2.1-5.7 3.2-8.5-.5 0-1.1.1-1.7.1-.1-.8-.1-1.5-.1-2.4zM79.4 27.2c.6 0 1.2-.1 1.9-.1v2.2h-7.9v-1.8c1.4-.3 1.7-.5 1.7-1.9.1-1.9 0-3.7.1-5.6v-3h-2v-2.2c.9-.1 1.8-.1 2.7-.3.6-.1 1.2-.4 1.8-.5.6-.1 1.1-.1 1.8-.2-.1 4.4-.1 8.9-.1 13.4zM2.1 16.9v-2.2c.9-.1 1.7-.1 2.6-.3.7-.1 1.3-.4 1.9-.6.5-.1 1.1-.1 1.7-.2V27c.6 0 1.2-.1 1.9-.1v2.2H2.3v-1.8c1.4-.1 1.7-.5 1.7-1.9v-5.7-2.8H2.1zM79.9 8.6c0 1.4-1 2.5-2.3 2.4-1.3 0-2.4-1.1-2.3-2.5 0-1.4 1.1-2.5 2.3-2.5 1.4.1 2.3 1.1 2.3 2.6z"></path>
+            </svg>
+          </figure>
+        </div>
+        <div class="create">
+          <button @click="createRoom()">Create a New Room</button>
+        </div>
+        <div class="or"><span>or</span></div>
+        <div class="join">
+          <form @submit.prevent="joinRoom()">
+            <button v-if="roomCode &amp;&amp; roomCode.length &gt; 3" type="submit">Join this room.</button>
+            <input type="text" minlength="4" maxlength="4" required v-model="roomCode" @input="roomCode = $event.target.value.toUpperCase()" placeholder="Enter A Room Code">
+          </form>
         </div>
       </div>
       <div class="pregame" v-if="currentlyInGame &amp;&amp; round.phase == 'pregame'">
@@ -728,7 +734,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         var socket = io.connect();
         
       </script>
-      <script src="js/min/site.min.js?updated2021-00-13@21:45:22"></script>
+      <script src="js/min/site.min.js?updated2021-00-15@09:36:59"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({
