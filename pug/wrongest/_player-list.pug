@@ -1,0 +1,13 @@
+main.player-list(v-if="gameStarted && !computedAmIPresenting")
+  .players
+    .player(v-for="(player,index) in players")
+      .number 
+        span {{index+1}}
+      .name {{player.name}}
+      .text
+        blockquote(v-text="cardText(player.card)")
+      .current(v-if="round.activePlayerIndex == index && round.playerPresenting") CURRENT
+      .up-next(v-if="(round.activePlayerIndex + 1) == index && !round.playerPresenting") UP NEXT
+      
+  .button-holder(v-if="computedAmITheDealer")
+    button.deal-button Deal Card

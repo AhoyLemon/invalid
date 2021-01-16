@@ -12,6 +12,8 @@ body
   #app
     include wrongest/_title-screen.pug
     include wrongest/_pregame.pug
+    include wrongest/_player-list.pug
+    include wrongest/_presenting.pug
 
   .javascripts
     if testing
@@ -27,5 +29,4 @@ body
     script(src="https://code.jquery.com/jquery-3.4.1.min.js")
     script.
       var socket = io.connect();
-
     script(src="js/min/wrongest.min.js?updated"+lastUpdated)

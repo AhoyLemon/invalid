@@ -7,9 +7,19 @@ var app = new Vue({
     gameStarted: false,
     my: {
       name: "",
-      socketID: ""
+      socketID: "",
+      card: "",
+      playerIndex: -1
     },
+    gameDeck: {},
     players: [],
+    cardsPlayed: [],
+    round: {
+      number: 0,
+      dealerIndex: -1,
+      activePlayerIndex: -1,
+      playerPresenting: false,
+    },
     ui: {
       nameEntered: false,
     }
@@ -52,6 +62,7 @@ var app = new Vue({
 
       // Try to join a room with the entered code.
       socket.emit('joinRoom', self.roomCode);
+      socket.emit('requestPlayers', self.roomCode);
 
       self.isRoomHost = false;
       self.inRoom = true;
@@ -68,12 +79,15 @@ var app = new Vue({
       
       const p = {
         name: self.my.name,
-        socketID: self.my.socketID
+        socketID: self.my.socketID,
+        card: "",
       };
 
+      // Put this player in the Player Array.
       if (!self.ui.nameEntered) {
         self.players.push(p);
       } else {
+        self.my.playerIndex = -1;
         self.players.forEach(function(player, index) {
           if (player.socketID == self.my.socketID) {
             //alert('found one');
@@ -81,10 +95,21 @@ var app = new Vue({
           }
         });
       }
+
+      // find this player's playerIndex
+      self.players.forEach(function(player, index) {
+        if (player.socketID == self.my.socketID) {
+          self.my.playerIndex = index;
+        }
+      });
       
       self.ui.nameEntered = true;
       self.sendPlayerUpdate();
+      if (self.my.playerIndex < 0) {
+        alert('WARNING: I have a player index of '+self.my.playerIndex+'! This should not happen. I am a bug.');
+      }
     },
+
     sendPlayerUpdate() {
       const self = this;
       socket.emit('updatePlayers', {
@@ -92,11 +117,66 @@ var app = new Vue({
         players: self.players,
         gameStarted: self.gameStarted
       });
+    },
+
+    startTheGame() {
+      const self = this;
+      let d = shuffle(fPlusDeck);
+      self.gameDeck = d;
+      self.shuffleCards();
+
+      socket.emit('startTheGame', {
+        roomCode: self.roomCode,
+        players: self.players,
+        gameDeck: self.gameDeck
+      });
+    },
+
+    ////////////////////////////////////////
+    // In Game
+    shuffleCards() {
+      const self = this;
+      self.players.forEach(function(player, index) {
+        self.players[index].card = self.gameDeck.cards[0];
+        self.gameDeck.cards.shift();
+      });
+    },
+
+    dealCard() {
+      const self = this;
+      self.round.activePlayerIndex++;
+      self.round.playerPresenting= true;
+      socket.emit('dealCard', {
+        roomCode: self.roomCode,
+        activePlayerIndex: self.round.activePlayerIndex
+      });
+    },
+
+    cardText(txt) {
+      const self = this;
+      return txt.replace(/\{.*?\}/, "...");
     }
+
   },
 
   computed: {
+    computedAmITheDealer() {
+      const self = this;
+      if (self.my.playerIndex == self.round.dealerIndex) {
+        return true;
+      } else {
+        return false;
+      }
+    },
 
+    computedAmIPresenting() {
+      const self = this;
+      if (self.round.playerPresenting == true && self.round.activePlayerIndex == self.my.playerIndex) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
 
   mounted: function() {
@@ -107,4 +187,13 @@ var app = new Vue({
     }
   }
 
+});
+
+
+Vue.directive('focus', {
+  // When the bound element is inserted into the DOM...
+  inserted: function (el) {
+    // Focus the element
+    el.focus();
+  }
 });

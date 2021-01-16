@@ -14,15 +14,32 @@ io.on('connection', (socket) => {
   console.log('a user connected with the ID of'+socketID);
   io.to(socketID).emit("getSocketID", socketID);
 
-  // Any Client -> The Rest of the Room
-  socket.on('joinRoom', (msg) => {
-    console.log("The socket "+socketID+" is joining "+msg+".");
+  // Any Client -> The Entire Planet
+  socket.on('createRoom', (msg) => {
+    io.emit('createRoom', msg);
+    console.log(msg+' - created room');
     socket.join(msg);
+    console.log(msg+' - join by creator');
 
-    // Request players from the host.
-    io.in(msg).emit("requestPlayers");
+    // TODO: I need to figure out how to get a list of all clients in a room.
   });
 
+
+  // Any Client -> The Rest of the Room
+  socket.on('joinRoom', (msg) => {
+    console.log(msg+' - guest joined');
+    socket.join(msg);
+
+    // Broadcast a join message gloablly.
+    //-io.emit('joinRoom', msg);
+
+    // Request players from the host.
+    socket.to(msg).emit("requestPlayers");
+  });
+
+  socket.on('requestPlayers', (msg) => {
+    io.in(msg).emit('requestPlayers');
+  });
 
   // Any Client -> The Rest of the Room
   socket.on('updatePlayers', msg => {
@@ -32,6 +49,17 @@ io.on('connection', (socket) => {
       players: msg.players,
       gameStarted: msg.gameStarted
     });
+  });
+
+  socket.on('startTheGame', msg => {
+
+    console.log(msg.roomCode+' - game started');
+
+    io.in(msg.roomCode).emit('startTheGame', {
+      players: msg.players,
+      gameDeck: msg.gameDeck
+    });
+    console.table(msg.players);
   });
 
 

@@ -42,11 +42,9 @@ io.on('connection', (socket) => {
 
     // Request players from the host.
     socket.to(msg).emit("requestPlayers");
-
-    // TODO: I need to figure out how to get a list of all clients in a room.
   });
 
-  // Game Host -> ALL
+  // Any Client -> The Rest of the Room
   socket.on('updatePlayers', msg => {
     console.log(msg.roomCode+' - players updated');
     console.table(msg.players);

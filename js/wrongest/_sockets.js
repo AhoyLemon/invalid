@@ -4,10 +4,19 @@ socket.on("getSocketID", function(msg) {
   app.my.socketID = msg;
 });
 
+// Someone joined a room.
+socket.on("joinRoom", function(msg) {
+  // Don't do anything.
+});
+
 socket.on("requestPlayers", function(msg) {
-  alert("The client wants players from me!");
+  console.log("The client wants players from me!");
   if (app.isRoomHost) {
-    app.sendPlayerUpdate();
+    socket.emit("updatePlayers", {
+      roomCode: app.roomCode,
+      players: app.players,
+      gameStarted: app.gameStarted
+    });
     console.log("I'm the host! I gave the room all the players I know about!");
   }
 });
@@ -17,4 +26,13 @@ socket.on("updatePlayers", function(msg) {
   console.log("THE PLAYERS HAVE BEEN UPDATED!!!!!!!!");  
   app.players = msg.players;
   app.gameStarted = msg.gameStarted;
+});
+
+// The host has started the game!
+socket.on("startTheGame", function(msg) {
+  app.players = msg.players;
+  app.gameDeck = msg.gameDeck;
+  app.gameStarted = true;
+  app.round.number = 1;
+  app.round.dealerIndex = 0;
 });
