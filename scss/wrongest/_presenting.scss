@@ -1,0 +1,8 @@
+main.presenting { display:flex; display: flex; align-items: center; justify-content: center; padding:2rem; min-height: 99vh;
+  .inside { max-width: 460px; font-family: $font-family; }
+  .card { background: rgba(255,255,255,0.85); padding: 2rem; color: black; line-height: 180%; border-radius: 2rem; }
+  blockquote {
+    &:before { content:"“"; font-size:120%; }
+    &:after  { content:"”"; font-size:120%; }
+  }
+}

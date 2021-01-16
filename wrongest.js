@@ -62,6 +62,16 @@ io.on('connection', (socket) => {
     console.table(msg.players);
   });
 
+  socket.on('startPresenting', msg => {
+
+    console.log("It's a player's turn in " + msg.roomCode+'!');
+
+    io.in(msg.roomCode).emit('startPresenting', {
+      activePlayerIndex: msg.activePlayerIndex,
+      activePlayerName: msg.activePlayerName
+    });
+  });
+
 
 
 

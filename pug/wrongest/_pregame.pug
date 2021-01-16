@@ -19,19 +19,18 @@
   .sign-in(v-if="(isRoomHost || players.length > 0) && !gameStarted")
 
     .inside
-      h1 Welcome to BigCorp
       form.pregame-form(@submit.prevent="updateMyInfo()")
         //-fieldset
           input(v-model="my.employeeNumber" type="text" readonly disabled)
           label Employee Number
         fieldset
           input(v-model="my.name" type="text" maxlength="34" required)
-          label Employee Name
+          label Your Name
 
         .button-holder
-          //-button(type="submit") 
-            span(v-if="!ui.appliedForJob") Apply For Job
-            span(v-if="ui.appliedForJob") Update Resume
+          button(type="submit") 
+            span(v-if="!ui.nameEntered") Save Name
+            span(v-if="ui.nameEntered") Change Name
 
         //-fieldset.checkbox(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
           input(v-model="allowNaughty" type="checkbox" id="AllowNaughtyChallenges")

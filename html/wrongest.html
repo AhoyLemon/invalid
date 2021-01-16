@@ -40,13 +40,14 @@
       </div>
       <div class="sign-in" v-if="(isRoomHost || players.length &gt; 0) &amp;&amp; !gameStarted">
         <div class="inside">
-          <h1>Welcome to BigCorp</h1>
           <form class="pregame-form" @submit.prevent="updateMyInfo()">
             <fieldset>
               <input v-model="my.name" type="text" maxlength="34" required="required"/>
-              <label>Employee Name</label>
+              <label>Your Name</label>
             </fieldset>
-            <div class="button-holder"></div>
+            <div class="button-holder">
+              <button type="submit"> <span v-if="!ui.nameEntered">Save Name</span><span v-if="ui.nameEntered">Change Name</span></button>
+            </div>
           </form>
           <div class="start-button" v-if="isRoomHost &amp;&amp; ui.nameEntered &amp;&amp; players.length &gt; 1">
             <button type="button" @click="startTheGame()">Start The Game</button>
@@ -67,24 +68,26 @@
       </div>
     </div>
     <main class="player-list" v-if="gameStarted &amp;&amp; !computedAmIPresenting">
-      <div class="players">
-        <div class="player" v-for="(player,index) in players">
-          <div class="number"> <span>{{index+1}}</span></div>
-          <div class="name">{{player.name}}</div>
-          <div class="text">
-            <blockquote v-text="cardText(player.card)"></blockquote>
+      <div class="inside"> 
+        <div class="players">
+          <div class="player" v-for="(player,index) in players" :class="{  'is-you': (my.playerIndex == index),  'presenting': (round.activePlayerIndex == index &amp;&amp; round.playerPresenting), 'already-went': (index &lt;= round.activePlayerIndex), 'up-next': ((round.activePlayerIndex + 1) == index &amp;&amp; !round.playerPresenting)  }">
+            <div class="number"> <span>{{index+1}}</span></div>
+            <div class="name">{{player.name}}</div>
+            <div class="text" v-if="(my.playerIndex == index)">
+              <blockquote v-text="cardText(player.card)"></blockquote>
+            </div>
           </div>
-          <div class="current" v-if="round.activePlayerIndex == index &amp;&amp; round.playerPresenting">CURRENT</div>
-          <div class="up-next" v-if="(round.activePlayerIndex + 1) == index &amp;&amp; !round.playerPresenting">UP NEXT</div>
+        </div>
+        <div class="button-holder">
+          <button class="deal-button" @click="dealCard()">Deal Card</button>
         </div>
       </div>
-      <div class="button-holder" v-if="computedAmITheDealer">
-        <button class="deal-button">Deal Card</button>
-      </div>
     </main>
-    <main class="dealer" v-if="gameStarted &amp;&amp; computedAmIPresenting">
-      <div class="card">
-        <h1>you're presenting.</h1>
+    <main class="presenting" v-if="gameStarted &amp;&amp; computedAmIPresenting">
+      <div class="inside"> 
+        <div class="card">
+          <blockquote v-html="cardText(my.card)"></blockquote>
+        </div>
       </div>
     </main>
   </div>
@@ -94,6 +97,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>var socket = io.connect();</script>
-    <script src="js/min/wrongest.min.js?updated2021-00-15@21:10:09"></script>
+    <script src="js/min/wrongest.min.js?updated2021-00-16@15:16:17"></script>
   </div>
 </body>

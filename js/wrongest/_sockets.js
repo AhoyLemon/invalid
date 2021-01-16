@@ -26,6 +26,10 @@ socket.on("updatePlayers", function(msg) {
   console.log("THE PLAYERS HAVE BEEN UPDATED!!!!!!!!");  
   app.players = msg.players;
   app.gameStarted = msg.gameStarted;
+
+  //Grab my card.
+  app.my.card = app.players[app.my.playerIndex].card;
+
 });
 
 // The host has started the game!
@@ -35,4 +39,18 @@ socket.on("startTheGame", function(msg) {
   app.gameStarted = true;
   app.round.number = 1;
   app.round.dealerIndex = 0;
+});
+
+
+// The host has started the game!
+socket.on("startPresenting", function(msg) {
+  app.round.activePlayerIndex = msg.activePlayerIndex;
+  // UNUSED : activePlayerName
+  app.round.playerPresenting = true;
+});
+
+
+io.in(msg.roomCode).emit('startPresenting', {
+  activePlayerIndex: msg.activePlayerIndex,
+  activePlayerName: msg.activePlayerName
 });

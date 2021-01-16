@@ -123,7 +123,7 @@ var app = new Vue({
       const self = this;
       let d = shuffle(fPlusDeck);
       self.gameDeck = d;
-      self.shuffleCards();
+      self.shuffleAndDeal();
 
       socket.emit('startTheGame', {
         roomCode: self.roomCode,
@@ -134,27 +134,34 @@ var app = new Vue({
 
     ////////////////////////////////////////
     // In Game
-    shuffleCards() {
+    shuffleAndDeal() {
       const self = this;
       self.players.forEach(function(player, index) {
         self.players[index].card = self.gameDeck.cards[0];
         self.gameDeck.cards.shift();
       });
+      self.sendPlayerUpdate();
     },
 
     dealCard() {
       const self = this;
       self.round.activePlayerIndex++;
-      self.round.playerPresenting= true;
-      socket.emit('dealCard', {
+      socket.emit('startPresenting', {
         roomCode: self.roomCode,
-        activePlayerIndex: self.round.activePlayerIndex
+        activePlayerIndex: self.round.activePlayerIndex,
+        activePlayerName: self.players[self.round.activePlayerIndex].name
       });
     },
 
     cardText(txt) {
       const self = this;
-      return txt.replace(/\{.*?\}/, "...");
+      if (self.gameStarted && self.computedAmIPresenting) {
+        let t = txt.replace('{','<span class="secret-text">').replace('}','</span>');
+        return t;
+      } else {
+        return txt.replace(/\{.*?\}/, "...");
+      }
+      
     }
 
   },

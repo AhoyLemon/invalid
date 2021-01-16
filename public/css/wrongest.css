@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -376,13 +377,8 @@ svg {
 }
 */
 .pregame {
-  min-height: 100vh;
+  min-height: 99.9vh;
   font-family: "Comfortaa", cursive;
-  color: white;
-  padding: 20px;
-  background-image: url(../img/bg/minneapolis.jpg);
-  background-size: cover;
-  background-position: center;
 }
 .pregame .sign-in {
   display: -webkit-box;
@@ -395,28 +391,6 @@ svg {
       -ms-flex-pack: center;
           justify-content: center;
 }
-.pregame .inside {
-  padding: 90px 60px;
-  position: relative;
-  -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
-}
-.pregame .inside:before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  content: "";
-  background: -webkit-gradient(linear, right bottom, left top, from(#4c1265), to(#f80759));
-  background: -o-linear-gradient(bottom right, #4c1265, #f80759);
-  background: linear-gradient(to top left, #4c1265, #f80759);
-  opacity: 0.75;
-}
-.pregame .inside h1 {
-  position: relative;
-  color: white;
-}
 .pregame form {
   width: 280px;
   margin-left: auto;
@@ -427,6 +401,11 @@ svg {
   grid-template-columns: 1fr;
   gap: 10px;
   position: relative;
+  /*
+  button { display: block; width:100%; font-family: inherit; background: linear-gradient(to top, #0f0c29, #302b63, #24243e); background-size:100%; color:white; border:none; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.35); font-size:16px; padding:10px; cursor: pointer; outline:none;
+    &:hover, &:focus { background: linear-gradient(to top, #0f0c29, #574ccc, #24243e); } 
+  }
+  */
 }
 .pregame form fieldset {
   display: block;
@@ -460,29 +439,6 @@ svg {
 .pregame form fieldset.checkbox input {
   width: auto;
   display: inline-block;
-}
-.pregame form button {
-  display: block;
-  width: 100%;
-  font-family: inherit;
-  background: -webkit-gradient(linear, left bottom, left top, from(#0f0c29), color-stop(#302b63), to(#24243e));
-  background: -o-linear-gradient(bottom, #0f0c29, #302b63, #24243e);
-  background: linear-gradient(to top, #0f0c29, #302b63, #24243e);
-  background-size: 100%;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
-          box-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
-  font-size: 16px;
-  padding: 10px;
-  cursor: pointer;
-  outline: none;
-}
-.pregame form button:hover, .pregame form button:focus {
-  background: -webkit-gradient(linear, left bottom, left top, from(#0f0c29), color-stop(#574ccc), to(#24243e));
-  background: -o-linear-gradient(bottom, #0f0c29, #574ccc, #24243e);
-  background: linear-gradient(to top, #0f0c29, #574ccc, #24243e);
 }
 .pregame .start-button {
   margin-top: 1em;
@@ -652,12 +608,25 @@ svg {
     overflow: auto;
   }
 }
-main.dealer {
+main.player-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 2rem;
+  min-height: 99vh;
+}
+main.player-list .inside {
+  width: 100%;
   max-width: 460px;
-  margin: 2rem auto;
   font-family: "Comfortaa", cursive;
 }
-main.dealer .player {
+main.player-list .player {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 3em 10px 1fr;
@@ -668,8 +637,10 @@ main.dealer .player {
   border: 1px solid rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
           box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.85);
+  color: #212121;
 }
-main.dealer .player .number {
+main.player-list .player .number {
   -ms-grid-column: 1;
   grid-column: 1;
   -ms-grid-row-span: 2;
@@ -686,15 +657,91 @@ main.dealer .player .number {
           justify-content: center;
   font-size: 140%;
 }
-main.dealer .player .name {
+main.player-list .player .name {
   font-weight: 600;
 }
-main.dealer .deal-button {
+main.player-list .player blockquote:before {
+  content: "“";
   font-size: 120%;
+}
+main.player-list .player blockquote:after {
+  content: "”";
+  font-size: 120%;
+}
+main.player-list .player.already-went {
+  opacity: 0.85;
+  -webkit-transform: scale(0.9);
+      -ms-transform: scale(0.9);
+          transform: scale(0.9);
+}
+main.player-list .player.up-next {
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+}
+main.player-list .player.presenting {
+  background: #e8ecaa;
+}
+main.player-list button {
+  background: #38a4dc;
+  color: white;
   display: block;
   width: 100%;
-  background: #333;
+  border: none;
+  font-family: inherit;
+  font-weight: 800;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
+  padding: 0.5em 1.5em;
+  border-radius: 1em;
+  -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+}
+main.player-list button:active {
+  -webkit-box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.75);
+          box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.75);
+  -webkit-transform: translate(2px, 2px);
+      -ms-transform: translate(2px, 2px);
+          transform: translate(2px, 2px);
+}
+
+main.presenting {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 2rem;
+  min-height: 99vh;
+}
+main.presenting .inside {
+  max-width: 460px;
+  font-family: "Comfortaa", cursive;
+}
+main.presenting .card {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
+  color: black;
+  line-height: 180%;
+  border-radius: 2rem;
+}
+main.presenting blockquote:before {
+  content: "“";
+  font-size: 120%;
+}
+main.presenting blockquote:after {
+  content: "”";
+  font-size: 120%;
+}
+
+html {
+  background: -o-radial-gradient(#353535, #161616);
+  background: radial-gradient(#353535, #161616);
   color: #eee;
-  padding: 0.5em 1em;
-  cursor: pointer;
 }

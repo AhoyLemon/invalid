@@ -1,3 +1,4 @@
-main.dealer(v-if="gameStarted && computedAmIPresenting")
-  .card
-    h1 you're presenting.
+main.presenting(v-if="gameStarted && computedAmIPresenting")
+  .inside 
+    .card
+      blockquote(v-html="cardText(my.card)")
