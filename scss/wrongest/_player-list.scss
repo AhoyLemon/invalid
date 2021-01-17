@@ -9,7 +9,9 @@ main.player-list {  display: flex; align-items: center; justify-content: center;
     }
   }
   .player {
-    &.is-me {  }
+    &.is-me { 
+      .name { color: #e91e63; }
+    }
     &.already-went { opacity: 0.85; transform: scale(0.9); }
     &.up-next { box-shadow: 0 0 8px rgba(0, 0, 0, 0.9); transform: scale(1.1); }
     &.presenting { background:#e8ecaa; }

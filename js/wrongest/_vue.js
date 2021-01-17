@@ -1,3 +1,13 @@
+Vue.directive('focus', {
+  // When the bound element is inserted into the DOM...
+  inserted: function (el) {
+    // Focus the element
+    el.focus();
+  }
+});
+
+
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -19,6 +29,8 @@ var app = new Vue({
       dealerIndex: -1,
       activePlayerIndex: -1,
       playerPresenting: false,
+      presentationTimer: undefined,
+      presentationTimeLeft: 30
     },
     ui: {
       nameEntered: false,
@@ -153,6 +165,36 @@ var app = new Vue({
       });
     },
 
+    ////////////////////////////////////////
+    // Timers
+    startPresentationTimer() {
+      const self = this;
+      self.round.presentationTimeLeft = 30;
+
+      self.round.presentationTimer = setInterval(() => {
+        self.round.presentationTimeLeft -= 0.05;
+        self.round.presentationTimeLeft = self.round.presentationTimeLeft.toFixed(2);
+        $('.timer').val(self.round.presentationTimeLeft).trigger('change');
+        if (self.round.presentationTimeLeft <= 0) {
+          alert('time is up!');
+          self.round.playerPresenting = false;
+          self.resetPresentationTimer();
+        }
+      }, 50);
+
+      setTimeout(function() {
+        $(".timer").knob();
+      }, 1000);
+  
+    },
+
+    resetPresentationTimer() {
+      const self = this;
+      clearInterval(self.round.presentationTimer);
+      self.round.presentationTimer = undefined;
+      self.round.presentationTimeLeft = 30;
+    },
+
     cardText(txt) {
       const self = this;
       if (self.gameStarted && self.computedAmIPresenting) {
@@ -178,7 +220,7 @@ var app = new Vue({
 
     computedAmIPresenting() {
       const self = this;
-      if (self.round.playerPresenting == true && self.round.activePlayerIndex == self.my.playerIndex) {
+      if (self.round.playerPresenting == true && (self.round.activePlayerIndex == self.my.playerIndex)) {
         return true;
       } else {
         return false;
@@ -192,15 +234,8 @@ var app = new Vue({
     if (urlParams.has('room')) {
       self.roomCode = urlParams.get('room').toUpperCase();
     }
+
   }
 
-});
 
-
-Vue.directive('focus', {
-  // When the bound element is inserted into the DOM...
-  inserted: function (el) {
-    // Focus the element
-    el.focus();
-  }
 });

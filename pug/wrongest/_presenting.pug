@@ -1,4 +1,6 @@
-main.presenting(v-if="gameStarted && computedAmIPresenting")
+main.presenting(v-if="computedAmIPresenting")
   .inside 
     .card
       blockquote(v-html="cardText(my.card)")
+    .timer-holder
+      input.timer(v-model="round.presentationTimeLeft" type="number" data-min="0" data-max="30" step="0.05" readonly data-linecap="round" data-width="200")

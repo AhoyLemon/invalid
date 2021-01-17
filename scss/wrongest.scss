@@ -19,3 +19,33 @@
 
 // OTHER PAGES
 html { background: radial-gradient(#353535, #161616); color:#eee; }
+
+.progress-ring {
+  position: relative;
+  font-weight: 500;
+  /*
+  font-size: calc(var(--height) * 0.35);
+  height: var(--height);
+  line-height: var(--height);
+  width: var(--height);
+  color: var(--color);
+  */
+  height: 200px;
+  width: 200px;
+  display: inline-block;
+}
+.progress-ring.show-digits:before {
+  content: attr(data-progress);
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+}
+.progress-ring circle {
+  fill: transparent;
+  transition: stroke-dashoffset 0.5s;
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
+}

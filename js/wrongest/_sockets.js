@@ -28,7 +28,9 @@ socket.on("updatePlayers", function(msg) {
   app.gameStarted = msg.gameStarted;
 
   //Grab my card.
-  app.my.card = app.players[app.my.playerIndex].card;
+  if (app.my.playerIndex > -1) {
+    app.my.card = app.players[app.my.playerIndex].card;
+  }
 
 });
 
@@ -45,12 +47,7 @@ socket.on("startTheGame", function(msg) {
 // The host has started the game!
 socket.on("startPresenting", function(msg) {
   app.round.activePlayerIndex = msg.activePlayerIndex;
-  // UNUSED : activePlayerName
   app.round.playerPresenting = true;
-});
-
-
-io.in(msg.roomCode).emit('startPresenting', {
-  activePlayerIndex: msg.activePlayerIndex,
-  activePlayerName: msg.activePlayerName
+  // UNUSED : activePlayerName
+  app.startPresentationTimer();
 });
