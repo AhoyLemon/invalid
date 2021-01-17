@@ -189,96 +189,55 @@ svg {
   overflow: hidden;
 }
 
-body {
-  height: 100%;
-  width: 100%;
-  background-color: #333;
-}
-
-#countdown {
+.countdown {
   position: relative;
-  margin: auto;
-  margin-top: 100px;
-  height: 40px;
-  width: 40px;
-  text-align: center;
+  font-family: "Comfortaa", cursive;
+  margin: 0 auto;
+  width: 140px;
+  height: 140px;
 }
-
-#countdown-number {
-  color: white;
-  display: inline-block;
-  line-height: 40px;
-}
-
-svg {
+.countdown .number {
   position: absolute;
   top: 0;
   right: 0;
-  width: 40px;
-  height: 40px;
-  -webkit-transform: rotateY(-180deg) rotateZ(-90deg);
-          transform: rotateY(-180deg) rotateZ(-90deg);
-}
-
-body {
-  height: 100%;
-  width: 100%;
-  background-color: #333;
-}
-
-#countdown {
-  position: relative;
-  margin: auto;
-  margin-top: 100px;
-  height: 200px;
-  width: 200px;
+  bottom: 0;
+  left: 0;
+  line-height: 145px;
   text-align: center;
+  font-size: 42px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
-
-#countdown-number {
-  color: white;
-  display: inline-block;
-  line-height: 40px;
-}
-
-svg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 200px;
-  height: 200px;
+.countdown svg {
+  width: 100%;
+  height: 100%;
   -webkit-transform: rotateY(-180deg) rotateZ(-90deg);
           transform: rotateY(-180deg) rotateZ(-90deg);
 }
-
-svg circle {
-  stroke-dasharray: 113px;
+.countdown circle {
+  stroke-dasharray: 251px;
   stroke-dashoffset: 0px;
-  stroke-linecap: round;
-  stroke-width: 2px;
-  stroke: white;
+  stroke-width: 12px;
+  stroke: rgba(255, 255, 255, 0.65);
   fill: none;
-  -webkit-animation: countdown 10s linear infinite forwards;
-          animation: countdown 10s linear infinite forwards;
+  -webkit-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+.countdown.nearly-done .number {
+  border-color: rgba(253, 11, 44, 0.4);
+  color: #fd0b2c;
+  font-weight: 900;
+}
+.countdown.nearly-done circle {
+  stroke: rgba(253, 11, 44, 0.64);
+}
+.countdown .number, .countdown circle {
+  -webkit-transition: all 2s linear;
+  -o-transition: all 2s linear;
+  transition: all 2s linear;
 }
 
-@-webkit-keyframes countdown {
-  from {
-    stroke-dashoffset: 0px;
-  }
-  to {
-    stroke-dashoffset: 113px;
-  }
-}
-
-@keyframes countdown {
-  from {
-    stroke-dashoffset: 0px;
-  }
-  to {
-    stroke-dashoffset: 113px;
-  }
-}
 .title-screen {
   display: -ms-grid;
   display: grid;
@@ -291,26 +250,32 @@ svg circle {
   background: radial-gradient(#353535, #161616);
   color: #eee;
 }
+
 .title-screen > *:nth-child(1) {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
 }
+
 .title-screen > *:nth-child(2) {
   -ms-grid-row: 1;
   -ms-grid-column: 2;
 }
+
 .title-screen > *:nth-child(3) {
   -ms-grid-row: 1;
   -ms-grid-column: 3;
 }
+
 .title-screen > *:nth-child(4) {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
 }
+
 .title-screen > *:nth-child(5) {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
 }
+
 .title-screen > *:nth-child(6) {
   -ms-grid-row: 2;
   -ms-grid-column: 3;
@@ -831,42 +796,4 @@ html {
   background: -o-radial-gradient(#353535, #161616);
   background: radial-gradient(#353535, #161616);
   color: #eee;
-}
-
-.progress-ring {
-  position: relative;
-  font-weight: 500;
-  /*
-  font-size: calc(var(--height) * 0.35);
-  height: var(--height);
-  line-height: var(--height);
-  width: var(--height);
-  color: var(--color);
-  */
-  height: 200px;
-  width: 200px;
-  display: inline-block;
-}
-
-.progress-ring.show-digits:before {
-  content: attr(data-progress);
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  text-align: center;
-}
-
-.progress-ring circle {
-  fill: transparent;
-  -webkit-transition: stroke-dashoffset 0.5s;
-  -o-transition: stroke-dashoffset 0.5s;
-  transition: stroke-dashoffset 0.5s;
-  -webkit-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-          transform: rotate(90deg);
-  -webkit-transform-origin: 50% 50%;
-      -ms-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
 }

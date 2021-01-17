@@ -11,7 +11,14 @@
   <div id="app">
     <div class="title-screen" v-if="!inRoom">
       <div class="logo-holder">
-        <figure class="logo"><img src="svg/wrongest.svg"/></figure>
+        <figure class="logo">
+          <div class="countdown" :class="{'nearly-done' : (round.presentationTimeLeft &lt; 12) }">
+            <div class="number"> <span>{{parseInt(round.presentationTimeLeft)}}</span></div>
+            <svg x="0" y="0" viewBox="0 0 100 100" space="preserve">
+              <circle cx="50" cy="50" r="40" :style="{ 'stroke-dashoffset': computedDashOffset }"></circle>
+            </svg>
+          </div>
+        </figure>
       </div>
       <div class="create">
         <button @click="createRoom()">Create a New Room</button>
@@ -67,7 +74,7 @@
         </div>
       </div>
     </div>
-    <main class="player-list" v-if="!computedAmIPresenting">
+    <main class="player-list" v-if="gameStarted &amp;&amp; !computedAmIPresenting">
       <div class="inside"> 
         <div class="players">
           <div class="player" v-for="(player,index) in players" :class="{  'is-you': (my.playerIndex == index),  'presenting': (round.activePlayerIndex == index &amp;&amp; round.playerPresenting), 'already-went': (index &lt;= round.activePlayerIndex), 'up-next': ((round.activePlayerIndex + 1) == index &amp;&amp; !round.playerPresenting)  }">
@@ -104,6 +111,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
     <script>var socket = io.connect();</script>
-    <script src="js/min/wrongest.min.js?updated2021-00-16@21:18:22"></script>
+    <script src="js/min/wrongest.min.js?updated2021-00-16@23:12:44"></script>
   </div>
 </body>

@@ -174,11 +174,10 @@ var app = new Vue({
       self.round.presentationTimer = setInterval(() => {
         self.round.presentationTimeLeft -= 0.05;
         self.round.presentationTimeLeft = self.round.presentationTimeLeft.toFixed(2);
-        $('.timer').val(self.round.presentationTimeLeft).trigger('change');
         if (self.round.presentationTimeLeft <= 0) {
-          alert('time is up!');
           self.round.playerPresenting = false;
           self.resetPresentationTimer();
+          self.startPresentationTimer();
         }
       }, 50);
 
@@ -225,6 +224,13 @@ var app = new Vue({
       } else {
         return false;
       }
+    },
+
+    computedDashOffset() {
+      const self = this;
+      let a = percentOf(self.round.presentationTimeLeft, settings.timeToPresent);
+      let d = (251 - percentOf(a, 251));
+      return d.toFixed(2) + 'px';
     }
   },
 
@@ -234,6 +240,7 @@ var app = new Vue({
     if (urlParams.has('room')) {
       self.roomCode = urlParams.get('room').toUpperCase();
     }
+    self.startPresentationTimer();
 
   }
 

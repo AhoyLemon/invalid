@@ -1,0 +1,21 @@
+.countdown { position: relative; font-family: $font-family; margin: 0 auto; width: 140px; height: 140px;
+  .number { @include position(absolute,0,0,0,0); line-height: 145px; text-align: center; font-size:42px;
+    border-radius: 50%; border:2px solid rgba(255,255,255,0.2);
+  }
+  svg { width: 100%; height:100%; transform: rotateY(-180deg) rotateZ(-90deg); }
+  circle {
+    stroke-dasharray: 251px;
+    stroke-dashoffset: 0px;
+    //stroke-linecap: round;
+    stroke-width: 12px;
+    stroke: rgba(255,255,255,0.65);
+    fill: none;
+    transition: all 0.5s linear;
+  }
+  &.nearly-done { 
+    .number { border-color: rgba(253, 11, 44, 0.4);; color:rgba(253, 11, 44,1); font-weight: 900; }
+    circle { stroke: rgba(253, 11, 44, 0.64); }
+  }
+
+  .number, circle { transition: all 2s linear; }
+}

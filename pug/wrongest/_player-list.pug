@@ -1,4 +1,4 @@
-main.player-list(v-if="!computedAmIPresenting")
+main.player-list(v-if="gameStarted && !computedAmIPresenting")
   .inside 
     .players
       .player(v-for="(player,index) in players"
