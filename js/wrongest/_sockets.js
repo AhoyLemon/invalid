@@ -26,11 +26,7 @@ socket.on("updatePlayers", function(msg) {
   console.log("THE PLAYERS HAVE BEEN UPDATED!!!!!!!!");  
   app.players = msg.players;
   app.gameStarted = msg.gameStarted;
-
-  //Grab my card.
-  if (app.my.playerIndex > -1) {
-    app.my.card = app.players[app.my.playerIndex].card;
-  }
+  app.round.number = msg.roundNumber;
 
 });
 
@@ -38,16 +34,105 @@ socket.on("updatePlayers", function(msg) {
 socket.on("startTheGame", function(msg) {
   app.players = msg.players;
   app.gameDeck = msg.gameDeck;
+  app.maxRounds = msg.maxRounds;
   app.gameStarted = true;
   app.round.number = 1;
   app.round.dealerIndex = 0;
+  app.round.phase = "presenting";
+
+  // Assign my player index...
+  app.players.forEach(function(player, index) {
+    if (player.socketID == app.my.socketID) {
+      app.my.playerIndex = index;
+    }
+  });
+
+  //Grab my card.
+  if (app.my.playerIndex > -1) {
+    app.my.card = app.players[app.my.playerIndex].card;
+  }
+
+
 });
 
 
-// The host has started the game!
+// A player must present now!
 socket.on("startPresenting", function(msg) {
   app.round.activePlayerIndex = msg.activePlayerIndex;
   app.round.playerPresenting = true;
   // UNUSED : activePlayerName
   app.startPresentationTimer();
+});
+
+// A player has finished presenting.
+socket.on("donePresenting", function(msg) {
+  app.round.cardsPresented.push({
+    card: msg.activePlayerCard,
+    playerIndex: msg.activePlayerIndex,
+    playerName: msg.activePlayerName,
+    score: 0
+  });
+  app.round.playerPresenting = false;
+  app.resetPresentationTimer();
+});
+
+// Voting begins
+socket.on("startVoting", function(msg) {
+  app.round.cardsPresented = msg.cardsPresented;
+  app.round.phase = "voting";
+});
+
+
+socket.on("submitVotes", function(msg) {
+  const dI = 
+  app.voteHistory.push({
+    downVoteIndex: msg.downVoteIndex,
+    voterName: msg.votingPlayerName,
+    voted: 'down',
+    presenter: app.round.cardsPresented[msg.downVoteIndex].playerName,
+    card: app.round.cardsPresented[msg.downVoteIndex].card
+  });
+  
+  app.voteHistory.push({
+    upVoteIndex: msg.upVoteIndex,
+    voterName: msg.votingPlayerName,
+    voted: 'up',
+    presenter: app.round.cardsPresented[msg.upVoteIndex].playerName,
+    card: app.round.cardsPresented[msg.upVoteIndex].card
+  });
+  app.players[msg.downVoteIndex].score -= 1;
+  app.round.cardsPresented[msg.downVoteIndex].score -= 1;
+
+  app.players[msg.upVoteIndex].score += 1;
+  app.round.cardsPresented[msg.upVoteIndex].score += 1;
+
+  app.round.votesSubmitted += 1;
+
+  if (app.round.votesSubmitted >= app.computedPlayerCount) {
+    // This should be handled in the UI.
+  } 
+});
+
+
+// The host has started the game!
+socket.on("startNextRound", function(msg) {
+  app.players = msg.players;
+  app.gameDeck = msg.gameDeck;
+  app.round.number = msg.roundNumber;
+  app.statementHistory = msg.statementHistory;
+  resetRoundVariables();
+  resetUIVariables();
+
+  // Assign my player index...
+  app.players.forEach(function(player, index) {
+    if (player.socketID == app.my.socketID) {
+      app.my.playerIndex = index;
+    }
+  });
+
+  //Grab my card.
+  if (app.my.playerIndex > -1) {
+    app.my.card = app.players[app.my.playerIndex].card;
+  }
+
 });

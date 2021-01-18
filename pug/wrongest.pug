@@ -1,9 +1,10 @@
 - var pageTitle = "";
 include partials/_variables
+include wrongest/_mixins
 
 html
   head
-    - var testing = true
+    - var testing = true 
     title The Wrongest Words
     link(rel="preconnect" href="https://fonts.gstatic.com")
     link(href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;600&display=swap" rel="stylesheet")
@@ -14,7 +15,9 @@ body
     include wrongest/_pregame.pug
     include wrongest/_player-list.pug
     include wrongest/_presenting.pug
-
+    include wrongest/_voting.pug
+    include wrongest/_game-over.pug
+    
   .javascripts
     if testing
       script(src="js/libraries/vue.full.js")

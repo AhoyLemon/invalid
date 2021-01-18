@@ -2,12 +2,12 @@
 
   .logo-holder
     figure.logo
-      //-img(src="svg/wrongest.svg")
-      .countdown(:class="{'nearly-done' : (round.presentationTimeLeft < 12) }")
-        .number 
-          span {{parseInt(round.presentationTimeLeft)}}
-        svg(x="0" y="0" viewBox="0 0 100 100" space="preserve")
-          circle(cx="50" cy="50" r="40" :style="{ 'stroke-dashoffset': computedDashOffset }")
+      img(src="svg/wrongest.svg")
+      figcaption 
+        .description You're going to defend some very stupid ideas.
+        .for-players (For 3 - 
+          span.infinity ∞
+          |  Players)
   
   .create
     button(@click="createRoom()") Create a New Room

@@ -9,14 +9,18 @@
 
 // SITE SPECIFIC
 @import "wrongest/_variables";
+@import "wrongest/_mixins";
 @import "wrongest/_default";
 @import "wrongest/_timer";
+@import "wrongest/_round-indicator";
 
 // SCREENS
 @import "wrongest/_title-screen";
 @import "wrongest/_pregame";
 @import "wrongest/_player-list";
 @import "wrongest/_presenting";
+@import "wrongest/_voting";
+@import "wrongest/_game-over";
 
 // OTHER PAGES
-html { background: radial-gradient(#353535, #161616); color:#eee; }
+

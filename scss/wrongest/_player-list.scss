@@ -1,30 +1,27 @@
 main.player-list {  display: flex; align-items: center; justify-content: center; padding:2rem; min-height: 99vh;
   .inside { width: 100%; max-width: 460px; font-family: $font-family; }
-  .player { display:grid; grid-template-columns: 3em 1fr; gap:10px; padding:10px; margin-bottom: 1rem; border:1px solid rgba(0,0,0,0.25); box-shadow:0 0 4px rgba(0,0,0,0.5); background:rgba(255,255,255,0.85); color:$black;
+  .player { display:grid; grid-template-columns: 60px 1fr; gap:10px; padding:10px; margin-bottom: 1rem; border:1px solid rgba(0,0,0,0.25); box-shadow:0 0 4px rgba(0,0,0,0.5); background:rgba(255,255,255,0.85); color:$black;
     .number { grid-column: 1; grid-row: span 2; text-align: center; display: flex; align-items: center; justify-content: center; font-size: 140%; }
-    .name { font-weight: $bold; }
-    blockquote {
+    .name { font-weight: $bold; font-size:140%; }
+    blockquote { font-style: italic;
       &:before { content:"“"; font-size:120%; }
       &:after  { content:"”"; font-size:120%; }
     }
   }
-  .player {
-    &.is-me { 
-      .name { color: #e91e63; }
+  .player { position: relative;
+    &.is-you { 
+      .name { color: $pink; }
     }
-    &.already-went { opacity: 0.85; transform: scale(0.9); }
+    &.already-went { opacity: 0.75; }
     &.up-next { box-shadow: 0 0 8px rgba(0, 0, 0, 0.9); transform: scale(1.1); }
-    &.presenting { background:#e8ecaa; }
+    &.is-dealer { overflow: hidden; }
+
+    transition: transform 0.5s ease, opacity 0.5s linear;
+  }
+  .dealer-chip { @include position(absolute,0,0); width: 90px; background: rgba(0,0,0,0.6); transform: rotate(45deg) translateY(-80%);text-align: center; padding-top: 77px; color: white;
+    font-size:11px;
   }
 
-  button { background: #38a4dc; color:white; display:block; width:100%;
-    border: none;
-    font-family: inherit;
-    font-weight: 800;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px -1px 2px rgba(0,0,0,0.5);
-    padding: 0.5em 1.5em;
-    border-radius: 1em;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.75);
-    &:active { box-shadow: inset 2px 2px 4px rgba(0,0,0,0.75); transform: translate(2px,2px); }
-  }
+  button { @include bigButton(); }
+  .deal-button { font-size:160%; padding: 1em; border-radius: 2em; }
 }

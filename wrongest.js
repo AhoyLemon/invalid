@@ -47,7 +47,8 @@ io.on('connection', (socket) => {
     console.table(msg.players);
     io.in(msg.roomCode).emit('updatePlayers', {
       players: msg.players,
-      gameStarted: msg.gameStarted
+      gameStarted: msg.gameStarted,
+      roundNumber: msg.roundNumber,
     });
   });
 
@@ -57,14 +58,15 @@ io.on('connection', (socket) => {
 
     io.in(msg.roomCode).emit('startTheGame', {
       players: msg.players,
-      gameDeck: msg.gameDeck
+      gameDeck: msg.gameDeck,
+      maxRounds: msg.maxRounds
     });
     console.table(msg.players);
   });
 
   socket.on('startPresenting', msg => {
 
-    console.log("It's a player's turn in " + msg.roomCode+'!');
+    console.log(msg.roomCode+" - "+msg.activePlayerName+"'s turn begins");
 
     io.in(msg.roomCode).emit('startPresenting', {
       activePlayerIndex: msg.activePlayerIndex,
@@ -72,10 +74,51 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('donePresenting', msg => {
+
+    console.log(msg.roomCode+ " - "+msg.activePlayerName+" is done presenting");
+
+    io.in(msg.roomCode).emit('donePresenting', {
+      activePlayerIndex: msg.activePlayerIndex,
+      activePlayerName: msg.activePlayerName,
+      activePlayerCard: msg.activePlayerCard
+    });
+  });
+
+  socket.on('startVoting', msg => {
+
+    console.log(msg.roomCode+" - voting started");
+    console.table(msg.cardsPresented);
+
+    io.in(msg.roomCode).emit('startVoting', {
+      cardsPresented: msg.cardsPresented
+    });
+  });
+
+  socket.on('submitVotes', msg => {
+
+    console.log(msg.roomCode+" - votes sent by "+msg.votingPlayerName);
+
+    io.in(msg.roomCode).emit('submitVotes', {
+      votingPlayerIndex: msg.votingPlayerIndex,
+      votingPlayerName: msg.votingPlayerName,
+      downVoteIndex: msg.downVoteIndex,
+      upVoteIndex: msg.upVoteIndex,
+    });
+  });
 
 
+  socket.on('startNextRound', msg => {
+    console.log(msg.roomCode+' - round '+msg.roundNumber+" started.");
 
-
+    io.in(msg.roomCode).emit('startNextRound', {
+      players: msg.players,
+      gameDeck: msg.gameDeck,
+      statementHistory: msg.statementHistory,
+      roundNumber: msg.roundNumber
+    });
+    console.table(msg.players);
+  });
 
 
   socket.on('disconnect', () => {

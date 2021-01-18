@@ -1,4 +1,4 @@
-.pregame { min-height:99.9vh; font-family:$font-family;
+.pregame { min-height:99.9vh; font-family:$font-family; padding:2rem;
   //background-image:url(../img/bg/minneapolis.jpg); background-size:cover; background-position: center;
 
   .sign-in { display: flex; align-items: center; justify-content: center; }
@@ -13,6 +13,7 @@
         input { width: auto; display: inline-block; }
       }
     }
+    button { @include bigButton(); }
     /*
     button { display: block; width:100%; font-family: inherit; background: linear-gradient(to top, #0f0c29, #302b63, #24243e); background-size:100%; color:white; border:none; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.35); font-size:16px; padding:10px; cursor: pointer; outline:none;
       &:hover, &:focus { background: linear-gradient(to top, #0f0c29, #574ccc, #24243e); } 
@@ -20,9 +21,7 @@
     */
   }
   .start-button { margin-top: 1em; position: relative;
-    button { display: block; width:100%; font-family: inherit; background:linear-gradient(to bottom, #650524, #e4084f, #650527); border:1px solid currentColor; font-size:16px; padding:10px; cursor: pointer; border-radius: 8px; color:white; border:none; box-shadow: 0 0 8px rgba(0,0,0,0.5);
-      &:hover, &:focus { background:linear-gradient(to bottom, #650524, #e4084f, #e4084f, #650527); }
-    }
+    button { @include bigButton(); background: $pink; }
   }
 
   .players {
@@ -47,7 +46,7 @@
   }
 
   
-  .nobody-here, .game-started { display: flex; align-items: center; justify-content: center;
+  .nobody-here, .game-started { display: flex; align-items: center; justify-content: center; padding:$gap;
     .inside { max-width: 68ch; }
     .content { position: relative; }
     h2 { margin-bottom: 1em; }

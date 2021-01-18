@@ -1,0 +1,34 @@
+main.voting(v-if="gameStarted && round.phase == 'voting'")
+  .inside 
+    p.voting-leadin(v-if="!ui.iVoted") Based on those presentations, upvote the statement you found the least wrong, and downvote the wrongest statement.
+    .statements
+      .statement(v-for="(statement,index) in round.cardsPresented" :class="{'agree': index == ui.upVoteIndex, 'disagree': index == ui.downVoteIndex }")
+        .vote-box.vote-box-up(v-if="(index != my.playerIndex) && !ui.iVoted")
+          button.vote.vote-up(@click="voteUp(index)" :disabled="index == ui.upVoteIndex")
+            svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.9 100")
+              path.up(d="M31.7 66.6c3.3 0 10.2-2.2 13.1-2.7 1.8-.3 6.8-.8 6.8-.8V38s-3.7-.2-5.1-1.2c-2.3-1.7-3.1-4.8-4.5-7.3-.8-1.4-1.2-2.9-2.1-4.2-1.7-2.3-4.6-3.7-6-6.2-1.3-2.3-2-5-2.1-7.6-.1-2.1.1-4.4-1.4-5.6-.8-.7-2-.5-3-.2-1.2.4-2.4 1.3-3 2.4-.8 1.2-.7 2.8-.8 4.2-.1 1.9 0 3.8.4 5.7.4 1.9 1.1 3.6 1.7 5.4.6 1.6 2 3.1 1.8 4.8-.1.6-.5 1.4-1.6 1.4H10.7c-2.9 0-5.3 2.2-5.3 5.1 0 2.5 1.8 4.7 4.2 5.1-2.4.4-4.2 2.5-4.2 5 0 2.4 1.7 4.5 4 5-1.9.7-3.3 2.5-3.3 4.6 0 2.6 2 4.7 4.6 4.9-1.2.6-2 1.9-2 3.3 0 2.1 1.7 3.7 3.8 3.7h19.2zm36.9-.4c.1 0 .2-.1.2-.2V35.2c0-.1-.1-.2-.2-.2H54.4c-.1 0-.2.1-.2.2V66c0 .1.1.2.2.2h14.2zm-9.2-1.4c-1.6 0-2.9-1.3-2.9-2.9 0-1.6 1.3-2.9 2.9-2.9 1.6 0 2.9 1.3 2.9 2.9 0 1.6-1.3 2.9-2.9 2.9z")
+        .quote-holder
+          blockquote(v-html="cardText(statement.card)")
+          cite(v-if="ui.iVoted")
+            span(v-text="statement.playerName")
+        .vote-box.vote-box-down(v-if="(index != my.playerIndex) && !ui.iVoted")
+          button.vote.vote-down(@click="voteDown(index)" :disabled="index == ui.downVoteIndex")
+            svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.9 100")
+              path.down(d="M44.1 33.4c-3.3 0-10.2 2.2-13.1 2.7-1.8.3-6.8.8-6.8.8V62s3.7.2 5.1 1.2c2.3 1.7 3.1 4.8 4.5 7.3.8 1.4 1.2 2.9 2.1 4.2 1.7 2.3 4.6 3.7 6 6.2 1.3 2.3 2 5 2.1 7.6.1 2.1-.1 4.4 1.4 5.6.8.7 2 .5 3 .2 1.2-.4 2.4-1.3 3-2.4.8-1.2.7-2.8.8-4.2.1-1.9 0-3.8-.4-5.7-.4-1.9-1.1-3.6-1.7-5.4-.6-1.6-2-3.1-1.8-4.8.1-.6.5-1.4 1.6-1.4H65c2.9 0 5.3-2.2 5.3-5.1 0-2.5-1.8-4.7-4.2-5.1 2.4-.4 4.2-2.5 4.2-5 0-2.4-1.7-4.5-4-5 1.9-.7 3.3-2.5 3.3-4.6 0-2.6-2-4.7-4.6-4.9 1.2-.6 2-1.9 2-3.3 0-2.1-1.7-3.7-3.8-3.7H44.1zm-36.9.4c-.1 0-.2.1-.2.2v30.8c0 .1.1.2.2.2h14.1c.1 0 .2-.1.2-.2V34c0-.1-.1-.2-.2-.2H7.2zm9.2 1.4c1.6 0 2.9 1.3 2.9 2.9 0 1.6-1.3 2.9-2.9 2.9-1.6 0-2.9-1.3-2.9-2.9 0-1.6 1.3-2.9 2.9-2.9z")
+        .score-holder(v-if="ui.iVoted")
+          .score(v-text="statement.score" :class="{'negative': statement.score < 0, 'positive': statement.score > 0, 'zero':statement.score == 0 }")
+            span(v-html="statement.score")
+            
+    .finished-vote(v-if="ui.upVoteIndex != -1 && ui.downVoteIndex != -1 && !ui.iVoted")
+      button.finished-votes(@click="submitVotes()") Submit Votes
+    .vote-count(v-if="round.votesSubmitted && !computedAreAllVotesCast")
+      p(v-if="round.votesSubmitted == 1") One player have voted.
+      p(v-else) {{round.votesSubmitted}} players have voted.
+    .next-round(v-else-if="my.playerIndex != 0 && computedAreAllVotesCast")
+      p All players have voted. 
+        span.player-name(v-text="players[0].name") 
+        |  can start the next round.
+    .next-round(v-if="computedCanIAdvanceTheGame")
+      button.next-round(@click="startNextRound()") Start Next Round
+
+  include _round-indicator

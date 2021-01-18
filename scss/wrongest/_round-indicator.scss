@@ -1,0 +1,8 @@
+.round-indicator { position: fixed; font-family: $font-family; color:rgba(255,255,255,0.5);top: 20px; left: 20px; width: 100px; height: 100px; text-align: center;
+  .label { margin-bottom: 6px; }
+  .round {
+    .current { font-size:60px; }
+    .slash   { font-size:48px; }
+    .maximum { font-size:32px; }
+  }
+}

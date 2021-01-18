@@ -1,0 +1,76 @@
+
+main.game-over { font-family: $font-family; background:#e4e72c; color:#121212; min-height: 100vh;
+
+  section { margin-bottom: ($gap * 5); }
+
+  section.headline { min-height: 76vh; margin-bottom: $gap; display: flex; align-items: center; justify-content: center; }
+  h1 { font-size:9vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
+  h2 { font-size:4vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
+
+  .final-scores { background:#111; padding:$gap;
+    .players { display:flex; overflow-y: auto; padding-bottom: $padding; }
+    .player { background:#fff; padding:$padding; border-radius: 3px; flex-basis: 320px; flex-shrink: 0; margin-left: $gap; border-top-left-radius: 26px; border-bottom-left-radius: 82px; position: relative;
+      border-left:solid 3em #c55766;
+      .rank { @include position(absolute,5px,null,null,5px); transform: translate(-45px,16px); color:white; font-size:320%; font-weight: 700;
+        text-shadow: 3px 3px 3px rgba(12,12,12,0.3), -1px -1px 3px rgba(12,12,12,0.7);
+      }
+      .name { font-size:180%; }
+      .score { font-size:240%; font-weight: 800;
+        &.positive span:before { content:'+' }
+      }
+
+      &[rank="1"] { border-color: gold; }
+      &[rank="2"] { border-color: silver; }
+      &[rank="3"] { border-color: #cd7f32; }
+    }
+  }
+
+  .game-by-lemon { text-align: right; padding-bottom: ($gap * 2); padding-right: $gap;
+    h3 { font-size: 5vw; transform: translate(-20%, 130%); }
+    img { width:37vw; }
+    a { color:inherit; text-decoration: none;
+      &:hover span { color: #c85c0d; }
+    }
+  }
+  .final-links { background:$black; text-align: center; padding:4rem;
+    a { color:#c85c0d; display: inline-block; margin-right: 1em; font-size:26px; text-decoration: none;
+      &:hover, &:focus { text-decoration: underline; }
+    }
+  }
+
+
+
+
+
+
+  section.statements {
+    .statement-list { background:#111; padding:($gap * 2); margin-top:$gap; margin-bottom: ($gap * 3);
+      display:flex; flex-wrap:wrap; justify-content: space-evenly;
+      .statement { flex-basis: 440px; }
+    }
+
+    .statement { background:white; padding:2rem 2rem 1rem 2rem; border-radius: 1rem; position: relative; }
+    blockquote { font-family: Georgia, 'Times New Roman', Times, serif; font-size:32px;
+      &:before { content:"“"; font-size:160%; }
+      &:after  { content:"”"; font-size:100%; }
+    }
+    cite { display: block; padding-left: 2em; padding-top: 0.5em; font-style: italic; color:$pink; font-family: Georgia, 'Times New Roman', Times, serif; font-size:24px;
+      &:before { content:'—'}
+    }
+
+    .score { @include position(absolute,5px,5px); font-size:18px; width:40px; height:40px; line-height: 45px; border-radius: 50%; background:#111; color:white; text-align: center;
+      &.negative { background:$red; }
+      &.positive { background:$green;
+        &:before { content: "+"; }
+      }
+    }
+  }
+
+  /*
+  .round-summaries { background:#111; padding:$gap; margin-top:$gap;
+      .summaries { display:flex; overflow-y: auto; padding-top: $padding; padding-bottom: $padding; }
+      .round-summary { flex-basis: 380px; flex-shrink: 0; margin-right:$gap; }
+    }
+  }
+  */
+}

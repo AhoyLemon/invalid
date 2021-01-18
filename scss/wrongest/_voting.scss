@@ -1,0 +1,55 @@
+@keyframes voteUpJump {
+  from { transform: translateY(0); }
+  to { transform: translateY(-2px); }
+}
+@keyframes voteDownJump {
+  from { transform: translateY(0); }
+  to { transform: translateY(4px); }
+}
+
+main.voting { display: flex; align-items: center; justify-content: center; padding:2rem; min-height: 99vh;
+  svg * { fill:currentColor; }
+  .inside { width: 100%; max-width: 460px; font-family: $font-family; }
+  .statement { display:grid; grid-template-columns: 32px 1fr 32px; gap:10px; padding:10px; margin-bottom: 1rem; border:1px solid rgba(0,0,0,0.25); box-shadow:0 0 4px rgba(0,0,0,0.5); background:rgba(255,255,255,0.85); color:$black;
+    blockquote {
+      &:before { content:"“"; font-size:120%; }
+      &:after  { content:"”"; font-size:120%; }
+    }
+    cite { display: block; padding-left: 2em; padding-top: 0.5em; font-style: italic;
+      &:before { content:'—'}
+    }
+    .vote-box { display:flex; align-items: center; }
+    button.vote { padding: 0; border:none; background: transparent; cursor: pointer;
+      svg { width:32px; height: 32px; }
+      &.vote-up { color:$green; 
+        &:hover svg { animation: voteUpJump 0.15 ease 0s infinite; }
+      }
+      &.vote-down { color:$red;
+        &:hover svg { animation: voteDownJump 0.15 ease 0s infinite; }
+      }
+    }
+    .score-holder {
+      .score { display: block; border: 2px solid currentColor; height:32px; width:32px; line-height: 32px; text-align: center; border-radius: 50%;
+        //&.negative:before { content:'-'; font-size:75%; }
+        &.positive:before { content:'+'; font-size:90%; }
+      }
+    }
+
+    // Grid layout
+    .vote-box-up   { grid-column: 1; }
+    .quote-holder  { grid-column: 2; }
+    .vote-box-down { grid-column: 3; }
+    .score-holder  { grid-column: 3; }
+
+    &.agree { background:$green; color:white;
+      button.vote.vote-up   { color:white; }
+      button.vote.vote-down { color: rgba(255,255,255,0.5); }
+    }
+    &.disagree { background:$red; color:white;
+      button.vote.vote-down   { color:white; }
+      button.vote.vote-up { color: rgba(255,255,255,0.5); }
+    }
+  }
+  .finished-votes { @include bigButton(); font-size:1.3rem; }
+  button.next-round { @include bigButton(); font-size:1.3rem; }
+}

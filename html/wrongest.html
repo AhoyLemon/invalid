@@ -11,13 +11,11 @@
   <div id="app">
     <div class="title-screen" v-if="!inRoom">
       <div class="logo-holder">
-        <figure class="logo">
-          <div class="countdown" :class="{'nearly-done' : (round.presentationTimeLeft &lt; 12) }">
-            <div class="number"> <span>{{parseInt(round.presentationTimeLeft)}}</span></div>
-            <svg x="0" y="0" viewBox="0 0 100 100" space="preserve">
-              <circle cx="50" cy="50" r="40" :style="{ 'stroke-dashoffset': computedDashOffset }"></circle>
-            </svg>
-          </div>
+        <figure class="logo"><img src="svg/wrongest.svg"/>
+          <figcaption> 
+            <div class="description">You're going to defend some very stupid ideas.</div>
+            <div class="for-players">(For 3 - <span class="infinity">∞</span> Players)</div>
+          </figcaption>
         </figure>
       </div>
       <div class="create">
@@ -56,7 +54,7 @@
               <button type="submit"> <span v-if="!ui.nameEntered">Save Name</span><span v-if="ui.nameEntered">Change Name</span></button>
             </div>
           </form>
-          <div class="start-button" v-if="isRoomHost &amp;&amp; ui.nameEntered &amp;&amp; players.length &gt; 1">
+          <div class="start-button" v-if="isRoomHost &amp;&amp; ui.nameEntered &amp;&amp; players.length &gt; 2">
             <button type="button" @click="startTheGame()">Start The Game</button>
           </div>
         </div>
@@ -74,34 +72,141 @@
         </div>
       </div>
     </div>
-    <main class="player-list" v-if="gameStarted &amp;&amp; !computedAmIPresenting">
+    <main class="player-list" v-if="gameStarted &amp;&amp; round.phase == 'presenting' &amp;&amp; !computedAmIPresenting">
       <div class="inside"> 
         <div class="players">
-          <div class="player" v-for="(player,index) in players" :class="{  'is-you': (my.playerIndex == index),  'presenting': (round.activePlayerIndex == index &amp;&amp; round.playerPresenting), 'already-went': (index &lt;= round.activePlayerIndex), 'up-next': ((round.activePlayerIndex + 1) == index &amp;&amp; !round.playerPresenting)  }">
-            <div class="number"> <span>{{index+1}}</span></div>
+          <div class="player" v-for="(player,index) in players" :class="{ 'is-you': (my.playerIndex == index), 'presenting': (round.activePlayerIndex == index &amp;&amp; round.playerPresenting),  'already-went': (index &lt;= round.activePlayerIndex), 'up-next': (((round.activePlayerIndex + 1) == index &amp;&amp; !round.playerPresenting) || (index == 0) &amp;&amp; (players.length == (round.activePlayerIndex + 1))), 'is-dealer': round.dealerIndex == index }">
+            <div class="countdown-holder" v-if="round.activePlayerIndex == index &amp;&amp; round.playerPresenting">
+              <div class="countdown small dark" :class="{'nearly-done' : (round.presentationTimeLeft &lt; 12) }">
+                <div class="number"> <span>{{parseInt(round.presentationTimeLeft)}}</span></div>
+                <svg x="0" y="0" viewBox="0 0 100 100" space="preserve">
+                  <circle cx="50" cy="50" r="40" :style="{ 'stroke-dashoffset': computedDashOffset }"></circle>
+                </svg>
+              </div>
+            </div>
+            <div class="number" v-else="v-else"> <span>{{index+1}}</span></div>
             <div class="name">{{player.name}}</div>
             <div class="text" v-if="(my.playerIndex == index)">
               <blockquote v-text="cardText(player.card)"></blockquote>
             </div>
-            <div class="current" v-if="round.activePlayerIndex == index">
-              <input class="timer" v-model="round.presentationTimeLeft" type="number" data-min="0" data-max="30" step="0.05" readonly="readonly" data-linecap="round" data-width="80"/>
-            </div>
+            <div class="dealer-chip" v-if="round.dealerIndex == index"><span class="dealer-word">DEALER</span></div>
           </div>
         </div>
-        <div class="button-holder">
-          <button class="deal-button" @click="dealCard()">Deal Card</button>
+        <div class="button-holder" v-if="computedCanIAdvanceTheGame">
+          <button class="deal-button" @click="dealCard()" v-if="players.length &gt; (round.activePlayerIndex + 1)">Okay, I'm ready!</button>
+          <button class="deal-button" @click="startVoting()" v-else="v-else">Vote!</button>
         </div>
+        <div class="button-holder" v-else-if="my.playerIndex != 0 &amp;&amp; (players.length &lt;= (round.activePlayerIndex + 1))">
+          <div> <span class="player-name" v-text="players[0].name"> </span> can start the voting.</div>
+        </div>
+      </div>
+      <div class="round-indicator">
+        <div class="label">ROUND</div>
+        <div class="round"><span class="number current">{{round.number}}</span><span class="slash">/</span><span class="number maximum">{{maxRounds}}</span></div>
       </div>
     </main>
     <main class="presenting" v-if="computedAmIPresenting">
       <div class="inside"> 
         <div class="card">
           <blockquote v-html="cardText(my.card)"></blockquote>
-        </div>
-        <div class="timer-holder">
-          <input class="timer" v-model="round.presentationTimeLeft" type="number" data-min="0" data-max="30" step="0.05" readonly="readonly" data-linecap="round" data-width="200"/>
+          <div class="button-holder">
+            <button class="done-early" @click="presentationFinished()">I'm done early.</button>
+          </div>
         </div>
       </div>
+      <div class="timer-holder">
+        <div class="countdown big fixed" :class="{'nearly-done' : (round.presentationTimeLeft &lt; 12) }">
+          <div class="number"> <span>{{parseInt(round.presentationTimeLeft)}}</span></div>
+          <svg x="0" y="0" viewBox="0 0 100 100" space="preserve">
+            <circle cx="50" cy="50" r="40" :style="{ 'stroke-dashoffset': computedDashOffset }"></circle>
+          </svg>
+        </div>
+      </div>
+    </main>
+    <main class="voting" v-if="gameStarted &amp;&amp; round.phase == 'voting'">
+      <div class="inside"> 
+        <p class="voting-leadin" v-if="!ui.iVoted">Based on those presentations, upvote the statement you found the least wrong, and downvote the wrongest statement.</p>
+        <div class="statements">
+          <div class="statement" v-for="(statement,index) in round.cardsPresented" :class="{'agree': index == ui.upVoteIndex, 'disagree': index == ui.downVoteIndex }">
+            <div class="vote-box vote-box-up" v-if="(index != my.playerIndex) &amp;&amp; !ui.iVoted">
+              <button class="vote vote-up" @click="voteUp(index)" :disabled="index == ui.upVoteIndex">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.9 100">
+                  <path class="up" d="M31.7 66.6c3.3 0 10.2-2.2 13.1-2.7 1.8-.3 6.8-.8 6.8-.8V38s-3.7-.2-5.1-1.2c-2.3-1.7-3.1-4.8-4.5-7.3-.8-1.4-1.2-2.9-2.1-4.2-1.7-2.3-4.6-3.7-6-6.2-1.3-2.3-2-5-2.1-7.6-.1-2.1.1-4.4-1.4-5.6-.8-.7-2-.5-3-.2-1.2.4-2.4 1.3-3 2.4-.8 1.2-.7 2.8-.8 4.2-.1 1.9 0 3.8.4 5.7.4 1.9 1.1 3.6 1.7 5.4.6 1.6 2 3.1 1.8 4.8-.1.6-.5 1.4-1.6 1.4H10.7c-2.9 0-5.3 2.2-5.3 5.1 0 2.5 1.8 4.7 4.2 5.1-2.4.4-4.2 2.5-4.2 5 0 2.4 1.7 4.5 4 5-1.9.7-3.3 2.5-3.3 4.6 0 2.6 2 4.7 4.6 4.9-1.2.6-2 1.9-2 3.3 0 2.1 1.7 3.7 3.8 3.7h19.2zm36.9-.4c.1 0 .2-.1.2-.2V35.2c0-.1-.1-.2-.2-.2H54.4c-.1 0-.2.1-.2.2V66c0 .1.1.2.2.2h14.2zm-9.2-1.4c-1.6 0-2.9-1.3-2.9-2.9 0-1.6 1.3-2.9 2.9-2.9 1.6 0 2.9 1.3 2.9 2.9 0 1.6-1.3 2.9-2.9 2.9z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="quote-holder">
+              <blockquote v-html="cardText(statement.card)"></blockquote>
+              <cite v-if="ui.iVoted"><span v-text="statement.playerName"></span></cite>
+            </div>
+            <div class="vote-box vote-box-down" v-if="(index != my.playerIndex) &amp;&amp; !ui.iVoted">
+              <button class="vote vote-down" @click="voteDown(index)" :disabled="index == ui.downVoteIndex">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.9 100">
+                  <path class="down" d="M44.1 33.4c-3.3 0-10.2 2.2-13.1 2.7-1.8.3-6.8.8-6.8.8V62s3.7.2 5.1 1.2c2.3 1.7 3.1 4.8 4.5 7.3.8 1.4 1.2 2.9 2.1 4.2 1.7 2.3 4.6 3.7 6 6.2 1.3 2.3 2 5 2.1 7.6.1 2.1-.1 4.4 1.4 5.6.8.7 2 .5 3 .2 1.2-.4 2.4-1.3 3-2.4.8-1.2.7-2.8.8-4.2.1-1.9 0-3.8-.4-5.7-.4-1.9-1.1-3.6-1.7-5.4-.6-1.6-2-3.1-1.8-4.8.1-.6.5-1.4 1.6-1.4H65c2.9 0 5.3-2.2 5.3-5.1 0-2.5-1.8-4.7-4.2-5.1 2.4-.4 4.2-2.5 4.2-5 0-2.4-1.7-4.5-4-5 1.9-.7 3.3-2.5 3.3-4.6 0-2.6-2-4.7-4.6-4.9 1.2-.6 2-1.9 2-3.3 0-2.1-1.7-3.7-3.8-3.7H44.1zm-36.9.4c-.1 0-.2.1-.2.2v30.8c0 .1.1.2.2.2h14.1c.1 0 .2-.1.2-.2V34c0-.1-.1-.2-.2-.2H7.2zm9.2 1.4c1.6 0 2.9 1.3 2.9 2.9 0 1.6-1.3 2.9-2.9 2.9-1.6 0-2.9-1.3-2.9-2.9 0-1.6 1.3-2.9 2.9-2.9z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="score-holder" v-if="ui.iVoted">
+              <div class="score" v-text="statement.score" :class="{'negative': statement.score &lt; 0, 'positive': statement.score &gt; 0, 'zero':statement.score == 0 }"><span v-html="statement.score"></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="finished-vote" v-if="ui.upVoteIndex != -1 &amp;&amp; ui.downVoteIndex != -1 &amp;&amp; !ui.iVoted">
+          <button class="finished-votes" @click="submitVotes()">Submit Votes</button>
+        </div>
+        <div class="vote-count" v-if="round.votesSubmitted &amp;&amp; !computedAreAllVotesCast">
+          <p v-if="round.votesSubmitted == 1">One player have voted.</p>
+          <p v-else="v-else">{{round.votesSubmitted}} players have voted.</p>
+        </div>
+        <div class="next-round" v-else-if="my.playerIndex != 0 &amp;&amp; computedAreAllVotesCast">
+          <p>All players have voted. <span class="player-name" v-text="players[0].name"> </span> can start the next round.</p>
+        </div>
+        <div class="next-round" v-if="computedCanIAdvanceTheGame">
+          <button class="next-round" @click="startNextRound()">Start Next Round</button>
+        </div>
+      </div>
+      <div class="round-indicator">
+        <div class="label">ROUND</div>
+        <div class="round"><span class="number current">{{round.number}}</span><span class="slash">/</span><span class="number maximum">{{maxRounds}}</span></div>
+      </div>
+    </main>
+    <main class="game-over" v-if="gameOver">
+      <section class="headline">
+        <h1>Game Over!</h1>
+      </section>
+      <section class="final-scores">
+        <div class="players">
+          <div class="player" v-for="(player,index) in computedPlayersByScore" :rank="(index + 1)">
+            <div class="name">{{player.name}}</div>
+            <div class="score" :class="{'positive': player.score &gt; 0, 'negative': player.score &lt; 0, 'zero': player.score == 0 }"><span class="number">{{player.score}}</span></div>
+          </div>
+        </div>
+      </section>
+      <section class="statements">
+        <h2>The Wrongest Words...</h2>
+        <div class="statement-list wrongest" :holds="computedStatementsByScore.wrongest.length">
+          <div class="statement" v-for="(statement,index) in computedStatementsByScore.wrongest">
+            <div class="card">
+              <blockquote v-html="cardText(statement.card)"></blockquote>
+              <cite v-text="statement.playerName"></cite>
+            </div>
+            <div class="score" :class="{'positive': statement.score &gt; 0, 'negative': statement.score &lt; 0, 'zero': statement.score == 0 }"><span class="number">{{statement.score}}</span></div>
+          </div>
+        </div>
+        <h2>The Least Wrong Words...</h2>
+        <div class="statement-list least-wrong" :holds="computedStatementsByScore.leastWrong.length">
+          <div class="statement" v-for="(statement,index) in computedStatementsByScore.leastWrong">
+            <div class="card">
+              <blockquote v-html="cardText(statement.card)"></blockquote>
+              <cite v-text="statement.playerName"></cite>
+            </div>
+            <div class="score" :class="{'positive': statement.score &gt; 0, 'negative': statement.score &lt; 0, 'zero': statement.score == 0 }"><span class="number">{{statement.score}}</span></div>
+          </div>
+        </div>
+      </section>
+      <div class="game-by-lemon"><a href="https://ahoylemon.xyz">
+          <h3>This game is <span>by Lemon.</span></h3><img src="svg/lemon.svg" alt="Lemon"/></a></div>
+      <section class="final-links"><a href="https://github.com/AhoyLemon/invalid">GitHub Repo.</a><a href="https://invalidgame.herokuapp.com">Play Again.</a></section>
     </main>
   </div>
   <div class="javascripts">
@@ -111,6 +216,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
     <script>var socket = io.connect();</script>
-    <script src="js/min/wrongest.min.js?updated2021-00-16@23:12:44"></script>
+    <script src="js/min/wrongest.min.js?updated2021-00-17@22:34:55"></script>
   </div>
 </body>
