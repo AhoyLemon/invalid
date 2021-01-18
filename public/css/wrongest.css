@@ -1347,6 +1347,9 @@ main.game-over section.statements .score {
   position: absolute;
   top: 5px;
   right: 5px;
+  -webkit-transform: rotate(337deg);
+      -ms-transform: rotate(337deg);
+          transform: rotate(337deg);
   font-size: 18px;
   width: 40px;
   height: 40px;

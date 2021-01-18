@@ -52,7 +52,7 @@ socket.on("startTheGame", function(msg) {
     app.my.card = app.players[app.my.playerIndex].card;
   }
 
-
+  changeFavicon("wrongest/favicons/favicon.ico");
 });
 
 

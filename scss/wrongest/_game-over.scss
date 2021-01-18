@@ -58,7 +58,7 @@ main.game-over { font-family: $font-family; background:#e4e72c; color:#121212; m
       &:before { content:'—'}
     }
 
-    .score { @include position(absolute,5px,5px); font-size:18px; width:40px; height:40px; line-height: 45px; border-radius: 50%; background:#111; color:white; text-align: center;
+    .score { @include position(absolute,5px,5px); transform: rotate(337deg); font-size:18px; width:40px; height:40px; line-height: 45px; border-radius: 50%; background:#111; color:white; text-align: center;
       &.negative { background:$red; }
       &.positive { background:$green;
         &:before { content: "+"; }

@@ -188,6 +188,7 @@ var app = new Vue({
         activePlayerIndex: self.round.activePlayerIndex,
         activePlayerName: self.players[self.round.activePlayerIndex].name
       });
+      soundBeginTalking.play();
     },
 
     presentationFinished() {
@@ -198,6 +199,7 @@ var app = new Vue({
         activePlayerName: self.players[self.round.activePlayerIndex].name,
         activePlayerCard: self.players[self.round.activePlayerIndex].card
       });
+      soundPresentationOver.play();
     },
 
     /////////////////////////////////////////
