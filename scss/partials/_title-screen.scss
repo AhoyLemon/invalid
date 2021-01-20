@@ -1,8 +1,11 @@
 .title-screen { display: grid; grid-template-columns: 1fr 80px 1fr; grid-template-rows: 1fr 105px; height: 100vh; background: radial-gradient(#ffffff, #d3d3d3);
   .logo-holder { grid-column: span 3; display: flex; align-items: center; }
-  figure.logo { width: 100%;
-    svg { max-width: 340px; display: block; margin-left: auto; margin-right: auto; overflow: visible;
+  figure.logo { width: 100%; max-width: 340px; display: block; margin-left: auto; margin-right: auto;
+    svg {
       * { fill:#ee2f26; }
+    }
+    figcaption { font-family: $serif; text-align: center;
+      .slogan { font-size: 110%; margin-top:1em; margin-bottom: 1em; }
     }
   }
   .create { text-align: right;
