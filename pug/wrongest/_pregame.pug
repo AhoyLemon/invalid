@@ -10,19 +10,10 @@
         h2 There's nobody here.
         p Either you have the wrong room code, or your host hasn't entered their name yet.
 
-  //-.game-started(v-if="gameStarted")
-    .inside
-      .content
-        h2 The game has already started.
-        p Ask the game host to start a new game, so you can join.
-
   .sign-in(v-if="(isRoomHost || players.length > 0) && !gameStarted")
 
     .inside
       form.pregame-form(@submit.prevent="updateMyInfo()")
-        //-fieldset
-          input(v-model="my.employeeNumber" type="text" readonly disabled)
-          label Employee Number
         fieldset
           input(v-model="my.name" type="text" maxlength="34" required)
           label Your Name
@@ -35,8 +26,15 @@
         //-fieldset.checkbox(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
           input(v-model="allowNaughty" type="checkbox" id="AllowNaughtyChallenges")
           label(for="AllowNaughtyChallenges" title="Checking this will allow profane and/or sexual challenges, passwords and options to be available") Allow naughty things.
+      
+      .deck-selector-ui(v-if="isRoomHost && ui.nameEntered")
+        select(v-model="ui.deckName" @change="changeDeck()")
+          option(value="" disabled) Choose a deck to play with
+          option(v-for="deck in allDecks") {{deck.name}}
+        .deck-decription(v-if="ui.deckName && chosenDeck") {{chosenDeck.description}}
+
             
-      .start-button(v-if="isRoomHost && ui.nameEntered && players.length > 2")
+      .start-button(v-if="isRoomHost && ui.nameEntered && players.length > 2 && chosenDeck.name")
         button(type="button" @click="startTheGame()") Start The Game
 
 

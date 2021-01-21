@@ -11,12 +11,7 @@
   <div id="app">
     <div class="title-screen" v-if="!inRoom">
       <div class="logo-holder">
-        <figure class="logo"><img src="svg/wrongest.svg"/>
-          <figcaption> 
-            <div class="description">You're going to defend some very stupid ideas.</div>
-            <div class="for-players">(For 3 - <span class="infinity">∞</span> Players)</div>
-          </figcaption>
-        </figure>
+        <figure class="logo"><img src="/svg/wrongest.svg"/></figure>
       </div>
       <div class="create">
         <button @click="createRoom()">Create a New Room</button>
@@ -25,7 +20,7 @@
       <div class="join">
         <form @submit.prevent="joinRoom()">
           <button v-if="roomCode &amp;&amp; roomCode.length &gt; 3" type="submit">Join this room.</button>
-          <input type="text" minlength="4" maxlength="4" required="required" v-model="roomCode" @input="roomCode = $event.target.value.toUpperCase()" placeholder="Enter A Room Code"/>
+          <input id="EnterRoomCode" type="text" minlength="4" maxlength="4" required="required" v-model="roomCode" @input="roomCode = $event.target.value.toUpperCase()" placeholder="Enter A Room Code"/>
           <div class="enter-a-room-code"></div>
         </form>
       </div>
@@ -54,7 +49,14 @@
               <button type="submit"> <span v-if="!ui.nameEntered">Save Name</span><span v-if="ui.nameEntered">Change Name</span></button>
             </div>
           </form>
-          <div class="start-button" v-if="isRoomHost &amp;&amp; ui.nameEntered &amp;&amp; players.length &gt; 2">
+          <div class="deck-selector-ui" v-if="isRoomHost &amp;&amp; ui.nameEntered">
+            <select v-model="ui.deckName" @change="changeDeck()">
+              <option value="" disabled="disabled">Choose a deck to play with</option>
+              <option v-for="deck in allDecks">{{deck.name}}</option>
+            </select>
+            <div class="deck-decription" v-if="ui.deckName &amp;&amp; chosenDeck">{{chosenDeck.description}}</div>
+          </div>
+          <div class="start-button" v-if="isRoomHost &amp;&amp; ui.nameEntered &amp;&amp; players.length &gt; 2 &amp;&amp; chosenDeck.name">
             <button type="button" @click="startTheGame()">Start The Game</button>
           </div>
         </div>
@@ -151,18 +153,19 @@
             </div>
           </div>
         </div>
-        <div class="finished-vote" v-if="ui.upVoteIndex != -1 &amp;&amp; ui.downVoteIndex != -1 &amp;&amp; !ui.iVoted">
-          <button class="finished-votes" @click="submitVotes()">Submit Votes</button>
-        </div>
         <div class="vote-count" v-if="round.votesSubmitted &amp;&amp; !computedAreAllVotesCast">
-          <p v-if="round.votesSubmitted == 1">One player have voted.</p>
+          <p v-if="round.votesSubmitted == 1">One player has voted.</p>
           <p v-else="v-else">{{round.votesSubmitted}} players have voted.</p>
         </div>
         <div class="next-round" v-else-if="my.playerIndex != 0 &amp;&amp; computedAreAllVotesCast">
           <p>All players have voted. <span class="player-name" v-text="players[0].name"> </span> can start the next round.</p>
         </div>
+        <div class="finished-vote" v-if="ui.upVoteIndex != -1 &amp;&amp; ui.downVoteIndex != -1 &amp;&amp; !ui.iVoted">
+          <button class="finished-votes" @click="submitVotes()">Submit Votes</button>
+        </div>
         <div class="next-round" v-if="computedCanIAdvanceTheGame">
-          <button class="next-round" @click="startNextRound()">Start Next Round</button>
+          <button class="next-round" @click="startNextRound()" v-if="round.number &lt; maxRounds">Start Next Round</button>
+          <button class="next-round" @click="sendGameOver()" v-else="v-else">Final Scores</button>
         </div>
       </div>
       <div class="round-indicator">
@@ -205,7 +208,7 @@
         </div>
       </section>
       <div class="game-by-lemon"><a href="https://ahoylemon.xyz">
-          <h3>This game is <span>by Lemon.</span></h3><img src="svg/lemon.svg" alt="Lemon"/></a></div>
+          <h3>This game is <span>by Lemon.</span></h3><img src="/svg/lemon.svg" alt="Lemon"/></a></div>
       <section class="final-links"><a href="https://github.com/AhoyLemon/invalid">GitHub Repo.</a><a href="https://invalidgame.herokuapp.com">Play Again.</a></section>
     </main>
   </div>
@@ -213,10 +216,9 @@
     <script src="js/libraries/vue.full.js"></script>
     <script>const testing = true;</script>
     <script src="js/libraries/howler.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
     <script>var socket = io.connect();</script>
-    <script src="js/min/wrongest.min.js?updated2021-00-18@14:31:33"></script>
+    <script src="js/min/wrongest.min.js?updated2021-00-20@22:54:19"></script>
   </div>
 </body>

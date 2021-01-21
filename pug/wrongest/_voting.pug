@@ -19,16 +19,17 @@ main.voting(v-if="gameStarted && round.phase == 'voting'")
           .score(v-text="statement.score" :class="{'negative': statement.score < 0, 'positive': statement.score > 0, 'zero':statement.score == 0 }")
             span(v-html="statement.score")
             
-    .finished-vote(v-if="ui.upVoteIndex != -1 && ui.downVoteIndex != -1 && !ui.iVoted")
-      button.finished-votes(@click="submitVotes()") Submit Votes
     .vote-count(v-if="round.votesSubmitted && !computedAreAllVotesCast")
-      p(v-if="round.votesSubmitted == 1") One player have voted.
+      p(v-if="round.votesSubmitted == 1") One player has voted.
       p(v-else) {{round.votesSubmitted}} players have voted.
     .next-round(v-else-if="my.playerIndex != 0 && computedAreAllVotesCast")
       p All players have voted. 
         span.player-name(v-text="players[0].name") 
         |  can start the next round.
+    .finished-vote(v-if="ui.upVoteIndex != -1 && ui.downVoteIndex != -1 && !ui.iVoted")
+      button.finished-votes(@click="submitVotes()") Submit Votes
     .next-round(v-if="computedCanIAdvanceTheGame")
-      button.next-round(@click="startNextRound()") Start Next Round
+      button.next-round(@click="startNextRound()" v-if="round.number < maxRounds") Start Next Round
+      button.next-round(@click="sendGameOver()" v-else) Final Scores
 
   include _round-indicator

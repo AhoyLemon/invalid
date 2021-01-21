@@ -2,12 +2,7 @@
 
   .logo-holder
     figure.logo
-      img(src="svg/wrongest.svg")
-      figcaption 
-        .description You're going to defend some very stupid ideas.
-        .for-players (For 3 - 
-          span.infinity ∞
-          |  Players)
+      img(src="/svg/wrongest.svg")
   
   .create
     button(@click="createRoom()") Create a New Room
@@ -18,7 +13,7 @@
   .join
     form(@submit.prevent="joinRoom()")
       button(v-if="roomCode && roomCode.length > 3" type="submit") Join this room.
-      input(type="text" minlength="4" maxlength="4" required v-model="roomCode"
+      input#EnterRoomCode(type="text" minlength="4" maxlength="4" required v-model="roomCode"
         @input="roomCode = $event.target.value.toUpperCase()"
         placeholder="Enter A Room Code"
       )

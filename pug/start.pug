@@ -1,22 +1,16 @@
 - var pageTitle = "";
-include wrongest/_variables
-include wrongest/_mixins
+include start/_variables
 
 html
   head
     - var testing = true 
-    title The Wrongest Words
+    title kinda.fun
     link(rel="preconnect" href="https://fonts.gstatic.com")
     link(href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;600&display=swap" rel="stylesheet")
-    link(href="css/wrongest.css" type="text/css" rel="stylesheet")
+    link(href="css/start.css" type="text/css" rel="stylesheet")
 body
   #app
-    include wrongest/_title-screen.pug
-    include wrongest/_pregame.pug
-    include wrongest/_player-list.pug
-    include wrongest/_presenting.pug
-    include wrongest/_voting.pug
-    include wrongest/_game-over.pug
+    include start/_title-screen.pug
     
   .javascripts
     if testing
@@ -29,8 +23,8 @@ body
         const testing = false;
 
     script(src="js/libraries/howler.min.js")
-    script(src="socket.io/socket.io.js")
+    script(src="/socket.io/socket.io.js")
     script(src="https://code.jquery.com/jquery-3.4.1.min.js")
     script.
       var socket = io.connect();
-    script(src="js/min/wrongest.min.js?updated"+lastUpdated)
+    script(src="js/min/start.min.js?updated"+lastUpdated)

@@ -14,7 +14,7 @@
   .or { font-size:24px; color:rgba(255,255,255,0.35); text-align: center; padding-top:7px;
   }
   .join { position: relative;
-    input { font-size:36px; color:$blue; display:block; width:17ch; border:none; outline:none; background: transparent;
+    input { font-size:36px; color:$blue; display:block; width:18ch; border:none; outline:none; background: transparent; margin-top:6px;
       &::placeholder { color:#50666d; }
       &:hover, &:focus { border-color:$blue;
         &::placeholder { color:$blue; }

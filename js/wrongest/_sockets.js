@@ -136,3 +136,13 @@ socket.on("startNextRound", function(msg) {
   }
 
 });
+
+socket.on("gameOver", function(msg) {
+  app.players = msg.players;
+  app.statementHistory = msg.statementHistory;
+  resetRoundVariables();
+  resetUIVariables();
+  app.round.phase = "GAME OVER";
+  app.gameOver = true;
+
+});

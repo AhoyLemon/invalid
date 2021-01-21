@@ -1,0 +1,25 @@
+- var pageTitle = "";
+include invalid/_variables
+include invalid/_mixins
+
+doctype html
+html(lang="en")
+  
+  include invalid/_head.pug
+  
+  body
+    #app(v-cloak)
+
+      include invalid/_title-screen.pug
+      
+      include invalid/_pregame.pug
+        
+      include invalid/_admin.pug
+
+      include invalid/_employee.pug
+
+      include invalid/_final.pug
+
+      include invalid/_game-over.pug
+
+    include invalid/_javascripts

@@ -3,7 +3,7 @@ const settings = {
 };
 
 
-const audioSrc = 'wrongest/audio/';
+const audioSrc = '/audio/';
 
 /////////////////////////////////
 // Interface Sounds

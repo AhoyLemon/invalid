@@ -12,11 +12,14 @@ var app = new Vue({
   el: '#app',
   data: {
     roomCode: "",
+    gameName: "wrongest",
     isRoomHost: false,
     inRoom: false,
     gameStarted: false,
     gameOver: false,
     maxRounds: 0,
+    allDecks: allDecks,
+    chosenDeck: {},
     my: {
       name: "",
       socketID: "",
@@ -39,6 +42,7 @@ var app = new Vue({
     },
     ui: {
       nameEntered: false,
+      deckName: "",
       upVoteIndex: -1,
       downVoteIndex: -1,
       iVoted: false,
@@ -69,12 +73,15 @@ var app = new Vue({
       self.roomCode = makeID(4);
 
       // Create a room with the randomly generated code.
-      socket.emit('createRoom', self.roomCode);
+      socket.emit('createRoom', {
+        roomCode: self.roomCode,
+        gameName: self.gameName
+      });
 
       // Set your local variables.
       self.isRoomHost = true;
       self.inRoom = true;
-      const url = new URL(window.location);
+      let url = new URL(location.protocol + '//' + location.host + location.pathname);
       url.searchParams.set('room', self.roomCode);
       window.history.pushState({}, '', url);
     },
@@ -83,12 +90,15 @@ var app = new Vue({
       const self = this;
 
       // Try to join a room with the entered code.
-      socket.emit('joinRoom', self.roomCode);
+      socket.emit('joinRoom', {
+        roomCode: self.roomCode,
+        gameName: self.gameName
+      });
       socket.emit('requestPlayers', self.roomCode);
 
       self.isRoomHost = false;
       self.inRoom = true;
-      const url = new URL(window.location);
+      let url = new URL(location.protocol + '//' + location.host + location.pathname);
       url.searchParams.set('room', self.roomCode);
       window.history.pushState({}, '', url);
 
@@ -143,6 +153,12 @@ var app = new Vue({
       });
     },
 
+    changeDeck() {
+      const self = this;
+      let chosenDeck = self.allDecks.filter(deck => deck.name == self.ui.deckName);
+      self.chosenDeck = chosenDeck[0];
+    },
+
     startTheGame() {
       const self = this;
       let d = shuffle(fPlusDeck.cards);
@@ -150,13 +166,14 @@ var app = new Vue({
       self.dealOutCards();
 
       if (self.computedPlayerCount == 3) {
-        self.maxRounds = 6;
+        self.maxRounds = 1;
       } else {
         self.maxRounds = self.computedPlayerCount;
       }
 
       socket.emit('startTheGame', {
         roomCode: self.roomCode,
+        gameName: self.gameName,
         players: self.players,
         gameDeck: self.gameDeck,
         maxRounds: self.maxRounds
@@ -249,12 +266,29 @@ var app = new Vue({
       self.statementHistory = s;
       socket.emit('startNextRound', {
         roomCode: self.roomCode,
+        gameName: self.gameName,
         players: self.players,
         gameDeck: self.gameDeck,
         statementHistory: self.statementHistory,
         roundNumber: self.round.number
       });
     },
+
+    sendGameOver() {
+      const self = this;
+      const s = self.statementHistory.concat(self.round.cardsPresented);
+      self.statementHistory = s;
+      socket.emit('gameOver', {
+        roomCode: self.roomCode,
+        gameName: self.gameName,
+        players: self.players,
+        gameDeck: self.gameDeck,
+        statementHistory: self.statementHistory,
+        roundNumber: self.round.number
+      });
+    },
+
+    
 
     ////////////////////////////////////////
     // Timers
@@ -290,43 +324,7 @@ var app = new Vue({
       } else {
         return txt.replace('{','').replace('}','');
       }
-    },
-
-    /*
-    playerScoreHTML(n) {
-      if (n == 0) {
-        return '<span class="num">0</span>';
-      } else if (n > 0) {
-        return '<sup>+</sup><span class="num">'+n+'</span>';
-      } else if (n < 0) {
-        return '<sup>-</sup><span class="num">'+Math.abs(n)+'</span>';
-      } else {
-        return "ERROR";
-      }
     }
-    */
-
-    /*
-
-    playerClasses(player,index) {
-      const self = this;
-      let classOutput = "";
-      
-      if (my.playerIndex == index) {
-        classOutput += " is-you";
-      }
-      if (self.round.activePlayerIndex == index && self.round.playerPresenting) {
-        classOutput += " presenting";
-      }
-      if (index <= self.round.activePlayerIndex && !self.round.playerPresenting) {
-        classOutput += " already-went";
-      }
-      if ((self.round.activePlayerIndex + 1) == index && !self.round.playerPresenting) {
-        classOutput += " up-next";
-      }
-      return classOutput;
-    }
-    */
 
   },
 
@@ -444,10 +442,14 @@ var app = new Vue({
   mounted: function() {
     const self = this;
     var urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('room')) {
+    if (urlParams.has('create')) { 
+      self.createRoom();
+    } else if (urlParams.has('room')) {
       self.roomCode = urlParams.get('room').toUpperCase();
+      self.joinRoom();
+    } else if (urlParams.has('join')) {
+      document.getElementById("EnterRoomCode").focus();
     }
-    self.startPresentationTimer();
 
 
     /////////////////////////////////////
