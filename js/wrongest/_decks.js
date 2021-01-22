@@ -1,5 +1,45 @@
 const allDecks = [
 
+
+  //////////////////////////////////////////
+  // SCIENCE
+  {
+    name: "Science “Facts”",
+    description: "There's a lot of weird but interesting facts in science that actually turn out to be true! This deck contains none of them.",
+    cards: [
+      "Honey bees can {speak Korean.}",
+      "Eating a carrot a day will {eventually turn your skin orange.}",
+      "If a rabbit {hears a D# note,} it will immediately attack any other rabbit it sees.",
+      "3 days after milk spoils, it will {smell like lilac.}",
+      "The moon and sun are the {same thing. At night the sun simply cools down.}",
+      "{Dogs} are the most venomous animal in the world.",
+      "Salt in your eyes will {improve your vision.}",
+      "A cat's vertically-split pupils allow it {to see ghosts, but only the ghosts of} other cats.",
+      "Rain is caused by a {blue cloud and a red cloud having} an argument",
+      "{Pouring sugar on} a turtle will cause its shell to melt.",
+      "Sweat is created by {small aphid-like creatues} that live inside your pores.",
+      "Zebras are created when {a white horse and a black horse} have sex.",
+      "The human need to sneeze is just {a desperate cry for attention.}",
+      "PCP was originally used as a {water substitute for American soldiers} in World War I.",
+      "If we don't make changes now{, E will equal mc^3} within 10 years.",
+      "{Cocaine} improves heart function when taken in moderation.",
+      "{Gangrene} will heal naturally if given enough time.",
+      "{The iPhone} was the key piece of technology that allowed humans to finally travel to the moon.",
+      "Some Jewish males are born {without foreskins.}",
+      "Bear attacks can be prevented with {belly rubs.}",
+      "Exposure to {the vacuum of space} will change your sexual orientation.",
+      "Microchips run 1.75 times faster when covered in {milk.}",
+      "{Gravity} is a constant everywhere on Earth, except Mexico.",
+      "The pattern known as “plaid” {doesn't actually exist.}",
+      "{Flashlights} produce small nuclear explosions.",
+      "{There genuinely are} monsters under children's beds.",
+      "{Snow} is a side effect of nuclear fallout.",
+      "Dogs are {only colorblind when they are} not barking.",
+      "Mercury is the only planet that {gets depressed.}",
+      "The human body is made up of 60% {cheap vodka.}",
+    ]
+  },
+
   //////////////////////////////////////////
   // F PLUS 
   {
@@ -95,48 +135,6 @@ const allDecks = [
     ]
   },
 
-
-
-
-  //////////////////////////////////////////
-  // SCIENCE
-  {
-    name: "Science “Facts”",
-    description: "There's a lot of weird but interesting facts in science that actually turn out to be true! This deck contains none of them.",
-    cards: [
-      "Honey bees can {speak Korean.}",
-      "Eating a carrot a day will {eventually turn your skin orange.}",
-      "If a rabbit {hears a D# note,} it will immediately attack any other rabbit it sees.",
-      "3 days after milk spoils, it will {smell like lilac.}",
-      "The moon and sun are the {same thing. At night the sun simply cools down.}",
-      "{Dogs} are the most venomous animal in the world.",
-      "Salt in your eyes will {improve your vision.}",
-      "A cat's vertically-split pupils allow it {to see ghosts, but only the ghosts of} other cats.",
-      "Rain is caused by a {blue cloud and a red cloud having} an argument",
-      "{Pouring sugar on} a turtle will cause its shell to melt.",
-      "Sweat is created by {small aphid-like creatues} that live inside your pores.",
-      "Zebras are created when {a white horse and a black horse} have sex.",
-      "The human need to sneeze is just {a desperate cry for attention.}",
-      "PCP was originally used as a {water substitute for American soldiers} in World War I.",
-      "If we don't make changes now{, E will equal mc^3} within 10 years.",
-      "{Cocaine} improves heart function when taken in moderation.",
-      "{Gangrene} will heal naturally if given enough time.",
-      "{The iPhone} was the key piece of technology that allowed humans to finally travel to the moon.",
-      "Some Jewish males are born {without foreskins.}",
-      "Bear attacks can be prevented with {belly rubs.}",
-      "Exposure to {the vacuum of space} will change your sexual orientation.",
-      "Microchips run 1.75 times faster when covered in {milk.}",
-      "{Gravity} is a constant everywhere on Earth, except Mexico.",
-      "The pattern known as “plaid” {doesn't actually exist.}",
-      "{Flashlights} produce small nuclear explosions.",
-      "{There genuinely are} monsters under children's beds.",
-      "{Snow} is a side effect of nuclear fallout.",
-      "Dogs are {only colorblind when they are} not barking."
-    ]
-  },
-
-
-
   //////////////////////////////////////////
   // TWITTER
   {
@@ -190,7 +188,7 @@ const allDecks = [
   //////////////////////////////////////////
   // RANDOM
   {
-    name: "RANDOM",
+    name: "Miscellanious",
     description: "Let me be honest with you, all of the cards in this deck are just the cards that didn't fit in any other deck.",
     cards: [
       "Froot Loops are spelled that way because the cereal contains {blood.}",
