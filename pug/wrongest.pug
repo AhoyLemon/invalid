@@ -1,14 +1,10 @@
 - var pageTitle = "";
 include wrongest/_variables
 include wrongest/_mixins
+- var testing = true 
 
 html
-  head
-    - var testing = true 
-    title The Wrongest Words
-    link(rel="preconnect" href="https://fonts.gstatic.com")
-    link(href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;600&display=swap" rel="stylesheet")
-    link(href="css/wrongest.css" type="text/css" rel="stylesheet")
+  include wrongest/_head
 body
   #app
     include wrongest/_title-screen.pug

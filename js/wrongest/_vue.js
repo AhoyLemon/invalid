@@ -210,6 +210,8 @@ var app = new Vue({
 
     presentationFinished() {
       const self = this;
+      app.round.playerPresenting = false;
+      app.resetPresentationTimer();
       socket.emit('donePresenting', {
         roomCode: self.roomCode,
         activePlayerIndex: self.round.activePlayerIndex,
