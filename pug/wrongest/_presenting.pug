@@ -1,0 +1,8 @@
+main.presenting(v-if="computedAmIPresenting")
+  .inside 
+    .card
+      blockquote(v-html="cardText(my.card)")
+      .button-holder
+        button.done-early(@click="presentationFinished()") I'm done early.
+  .timer-holder
+    +countdown("big fixed")

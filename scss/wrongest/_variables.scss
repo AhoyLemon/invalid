@@ -1,0 +1,41 @@
+$gap: 40px;
+$padding: 20px;
+
+
+// Font shit
+$barlow: 'Barlow', sans-serif;
+$sans-serif: $barlow;
+$fira: 'Fira Code', monospace;
+$monospace: $fira;
+$lora: 'Lora', serif;
+$serif: $lora;
+
+$font-family: 'Comfortaa', cursive;
+$serif: $font-family;
+$sans-serif: $font-family;
+$monospace: $font-family;
+
+$medium: 300;
+$bold: 600;
+
+
+
+// Colors
+$lime: #2EF429;
+$green: $lime;
+$pink: #e01b91;
+$purple: #791fc7;
+$orange: #f1a315;
+$blue: #38a4dc;
+$green: #28b54d;
+$red: #d41f1f;
+
+$adminOnly: #ffcc00;
+$adminError: $red;
+$adminPanelColor: rgba(1,12,1,1);
+$employeePanelColor: rgba(246,246,256,1);
+
+$adminActive: $green;
+$adminAccent: #ffcc00;
+
+$scorebard-width: 200px;

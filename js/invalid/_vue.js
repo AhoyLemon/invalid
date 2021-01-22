@@ -6,6 +6,7 @@ var app = new Vue({
     currentlyInGame: false,
     gameStarted: false,
     roomCode: null,
+    gameName: "invalid",
     isRoomHost: false,
     rules: rules,
     maxRounds: 0,
@@ -116,28 +117,32 @@ var app = new Vue({
       self.roomCode = makeID(4);
 
       // Create a room with the randomly generated code.
-      socket.emit('createRoom', self.roomCode);
+      socket.emit('createRoom', {
+        roomCode: self.roomCode,
+        gameName: self.gameName
+      });
 
       // Set your local variables.
       self.isRoomHost = true;
       self.currentlyInGame = true;
       self.round.phase = "pregame";
-      const url = new URL(window.location);
+      let url = new URL(location.protocol + '//' + location.host + location.pathname);
       url.searchParams.set('room', self.roomCode);
       window.history.pushState({}, '', url);
-
     },
 
     joinRoom() {
       const self = this;
 
       // Try to join a room with the entered code.
-      socket.emit('joinRoom', self.roomCode);
+      socket.emit('joinRoom', {
+        roomCode: self.roomCode,
+        gameName: self.gameName
+      });
 
-      
       self.currentlyInGame = true;
       self.round.phase = "pregame";
-      const url = new URL(window.location);
+      let url = new URL(location.protocol + '//' + location.host + location.pathname);
       url.searchParams.set('room', self.roomCode);
       window.history.pushState({}, '', url);
 
@@ -226,6 +231,7 @@ var app = new Vue({
 
       socket.emit('startTheGame', {
         roomCode: self.roomCode,
+        gameName: self.gameName,
         players: self.players,
         maxRounds: self.maxRounds,
         sysAdminIndex: self.my.playerIndex,
@@ -1034,6 +1040,7 @@ var app = new Vue({
       soundGameOver.play();
       socket.emit("gameOver", {
         roomCode: self.roomCode,
+        gameName: self.gameName,
         playerIndex: self.my.playerIndex,
         passwordAttempts: self.my.passwordAttempts
       });
@@ -1120,8 +1127,13 @@ var app = new Vue({
   mounted: function() {
     const self = this;
     var urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('room')) {
+    if (urlParams.has('create')) { 
+      self.createRoom();
+    } else if (urlParams.has('room')) {
       self.roomCode = urlParams.get('room').toUpperCase();
+      self.joinRoom();
+    } else if (urlParams.has('join')) {
+      document.getElementById("EnterRoomCode").focus();
     }
 
     

@@ -1,0 +1,40 @@
+.title-screen
+
+  .choice-holder
+
+    .inner
+      .above-choices 
+        h1 Choose a game.
+
+      .game-choices
+
+        .game(:class="{ active: (gameChoice == 'invalid'), inactive: (gameChoice && gameChoice != 'invalid') }")
+          figure.logo(@click="gameChoice = 'invalid'")
+            img(src="svg/invalid-logo.svg")
+          figcaption
+            .slogan A trivia game of unnecessary suffering.
+            .players-allowed
+              | For 2 or more players.
+              br
+              | (but best with 4 - 8)
+        
+        .game(:class="{ active: (gameChoice == 'wrongest'), inactive: (gameChoice && gameChoice != 'wrongest') }")
+          figure.logo(@click="gameChoice = 'wrongest'")
+            img(src="svg/wrongest.svg")
+          figcaption
+            .slogan You're going to defend some very stupid ideas.
+            .players-allowed
+              | For 3 or more players.
+              br
+              | (but best with 5 - 10)
+
+  .create-or-join(v-if="gameChoice")
+    .options
+      .create
+        button(@click="createRoom()") Create a New Room
+
+      .or
+        span or
+
+      .join
+        button(@click="joinRoom()") Join a Room

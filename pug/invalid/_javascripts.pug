@@ -17,7 +17,7 @@
     //var socket = io();
     var socket = io.connect();
 
-  script(src="js/min/site.min.js?updated"+lastUpdated)
+  script(src="js/min/invalid.min.js?updated"+lastUpdated)
 
   script(src="https://cdn.trackjs.com/agent/v3/latest/t.js")
   script.
@@ -27,11 +27,11 @@
     });
 
   //  Global site tag (gtag.js) - Google Analytics 
-  script(async src="https://www.googletagmanager.com/gtag/js?id=G-99MNSSHL0B")
-  script.
-    
-    window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-99MNSSHL0B');
+    script(async src="https://www.googletagmanager.com/gtag/js?id=G-99MNSSHL0B")
+    script.
+      
+      window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+        gtag('config', 'G-99MNSSHL0B');

@@ -1,0 +1,90 @@
+.pregame { min-height:99.9vh; font-family:$font-family; padding:2rem;
+  //background-image:url(../img/bg/minneapolis.jpg); background-size:cover; background-position: center;
+
+  .sign-in { display: flex; align-items: center; justify-content: center;
+    .inside { width:100; width:280px; margin-left: auto; margin-right: auto; }
+  }
+  
+  form {  display:grid; grid-template-columns: 1fr; gap:10px; position: relative;
+    fieldset { display: block; position: relative;
+      input { font-family: inherit; font-size:20px; padding:15px 10px 2px 10px; display: block; color:white; width:100%; background:rgba(0,0,0,0.25); border:1px solid rgba(0,0,0,0.8) }
+      label { @include position(absolute,2px,null,null,10px); font-size:14px; letter-spacing: 0.1em; outline: none;
+        &:focus { border-color:white; }
+      }
+      &.checkbox {
+        label { @include position(relative,null,null,null,null); display: inline-block; }
+        input { width: auto; display: inline-block; }
+      }
+    }
+    button { @include bigButton(); }
+    /*
+    button { display: block; width:100%; font-family: inherit; background: linear-gradient(to top, #0f0c29, #302b63, #24243e); background-size:100%; color:white; border:none; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.35); font-size:16px; padding:10px; cursor: pointer; outline:none;
+      &:hover, &:focus { background: linear-gradient(to top, #0f0c29, #574ccc, #24243e); } 
+    }
+    */
+  }
+
+  .deck-selector-ui { padding-top: 1em;
+    select { font-family: inherit; display: block; width:100%; padding:0.4em 1em; font-size: 1rem; }
+    .deck-decription { padding-top: 1em; font-size: 13px; line-height: 140%; }
+  }
+
+  .start-button { margin-top: 1em; position: relative;
+    button { @include bigButton(); background: $pink; }
+  }
+
+  .players {
+    .player { display:block; padding:1rem; margin-bottom: 1rem; color:$white; box-shadow: -6px 6px 6px rgba(0,0,0,0.15); backdrop-filter:blur(4px);  position: relative;
+      .player-inside { position: relative; }
+      &:before { @include position(absolute,0,0,0,0); background:rgba(#650524,0.66); content:''; }
+      &.is-me {
+        &:before { background:rgba(#650524,0.88); }
+      }
+    }
+    .number { font-style: italic; }
+    .name { text-transform: uppercase; letter-spacing: 0.1em; word-break: break-word; margin-top:0.5em; font-size: 130%;  }
+    .host { @include position(absolute,6px,6px); color:$white;
+      svg { width:26px; height: 26px; }
+    }
+
+    
+  }
+
+  .room-code { text-align: center;
+    .display { font-weight: 700; font-size:325%; }
+  }
+
+  
+  .nobody-here, .game-started { display: flex; align-items: center; justify-content: center; padding:$gap;
+    .inside { max-width: 68ch; }
+    .content { position: relative; }
+    h2 { margin-bottom: 1em; }
+  }
+  
+  .instructions-banner { backdrop-filter:blur(4px); color:#313131; @include position(fixed,null,0,0); padding: $padding;
+    &:before { background:rgba(255,255,255,0.82); content: ''; @include position(absolute,0,0,0,0); }
+    .banner-inside { position: relative; line-height: 140%; }
+    a { color:$purple; font-weight: 700; text-decoration: none;
+      &:hover, &focus { text-decoration: underline; }
+    }
+  }
+
+}
+@media (max-width:600px) {
+  .pregame {
+    .room-code { padding-bottom: $gap; }
+    .sign-in { padding-left: $padding; padding-right: $padding;
+      .inside { padding: $padding; }
+    }
+    .players { padding-top: $gap; display: flex; overflow-y: auto;
+      .player { max-width: 220px; flex-shrink: 0; margin-right: $padding; }
+    }
+  }
+}
+
+
+@media (min-width:721px) {
+  .pregame { display: grid; grid-template-columns: $scorebard-width 1fr $scorebard-width;  gap:$gap;
+    .players { max-height: calc(100% - 90px); overflow: auto; }
+  }
+}

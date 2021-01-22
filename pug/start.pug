@@ -1,0 +1,30 @@
+- var pageTitle = "";
+include start/_variables
+
+html
+  head
+    - var testing = true 
+    title kinda.fun
+    link(rel="preconnect" href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;600&display=swap" rel="stylesheet")
+    link(href="css/start.css" type="text/css" rel="stylesheet")
+body
+  #app
+    include start/_title-screen.pug
+    
+  .javascripts
+    if testing
+      script(src="js/libraries/vue.full.js")
+      script.
+        const testing = true;
+    else
+      script(src="js/libraries/vue.min.js")
+      script.
+        const testing = false;
+
+    script(src="js/libraries/howler.min.js")
+    script(src="/socket.io/socket.io.js")
+    script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+    script.
+      var socket = io.connect();
+    script(src="js/min/start.min.js?updated"+lastUpdated)

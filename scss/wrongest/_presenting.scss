@@ -1,0 +1,16 @@
+main.presenting { display:flex; display: flex; align-items: center; justify-content: center; padding:2rem; min-height: 99vh;
+  .inside { max-width: 460px; font-family: $font-family; }
+  .card { background: rgba(255,255,255,0.85); box-shadow: 6px 6px 6px black; color: black; line-height: 180%; border-radius: 1rem; font-size:26px;
+    display:grid; grid-template-columns: 1fr; overflow: hidden; gap:20px;
+  }
+  blockquote { padding:20px;
+    &:before { content:"“"; font-size:120%; }
+    &:after  { content:"”"; font-size:120%; }
+  }
+  .secret-text { color:$pink; }
+
+
+  button { @include bigButton(); 
+    &.done-early { border-radius:0; font-size:1.2rem; }
+  }
+}

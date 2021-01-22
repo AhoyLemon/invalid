@@ -1,0 +1,28 @@
+.title-screen { display: grid; grid-template-columns: 1fr 80px 1fr; grid-template-rows: 1fr 105px; height: 100vh; background: radial-gradient(#353535, #161616); color:#eee; font-family: $font-family;
+  .logo-holder { grid-column: span 3; display: flex; align-items: center; }
+  figure.logo { width: 100%; max-width: 340px; margin-left: auto; margin-right: auto;
+    img {  display: block; margin-bottom: 1rem; }
+    figcaption { text-align: center; }
+    .description { margin-top:1em; margin-bottom: 1em; font-size:128%; line-height: 135%; }
+    .infinity { font-size:160%; font-weight: 300; }
+  }
+  .create { text-align: right;
+    button { font-size:36px; background:transparent; color:#b39153; border:none; cursor: pointer; line-height: 95%; padding:10px; border-bottom: 3px solid transparent;
+      &:hover, &:focus { color: orange; }
+    }
+  }
+  .or { font-size:24px; color:rgba(255,255,255,0.35); text-align: center; padding-top:7px;
+  }
+  .join { position: relative;
+    input { font-size:36px; color:$blue; display:block; width:18ch; border:none; outline:none; background: transparent; margin-top:6px;
+      &::placeholder { color:#50666d; }
+      &:hover, &:focus { border-color:$blue;
+        &::placeholder { color:$blue; }
+      }
+    }
+    button { @include position(absolute,0,null,null,110px); line-height: 180%; color:#23a0c7; font-size: 32px; cursor: pointer; border:none; background:transparent;
+      &:hover, &:focus { text-decoration: underline; }
+    }
+  }
+  button, input { font-family: inherit; }
+}
