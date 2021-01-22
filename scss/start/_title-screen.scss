@@ -32,15 +32,15 @@
 
 
 
-.title-screen { display:grid; min-height: 99vh; grid-template-rows: 1fr 105px; font-family: 'Lora', serif;
+.title-screen { display:grid; min-height: 99vh;  font-family: 'Lora', serif;
   .choice-holder { display:flex; align-items: center; justify-content: center;
     .inner { width:100%; }
   }
   h1 { font-size:32px; text-align: center; font-weight: 400; margin-bottom: 3em; }
   
-  .game-choices { display: flex; align-items: center; justify-content: center;
-    .game { flex-basis: 320px; margin-right: 80px;
-      &:last-child { margin-right: 0; }
+  .game-choices {
+    .game { 
+      
       figure { padding-bottom: 20px; cursor: pointer; transition:all 0.5s ease; }
       .slogan { margin-bottom: 1em; font-style: italic; font-size:110%; }
       .players-allowed { font-size:90%;}
@@ -58,17 +58,46 @@
 
 
   .create-or-join { 
-    .options { display:grid; grid-template-columns: 1fr 60px 1fr; }
+    
     .create { text-align: right;
-      button { font-size:36px; background:transparent; color:#b39153; border:none; cursor: pointer; line-height: 95%; padding:10px; border-bottom: 3px solid transparent; font-family: inherit;
+      button {  background:transparent; color:#b39153; border:none; cursor: pointer; line-height: 95%; padding:10px; border-bottom: 3px solid transparent; font-family: inherit;
         &:hover, &:focus { color: orange; }
       }
     }
-    .or { line-height: 50px; font-size:20px; text-align: center; }
     .join { position: relative;
-      button { font-size:36px; background:transparent; color:#6995a2; border:none; cursor: pointer; line-height: 95%; padding:10px; border-bottom: 3px solid transparent; font-family: inherit;
+      button { background:transparent; color:#6995a2; border:none; cursor: pointer; line-height: 95%; padding:10px; border-bottom: 3px solid transparent; font-family: inherit;
         &:hover, &:focus { color: $blue; }
       }
+    }
+  }
+}
+
+@media (max-width:600px) {
+  .title-screen {
+    .game-choices { display:grid; grid-template-columns: 1fr;
+      .game {
+        figure { width:100%; max-width: 225px; margin-left: auto; margin-right: auto; }
+      }
+    }
+    .create-or-join { padding-top:2em;
+      .options { text-align: center;
+        button, .or { font-size:5vw }
+        > * { display: inline-block; }
+      }
+    }
+  }
+}
+@media (min-width:601px) {
+  .title-screen { grid-template-rows: 1fr 105px;
+    .game-choices { display: flex; align-items: center; justify-content: center;
+      .game { flex-basis: 320px; margin-right: 80px; 
+        &:last-child { margin-right: 0; }
+      }
+    }
+    .create-or-join { 
+      .options { display:grid; grid-template-columns: 1fr 60px 1fr; }
+      button { font-size:36px; }
+      .or { line-height: 50px; font-size:20px; text-align: center; }
     }
   }
 }
