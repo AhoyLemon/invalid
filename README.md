@@ -1,2 +1,7 @@
-# The Rules Have Changed
- A trivia game of unnecessary suffering.
+![kinda.fun](https://kindafun.herokuapp.com/og-wide.png)
+
+There's currently two games here.
+
+## Invalid
+
+## The Wrongest Words
