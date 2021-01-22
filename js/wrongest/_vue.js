@@ -161,12 +161,12 @@ var app = new Vue({
 
     startTheGame() {
       const self = this;
-      let d = shuffle(fPlusDeck.cards);
+      let d = shuffle(self.chosenDeck.cards); 
       self.gameDeck.cards = d;
       self.dealOutCards();
 
       if (self.computedPlayerCount == 3) {
-        self.maxRounds = 1;
+        self.maxRounds = 6;
       } else {
         self.maxRounds = self.computedPlayerCount;
       }
