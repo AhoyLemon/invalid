@@ -50,6 +50,7 @@
       <div class="room-code">
         <div class="label">Your room code</div>
         <div class="display">{{roomCode}}</div>
+        <div class="how-to-share" v-if="isRoomHost || players.length &gt; 0">Share this URL to invite your friends to play.</div>
       </div>
       <div class="nobody-here" v-if="!isRoomHost &amp;&amp; players.length &lt; 1">
         <div class="inside">
@@ -93,6 +94,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="instructions-banner">
+        <div class="banner-inside"><strong>Need instructions? </strong><a href="https://github.com/AhoyLemon/kindafun/wiki/The-Wrongest-Words" target="_blank">Click here.</a><br/>I promise I'll try to make it quick.</div>
       </div>
     </div>
     <main class="player-list" v-if="gameStarted &amp;&amp; round.phase == 'presenting' &amp;&amp; !computedAmIPresenting">
@@ -240,6 +244,6 @@
     <script src="socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>var socket = io.connect();</script>
-    <script src="js/min/wrongest.min.js?updated2021-00-22@09:57:43"></script>
+    <script src="js/min/wrongest.min.js?updated2021-00-22@11:01:44"></script>
   </div>
 </body>
