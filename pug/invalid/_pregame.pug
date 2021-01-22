@@ -3,6 +3,7 @@
   .room-code
     .label Your room code
     .display {{roomCode}}
+    .how-to-share(v-if="isRoomHost || players.length > 0") Share this URL to invite your friends to play.
 
   .nobody-here(v-if="!isRoomHost && players.length < 1")
     .inside
