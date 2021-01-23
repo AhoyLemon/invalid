@@ -37,6 +37,8 @@ const allDecks = [
       "Dogs are {only colorblind when they are} not barking.",
       "Mercury is the only planet that {gets depressed.}",
       "The human body is made up of 60% {cheap vodka.}",
+      "{Dark matter} killed the dinosaurs.",
+      "Reiki is 100% effective, but energy fields {are disrupted by asking for evidence.}",
     ]
   },
 
@@ -44,7 +46,7 @@ const allDecks = [
   // F PLUS 
   {
     name: "F Plus Deck",
-    description: "Actual statements from actual people covered on The F Plus Podcast. The internet has said a lot of stupid things, and you're about to defend most of them.",
+    description: "Actual statements from actual people covered on The F Plus Podcast. These can be dirty sometimes, fyi.",
     cards: [
       "We don't know how to make fat people {into thin people or how to make thin people into fat people.}",
       "{Slavery} did not exist in America.",
@@ -134,61 +136,10 @@ const allDecks = [
       "N.W.A.'s “F*** Tha Police” is about {Ice Cube's hatred for Sting.}"
     ]
   },
-
-  //////////////////////////////////////////
-  // TWITTER
-  {
-    name: "Twitter #bullshit",
-    description: "A series of actual “facts” Montrith found on Twitter, somebody tweeted these, and the grammar is atrocious.",
-    cards: [
-      "Free advice to guys - girls like being called {baby girl}!",
-      "Raising minimum wage causes {inflation.}",
-      "Only if the world {smokes weed} together we will have world peace.",
-      "Beards should have their own {trousers.}",
-      "White people cry when {nature} turns on them.",
-      "{Dark matter} killed the dinosaurs.",
-      "Jesus was pretty explicit about not {baking cakes for} gay people.",
-      "{Aborted fetuses} are used as a flavor enhancer in many sodas",
-      "{Cosplayers} make the world a better place.",
-      "{The cuteness of} someone decreases quickly if they are liberal, democrat or a feminist.",
-      "Objectivist {charity} is the best kind.",
-      "most conspiracy theorists have been proven {to be spot on.}",
-      "No Muslim was {arrested} after 9/11. Many Israelis were.",
-      "It's a well known fact that {all karaoke} leads to sex.",
-      "Nobody {never not} fell in love!",
-      "Today's liberalism is basically {an anti-Christian} religion.",
-      "If you don't post on social media you can't gain {muscles.}",
-      "{Handjobs} do in fact promote abstinence.",
-      "{No ones gonna fuck with} my juggalo body guard!",
-      "The fact women can have abortions {and men can't} is unfair.",
-      "All the cool kids say {cheevos.} Fact.",
-      "{The smarter you are,} the more skeptical you are about climate change.",
-      "{Us white people} suffer the most racism in America.",
-      "People with depression just need to {go out for a jog.}",
-      "Reiki is 100% effective, but energy fields {are disrupted by asking for evidence.}",
-      "All fluffy {Mexicans} have delicious thigh.",
-      "The only way to cure mental illness is {through prayer.}",
-      "Literally the best thing about modern life is being able to {order Chipotle online.}",
-      "My parents are proud of the fact that I {run a furry convention.}",
-      "Indians steal way too {many Taco Bell sauces} and don't care if anyone's watching.",
-      "The government wants us all to be {unemployed.}",
-      "Obama is the {antchrist.}",
-      "Nobody knows where {Peru really is.}",
-      "Deep fried cheese alone makes {for a perfect dinner, really.}",
-      "{Revenge porn} is nowhere near defamation.",
-      "Few people can pull off the {fedora + trenchcoat look} as well as I do.",
-      "Poor people are {genetically inferior to} middle and upper class people.",
-      "Metalcore and {anime?} Now that's a winning combination!",
-      "{Valentine's Day} is a feminist plot."
-    ]
-  },
-
-
-
   //////////////////////////////////////////
   // RANDOM
   {
-    name: "Miscellanious",
+    name: "Miscellaneous",
     description: "Let me be honest with you, all of the cards in this deck are just the cards that didn't fit in any other deck.",
     cards: [
       "Froot Loops are spelled that way because the cereal contains {blood.}",
@@ -205,8 +156,29 @@ const allDecks = [
       "IBM's Deep Blue supercomputer is trying to figure out {how many Fast & Furious movies there are.}",
       "{The Wrongest Words} is a government test for autism.",
       "{Salt} needs more sugar.",
-      "{Zombies} caused the end of the Roman Empire."
+      "{Zombies} caused the end of the Roman Empire.",
+      "Jesus was pretty explicit about not {baking cakes for} gay people.",
     ]
-  }
+  },
 
-]
+  //////////////////////////////////////////
+  // RANDOM
+  {
+    name: "EVERYTHING!",
+    description: "I don't wanna choose! Just shuffle in all the cards and let's see what happens..."
+  },
+
+  //////////////////////////////////////////
+  // RANDOM
+  {
+    name: "Insufficient",
+    description: "This is gonna crash the game.",
+    cards: [
+      "Froot Loops are spelled that way because the cereal contains {blood.}",
+      "Spaghetti and Meatballs is known as {Pasketti and Meatbulbs} in Italy.",
+      "{A barn owl} is the only animal on earth that can feel love.",
+      "No one understands how {drums} work.",
+    ]
+  },
+
+];

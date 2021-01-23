@@ -32,7 +32,10 @@
         select(v-model="ui.deckName" @change="changeDeck()")
           option(value="" disabled) Choose a deck to play with
           option(v-for="deck in allDecks") {{deck.name}}
-        .deck-decription(v-if="ui.deckName && chosenDeck") {{chosenDeck.description}}
+        .deck-decription(v-if="ui.deckName && chosenDeck")
+          p {{chosenDeck.description}}
+          p(v-if="chosenDeck.cards")
+            strong {{chosenDeck.cards.length}} cards
 
             
       .start-button(v-if="isRoomHost && ui.nameEntered && players.length > 2 && chosenDeck.name")

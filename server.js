@@ -84,6 +84,7 @@ io.on('connection', (socket) => {
         gameName: msg.gameName,
         players: msg.players,
         gameDeck: msg.gameDeck,
+        chosenDeckName: msg.chosenDeckName,
         maxRounds: msg.maxRounds
       });
     }

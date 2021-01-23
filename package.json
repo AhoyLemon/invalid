@@ -4,11 +4,11 @@
   "description": "Games made by Lemon.",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^3.0.4"
+    "socket.io": "^3.1.0"
   },
   "scripts": {
-    "start":    "node server.js",
-    "invalid":  "node game.js",
+    "start": "node server.js",
+    "invalid": "node game.js",
     "wrongest": "node wrongest.js"
   }
 }

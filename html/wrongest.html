@@ -77,7 +77,10 @@
               <option value="" disabled="disabled">Choose a deck to play with</option>
               <option v-for="deck in allDecks">{{deck.name}}</option>
             </select>
-            <div class="deck-decription" v-if="ui.deckName &amp;&amp; chosenDeck">{{chosenDeck.description}}</div>
+            <div class="deck-decription" v-if="ui.deckName &amp;&amp; chosenDeck">
+              <p>{{chosenDeck.description}}</p>
+              <p v-if="chosenDeck.cards"><strong>{{chosenDeck.cards.length}} cards</strong></p>
+            </div>
           </div>
           <div class="start-button" v-if="isRoomHost &amp;&amp; ui.nameEntered &amp;&amp; players.length &gt; 2 &amp;&amp; chosenDeck.name">
             <button type="button" @click="startTheGame()">Start The Game</button>
@@ -245,6 +248,6 @@
     <script src="socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>var socket = io.connect();</script>
-    <script src="js/min/wrongest.min.js?updated2021-00-22@11:34:33"></script>
+    <script src="js/min/wrongest.min.js?updated2021-00-23@11:47:19"></script>
   </div>
 </body>

@@ -161,14 +161,16 @@ var app = new Vue({
 
     startTheGame() {
       const self = this;
-      let d = shuffle(self.chosenDeck.cards); 
+      let d = shuffle(self.chosenDeck.cards);
       self.gameDeck.cards = d;
       self.dealOutCards();
 
-      if (self.computedPlayerCount == 3) {
-        self.maxRounds = 6;
-      } else {
-        self.maxRounds = self.computedPlayerCount;
+      if (self.computedPlayerCount == 3 || self.computedPlayerCount == 4) {
+        self.maxRounds = 4;
+      } else if (self.computedPlayerCount == 5 || self.computedPlayerCount == 6) {
+        self.maxRounds = 3;
+      } else if (self.computedPlayerCount > 6) {
+        self.maxRounds = 2;
       }
 
       socket.emit('startTheGame', {
@@ -176,18 +178,32 @@ var app = new Vue({
         gameName: self.gameName,
         players: self.players,
         gameDeck: self.gameDeck,
-        maxRounds: self.maxRounds
+        maxRounds: self.maxRounds,
+        chosenDeckName: self.chosenDeck.name
       });
     },
-
     ////////////////////////////////////////
     // In Game
     dealOutCards() {
       const self = this;
+
+
+      if (self.gameDeck.cards.length <= self.computedPlayerCount) {
+
+        ////////////////////////////////////////////////////////////
+        // You've run out of cards. 
+        // EMERGENCY BACKUP SCENARIO.
+        let newDeck = randomFrom(allDecks);
+        let d = shuffle(newDeck.cards);
+        self.gameDeck.cards = d;
+        alert("You've run out of cards. \n As such, I've chosen a new deck and shuffled that for you. \n This message will be prettier eventually.");        
+      }
+
       self.players.forEach(function(player, index) {
         self.players[index].card = self.gameDeck.cards[0];
         self.gameDeck.cards.shift();
       });
+      
     },
 
     sendGameDeck() {

@@ -34,6 +34,7 @@ socket.on("updatePlayers", function(msg) {
 socket.on("startTheGame", function(msg) {
   app.players = msg.players;
   app.gameDeck = msg.gameDeck;
+  app.chosenDeck.name = msg.chosenDeckName;
   app.maxRounds = msg.maxRounds;
   app.gameStarted = true;
   app.round.number = 1;
