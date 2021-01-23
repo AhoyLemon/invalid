@@ -13,9 +13,12 @@
 
   script(src="/socket.io/socket.io.js")
   script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+  script(src="js/libraries/vue-toast-notification.min.js")
+  link(href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet")
   script.
     //var socket = io();
     var socket = io.connect();
+    Vue.use(VueToast);
 
   script(src="js/min/invalid.min.js?updated"+lastUpdated)
 

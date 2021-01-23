@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;500&amp;family=Fira+Code:wght@300;600&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
-    <link href="/css/site.css" type="text/css" rel="stylesheet">
+    <link href="/css/invalid.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-00-22@10:35:06">
+    <meta http-equiv="last-modified" content="2021-00-23@14:46:02">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/invalid/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/invalid/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/invalid/favicon-16x16.png">
@@ -726,12 +726,15 @@ EMpoyeeNAME:         {{round.crash.player.name}}
       <script src="js/libraries/howler.min.js"></script>
       <script src="/socket.io/socket.io.js"></script>
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script src="js/libraries/vue-toast-notification.min.js"></script>
+      <link href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet">
       <script>
         //var socket = io();
         var socket = io.connect();
+        Vue.use(VueToast);
         
       </script>
-      <script src="js/min/invalid.min.js?updated2021-00-22@10:35:06"></script>
+      <script src="js/min/invalid.min.js?updated2021-00-23@14:46:02"></script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({

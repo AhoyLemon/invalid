@@ -21,8 +21,10 @@ ul {
   li { margin-left: 2em; list-style-type: disc; margin-bottom: 0.5em; } 
 }
 
-
-
 svg {
   path { fill:currentColor; }
+}
+.v-toast { font-family:$sans-serif;
+  h3 { font-size: 140%; margin-bottom: 0.5em;}
+  .v-toast__item { max-width: 320px; }
 }

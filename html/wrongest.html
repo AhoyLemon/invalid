@@ -247,7 +247,12 @@
     <script src="js/libraries/howler.min.js"></script>
     <script src="socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script>var socket = io.connect();</script>
-    <script src="js/min/wrongest.min.js?updated2021-00-23@11:47:19"></script>
+    <script src="js/libraries/vue-toast-notification.min.js"></script>
+    <link href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet"/>
+    <script>
+      var socket = io.connect();
+      Vue.use(VueToast);
+    </script>
+    <script src="js/min/wrongest.min.js?updated2021-00-23@14:31:46"></script>
   </div>
 </body>
