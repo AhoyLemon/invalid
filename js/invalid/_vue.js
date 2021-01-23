@@ -435,7 +435,13 @@ var app = new Vue({
         });
 
       } else {
-        alert('ERROR: \n Sorry, this rule would make the game impossible \n This interface will look better eventually.');
+        let instance = Vue.$toast.open(
+          {
+            message: "<h3>ERROR:</h3><p>Sorry, this rule would make the game impossible. Rule undone.</p>",
+            type: "error",
+            duration: 50000
+          }
+        );
         self.round.rules.pop();
         self.findPossibleRightAnswers();
       }
