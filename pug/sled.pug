@@ -1,0 +1,82 @@
+- var pageTitle = "";
+include start/_variables
+
+html
+  head
+    - var testing = true 
+    title kinda.fun
+    link(rel="preconnect" href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(href="css/sled.css" type="text/css" rel="stylesheet")
+body
+  #app
+    //-main.pregame
+      .room-code
+        .label Your room code
+        .display {{roomCode}}
+        .how-to-share(v-if="isRoomHost || players.length > 0") Share this URL to invite your friends to play.
+
+      .sign-in(v-if="(isRoomHost || players.length > 0) && !gameStarted")
+
+        .inside
+          form.pregame-form(@submit.prevent="updateMyInfo()")
+            fieldset
+              input(v-model="my.name" type="text" maxlength="34" required placeholder="Your Name")
+
+            .button-holder(v-if="my.name.length > 3")
+              button(type="submit") 
+                span(v-if="!ui.nameEntered") Push! This! Button!
+                span(v-if="ui.nameEntered") Change Name!?
+        
+
+                
+          .start-button(v-if="isRoomHost && ui.nameEntered && players.length > 2")
+            button(type="button" @click="startTheGame()") Start The Game
+    
+    //-main.ask-a-question
+      form(@submit.prevent="AskMyQuestion()")
+        select(v-model="round.question")
+          option(disabled value="") Ask a question
+          option What is my favorite candy?
+          option What is my favorite food?
+          option What is my favorite bug?
+          option Do i have 32 teeth?
+          option Do i have a living dad?
+          option Do i have any pets?
+          option What is my favorite color?
+          option What is my favorite game?
+          option What is my favorite dinosaur?
+          option What is my favorite subject in school?
+          option What is my favorite brother?
+          option What is my favorite sister?
+          option What is my favorite juice?
+          option What is my favorite person?
+          option What is my favorite piece of art?
+          option What is my favorite number?
+        .button-holder(v-if="round.question")
+          button(type="submit") Send My Question!
+
+    main.answer-a-question
+      h2 {{round.askerName}} wants to know...
+      h1 {{round.question}}
+      form(@submit.prevent="AnswerThisQuestion()")
+        input(placeholder="My Answer")
+        button(type="submit") Send Answer
+
+
+  .javascripts
+    if testing
+      script(src="js/libraries/vue.full.js")
+      script.
+        const testing = true;
+    else
+      script(src="js/libraries/vue.min.js")
+      script.
+        const testing = false;
+
+    script(src="/socket.io/socket.io.js")
+    script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+    script. 
+      var socket = io.connect();
+    script(src="js/min/sled.min.js?updated"+lastUpdated)

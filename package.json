@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node server.js",
     "invalid": "node game.js",
-    "wrongest": "node wrongest.js"
+    "wrongest": "node wrongest.js",
+    "sled": "node sled.js"
   }
 }

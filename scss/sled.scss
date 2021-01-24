@@ -1,0 +1,38 @@
+//GLOBALS, GET DEFAULTS
+@import "globals/_reset";
+@import "globals/_variables";
+@import "globals/_mixins";
+@import "globals/_extends";
+
+
+html { font-family: 'Cormorant Garamond', serif; }
+main { min-height:99.999vh; }
+input, button, select { font-family: inherit; }
+
+
+
+main.pregame { background: #03460f; }
+main.ask-a-question { background: #f71cc8 }
+.sign-in { min-height: 99vh; 
+  form {
+    input { font-size:1.5rem; font-family: inherit; background:#f7e61d; color:#dc0808; font-weight: 700; border:none; }
+    button { @include position(fixed,10px,10px); height:5rem; font-size:1.25rem;
+      background: #4b00ff; border:none;
+    }
+  }
+}
+
+
+main.ask-a-question { //display: flex; align-items: center; justify-content: center; 
+  text-align: center; padding-top:20px;
+  select { font-size: 5vw; padding: 0.25em; background: #a900ff; color:white; }
+  .button-holder { text-align: center; position: fixed; bottom: 0; left: 0; right: 0;}
+  button { font-size:5vw; background: #0088ff; }
+}
+
+main.answer-a-question { background:#baf5ff;
+  input { background: blue; color: white; font-size: 5vw; width: 100%;
+    &::placeholder { color: white; }
+  }
+  button { font-size:10vw; width:100%; background:red; }
+}

@@ -1,0 +1,30 @@
+
+<html>
+  <head>
+    <title>kinda.fun</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,700;1,300;1,700&amp;display=swap" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="css/sled.css" type="text/css" rel="stylesheet"/>
+  </head>
+</html>
+<body>
+  <div id="app">
+    <main class="answer-a-question">
+      <h2>{{round.askerName}} wants to know...</h2>
+      <h1>{{round.question}}</h1>
+      <form @submit.prevent="AnswerThisQuestion()">
+        <input placeholder="My Answer"/>
+        <button type="submit">Send Answer</button>
+      </form>
+    </main>
+  </div>
+  <div class="javascripts">
+    <script src="js/libraries/vue.full.js"></script>
+    <script>const testing = true;</script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>var socket = io.connect();</script>
+    <script src="js/min/sled.min.js?updated2021-00-24@14:39:51"></script>
+  </div>
+</body>
