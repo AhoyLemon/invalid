@@ -18,7 +18,7 @@ const defaults = {
 
 const settings = {
   default: {
-    rulebux: 777,
+    rulebux: 7,
     numberOfPossibleChallenges: 5,
   },
   points: {
@@ -35,7 +35,7 @@ const settings = {
     employeeMaxTime: 50,
     hurryTime: 20,
     adminTimeLeft: 90,
-    countdownToFinal: 30,
+    countdownToFinal: 5,
     finalRound: 60,
     finalTimeLeft: 60,
   }

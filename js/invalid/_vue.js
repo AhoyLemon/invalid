@@ -5,7 +5,7 @@ var app = new Vue({
   data: {
     currentlyInGame: false,
     gameStarted: false,
-    roomCode: null,
+    roomCode: "SIMONE",
     gameName: "invalid",
     isRoomHost: false,
     rules: rules,
@@ -1127,6 +1127,41 @@ var app = new Vue({
       }
       
       return computedPlayers.sort(compare);
+    },
+
+    computedCheevos() {
+      const self = this;
+
+      let playerCracks = [];
+      self.players.forEach(player => 
+        playerCracks.push({
+          name: player.name,
+          cracks: 0,
+          cracked: 0
+        })
+      );
+
+      /*
+      function compareCracks(a, b) {
+        if (a.cracks < b.cracks)
+          return 1;
+        if (a.cracks > b.cracks)
+          return -1;
+        return 0;
+      }
+
+
+
+      let mostCracks = playerCracks.sort(compareCracks);
+
+      self.crackSummary.forEach((crack,cIndex)  => {
+        playerCracks[crack.attackerIndex].cracks += 1;
+        playerCracks[crack.victimIndex].cracked += 1;
+      });
+      */
+
+      return playerCracks;
+        
     }
   },
 
@@ -1245,12 +1280,11 @@ var app = new Vue({
 
     ];
     self.startCountdownToFinalRound();
-    
     */
     
     /////////////////////////////////////////////
     // FAKE A GAME OVER SCREEN.
-    /*
+    
     self.my.role = "employee";
     self.my.name = "Lemon";
     self.my.playerIndex = 0;
@@ -1396,8 +1430,6 @@ var app = new Vue({
       { pw: "DIPPER", attackerIndex: 3, victimIndex: 1 },
       { pw: "SOMALI", attackerIndex: 2, victimIndex: 3 },
     ];
-    */
-    
     ///////////////////////////////////////////////    
     
 
