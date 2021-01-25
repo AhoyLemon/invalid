@@ -5,7 +5,7 @@ var app = new Vue({
   data: {
     currentlyInGame: false,
     gameStarted: false,
-    roomCode: "SIMONE",
+    roomCode: "",
     gameName: "invalid",
     isRoomHost: false,
     rules: rules,
@@ -1284,7 +1284,7 @@ var app = new Vue({
     
     /////////////////////////////////////////////
     // FAKE A GAME OVER SCREEN.
-    
+    /*
     self.my.role = "employee";
     self.my.name = "Lemon";
     self.my.playerIndex = 0;
@@ -1431,7 +1431,7 @@ var app = new Vue({
       { pw: "SOMALI", attackerIndex: 2, victimIndex: 3 },
     ];
     ///////////////////////////////////////////////    
-    
+    */
 
 
   },
