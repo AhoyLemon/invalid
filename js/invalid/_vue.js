@@ -1129,39 +1129,33 @@ var app = new Vue({
       return computedPlayers.sort(compare);
     },
 
-    computedCheevos() {
+    computedCheevos() {      
       const self = this;
 
+
+      // TODO: This entire setup sucks balls.
+      // Come up with a better way to hand out cheevos.
       let playerCracks = [];
       self.players.forEach(player => 
         playerCracks.push({
           name: player.name,
           cracks: 0,
-          cracked: 0
+          cracked: 0,
+          selfPwn: 0
         })
       );
-
-      /*
-      function compareCracks(a, b) {
-        if (a.cracks < b.cracks)
-          return 1;
-        if (a.cracks > b.cracks)
-          return -1;
-        return 0;
-      }
-
-
-
-      let mostCracks = playerCracks.sort(compareCracks);
-
       self.crackSummary.forEach((crack,cIndex)  => {
         playerCracks[crack.attackerIndex].cracks += 1;
         playerCracks[crack.victimIndex].cracked += 1;
+        if (crack.attackerIndex == crack.victimIndex) {
+          playerCracks[crack.attackerIndex].selfPwn += 1;
+        }
       });
-      */
 
-      return playerCracks;
-        
+      return {
+        playerCracks: playerCracks
+      };
+
     }
   },
 
@@ -1427,12 +1421,13 @@ var app = new Vue({
       { pw: "AMBER", attackerIndex: 4, victimIndex: 0 },
       { pw: "SUGAR COOKIE", attackerIndex: 4, victimIndex: 2 },
       { pw: "AMBER", attackerIndex: 0, victimIndex: 0 },
+      { pw: "TAMBLYN", attackerIndex: 0, victimIndex: 0 },
       { pw: "DIPPER", attackerIndex: 3, victimIndex: 1 },
       { pw: "SOMALI", attackerIndex: 2, victimIndex: 3 },
+      { pw: "FART", attackerIndex: 4, victimIndex: 1 },
     ];
-    ///////////////////////////////////////////////    
+    ///////////////////////////////////////////////
     */
-
 
   },
 

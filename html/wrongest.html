@@ -206,14 +206,6 @@
       <section class="headline">
         <h1>Game Over!</h1>
       </section>
-      <section class="final-scores">
-        <div class="players">
-          <div class="player" v-for="(player,index) in computedPlayersByScore" :rank="(index + 1)">
-            <div class="name">{{player.name}}</div>
-            <div class="score" :class="{'positive': player.score &gt; 0, 'negative': player.score &lt; 0, 'zero': player.score == 0 }"><span class="number">{{player.score}}</span></div>
-          </div>
-        </div>
-      </section>
       <section class="statements">
         <h2>The Wrongest Words...</h2>
         <div class="statement-list wrongest" :holds="computedStatementsByScore.wrongest.length">
@@ -236,6 +228,15 @@
           </div>
         </div>
       </section>
+      <h2>And so, The Final Scores...</h2>
+      <section class="final-scores">
+        <div class="players">
+          <div class="player" v-for="(player,index) in computedPlayersByScore" :rank="(index + 1)">
+            <div class="name">{{player.name}}</div>
+            <div class="score" :class="{'positive': player.score &gt; 0, 'negative': player.score &lt; 0, 'zero': player.score == 0 }"><span class="number">{{player.score}}</span></div>
+          </div>
+        </div>
+      </section>
       <div class="game-by-lemon"><a href="https://ahoylemon.xyz">
           <h3>This game is <span>by Lemon.</span></h3><img src="/svg/lemon.svg" alt="Lemon"/></a></div>
       <section class="final-links"><a href="https://github.com/AhoyLemon/invalid">GitHub Repo.</a><a href="https://kindafun.herokuapp.com">Play Again.</a></section>
@@ -253,6 +254,6 @@
       var socket = io.connect();
       Vue.use(VueToast);
     </script>
-    <script src="js/min/wrongest.min.js?updated2021-00-23@14:31:46"></script>
+    <script src="js/min/wrongest.min.js?updated2021-00-25@12:37:15"></script>
   </div>
 </body>
