@@ -3,7 +3,11 @@
 There's currently two games here.
 
 ## Invalid
-[Here's some info about invalid](https://github.com/AhoyLemon/kindafun/wiki/Invalid)
+![Invalid Logo](https://kinda.fun/img/invalid/og-wide.png)
+
+* [Invalid Wiki](https://github.com/AhoyLemon/kinda.fun/wiki/Invalid)
 
 ## The Wrongest Words
-[Here's some info about The Wrongest Words](https://github.com/AhoyLemon/kindafun/wiki/The-Wrongest-Words)
+![The Wrongest Words Logo](https://kinda.fun/img/wrongest/og-wide.png)
+
+* [The Wrongest Words Wiki](https://github.com/AhoyLemon/kinda.fun/wiki/The-Wrongest-Words)
