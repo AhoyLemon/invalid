@@ -14,23 +14,5 @@ body
     include wrongest/_presenting.pug
     include wrongest/_voting.pug
     include wrongest/_game-over.pug
-    
-  .javascripts
-    if testing
-      script(src="js/libraries/vue.full.js")
-      script.
-        const testing = true;
-    else
-      script(src="js/libraries/vue.min.js")
-      script.
-        const testing = false;
-
-    script(src="js/libraries/howler.min.js")
-    script(src="socket.io/socket.io.js")
-    script(src="https://code.jquery.com/jquery-3.4.1.min.js")
-    script(src="js/libraries/vue-toast-notification.min.js")
-    link(href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet")
-    script.
-      var socket = io.connect();
-      Vue.use(VueToast);
-    script(src="js/min/wrongest.min.js?updated"+lastUpdated)
+  
+  include wrongest/_javascripts.pug
