@@ -15,7 +15,8 @@ socket.on("requestPlayers", function(msg) {
     socket.emit("updatePlayers", {
       roomCode: app.roomCode,
       players: app.players,
-      gameStarted: app.gameStarted
+      gameStarted: app.gameStarted,
+      roundNumber: app.round.number
     });
     console.log("I'm the host! I gave the room all the players I know about!");
   }
