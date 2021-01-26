@@ -21,7 +21,8 @@ app.get('/wrongest', (req, res) => {
 });
 
 
-app.get('/sitemap', (req, res) => {
+app.get('/sitemap.xml', (req, res) => {
+  res.contentType('application/xml');
   res.sendFile(__dirname + '/xml/sitemap.xml');
 });
 
