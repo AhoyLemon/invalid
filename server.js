@@ -20,6 +20,13 @@ app.get('/wrongest', (req, res) => {
   res.sendFile(__dirname + '/html/wrongest.html');
 });
 
+
+app.get('/sitemap', (req, res) => {
+  res.sendFile(__dirname + '/xml/sitemap.xml');
+});
+
+
+
 io.on('connection', (socket) => {
   const socketID = socket.id;
   console.log('a user connected with the ID of'+socketID);

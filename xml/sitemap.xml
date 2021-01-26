@@ -4,18 +4,18 @@
     <loc>https://kinda.fun</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2021-00-26@10:59:10</lastmod>
+    <lastmod>2021-00-26@11:09:21</lastmod>
   </url>
   <url>
     <loc>https://kinda.fun/invalid</loc>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
-    <lastmod>2021-00-26@10:59:10</lastmod>
+    <lastmod>2021-00-26@11:09:21</lastmod>
   </url>
   <url>
     <loc>https://kinda.fun/wrongest</loc>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
-    <lastmod>2021-00-26@10:59:10</lastmod>
+    <lastmod>2021-00-26@11:09:21</lastmod>
   </url>
 </urlset>
