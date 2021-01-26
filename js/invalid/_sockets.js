@@ -140,6 +140,13 @@ socket.on("crashedServer", function(msg) {
   app.round.crash.player = app.players[i];
   app.round.crash.word = msg.pwAttempt;
   app.round.attempts.push(msg);
+
+  app.crashSummary.push({
+    playerIndex: msg.playerIndex,
+    sysAdminIndex:  app.round.sysAdminIndex,
+    word: msg.pwAttempt
+  });
+
   soundSystemCrash.play();
   app.players[app.round.sysAdminIndex].score += settings.points.forServerCrash;
   if (app.my.role == "SysAdmin") {

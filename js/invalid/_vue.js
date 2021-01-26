@@ -65,6 +65,7 @@ var app = new Vue({
     allEmployeePasswords: [],
     //allPlayedRounds: [],
     roundSummary: [],
+    crashSummary: [],
     crackSummary: [],
     ui: {
       appliedForJob: false,
