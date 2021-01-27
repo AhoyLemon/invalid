@@ -326,7 +326,7 @@ var app = new Vue({
           r.message = randomFrom(rulePhrasings.min);
         } else if (rule.name == "Limit Vowels") {
           r.inputValue = self.round.averageVowels + self.round.vowelOffset;
-          r.message = randomFrom(rulePhrasings.min);
+          r.message = randomFrom(rulePhrasings.vowels);
         }
 
         r.message = r.message.replace("[SIZE]", r.inputValue);
