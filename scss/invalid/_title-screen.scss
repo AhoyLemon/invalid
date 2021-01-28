@@ -1,13 +1,28 @@
 .title-screen { display: grid; grid-template-columns: 1fr 80px 1fr; grid-template-rows: 1fr 105px; height: 100vh; background: radial-gradient(#ffffff, #d3d3d3);
-  .logo-holder { grid-column: span 3; display: flex; align-items: center; }
-  figure.logo { width: 100%; max-width: 340px; display: block; margin-left: auto; margin-right: auto;
+  .splash { grid-column: span 3; display: flex; align-items: center; justify-content: center;
+    .inside { width:100%; max-width: 600px; text-align: center; }
+  }
+  figure.logo { width: 100%; max-width: 340px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 2em;
     svg {
       * { fill:#ee2f26; }
     }
     figcaption { font-family: $serif; text-align: center;
       .slogan { font-size: 110%; margin-top:1em; margin-bottom: 1em; }
+    } 
+  }
+  .help-holder { font-family: $serif; margin-top:12em;
+    a { color:$purple; cursor: pointer; font-weight: bold;
+      &:hover { text-decoration: none; }
     }
   }
+  .video-holder {
+    figure.video { width:100%; position: relative; padding-bottom: 56.25%; height: 0;
+      iframe { width:100%; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    }
+    figcaption { padding-top:10px;  }
+    button { font-family: $serif; font-size:18px; background:transparent; color:$purple; border:none; cursor: pointer;}
+  }
+  
   .create { text-align: right;
     button { font-size:36px; background:transparent; color:#b39153; font-family: $serif; border:none; cursor: pointer; line-height: 95%; padding:10px; border-bottom: 3px solid transparent;
       &:hover, &:focus { color: orange; }

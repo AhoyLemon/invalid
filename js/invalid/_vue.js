@@ -89,7 +89,8 @@ var app = new Vue({
         inputValueTwo: ''
       },
       enterFinalPasswords: false,
-      passwordSuccessMessage: null
+      passwordSuccessMessage: null,
+      watchingVideo: false,
     },
     // TODO: Deprecate this?
     messages: []
