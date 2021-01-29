@@ -155,8 +155,20 @@ var app = new Vue({
 
     changeDeck() {
       const self = this;
-      let chosenDeck = self.allDecks.filter(deck => deck.name == self.ui.deckName);
-      self.chosenDeck = chosenDeck[0];
+      if (self.ui.deckName == "EVERYTHING!") {
+        let cardStack = [];
+        self.allDecks.forEach(function(deck) {
+          cardStack = cardStack.concat(deck.cards);
+        });
+        self.chosenDeck = {
+          name: "EVERYTHING!",
+          description: "I don't wanna choose! Just shuffle in all the cards and let's see what happens...",
+          cards: cardStack
+        };
+      } else {
+        let chosenDeck = self.allDecks.filter(deck => deck.name == self.ui.deckName);
+        self.chosenDeck = chosenDeck[0];
+      }
     },
 
     startTheGame() {
