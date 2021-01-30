@@ -41,6 +41,7 @@ var app = new Vue({
       votesSubmitted: 0
     },
     ui: {
+      watchingVideo: false,
       nameEntered: false,
       deckName: "",
       upVoteIndex: -1,

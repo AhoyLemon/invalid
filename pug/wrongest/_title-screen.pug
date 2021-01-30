@@ -1,9 +1,22 @@
 .title-screen(v-if="!inRoom")
 
-  .logo-holder
-    figure.logo
-      img(src="/svg/wrongest.svg")
-  
+  .splash
+    .inside 
+      .logo-holder
+        figure.logo
+          img(src="/svg/wrongest.svg")
+
+      .help-holder(v-if="!ui.watchingVideo")
+        strong Need instructions? 
+        a(@click="ui.watchingVideo = true") Click here.
+        br
+        | I promise I'll try to make it quick.
+      .video-holder(v-if="ui.watchingVideo")
+        figure.video
+          iframe#ytplayer(type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&controls=0&fs=0&modestbranding=1&playsinline=1&color=white" frameborder="0" allowfullscreen)
+        figcaption
+          button.close-video(@click="ui.watchingVideo = false") Okay, close this video. 
+
   .create
     button(@click="createRoom()") Create a New Room
   

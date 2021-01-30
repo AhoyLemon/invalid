@@ -96,8 +96,21 @@
 <body>
   <div id="app" v-cloak="v-cloak">
     <div class="title-screen" v-if="!inRoom">
-      <div class="logo-holder">
-        <figure class="logo"><img src="/svg/wrongest.svg"/></figure>
+      <div class="splash">
+        <div class="inside"> 
+          <div class="logo-holder">
+            <figure class="logo"><img src="/svg/wrongest.svg"/></figure>
+          </div>
+          <div class="help-holder" v-if="!ui.watchingVideo"><strong>Need instructions? </strong><a @click="ui.watchingVideo = true">Click here.</a><br/>I promise I'll try to make it quick.</div>
+          <div class="video-holder" v-if="ui.watchingVideo">
+            <figure class="video">
+              <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+            </figure>
+            <figcaption>
+              <button class="close-video" @click="ui.watchingVideo = false">Okay, close this video. </button>
+            </figcaption>
+          </div>
+        </div>
       </div>
       <div class="create">
         <button @click="createRoom()">Create a New Room</button>
@@ -117,7 +130,17 @@
         <div class="display">{{roomCode}}</div>
         <div class="how-to-share" v-if="isRoomHost || players.length &gt; 0">Share this URL to invite your friends to play.</div>
       </div>
-      <div class="nobody-here" v-if="!isRoomHost &amp;&amp; players.length &lt; 1">
+      <div class="video-holder" v-if="ui.watchingVideo">
+        <div class="inside">
+          <figure class="video">
+            <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+          </figure>
+          <figcaption>
+            <button @click="ui.watchingVideo = false">Okay, close this video.</button>
+          </figcaption>
+        </div>
+      </div>
+      <div class="nobody-here" v-else-if="!isRoomHost &amp;&amp; players.length &lt; 1">
         <div class="inside">
           <div class="content">
             <h2>There's nobody here.</h2>
@@ -125,7 +148,7 @@
           </div>
         </div>
       </div>
-      <div class="sign-in" v-if="(isRoomHost || players.length &gt; 0) &amp;&amp; !gameStarted">
+      <div class="sign-in" v-else-if="(isRoomHost || players.length &gt; 0) &amp;&amp; !gameStarted">
         <div class="inside">
           <form class="pregame-form" @submit.prevent="updateMyInfo()">
             <fieldset>
@@ -164,7 +187,7 @@
         </div>
       </div>
       <div class="instructions-banner">
-        <div class="banner-inside"><strong>Need instructions? </strong><a href="https://github.com/AhoyLemon/kinda.fun/wiki/The-Wrongest-Words" target="_blank">Click here.</a><br/>I promise I'll try to make it quick.</div>
+        <div class="banner-inside"><strong>Need instructions? </strong><a @click="ui.watchingVideo = true">Click here.</a><br/>I promise I'll try to make it quick.</div>
       </div>
     </div>
     <main class="player-list" v-if="gameStarted &amp;&amp; round.phase == 'presenting' &amp;&amp; !computedAmIPresenting">
@@ -318,7 +341,21 @@
       var socket = io.connect();
       Vue.use(VueToast);
     </script>
-    <script src="js/min/wrongest.min.js?updated2021-00-26@12:46:13"></script>
+    <script src="js/min/wrongest.min.js?updated2021-00-30@15:54:20"></script>
+    <script type="text/javascript">
+      var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u="https://thefpl.us/analytics/";
+          _paq.push(['setTrackerUrl', u+'matomo.php']);
+          _paq.push(['setSiteId', '3']);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+      
+    </script>
     <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
     <script>
       TrackJS.install({
