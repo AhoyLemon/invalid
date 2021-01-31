@@ -295,6 +295,8 @@ var app = new Vue({
         challenge: self.round.challenge
       });
 
+      sendEvent("Invalid", "Challenge Selected", self.round.challenge.name);
+
     },
 
     chooseRule(rule) {
@@ -808,6 +810,8 @@ var app = new Vue({
           result: "crash"
         });
 
+        sendEvent("Invalid", "Server Crashed", attempt);
+
       } else if (correctAnswer) {
         soundCorrectGuess.play();
         self.passwordSuccess(attempt);
@@ -1001,6 +1005,7 @@ var app = new Vue({
                 victimIndex: self.my.playerIndex
               }
             });
+            sendEvent("Invalid", "Self-pwn", attempt);
           } else if (p.claimed) {
             soundTooSlow.play();
             passwordClaimed = true;
@@ -1036,6 +1041,7 @@ var app = new Vue({
             victimIndex: pwPlayerIndex
           }
         });
+        sendEvent("Invalid", "Password Cracked", attempt);
 
         if (self.computedUnclaimedPasswords < 1) {
           self.setGameOver();

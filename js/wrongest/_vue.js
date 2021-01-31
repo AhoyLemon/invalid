@@ -294,7 +294,11 @@ var app = new Vue({
         downVoteIndex: self.ui.downVoteIndex,
         upVoteIndex: self.ui.upVoteIndex,
       });
+
       self.ui.iVoted = true;
+
+      sendEvent("The Wrongest Words", "Upvote", self.cardsPresented[self.ui.upVoteIndex].card);
+      sendEvent("The Wrongest Words", "Downvote", self.cardsPresented[self.ui.downVoteIndex].card);
     },
 
     startNextRound() {
