@@ -55,6 +55,9 @@ socket.on("startTheGame", function(msg) {
   }
 
   changeFavicon("wrongest/favicons/favicon.ico");
+  if (app.isRoomHost) {
+    sendEvent("The Wrongest Words", "Game Started", app.roomCode);
+  }
 });
 
 
@@ -146,5 +149,9 @@ socket.on("gameOver", function(msg) {
   resetUIVariables();
   app.round.phase = "GAME OVER";
   app.gameOver = true;
+
+  if (app.isRoomHost) {
+    sendEvent("The Wrongest Words", "Game Over", app.roomCode);
+  }
 
 });

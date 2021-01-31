@@ -80,6 +80,10 @@ socket.on("startTheGame", function(msg) {
   } else {
     document.title = app.my.name + " | " + gameTitle;
   }
+
+  if (app.isRoomHost) {
+    sendEvent("Invalid", "Game Started", app.roomCode);
+  }
 });
 
 // The SysAdmin has picked a password challenge.
@@ -154,6 +158,11 @@ socket.on("crashedServer", function(msg) {
   }
   app.endTheGuessingRound();
   app.killThePig();
+
+  if (app.isRoomHost) {
+    sendEvent("Invalid", "Server Crashed", msg.pwAttempt);
+  }
+
 });
 
 // Some player (other than me) successfully guessed a password.
@@ -268,6 +277,11 @@ socket.on("passwordCracked", function(msg) {
   app.players = msg.players;
   app.allEmployeePasswords = msg.allEmployeePasswords;
   app.crackSummary.push(msg.crackSummary);
+  
+  if (app.isRoomHost) {
+    sendEvent("Invalid", "Server Crashed", msg.crackSummary.pw);
+  }
+
 });
 
 // Some player (could be anyone) said the game is over.
@@ -277,5 +291,8 @@ socket.on("gameOver", function(msg) {
   console.log("GAME OVER ⚰️");
   //app.setGameOver();
   app.players[msg.playerIndex].passwordAttempts = msg.passwordAttempts;
+  if (app.isRoomHost) {
+    sendEvent("Invalid", "Game Over", app.roomCode);
+  }
 
 });
