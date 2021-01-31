@@ -82,7 +82,7 @@ socket.on("startTheGame", function(msg) {
   }
 
   if (app.isRoomHost) {
-    sendEvent("Invalid", "Game Started", app.roomCode);
+    sendEvent("Invalid", "Game Started", app.roomCode, msg.players.length);
   }
 });
 
@@ -91,6 +91,9 @@ socket.on("updatePasswordChallenge", function(msg) {
   console.log("I (an employee) have been informed of the password challenge.");  
   app.round.challenge = msg.challenge;
   soundNewRule.play();
+  if (app.isRoomHost) {
+    sendEvent("Invalid", "Challenge Selected", msg.challenge.name);
+  }
 });
 
 // The SysAdmin has set a new rule.
@@ -279,7 +282,7 @@ socket.on("passwordCracked", function(msg) {
   app.crackSummary.push(msg.crackSummary);
   
   if (app.isRoomHost) {
-    sendEvent("Invalid", "Server Crashed", msg.crackSummary.pw);
+    sendEvent("Invalid", "Password Cracked", msg.crackSummary.pw);
   }
 
 });

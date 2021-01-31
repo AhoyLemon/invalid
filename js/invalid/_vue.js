@@ -188,6 +188,7 @@ var app = new Vue({
         }
       });
       document.title =  self.my.name + " | " + gameTitle;
+      _paq.push(['setUserId', self.my.name]);
 
       if (self.my.playerIndex < 0) {
         alert('could not get a player index. this is a bug. this should not happen.');
@@ -373,7 +374,6 @@ var app = new Vue({
       return buttonDisabled;
     },
 
-
     saveRule(rule) {
       const self = this;
       let r = {
@@ -489,6 +489,7 @@ var app = new Vue({
       if (self.round.bugs && self.round.bugs.length > 0) {
         self.my.rulebux -= 1;
       }
+      
 
       self.ui.addBug = '';
       self.round.bugs.push(bug);
@@ -497,6 +498,12 @@ var app = new Vue({
         roomCode: self.roomCode,
         bugs: self.round.bugs
       });
+
+      if (app.isRoomHost) {
+        sendEvent("Invalid", "Add Bug", bug);
+      }
+
+      
     },
 
     onboardEmployees() {
@@ -958,7 +965,7 @@ var app = new Vue({
       });
 
     },
-
+    
     ////////////////////////////////////////////////////////////////
     // Final Round stuff.
 
