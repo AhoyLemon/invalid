@@ -105,6 +105,16 @@ var app = new Vue({
 
     },
 
+    watchVideo() {
+      const self = this;
+      self.ui.watchingVideo = true;
+      if (self.inRoom) {
+        sendEvent("The Wrongest Words", "Instruction Video", "Pregame Screen");
+      } else {
+        sendEvent("The Wrongest Words", "Instruction Video", "Title Screen");
+      }
+    },
+
     ////////////////////////////////////////
     // Pregame
     updateMyInfo() {

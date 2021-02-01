@@ -154,6 +154,16 @@ var app = new Vue({
     /////////////////////////////////////////////////////////////////////
     // BEFORE GAME (game hasn't started yet)
 
+    watchVideo() {
+      const self = this;
+      self.ui.watchingVideo = true;
+      if (self.currentlyInGame) {
+        sendEvent("Invalid", "Instruction Video", "Pregame Screen");
+      } else {
+        sendEvent("Invalid", "Instruction Video", "Title Screen");
+      }
+    },
+
     updatePlayer() {
       const self = this;
       

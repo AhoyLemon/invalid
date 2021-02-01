@@ -101,7 +101,7 @@
           <div class="logo-holder">
             <figure class="logo"><img src="/svg/wrongest.svg"/></figure>
           </div>
-          <div class="help-holder" v-if="!ui.watchingVideo"><strong>Need instructions? </strong><a @click="ui.watchingVideo = true">Click here.</a><br/>I promise I'll try to make it quick.</div>
+          <div class="help-holder" v-if="!ui.watchingVideo"><strong>Need instructions? </strong><a @click="watchVideo()">Click here.</a><br/>I promise I'll try to make it quick.</div>
           <div class="video-holder" v-if="ui.watchingVideo">
             <figure class="video">
               <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
@@ -187,7 +187,7 @@
         </div>
       </div>
       <div class="instructions-banner">
-        <div class="banner-inside"><strong>Need instructions? </strong><a @click="ui.watchingVideo = true">Click here.</a><br/>I promise I'll try to make it quick.</div>
+        <div class="banner-inside"><strong>Need instructions? </strong><a @click="watchVideo()">Click here.</a><br/>I promise I'll try to make it quick.</div>
       </div>
     </div>
     <main class="player-list" v-if="gameStarted &amp;&amp; round.phase == 'presenting' &amp;&amp; !computedAmIPresenting">
@@ -341,7 +341,7 @@
       var socket = io.connect();
       Vue.use(VueToast);
     </script>
-    <script src="js/min/wrongest.min.js?updated2021-00-30@15:54:20"></script>
+    <script src="js/min/wrongest.min.js?updated2021-01-01@09:48:10"></script>
     <script type="text/javascript">
       var _paq = window._paq = window._paq || [];
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
