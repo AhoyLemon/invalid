@@ -35,7 +35,7 @@ const settings = {
     employeeMaxTime: 50,
     hurryTime: 20,
     adminTimeLeft: 90,
-    countdownToFinal: 5,
+    countdownToFinal: 30,
     finalRound: 60,
     finalTimeLeft: 60,
   }

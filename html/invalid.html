@@ -9,7 +9,7 @@
     <link href="/css/invalid.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-01-01@09:44:56">
+    <meta http-equiv="last-modified" content="2021-01-01@13:19:56">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/invalid/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/invalid/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/invalid/favicon-16x16.png">
@@ -726,6 +726,47 @@ EMpoyeeNAME:         {{round.crash.player.name}}
             </div>
           </div>
         </section>
+        <h2>Employee Awards</h2>
+        <section class="awards-section">
+          <div class="awards">
+            <div class="award" v-if="computedCheevos.mostPasswords &amp;&amp; computedCheevos.mostPasswords.name != 'TIE'">
+              <figure class="icon"><img src="svg/old_pig_227287.svg"></figure>
+              <div class="award-name">Model Employee</div>
+              <div class="recipient">{{computedCheevos.mostPasswords.name}}</div>
+              <div class="description">Successfully created {{computedCheevos.mostPasswords.passwordsCreated}} passwords</div>
+            </div>
+            <div class="award" v-if="computedCheevos.bestCracker &amp;&amp; computedCheevos.bestCracker.name != 'TIE'">
+              <figure class="icon"><img src="svg/noun_punk_pig_227290.svg"></figure>
+              <div class="award-name">Supercracker</div>
+              <div class="recipient">{{computedCheevos.bestCracker.name}}</div>
+              <div class="description">Cracked {{computedCheevos.bestCracker.cracks}} passwords</div>
+            </div>
+            <div class="award" v-if="computedCheevos.mostCracked &amp;&amp; computedCheevos.mostCracked.name != 'TIE'">
+              <figure class="icon"><img src="svg/doomed_pig.svg"></figure>
+              <div class="award-name">Supervictim</div>
+              <div class="recipient">{{computedCheevos.mostCracked.name}}</div>
+              <div class="description">Password cracked {{computedCheevos.mostCracked.cracked}} times.</div>
+            </div>
+            <div class="award" v-if="computedCheevos.mostSelfPwns &amp;&amp; computedCheevos.mostSelfPwns.name != 'TIE'">
+              <figure class="icon"><img src="svg/noun_derp_pig_227284.svg"></figure>
+              <div class="award-name">SELF-PWNED</div>
+              <div class="recipient">{{computedCheevos.mostSelfPwns.name}}</div>
+              <div class="description">Cracked their own password<span v-if="computedCheevos.mostSelfPwns.selfPwn &gt; 1"> {{computedCheevos.mostSelfPwns.selfPwn}} times</span></div>
+            </div>
+            <div class="award" v-if="computedCheevos.mostCrashes &amp;&amp; computedCheevos.mostCrashes.name != 'TIE'">
+              <figure class="icon"><img src="svg/noun_dead_pig_227289.svg"></figure>
+              <div class="award-name">CRASH HAPPY</div>
+              <div class="recipient">{{computedCheevos.mostCrashes.name}}</div>
+              <div class="description">Crashed the system<span v-if="computedCheevos.mostCrashes.crashesCaused &gt; 1"> {{computedCheevos.mostCrashes.crashesCaused}} times</span></div>
+            </div>
+            <div class="award" v-if="computedCheevos.mostAttempts &amp;&amp; computedCheevos.mostAttempts.name != 'TIE'">
+              <figure class="icon"><img src="svg/noun_suspicious_pig_227293.svg"></figure>
+              <div class="award-name">Quickie Fingers</div>
+              <div class="recipient">{{computedCheevos.mostAttempts.name}}</div>
+              <div class="description">Attempted {{computedCheevos.mostAttempts.passwordAttempts}} passwords</div>
+            </div>
+          </div>
+        </section>
         <h2>And so, the scores...</h2>
         <section class="final-scores">
           <div class="players">
@@ -755,7 +796,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         Vue.use(VueToast);
         
       </script>
-      <script src="js/min/invalid.min.js?updated2021-01-01@09:44:56"></script>
+      <script src="js/min/invalid.min.js?updated2021-01-01@13:19:56"></script>
       <script type="text/javascript">
         var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
