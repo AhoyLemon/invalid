@@ -80,10 +80,6 @@ socket.on("startTheGame", function(msg) {
   } else {
     document.title = app.my.name + " | " + gameTitle;
   }
-
-  if (app.isRoomHost) {
-    sendEvent("Invalid", "Game Started", app.roomCode);
-  }
 });
 
 // The SysAdmin has picked a password challenge.

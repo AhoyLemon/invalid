@@ -252,7 +252,8 @@ var app = new Vue({
         sysAdminIndex: self.my.playerIndex,
         allowNaughty: self.allowNaughty
       });
-
+      
+      sendEvent("Invalid", "Game Started", self.roomCode);
     },
 
     ////////////////////////////////////////////////////////////////
@@ -328,6 +329,39 @@ var app = new Vue({
         });
         socket.emit('summonThePig',{
           roomCode: self.roomCode,
+        });
+
+      } else if (rule.name == "Peek At Answers") {
+
+        let shuffledAnswers = shuffle(self.round.challenge.possible);
+        let answerHTML = "";
+        let i = 0;
+        while (i < 5) {
+          answerHTML += '<li>'+ shuffledAnswers[i] +'</li>';
+          i++;
+        }
+
+        let instance = Vue.$toast.open(
+          {
+            message: "<h3> 5 Random "+self.round.challenge.name+"</h3><ul>"+answerHTML+"</ul>",
+            type: "info",
+            duration: 50000,
+            position: "top-right"
+          }
+        );
+        // Pay for it.
+        self.my.rulebux = (self.my.rulebux - rule.cost);
+
+        self.round.rules.push({
+          type: "Peek At Answers",
+          message: self.my.name + " peeked at the answers",
+          inputValue: "",
+          inputValueTwo: ""
+        });
+        socket.emit("updatePasswordRules", {
+          roomCode: self.roomCode,
+          rules: self.round.rules,
+          shibboleth: self.round.shibboleth
         });
 
       } else if (rule.name == "Set A Maximum" || rule.name == "Set A Minimum" || rule.name == "Limit Vowels") {
@@ -1291,7 +1325,7 @@ var app = new Vue({
     
     /////////////////////////////////////////////
     // FAKE A SYSADMIN
-    /*
+    
     self.my.role = "SysAdmin";
     self.my.name = "Lemon";
     self.my.playerIndex = 0;
@@ -1306,7 +1340,7 @@ var app = new Vue({
     self.maxRounds = 6;
     self.round.phase = "choose rules";
     self.definePossibleChallenges();
-    */
+    
 
     /////////////////////////////////////////////
     // FAKE AN EMPLOYEE
