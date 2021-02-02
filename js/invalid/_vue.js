@@ -8,7 +8,7 @@ var app = new Vue({
     roomCode: "",
     gameName: "invalid",
     isRoomHost: false,
-    rules: rules,
+    //rules: rules,
     maxRounds: 0,
     allowNaughty: false,
     my: {
@@ -252,7 +252,7 @@ var app = new Vue({
         sysAdminIndex: self.my.playerIndex,
         allowNaughty: self.allowNaughty
       });
-      
+
       sendEvent("Invalid", "Game Started", self.roomCode);
     },
 
@@ -1325,7 +1325,7 @@ var app = new Vue({
     
     /////////////////////////////////////////////
     // FAKE A SYSADMIN
-    
+    /*
     self.my.role = "SysAdmin";
     self.my.name = "Lemon";
     self.my.playerIndex = 0;
@@ -1340,7 +1340,7 @@ var app = new Vue({
     self.maxRounds = 6;
     self.round.phase = "choose rules";
     self.definePossibleChallenges();
-    
+    */ 
 
     /////////////////////////////////////////////
     // FAKE AN EMPLOYEE
