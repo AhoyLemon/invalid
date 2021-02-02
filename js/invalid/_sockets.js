@@ -193,7 +193,7 @@ socket.on("roundOver", function() {
   app.resetHurryTimer();
   app.resetRoundTimer();
   app.killThePig();
-  
+  Vue.$toast.clear();
 });
 
 
