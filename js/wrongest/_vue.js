@@ -206,6 +206,8 @@ var app = new Vue({
         maxRounds: self.maxRounds,
         chosenDeckName: self.chosenDeck.name
       });
+
+      sendEvent("The Wrongest Words", "Game Started", self.roomCode);
     },
     ////////////////////////////////////////
     // In Game

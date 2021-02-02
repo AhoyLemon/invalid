@@ -17,6 +17,20 @@
               | For 2 or more players.
               br
               | (but best with 4 - 8)
+          script(type="application/ld+json").
+            {
+              "@context": "http://schema.org",
+              "@type": "VideoGame",
+              "name": "Invalid",
+              "url": "https://kinda.fun/invalid",
+              "image": "https://kinda.fun/img/og-invalid.png",
+              "playMode": "MultiPlayer",
+              "applicationCategory": "browser game",
+              "gamePlatform": "web browser",
+              "operatingSystem": "web browser",
+              "genre": "comedy",
+              "description": "A trivia game of unnecessary suffering.",
+            }
         
         .game(:class="{ active: (gameChoice == 'wrongest'), inactive: (gameChoice && gameChoice != 'wrongest') }")
           figure.logo(@click="gameChoice = 'wrongest'")
@@ -27,6 +41,20 @@
               | For 3 or more players.
               br
               | (but best with 5 - 10)
+          script(type="application/ld+json").
+            {
+              "@context": "http://schema.org",
+              "@type": "VideoGame",
+              "name": "The Wrongest Words",
+              "url": "https://kinda.fun/wrongest",
+              "image": "https://kinda.fun/img/og-wrongest.png",
+              "playMode": "MultiPlayer",
+              "applicationCategory": "browser game",
+              "gamePlatform": "web browser",
+              "operatingSystem": "web browser",
+              "genre": "comedy",
+              "description": "You're going to defend some very stupid ideas.",
+            }
 
   .create-or-join(v-if="gameChoice")
     .options
