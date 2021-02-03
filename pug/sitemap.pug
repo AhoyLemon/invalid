@@ -1,0 +1,19 @@
+doctype xml
+include start/_variables.pug
+
+urlset(xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
+  url
+    loc #{siteURL}
+    changefreq weekly
+    priority 0.5
+    lastmod= lastUpdated
+
+  url
+    loc #{siteURL}/invalid
+    changefreq weekly
+    priority 1
+
+  url
+    loc #{siteURL}/wrongest
+    changefreq weekly
+    priority 1

@@ -1,5 +1,5 @@
 const gameTitle = "Invalid!";
-const siteURL = "";
+const siteURL = "https://kinda.fun";
 const playerID = randomNumber(1,100);
 const employeeNumberSeed = randomNumber(10000,99999);
 
@@ -18,7 +18,7 @@ const defaults = {
 
 const settings = {
   default: {
-    rulebux: 777,
+    rulebux: 7,
     numberOfPossibleChallenges: 5,
   },
   points: {
@@ -110,6 +110,7 @@ function resetUI() {
   app.ui.passwordSuccessMessage = null;
 }
 
+/*
 const rules = [
   {
     name: "Demand A Letter",
@@ -140,6 +141,7 @@ const rules = [
     cost: 1
   }
 ];
+*/
 
 
 const rulePhrasings= {
@@ -170,8 +172,12 @@ const rulePhrasings= {
 
 const flyingPigLines = {
   intro: [
-    "Entering in a password, huh?<br /><br />Well, I'm <code>THE FLYING PIG</code>, and I'm here to give you in helpful suggestions!",
-    "Hey, it's me!<br /><br />I'm <code>THE FLYING PIG</code>, and I'm here to give you in helpful suggestions!"
+    "Entering in a password, huh?<br /><br />Well, I'm <code>THE FLYING PIG</code>, and I'm here to give you helpful suggestions!",
+    "Hey, it's me!<br /><br />I'm <code>THE FLYING PIG</code>, and I'm here to give you helpful suggestions!",
+    "Hello there!<br /><br />I'm <code>THE FLYING PIG</code>, and we're going to figure out a GREAT password together!",
+    "Uh oh!<br /><br />Looks like you need help entering a password. I'm <code>THE FLYING PIG</code>!!!",
+    "Здравствуйте worker!<br /><br />I'm <code>THE FLYING PIG</code> and I'm going to help you come up with a password!",
+    "Wow, what a complicated set of rules.<br /><br />But look at me! I'm <code>THE FLYING PIG</code>!"
   ],
   beforeGame: [
     "Don't worry about any of these rules, <code>THE FLYING PIG</code> is here, and I'll give you all sorts of helpful suggestions!",

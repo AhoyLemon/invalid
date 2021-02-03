@@ -58,6 +58,17 @@ main.game-over { font-family: $serif; background:#e4e72c; min-height: 100vh;
     // .crack-headline { grid-column: 1 / -1; }
   }
 
+  .awards-section { background:#111; padding:$gap;
+    .awards { display:flex; overflow-y: auto; padding-bottom: $padding; }
+    .award { background:white; flex-basis: 380px; margin-right:40px; padding:$padding; display:grid; grid-template-columns: 80px 1fr; gap:5px; flex-shrink: 0;
+      .icon { grid-column: 1; grid-row: span 3; }
+      .award-name { text-transform: uppercase; font-size:140%; letter-spacing: 0.05em; padding-top:25px; }
+      .recipient { font-size:120%; font-weight: 900; }
+      .description { font-style: italic; }
+      //-.icon { display:none; }
+    }
+  }
+
 
   .final-scores { background:#111; padding:$gap;
     .players { display:flex; overflow-y: auto; padding-bottom: $padding; }

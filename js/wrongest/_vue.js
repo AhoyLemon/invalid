@@ -41,6 +41,7 @@ var app = new Vue({
       votesSubmitted: 0
     },
     ui: {
+      watchingVideo: false,
       nameEntered: false,
       deckName: "",
       upVoteIndex: -1,
@@ -104,6 +105,16 @@ var app = new Vue({
 
     },
 
+    watchVideo() {
+      const self = this;
+      self.ui.watchingVideo = true;
+      if (self.inRoom) {
+        sendEvent("The Wrongest Words", "Instruction Video", "Pregame Screen");
+      } else {
+        sendEvent("The Wrongest Words", "Instruction Video", "Title Screen");
+      }
+    },
+
     ////////////////////////////////////////
     // Pregame
     updateMyInfo() {
@@ -141,6 +152,8 @@ var app = new Vue({
       if (self.my.playerIndex < 0) {
         alert('WARNING: I have a player index of '+self.my.playerIndex+'! This should not happen. I am a bug.');
       }
+      _paq.push(['setUserId', self.my.name]);
+      
     },
 
     sendPlayerUpdate() {
@@ -155,8 +168,20 @@ var app = new Vue({
 
     changeDeck() {
       const self = this;
-      let chosenDeck = self.allDecks.filter(deck => deck.name == self.ui.deckName);
-      self.chosenDeck = chosenDeck[0];
+      if (self.ui.deckName == "EVERYTHING!") {
+        let cardStack = [];
+        self.allDecks.forEach(function(deck) {
+          cardStack = cardStack.concat(deck.cards);
+        });
+        self.chosenDeck = {
+          name: "EVERYTHING!",
+          description: "I don't wanna choose! Just shuffle in all the cards and let's see what happens...",
+          cards: cardStack
+        };
+      } else {
+        let chosenDeck = self.allDecks.filter(deck => deck.name == self.ui.deckName);
+        self.chosenDeck = chosenDeck[0];
+      }
     },
 
     startTheGame() {
@@ -181,6 +206,8 @@ var app = new Vue({
         maxRounds: self.maxRounds,
         chosenDeckName: self.chosenDeck.name
       });
+
+      sendEvent("The Wrongest Words", "Game Started", self.roomCode);
     },
     ////////////////////////////////////////
     // In Game
@@ -279,7 +306,11 @@ var app = new Vue({
         downVoteIndex: self.ui.downVoteIndex,
         upVoteIndex: self.ui.upVoteIndex,
       });
+
       self.ui.iVoted = true;
+
+      sendEvent("The Wrongest Words", "Upvote", self.cardsPresented[self.ui.upVoteIndex].card);
+      sendEvent("The Wrongest Words", "Downvote", self.cardsPresented[self.ui.downVoteIndex].card);
     },
 
     startNextRound() {
@@ -487,6 +518,7 @@ var app = new Vue({
     self.players = [{"name":"Four","socketID":"amu153xNcGNFYbrNAAAZ","card":"Clowns are {sexy.}","score":2},{"name":"One","socketID":"H3VJpdzS0oFvU2KnAAAT","card":"Laura Ingalls Wilder is {God.}","score":4},{"name":"Two","socketID":"Q0Jb1qZaIjel8a3iAAAV","card":"Ice is the {natural enemy of} bottled water.","score":-4},{"name":"Three","socketID":"d-BI3QtAXf0XxMTuAAAX","card":"Women were {made to be} spanked by men.","score":-2}];
     self.statementHistory = [{"card":"{Man used to live} for hundreds of years disease free.","playerIndex":0,"playerName":"One","score":0},{"card":"Jelqing (manually wringing blood into your penis) {is positively REQUIRED just prior to sex.}","playerIndex":1,"playerName":"Two","score":0},{"card":"The first polio vaccine, the Salk vaccine{, was a total disaster}.","playerIndex":2,"playerName":"Three","score":-3},{"card":"{It is legal to} post nude photos of someone without their consent.","playerIndex":3,"playerName":"Four","score":3},{"card":"It's almost impossible to quit {giving yourself wedgies.}","playerIndex":0,"playerName":"Two","score":-1},{"card":"The inner penis {is before} the outer penis of course.","playerIndex":1,"playerName":"Three","score":-1},{"card":"There is no difference between night dreams and daytime dreams {except about elephant.}","playerIndex":2,"playerName":"Four","score":1},{"card":"{Leonardo DiCaprio's salary} is bankrupting America.","playerIndex":3,"playerName":"One","score":1},{"card":"The Latino people have never had {a revolution.}","playerIndex":0,"playerName":"Three","score":3},{"card":"I was having sex with my ladyfriend {and we're both prego.}","playerIndex":1,"playerName":"Four","score":-3},{"card":"We don't know how to make fat people {into thin people or how to make thin people into fat people.}","playerIndex":2,"playerName":"One","score":0},{"card":"No one on Earth is {gay.}","playerIndex":3,"playerName":"Two","score":0}];
     */
+    
   }
 
 

@@ -166,19 +166,6 @@ const allDecks = [
   {
     name: "EVERYTHING!",
     description: "I don't wanna choose! Just shuffle in all the cards and let's see what happens..."
-  },
-
-  //////////////////////////////////////////
-  // RANDOM
-  {
-    name: "Insufficient",
-    description: "This is gonna crash the game.",
-    cards: [
-      "Froot Loops are spelled that way because the cereal contains {blood.}",
-      "Spaghetti and Meatballs is known as {Pasketti and Meatbulbs} in Italy.",
-      "{A barn owl} is the only animal on earth that can feel love.",
-      "No one understands how {drums} work.",
-    ]
-  },
+  }
 
 ];

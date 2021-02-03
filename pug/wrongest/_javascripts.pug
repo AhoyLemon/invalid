@@ -1,0 +1,41 @@
+.javascripts
+  if testing
+    script(src="js/libraries/vue.full.js")
+    script.
+      const testing = true;
+  else
+    script(src="js/libraries/vue.min.js")
+    script.
+      const testing = false;
+
+  script(src="js/libraries/howler.min.js")
+  script(src="socket.io/socket.io.js")
+  script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+  script(src="js/libraries/vue-toast-notification.min.js")
+  link(href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet")
+  script.
+    var socket = io.connect();
+    Vue.use(VueToast);
+  script(src="js/min/wrongest.min.js?updated"+lastUpdated)
+
+  //-  Matomo 
+  script(type="text/javascript").
+    var _paq = window._paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://thefpl.us/analytics/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '3']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+
+  //- TrackJS
+  script(src="https://cdn.trackjs.com/agent/v3/latest/t.js")
+  script.
+    TrackJS.install({
+        token: "9947e081831c42b8aeb3a5fb81a152c4",
+        application: "kindafun"
+      });

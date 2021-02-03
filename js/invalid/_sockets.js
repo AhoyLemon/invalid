@@ -140,6 +140,13 @@ socket.on("crashedServer", function(msg) {
   app.round.crash.player = app.players[i];
   app.round.crash.word = msg.pwAttempt;
   app.round.attempts.push(msg);
+
+  app.crashSummary.push({
+    playerIndex: msg.playerIndex,
+    sysAdminIndex:  app.round.sysAdminIndex,
+    word: msg.pwAttempt
+  });
+
   soundSystemCrash.play();
   app.players[app.round.sysAdminIndex].score += settings.points.forServerCrash;
   if (app.my.role == "SysAdmin") {
@@ -186,7 +193,7 @@ socket.on("roundOver", function() {
   app.resetHurryTimer();
   app.resetRoundTimer();
   app.killThePig();
-  
+  Vue.$toast.clear();
 });
 
 
@@ -270,5 +277,8 @@ socket.on("gameOver", function(msg) {
   console.log("GAME OVER ⚰️");
   //app.setGameOver();
   app.players[msg.playerIndex].passwordAttempts = msg.passwordAttempts;
+  if (app.isRoomHost) {
+    sendEvent("Invalid", "Game Over", app.roomCode);
+  }
 
 });

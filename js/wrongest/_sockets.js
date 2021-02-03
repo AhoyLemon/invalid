@@ -15,7 +15,8 @@ socket.on("requestPlayers", function(msg) {
     socket.emit("updatePlayers", {
       roomCode: app.roomCode,
       players: app.players,
-      gameStarted: app.gameStarted
+      gameStarted: app.gameStarted,
+      roundNumber: app.round.number
     });
     console.log("I'm the host! I gave the room all the players I know about!");
   }
@@ -145,5 +146,9 @@ socket.on("gameOver", function(msg) {
   resetUIVariables();
   app.round.phase = "GAME OVER";
   app.gameOver = true;
+
+  if (app.isRoomHost) {
+    sendEvent("The Wrongest Words", "Game Over", app.roomCode);
+  }
 
 });

@@ -5,13 +5,20 @@
     .display {{roomCode}}
     .how-to-share(v-if="isRoomHost || players.length > 0") Share this URL to invite your friends to play.
 
-  .nobody-here(v-if="!isRoomHost && players.length < 1")
+  .video-holder(v-if="ui.watchingVideo")
+    .inside
+      figure.video
+        iframe#ytplayer(type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&controls=0&fs=0&modestbranding=1&playsinline=1&color=white" frameborder="0" allowfullscreen)
+      figcaption
+        button(@click="ui.watchingVideo = false") Okay, close this video.
+
+  .nobody-here(v-else-if="!isRoomHost && players.length < 1")
     .inside
       .content
         h2 There's nobody here.
         p Either you have the wrong room code, or your host hasn't entered their name yet.
 
-  .sign-in(v-if="(isRoomHost || players.length > 0) && !gameStarted")
+  .sign-in(v-else-if="(isRoomHost || players.length > 0) && !gameStarted")
 
     .inside
       form.pregame-form(@submit.prevent="updateMyInfo()")
@@ -55,6 +62,6 @@
   .instructions-banner
     .banner-inside
       strong Need instructions? 
-      a(href="https://github.com/AhoyLemon/kindafun/wiki/The-Wrongest-Words" target="_blank") Click here.
+      a(@click="watchVideo()") Click here.
       br
       | I promise I'll try to make it quick.

@@ -17,23 +17,100 @@
     <meta name="twitter:creator" content="@AhoyLemon"/>
     <meta name="twitter:title" content="The Wrongest Words"/>
     <meta name="twitter:description" content="You're going to defend some very stupid ideas."/>
-    <meta name="twitter:image" content="https://kindafun.herokuapp.com/img/og-wrongest.png"/>
-    <meta name="twitter:url" content="https://kindafun.herokuapp.com/wrongest"/>
+    <meta name="twitter:image" content="https://kinda.fun/img/og-wrongest.png"/>
+    <meta name="twitter:url" content="https://kinda.fun/wrongest"/>
     <!-- OpenGraph-->
     <meta property="og:title" content="The Wrongest Words"/>
     <meta property="og:type" content="website"/>
     <meta property="og:image:width" content="1200"/>
     <meta property="og:image:height" content="630"/>
     <meta property="og:description" content="You're going to defend some very stupid ideas."/>
-    <meta property="og:url" content="https://kindafun.herokuapp.com/wrongest"/>
-    <meta property="og:image" content="https://kindafun.herokuapp.com/img/og-wrongest.png"/>
+    <meta property="og:url" content="https://kinda.fun/wrongest"/>
+    <meta property="og:image" content="https://kinda.fun/img/og-wrongest.png"/>
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "VideoGame",
+        "name": "The Wrongest Words",
+        "url": "https://kinda.fun/wrongest",
+        "image": "https://kinda.fun/img/invalid/og-wide.png",
+        "playMode": "MultiPlayer",
+        "applicationCategory": "browser game",
+        "gamePlatform": "web browser",
+        "operatingSystem": "web browser",
+        "genre": "comedy",
+        "description": "You're going to defend some very stupid ideas.",
+        "inLanguage": "English",
+        "numberOfPlayers": {
+          "minValue": 3,
+          "maxValue": 20
+        },
+        "aggregateRating": {
+          "ratingValue": 4.33333,
+          "ratingCount": 3
+        },
+        "creator": {
+          "@type": "Person",
+          "name": "Lemon",
+          "url": "https://ahoylemon.xyz",
+          "sameAs": [
+            "https://thefpl.us/meet/lemon",
+            "https://twitter.com/AhoyLemon"
+          ]
+        },
+        "publisher": {
+          "@type": "PerformingGroup",
+          "name": "The F Plus",
+          "url": "https://thefpl.us"
+        },
+        "offers": {
+          "@type": "Offer",
+          "description": "free",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "screenshot": [
+          {
+            "@type": "ImageObject",
+            "url": "https://kinda.fun/img/wrongest/screenshots/1.png",
+            "width": 980,
+            "height": 780
+          },
+          {
+            "@type": "ImageObject",
+            "url": "https://kinda.fun/img/wrongest/screenshots/2.png",
+            "width": 980,
+            "height": 780
+          },
+          {
+            "@type": "ImageObject",
+            "url": "https://kinda.fun/img/wrongest/screenshots/3.jpg",
+            "width": 980,
+            "height": 780
+          }
+        ]
+      }
+    </script>
   </head>
 </html>
 <body>
   <div id="app" v-cloak="v-cloak">
     <div class="title-screen" v-if="!inRoom">
-      <div class="logo-holder">
-        <figure class="logo"><img src="/svg/wrongest.svg"/></figure>
+      <div class="splash">
+        <div class="inside"> 
+          <div class="logo-holder">
+            <figure class="logo"><img src="/svg/wrongest.svg"/></figure>
+          </div>
+          <div class="help-holder" v-if="!ui.watchingVideo"><strong>Need instructions? </strong><a @click="watchVideo()">Click here.</a><br/>I promise I'll try to make it quick.</div>
+          <div class="video-holder" v-if="ui.watchingVideo">
+            <figure class="video">
+              <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+            </figure>
+            <figcaption>
+              <button class="close-video" @click="ui.watchingVideo = false">Okay, close this video. </button>
+            </figcaption>
+          </div>
+        </div>
       </div>
       <div class="create">
         <button @click="createRoom()">Create a New Room</button>
@@ -53,7 +130,17 @@
         <div class="display">{{roomCode}}</div>
         <div class="how-to-share" v-if="isRoomHost || players.length &gt; 0">Share this URL to invite your friends to play.</div>
       </div>
-      <div class="nobody-here" v-if="!isRoomHost &amp;&amp; players.length &lt; 1">
+      <div class="video-holder" v-if="ui.watchingVideo">
+        <div class="inside">
+          <figure class="video">
+            <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+          </figure>
+          <figcaption>
+            <button @click="ui.watchingVideo = false">Okay, close this video.</button>
+          </figcaption>
+        </div>
+      </div>
+      <div class="nobody-here" v-else-if="!isRoomHost &amp;&amp; players.length &lt; 1">
         <div class="inside">
           <div class="content">
             <h2>There's nobody here.</h2>
@@ -61,7 +148,7 @@
           </div>
         </div>
       </div>
-      <div class="sign-in" v-if="(isRoomHost || players.length &gt; 0) &amp;&amp; !gameStarted">
+      <div class="sign-in" v-else-if="(isRoomHost || players.length &gt; 0) &amp;&amp; !gameStarted">
         <div class="inside">
           <form class="pregame-form" @submit.prevent="updateMyInfo()">
             <fieldset>
@@ -100,7 +187,7 @@
         </div>
       </div>
       <div class="instructions-banner">
-        <div class="banner-inside"><strong>Need instructions? </strong><a href="https://github.com/AhoyLemon/kindafun/wiki/The-Wrongest-Words" target="_blank">Click here.</a><br/>I promise I'll try to make it quick.</div>
+        <div class="banner-inside"><strong>Need instructions? </strong><a @click="watchVideo()">Click here.</a><br/>I promise I'll try to make it quick.</div>
       </div>
     </div>
     <main class="player-list" v-if="gameStarted &amp;&amp; round.phase == 'presenting' &amp;&amp; !computedAmIPresenting">
@@ -206,14 +293,6 @@
       <section class="headline">
         <h1>Game Over!</h1>
       </section>
-      <section class="final-scores">
-        <div class="players">
-          <div class="player" v-for="(player,index) in computedPlayersByScore" :rank="(index + 1)">
-            <div class="name">{{player.name}}</div>
-            <div class="score" :class="{'positive': player.score &gt; 0, 'negative': player.score &lt; 0, 'zero': player.score == 0 }"><span class="number">{{player.score}}</span></div>
-          </div>
-        </div>
-      </section>
       <section class="statements">
         <h2>The Wrongest Words...</h2>
         <div class="statement-list wrongest" :holds="computedStatementsByScore.wrongest.length">
@@ -236,9 +315,18 @@
           </div>
         </div>
       </section>
+      <h2>And so, The Final Scores...</h2>
+      <section class="final-scores">
+        <div class="players">
+          <div class="player" v-for="(player,index) in computedPlayersByScore" :rank="(index + 1)">
+            <div class="name">{{player.name}}</div>
+            <div class="score" :class="{'positive': player.score &gt; 0, 'negative': player.score &lt; 0, 'zero': player.score == 0 }"><span class="number">{{player.score}}</span></div>
+          </div>
+        </div>
+      </section>
       <div class="game-by-lemon"><a href="https://ahoylemon.xyz">
           <h3>This game is <span>by Lemon.</span></h3><img src="/svg/lemon.svg" alt="Lemon"/></a></div>
-      <section class="final-links"><a href="https://github.com/AhoyLemon/invalid">GitHub Repo.</a><a href="https://kindafun.herokuapp.com">Play Again.</a></section>
+      <section class="final-links"><a href="https://github.com/AhoyLemon/invalid">GitHub Repo.</a><a href="https://kinda.fun">Play Again.</a></section>
     </main>
   </div>
   <div class="javascripts">
@@ -253,6 +341,27 @@
       var socket = io.connect();
       Vue.use(VueToast);
     </script>
-    <script src="js/min/wrongest.min.js?updated2021-00-23@14:31:46"></script>
+    <script src="js/min/wrongest.min.js?updated2021-01-02@09:26:07"></script>
+    <script type="text/javascript">
+      var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u="https://thefpl.us/analytics/";
+          _paq.push(['setTrackerUrl', u+'matomo.php']);
+          _paq.push(['setSiteId', '3']);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+      
+    </script>
+    <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+    <script>
+      TrackJS.install({
+          token: "9947e081831c42b8aeb3a5fb81a152c4",
+          application: "kindafun"
+        });
+    </script>
   </div>
 </body>

@@ -9,7 +9,7 @@
     <link href="/css/invalid.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-00-23@14:46:02">
+    <meta http-equiv="last-modified" content="2021-01-02@14:54:34">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/invalid/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/invalid/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/invalid/favicon-16x16.png">
@@ -19,22 +19,22 @@
     <meta name="twitter:creator" content="@AhoyLemon">
     <meta name="twitter:title" content="Invalid">
     <meta name="twitter:description" content="A trivia game of unnecessary suffering.">
-    <meta name="twitter:image" content="/img/og-invalid.png">
-    <meta name="twitter:url" content="https://kindafun.herokuapp.com/invalid">
+    <meta name="twitter:image" content="https://kinda.fun/img/og-invalid.png">
+    <meta name="twitter:url" content="https://kinda.fun/invalid">
     <meta property="og:title" content="Invalid">
     <meta property="og:type" content="website">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:description" content="A trivia game of unnecessary suffering.">
-    <meta property="og:url" content="https://kindafun.herokuapp.com/invalid">
-    <meta property="og:image" content="https://kindafun.herokuapp.com/img/og-invalid.png">
+    <meta property="og:url" content="https://kinda.fun/invalid">
+    <meta property="og:image" content="https://kinda.fun/img/og-invalid.png">
     <script type="application/ld+json">
       {
         "@context": "http://schema.org",
         "@type": "VideoGame",
         "name": "Invalid",
-        "url": "https://kindafun.herokuapp.com",
-        "image": "https://kindafun.herokuapp.com/og-image.png",
+        "url": "https://kinda.fun/invalid",
+        "image": "https://kinda.fun/img/og-invalid.png",
         "playMode": "MultiPlayer",
         "applicationCategory": "browser game",
         "gamePlatform": "web browser",
@@ -73,19 +73,19 @@
         "screenshot": [
           {
             "@type": "ImageObject",
-            "url": "https://kindafun.herokuapp.com/img/screenshots/1.jpg",
+            "url": "https://kinda.fun/img/invalid/screenshots/1.jpg",
             "width": 1920,
             "height": 1080
           },
           {
             "@type": "ImageObject",
-            "url": "https://kindafun.herokuapp.com/img/screenshots/2.jpg",
+            "url": "https://kinda.fun/img/invalid/screenshots/2.jpg",
             "width": 1920,
             "height": 1080
           },
           {
             "@type": "ImageObject",
-            "url": "https://kindafun.herokuapp.com/img/screenshots/3.jpg",
+            "url": "https://kinda.fun/img/invalid/screenshots/3.jpg",
             "width": 1920,
             "height": 1080
           }
@@ -96,13 +96,24 @@
   <body>
     <div id="app" v-cloak>
       <div class="title-screen" v-if="!currentlyInGame">
-        <div class="logo-holder">
-          <figure class="logo">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 100 33.7" space="preserve">
-              <path class="star" d="M10.3 5.4l-.5-1.5c-.1-.3-.4-.4-.7-.3L6.2 5l.5-3.3c0-.3-.2-.6-.5-.6H4.6c-.3 0-.5.3-.5.6L4.6 5l-3-1.4c-.2-.1-.5 0-.6.3L.4 5.4c0 .3.1.6.4.6l3.2.6-2.2 2.3c-.2.2-.2.6 0 .8l1.3 1c.2.2.6.1.7-.2l1.5-2.9 1.5 2.9c.1.3.5.3.7.2l1.3-1c.4-.2.4-.5.2-.8L6.7 6.6 9.9 6c.3 0 .5-.3.4-.6z"></path>
-              <path d="M97.7 27.2c.6 0 1.2-.1 1.9-.1v2.2h-5.7c-.1-.4-.1-.8-.2-1.3-.1.1-.2.1-.3.2-2.6 2.6-7.6 2.2-9.3-1.7-1.5-3.5-1.4-7 .9-10.1 1.6-2.2 4.7-3.2 7.4-2.4.3.1.7.2 1.1.3V9.6h-2V7.4c.8-.2 1.7-.3 2.5-.4.7-.1 1.3-.4 1.9-.6.6-.1 1.1-.1 1.8-.2v21zM93.5 21v-4.2c0-.2-.1-.4-.2-.5-1.4-.8-3.9-.8-4.8 1.3-.3.8-.6 1.7-.7 2.5-.2 1.8-.1 3.5.6 5.2.9 1.9 2.9 2.4 4.5 1 .4-.3.7-.7.7-1.4-.2-1.2-.1-2.6-.1-3.9zM20.2 29.3h-7.9v-1.8l.1-.1c1.2-.2 1.6-.6 1.6-1.8 0-1.6.1-3.3.1-4.9v-3.8h-2v-2.2c.9-.1 1.8-.1 2.7-.3.6-.1 1.2-.4 1.8-.5.5-.1 1.1-.1 1.7-.2.1.6.1 1 .2 1.6.3-.2.5-.3.7-.4 1.1-.7 2.2-1.2 3.4-1.3 2.2-.1 4.4.4 5.1 3.2.3 1.2.4 2.4.4 3.6 0 2.1 0 4.3-.1 6.4v.3c.6 0 1.2-.1 1.9-.1v2.2H22v-1.8s0-.1.1-.1c1.3-.2 1.7-.6 1.7-1.9 0-2.3 0-4.6-.1-6.8-.1-1.9-1.5-2.7-3.4-2.1-.1 0-.3.1-.4.1-1.2.5-1.4.7-1.4 2 0 2.7-.1 5.4-.1 8v.4h1.9c-.1.8-.1 1.5-.1 2.3zM60 27.2c.7 0 1.3-.1 1.9-.1v2.3h-5.1c-.5 0-.7-.1-.7-.6 0-.2 0-.4-.1-.8-.2.2-.4.3-.5.4-1.8 1.4-3.8 2-5.9 1.1-2.5-1-3.1-4.6-1.2-6.7.8-.9 1.8-1.4 2.9-1.7 1.3-.4 2.6-.6 3.9-.8.2 0 .4-.1.7-.1-.1-.9 0-1.9-.2-2.7-.3-1.5-1.7-2-3.2-1.4-.3.1-.6.4-1 .6.1.2.2.3.2.5.3.8.1 1.7-.5 2.2-.5.5-1.5.6-2.2.3-.8-.4-1-1.1-1-1.9 0-1.3.8-2.2 1.9-2.8 1.5-.9 3.2-1.2 4.9-1.1.7 0 1.5.2 2.2.4 1.9.6 2.7 2.1 3 4 .1.7.1 1.4.1 2.1 0 2.2-.1 4.4-.1 6.6v.2zm-4.1-4.9c-1.2.1-2.2.4-3.2 1-.3.2-.5.4-.7.7-.7 1-.4 2.3.7 2.7 1 .3 2.4-.1 3.1-.9.1-.1.1-.2.1-.2v-3.3zM63.1 9.4V7.2c.9 0 1.8-.1 2.6-.2.6-.1 1.3-.4 1.9-.5.6-.1 1.2-.1 1.8-.2v20.9c.6 0 1.2-.1 1.9-.1v2.2h-7.9v-1.8c1.4-.3 1.7-.6 1.7-2.1 0-3.7 0-7.4.1-11.1 0-1.5.1-3 .1-4.5v-.3c-.8-.1-1.5-.1-2.2-.1zM40.5 17h4.4c1.5 0 1.6.2 1.4 1.7 0 .1-.1.3-.2.3-.7.3-1.2.8-1.5 1.4l-2.7 6.3c-.7 1.7-1.4 3.5-2.1 5.2-.1.3-.3.5-.7.5h-1.8c-.2 0-.5-.2-.5-.3-1.7-3.6-3.3-7.3-5-10.9-.3-.6-.4-1.2-.6-1.8h-1v-2.2h7V19c-1 .3-1.2.8-.9 1.8.5 1.5 1.1 3 1.7 4.4.3.8.7 1.7 1.1 2.6 1.1-2.9 2.1-5.7 3.2-8.5-.5 0-1.1.1-1.7.1-.1-.8-.1-1.5-.1-2.4zM79.4 27.2c.6 0 1.2-.1 1.9-.1v2.2h-7.9v-1.8c1.4-.3 1.7-.5 1.7-1.9.1-1.9 0-3.7.1-5.6v-3h-2v-2.2c.9-.1 1.8-.1 2.7-.3.6-.1 1.2-.4 1.8-.5.6-.1 1.1-.1 1.8-.2-.1 4.4-.1 8.9-.1 13.4zM2.1 16.9v-2.2c.9-.1 1.7-.1 2.6-.3.7-.1 1.3-.4 1.9-.6.5-.1 1.1-.1 1.7-.2V27c.6 0 1.2-.1 1.9-.1v2.2H2.3v-1.8c1.4-.1 1.7-.5 1.7-1.9v-5.7-2.8H2.1zM79.9 8.6c0 1.4-1 2.5-2.3 2.4-1.3 0-2.4-1.1-2.3-2.5 0-1.4 1.1-2.5 2.3-2.5 1.4.1 2.3 1.1 2.3 2.6z"></path>
-            </svg>
-          </figure>
+        <div class="splash">
+          <div class="inside">
+            <figure class="logo">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 100 33.7" space="preserve">
+                <path class="star" d="M10.3 5.4l-.5-1.5c-.1-.3-.4-.4-.7-.3L6.2 5l.5-3.3c0-.3-.2-.6-.5-.6H4.6c-.3 0-.5.3-.5.6L4.6 5l-3-1.4c-.2-.1-.5 0-.6.3L.4 5.4c0 .3.1.6.4.6l3.2.6-2.2 2.3c-.2.2-.2.6 0 .8l1.3 1c.2.2.6.1.7-.2l1.5-2.9 1.5 2.9c.1.3.5.3.7.2l1.3-1c.4-.2.4-.5.2-.8L6.7 6.6 9.9 6c.3 0 .5-.3.4-.6z"></path>
+                <path d="M97.7 27.2c.6 0 1.2-.1 1.9-.1v2.2h-5.7c-.1-.4-.1-.8-.2-1.3-.1.1-.2.1-.3.2-2.6 2.6-7.6 2.2-9.3-1.7-1.5-3.5-1.4-7 .9-10.1 1.6-2.2 4.7-3.2 7.4-2.4.3.1.7.2 1.1.3V9.6h-2V7.4c.8-.2 1.7-.3 2.5-.4.7-.1 1.3-.4 1.9-.6.6-.1 1.1-.1 1.8-.2v21zM93.5 21v-4.2c0-.2-.1-.4-.2-.5-1.4-.8-3.9-.8-4.8 1.3-.3.8-.6 1.7-.7 2.5-.2 1.8-.1 3.5.6 5.2.9 1.9 2.9 2.4 4.5 1 .4-.3.7-.7.7-1.4-.2-1.2-.1-2.6-.1-3.9zM20.2 29.3h-7.9v-1.8l.1-.1c1.2-.2 1.6-.6 1.6-1.8 0-1.6.1-3.3.1-4.9v-3.8h-2v-2.2c.9-.1 1.8-.1 2.7-.3.6-.1 1.2-.4 1.8-.5.5-.1 1.1-.1 1.7-.2.1.6.1 1 .2 1.6.3-.2.5-.3.7-.4 1.1-.7 2.2-1.2 3.4-1.3 2.2-.1 4.4.4 5.1 3.2.3 1.2.4 2.4.4 3.6 0 2.1 0 4.3-.1 6.4v.3c.6 0 1.2-.1 1.9-.1v2.2H22v-1.8s0-.1.1-.1c1.3-.2 1.7-.6 1.7-1.9 0-2.3 0-4.6-.1-6.8-.1-1.9-1.5-2.7-3.4-2.1-.1 0-.3.1-.4.1-1.2.5-1.4.7-1.4 2 0 2.7-.1 5.4-.1 8v.4h1.9c-.1.8-.1 1.5-.1 2.3zM60 27.2c.7 0 1.3-.1 1.9-.1v2.3h-5.1c-.5 0-.7-.1-.7-.6 0-.2 0-.4-.1-.8-.2.2-.4.3-.5.4-1.8 1.4-3.8 2-5.9 1.1-2.5-1-3.1-4.6-1.2-6.7.8-.9 1.8-1.4 2.9-1.7 1.3-.4 2.6-.6 3.9-.8.2 0 .4-.1.7-.1-.1-.9 0-1.9-.2-2.7-.3-1.5-1.7-2-3.2-1.4-.3.1-.6.4-1 .6.1.2.2.3.2.5.3.8.1 1.7-.5 2.2-.5.5-1.5.6-2.2.3-.8-.4-1-1.1-1-1.9 0-1.3.8-2.2 1.9-2.8 1.5-.9 3.2-1.2 4.9-1.1.7 0 1.5.2 2.2.4 1.9.6 2.7 2.1 3 4 .1.7.1 1.4.1 2.1 0 2.2-.1 4.4-.1 6.6v.2zm-4.1-4.9c-1.2.1-2.2.4-3.2 1-.3.2-.5.4-.7.7-.7 1-.4 2.3.7 2.7 1 .3 2.4-.1 3.1-.9.1-.1.1-.2.1-.2v-3.3zM63.1 9.4V7.2c.9 0 1.8-.1 2.6-.2.6-.1 1.3-.4 1.9-.5.6-.1 1.2-.1 1.8-.2v20.9c.6 0 1.2-.1 1.9-.1v2.2h-7.9v-1.8c1.4-.3 1.7-.6 1.7-2.1 0-3.7 0-7.4.1-11.1 0-1.5.1-3 .1-4.5v-.3c-.8-.1-1.5-.1-2.2-.1zM40.5 17h4.4c1.5 0 1.6.2 1.4 1.7 0 .1-.1.3-.2.3-.7.3-1.2.8-1.5 1.4l-2.7 6.3c-.7 1.7-1.4 3.5-2.1 5.2-.1.3-.3.5-.7.5h-1.8c-.2 0-.5-.2-.5-.3-1.7-3.6-3.3-7.3-5-10.9-.3-.6-.4-1.2-.6-1.8h-1v-2.2h7V19c-1 .3-1.2.8-.9 1.8.5 1.5 1.1 3 1.7 4.4.3.8.7 1.7 1.1 2.6 1.1-2.9 2.1-5.7 3.2-8.5-.5 0-1.1.1-1.7.1-.1-.8-.1-1.5-.1-2.4zM79.4 27.2c.6 0 1.2-.1 1.9-.1v2.2h-7.9v-1.8c1.4-.3 1.7-.5 1.7-1.9.1-1.9 0-3.7.1-5.6v-3h-2v-2.2c.9-.1 1.8-.1 2.7-.3.6-.1 1.2-.4 1.8-.5.6-.1 1.1-.1 1.8-.2-.1 4.4-.1 8.9-.1 13.4zM2.1 16.9v-2.2c.9-.1 1.7-.1 2.6-.3.7-.1 1.3-.4 1.9-.6.5-.1 1.1-.1 1.7-.2V27c.6 0 1.2-.1 1.9-.1v2.2H2.3v-1.8c1.4-.1 1.7-.5 1.7-1.9v-5.7-2.8H2.1zM79.9 8.6c0 1.4-1 2.5-2.3 2.4-1.3 0-2.4-1.1-2.3-2.5 0-1.4 1.1-2.5 2.3-2.5 1.4.1 2.3 1.1 2.3 2.6z"></path>
+              </svg>
+            </figure>
+            <div class="help-holder" v-if="!ui.watchingVideo"><strong>Need instructions? </strong><a @click="watchVideo()">Click here.</a><br>I promise I'll try to make it quick.</div>
+            <div class="video-holder" v-if="ui.watchingVideo">
+              <figure class="video">
+                <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/uhA83jtHmzM?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen></iframe>
+              </figure>
+              <figcaption>
+                <button class="close-video" @click="ui.watchingVideo = false">Okay, close this video. </button>
+              </figcaption>
+            </div>
+          </div>
         </div>
         <div class="create">
           <button @click="createRoom()">Create a New Room</button>
@@ -121,7 +132,17 @@
           <div class="display">{{roomCode}}</div>
           <div class="how-to-share" v-if="isRoomHost || players.length &gt; 0">Share this URL to invite your friends to play.</div>
         </div>
-        <div class="nobody-here" v-if="!isRoomHost &amp;&amp; players.length &lt; 1">
+        <div class="video-holder" v-if="ui.watchingVideo">
+          <div class="inside">
+            <figure class="video">
+              <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/uhA83jtHmzM?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen></iframe>
+            </figure>
+            <figcaption>
+              <button @click="ui.watchingVideo = false">Okay, close this video.</button>
+            </figcaption>
+          </div>
+        </div>
+        <div class="nobody-here" v-else-if="!isRoomHost &amp;&amp; players.length &lt; 1">
           <div class="inside">
             <div class="content">
               <h2>There's nobody here.</h2>
@@ -129,7 +150,7 @@
             </div>
           </div>
         </div>
-        <div class="game-started" v-if="gameStarted">
+        <div class="game-started" v-else-if="gameStarted">
           <div class="inside">
             <div class="content">
               <h2>The game has already started.</h2>
@@ -137,7 +158,7 @@
             </div>
           </div>
         </div>
-        <div class="sign-in" v-if="(isRoomHost || players.length &gt; 0) &amp;&amp; !gameStarted">
+        <div class="sign-in" v-else>
           <div class="inside">
             <h1>Welcome to BigCorp</h1>
             <form class="pregame-form" @submit.prevent="updatePlayer()">
@@ -175,8 +196,8 @@
             </div>
           </div>
         </div>
-        <div class="instructions-banner">
-          <div class="banner-inside"><strong>Need instructions? </strong><a href="https://github.com/AhoyLemon/kindafun/wiki" target="_blank">Click here.</a><br>I promise I'll try to make it quick.</div>
+        <div class="instructions-banner" v-if="!ui.watchingVideo">
+          <div class="banner-inside"><strong>Need instructions? </strong><a @click="watchVideo()">Click here.</a><br>I promise I'll try to make it quick.</div>
         </div>
       </div>
       <div class="admin-screen" v-if="my.role == 'SysAdmin' &amp;&amp; (round.phase == 'choose rules' || round.phase == 'add bugs' || round.phase == 'create password' || round.phase == 'crashed')">
@@ -265,6 +286,13 @@
                     <div class="cost">2<sup>ƒ</sup></div>
                     <div class="disabled-reason"></div>
                     <div class="tooltip"><span>Minimum Characters, defined by the list average</span>
+                    </div>
+                  </button>
+                  <button class="rule" @click="chooseRule({name:'Peek At Answers', cost:2})" :class="{ active: (ui.currentRule.name == 'Peek At Answers'), 'too-expensive': (my.rulebux &lt; 2) }" :disabled="isRuleButtonDisabled('Peek At Answers',2,false)">
+                    <div class="name">Peek At Answers</div>
+                    <div class="cost">2<sup>ƒ</sup></div>
+                    <div class="disabled-reason"></div>
+                    <div class="tooltip"><span>Shows the SysAdmin 5 random passwords from this set.</span>
                     </div>
                   </button>
                   <button class="rule" @click="chooseRule({name:'Limit Vowels', cost:1})" :class="{ active: (ui.currentRule.name == 'Limit Vowels'), 'too-expensive': (my.rulebux &lt; 1) }" :disabled="isRuleButtonDisabled('Limit Vowels',1,true)">
@@ -705,6 +733,47 @@ EMpoyeeNAME:         {{round.crash.player.name}}
             </div>
           </div>
         </section>
+        <h2>Employee Awards</h2>
+        <section class="awards-section">
+          <div class="awards">
+            <div class="award" v-if="computedCheevos.mostPasswords &amp;&amp; computedCheevos.mostPasswords.name != 'TIE'">
+              <figure class="icon"><img src="svg/old_pig_227287.svg"></figure>
+              <div class="award-name">Model Employee</div>
+              <div class="recipient">{{computedCheevos.mostPasswords.name}}</div>
+              <div class="description">Successfully created {{computedCheevos.mostPasswords.passwordsCreated}} passwords</div>
+            </div>
+            <div class="award" v-if="computedCheevos.bestCracker &amp;&amp; computedCheevos.bestCracker.name != 'TIE'">
+              <figure class="icon"><img src="svg/noun_punk_pig_227290.svg"></figure>
+              <div class="award-name">Supercracker</div>
+              <div class="recipient">{{computedCheevos.bestCracker.name}}</div>
+              <div class="description">Cracked {{computedCheevos.bestCracker.cracks}} passwords</div>
+            </div>
+            <div class="award" v-if="computedCheevos.mostCracked &amp;&amp; computedCheevos.mostCracked.name != 'TIE'">
+              <figure class="icon"><img src="svg/doomed_pig.svg"></figure>
+              <div class="award-name">Supervictim</div>
+              <div class="recipient">{{computedCheevos.mostCracked.name}}</div>
+              <div class="description">Password cracked {{computedCheevos.mostCracked.cracked}} times.</div>
+            </div>
+            <div class="award" v-if="computedCheevos.mostSelfPwns &amp;&amp; computedCheevos.mostSelfPwns.name != 'TIE'">
+              <figure class="icon"><img src="svg/noun_derp_pig_227284.svg"></figure>
+              <div class="award-name">SELF-PWNED</div>
+              <div class="recipient">{{computedCheevos.mostSelfPwns.name}}</div>
+              <div class="description">Cracked their own password<span v-if="computedCheevos.mostSelfPwns.selfPwn &gt; 1"> {{computedCheevos.mostSelfPwns.selfPwn}} times</span></div>
+            </div>
+            <div class="award" v-if="computedCheevos.mostCrashes &amp;&amp; computedCheevos.mostCrashes.name != 'TIE'">
+              <figure class="icon"><img src="svg/noun_dead_pig_227289.svg"></figure>
+              <div class="award-name">CRASH HAPPY</div>
+              <div class="recipient">{{computedCheevos.mostCrashes.name}}</div>
+              <div class="description">Crashed the system<span v-if="computedCheevos.mostCrashes.crashesCaused &gt; 1"> {{computedCheevos.mostCrashes.crashesCaused}} times</span></div>
+            </div>
+            <div class="award" v-if="computedCheevos.mostAttempts &amp;&amp; computedCheevos.mostAttempts.name != 'TIE'">
+              <figure class="icon"><img src="svg/noun_suspicious_pig_227293.svg"></figure>
+              <div class="award-name">Quickie Fingers</div>
+              <div class="recipient">{{computedCheevos.mostAttempts.name}}</div>
+              <div class="description">Attempted {{computedCheevos.mostAttempts.passwordAttempts}} passwords</div>
+            </div>
+          </div>
+        </section>
         <h2>And so, the scores...</h2>
         <section class="final-scores">
           <div class="players">
@@ -717,7 +786,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         </section>
         <div class="game-by-lemon"><a href="https://ahoylemon.xyz">
             <h3>This game is <span>by Lemon.</span></h3><img src="svg/lemon.svg" alt="Lemon"></a></div>
-        <section class="final-links"><a href="https://github.com/AhoyLemon/invalid">GitHub Repo.</a><a href="https://kindafun.herokuapp.com">Play Again.</a></section>
+        <section class="final-links"><a href="https://github.com/AhoyLemon/kinda.fun">GitHub Repo.</a><a href="https://kinda.fun/invalid">Play Again.</a></section>
       </main>
     </div>
     <div class="javascripts">
@@ -734,25 +803,28 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         Vue.use(VueToast);
         
       </script>
-      <script src="js/min/invalid.min.js?updated2021-00-23@14:46:02"></script>
+      <script src="js/min/invalid.min.js?updated2021-01-02@14:54:34"></script>
+      <script type="text/javascript">
+        var _paq = window._paq = window._paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="https://thefpl.us/analytics/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '3']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+          })();
+        
+      </script>
       <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
       <script>
         TrackJS.install({
           token: "9947e081831c42b8aeb3a5fb81a152c4",
-          application: "invalidgame"
+          application: "kindafun"
         });
-        
       </script>
-      <!--  Global site tag (gtag.js) - Google Analytics 
-      script(async src="https://www.googletagmanager.com/gtag/js?id=G-99MNSSHL0B")
-      script.
-        
-        window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-        
-          gtag('config', 'G-99MNSSHL0B');
-      -->
     </div>
   </body>
 </html>

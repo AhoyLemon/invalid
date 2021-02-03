@@ -1,0 +1,63 @@
+script(type="application/ld+json").
+  {
+    "@context": "http://schema.org",
+    "@type": "VideoGame",
+    "name": "The Wrongest Words",
+    "url": "#{pageURL}",
+    "image": "#{siteURL}/img/invalid/og-wide.png",
+    "playMode": "MultiPlayer",
+    "applicationCategory": "browser game",
+    "gamePlatform": "web browser",
+    "operatingSystem": "web browser",
+    "genre": "comedy",
+    "description": "#{description}",
+    "inLanguage": "English",
+    "numberOfPlayers": {
+      "minValue": 3,
+      "maxValue": 20
+    },
+    "aggregateRating": {
+      "ratingValue": 4.33333,
+      "ratingCount": 3
+    },
+    "creator": {
+      "@type": "Person",
+      "name": "Lemon",
+      "url": "https://ahoylemon.xyz",
+      "sameAs": [
+        "https://thefpl.us/meet/lemon",
+        "https://twitter.com/AhoyLemon"
+      ]
+    },
+    "publisher": {
+      "@type": "PerformingGroup",
+      "name": "The F Plus",
+      "url": "https://thefpl.us"
+    },
+    "offers": {
+      "@type": "Offer",
+      "description": "free",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "screenshot": [
+      {
+        "@type": "ImageObject",
+        "url": "#{siteURL}/img/wrongest/screenshots/1.png",
+        "width": 980,
+        "height": 780
+      },
+      {
+        "@type": "ImageObject",
+        "url": "#{siteURL}/img/wrongest/screenshots/2.png",
+        "width": 980,
+        "height": 780
+      },
+      {
+        "@type": "ImageObject",
+        "url": "#{siteURL}/img/wrongest/screenshots/3.jpg",
+        "width": 980,
+        "height": 780
+      }
+    ]
+  }

@@ -1,14 +1,7 @@
 main.game-over(v-if="gameOver")
 
   section.headline
-      h1 Game Over!
-
-  section.final-scores
-    .players
-      .player(v-for="(player,index) in computedPlayersByScore" :rank="(index + 1)")
-        .name {{player.name}}
-        .score(:class="{'positive': player.score > 0, 'negative': player.score < 0, 'zero': player.score == 0 }")
-          span.number {{player.score}}
+    h1 Game Over!
 
   section.statements
 
@@ -31,6 +24,15 @@ main.game-over(v-if="gameOver")
           cite(v-text="statement.playerName")
         .score(:class="{'positive': statement.score > 0, 'negative': statement.score < 0, 'zero': statement.score == 0 }")
           span.number {{statement.score}}
+
+
+  h2 And so, The Final Scores...
+  section.final-scores
+    .players
+      .player(v-for="(player,index) in computedPlayersByScore" :rank="(index + 1)")
+        .name {{player.name}}
+        .score(:class="{'positive': player.score > 0, 'negative': player.score < 0, 'zero': player.score == 0 }")
+          span.number {{player.score}}
 
   .game-by-lemon
     a(href="https://ahoylemon.xyz")

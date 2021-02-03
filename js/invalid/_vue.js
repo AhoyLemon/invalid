@@ -5,10 +5,10 @@ var app = new Vue({
   data: {
     currentlyInGame: false,
     gameStarted: false,
-    roomCode: null,
+    roomCode: "",
     gameName: "invalid",
     isRoomHost: false,
-    rules: rules,
+    //rules: rules,
     maxRounds: 0,
     allowNaughty: false,
     my: {
@@ -19,6 +19,7 @@ var app = new Vue({
       role: null,
       rulebux: settings.default.rulebux,
       passwordAttempts: 0,
+      crashesCaused: 0,
       score: 0,
       socketID: ""
     },
@@ -65,6 +66,7 @@ var app = new Vue({
     allEmployeePasswords: [],
     //allPlayedRounds: [],
     roundSummary: [],
+    crashSummary: [],
     crackSummary: [],
     ui: {
       appliedForJob: false,
@@ -88,7 +90,8 @@ var app = new Vue({
         inputValueTwo: ''
       },
       enterFinalPasswords: false,
-      passwordSuccessMessage: null
+      passwordSuccessMessage: null,
+      watchingVideo: false,
     },
     // TODO: Deprecate this?
     messages: []
@@ -152,6 +155,16 @@ var app = new Vue({
     /////////////////////////////////////////////////////////////////////
     // BEFORE GAME (game hasn't started yet)
 
+    watchVideo() {
+      const self = this;
+      self.ui.watchingVideo = true;
+      if (self.currentlyInGame) {
+        sendEvent("Invalid", "Instruction Video", "Pregame Screen");
+      } else {
+        sendEvent("Invalid", "Instruction Video", "Title Screen");
+      }
+    },
+
     updatePlayer() {
       const self = this;
       
@@ -165,7 +178,8 @@ var app = new Vue({
         socketID: self.my.socketID,
         isRoomHost: self.isRoomHost,
         role: null,
-        score: 0
+        score: 0,
+        passwordAttempts: 0
       };
 
       self.players.forEach(function(player, index) {
@@ -186,6 +200,7 @@ var app = new Vue({
         }
       });
       document.title =  self.my.name + " | " + gameTitle;
+      _paq.push(['setUserId', self.my.name]);
 
       if (self.my.playerIndex < 0) {
         alert('could not get a player index. this is a bug. this should not happen.');
@@ -238,6 +253,7 @@ var app = new Vue({
         allowNaughty: self.allowNaughty
       });
 
+      sendEvent("Invalid", "Game Started", self.roomCode);
     },
 
     ////////////////////////////////////////////////////////////////
@@ -292,6 +308,8 @@ var app = new Vue({
         challenge: self.round.challenge
       });
 
+      sendEvent("Invalid", "Challenge Selected", self.round.challenge.name);
+
     },
 
     chooseRule(rule) {
@@ -313,6 +331,39 @@ var app = new Vue({
           roomCode: self.roomCode,
         });
 
+      } else if (rule.name == "Peek At Answers") {
+
+        let shuffledAnswers = shuffle(self.round.challenge.possible);
+        let answerHTML = "";
+        let i = 0;
+        while (i < 5) {
+          answerHTML += '<li>'+ shuffledAnswers[i] +'</li>';
+          i++;
+        }
+
+        let instance = Vue.$toast.open(
+          {
+            message: "<h3> 5 Random "+self.round.challenge.name+"</h3><ul>"+answerHTML+"</ul>",
+            type: "info",
+            duration: 50000,
+            position: "top-right"
+          }
+        );
+        // Pay for it.
+        self.my.rulebux = (self.my.rulebux - rule.cost);
+
+        self.round.rules.push({
+          type: "Peek At Answers",
+          message: self.my.name + " peeked at the answers",
+          inputValue: "",
+          inputValueTwo: ""
+        });
+        socket.emit("updatePasswordRules", {
+          roomCode: self.roomCode,
+          rules: self.round.rules,
+          shibboleth: self.round.shibboleth
+        });
+
       } else if (rule.name == "Set A Maximum" || rule.name == "Set A Minimum" || rule.name == "Limit Vowels") {
         // For situations where you DON'T have a second rule input.
         let r = { type: rule.name, message: "",inputValue: "",inputValueTwo: "" };
@@ -325,7 +376,7 @@ var app = new Vue({
           r.message = randomFrom(rulePhrasings.min);
         } else if (rule.name == "Limit Vowels") {
           r.inputValue = self.round.averageVowels + self.round.vowelOffset;
-          r.message = randomFrom(rulePhrasings.min);
+          r.message = randomFrom(rulePhrasings.vowels);
         }
 
         r.message = r.message.replace("[SIZE]", r.inputValue);
@@ -370,7 +421,6 @@ var app = new Vue({
       }
       return buttonDisabled;
     },
-
 
     saveRule(rule) {
       const self = this;
@@ -487,6 +537,7 @@ var app = new Vue({
       if (self.round.bugs && self.round.bugs.length > 0) {
         self.my.rulebux -= 1;
       }
+      
 
       self.ui.addBug = '';
       self.round.bugs.push(bug);
@@ -495,6 +546,12 @@ var app = new Vue({
         roomCode: self.roomCode,
         bugs: self.round.bugs
       });
+
+      if (app.isRoomHost) {
+        sendEvent("Invalid", "Add Bug", bug);
+      }
+
+      
     },
 
     onboardEmployees() {
@@ -798,6 +855,9 @@ var app = new Vue({
           attemptCount: self.my.passwordAttempts,
           result: "crash"
         });
+        self.my.crashesCaused += 1;
+
+        sendEvent("Invalid", "Server Crashed", attempt);
 
       } else if (correctAnswer) {
         soundCorrectGuess.play();
@@ -956,7 +1016,7 @@ var app = new Vue({
       });
 
     },
-
+    
     ////////////////////////////////////////////////////////////////
     // Final Round stuff.
 
@@ -992,6 +1052,7 @@ var app = new Vue({
                 victimIndex: self.my.playerIndex
               }
             });
+            sendEvent("Invalid", "Self-pwn", attempt);
           } else if (p.claimed) {
             soundTooSlow.play();
             passwordClaimed = true;
@@ -1027,6 +1088,7 @@ var app = new Vue({
             victimIndex: pwPlayerIndex
           }
         });
+        sendEvent("Invalid", "Password Cracked", attempt);
 
         if (self.computedUnclaimedPasswords < 1) {
           self.setGameOver();
@@ -1127,6 +1189,124 @@ var app = new Vue({
       }
       
       return computedPlayers.sort(compare);
+    },
+
+    computedCheevos() {      
+      const self = this;
+
+
+      // TODO: This entire setup sucks balls.
+      // Come up with a better way to hand out cheevos.
+      let playerTrophyStats = [];
+      self.players.forEach(player => 
+        playerTrophyStats.push({
+          name: player.name,
+          cracks: 0,
+          cracked: 0,
+          selfPwn: 0,
+          passwordsCreated: 0,
+          crashesCaused: 0,
+          passwordAttempts: 0
+        })
+      );
+
+      // Let's count the cracks/cracked/selfPwn numbers....
+      self.crackSummary.forEach((crack,cIndex)  => {
+        playerTrophyStats[crack.attackerIndex].cracks += 1;
+        playerTrophyStats[crack.victimIndex].cracked += 1;
+        if (crack.attackerIndex == crack.victimIndex) {
+          playerTrophyStats[crack.attackerIndex].selfPwn += 1;
+        }
+      });
+
+      // Let's count the passwords created...
+      self.allEmployeePasswords.forEach((pw,pwIndex)  => {
+        playerTrophyStats[pw.playerIndex].passwordsCreated += 1;
+      });
+
+      // Let's count the crashes
+      self.crashSummary.forEach((crash,crashIndex)  => {
+        playerTrophyStats[crash.playerIndex].crashesCaused += 1;
+      });
+
+      // Let's count the password attempts
+      self.players.forEach((player,playerIndex)  => {
+        playerTrophyStats[playerIndex].passwordAttempts = player.passwordAttempts;
+      });
+
+      //Find the best cracker.
+      let bestCrackersList = [...playerTrophyStats].sort((a, b) => (a.cracks <= b.cracks) ? 1 : -1);
+      let bestCracker = null;
+      if (bestCrackersList && bestCrackersList[0].cracks > 0 ) {
+        bestCracker = bestCrackersList[0];
+        if (bestCrackersList[0].cracks == bestCrackersList[1].cracks) {
+          bestCracker.name = "TIE";
+        }
+      }
+
+      //Find the most cracked.
+      let mostCrackedList = [...playerTrophyStats].sort((a, b) => (a.cracked <= b.cracked) ? 1 : -1);
+      let mostCracked = null;
+      if (mostCrackedList && mostCrackedList[0].cracked > 0 ) {
+        mostCracked = mostCrackedList[0];
+        if (mostCrackedList[0].cracked == mostCrackedList[1].cracked) {
+          mostCracked.name = "TIE";
+        }
+      }
+      
+
+      //Find the most selfpwned.
+      let mostSelfPwnsList = [...playerTrophyStats].sort((a, b) => (a.selfPwn <= b.selfPwn) ? 1 : -1);
+      let mostSelfPwns = null;
+      if (mostSelfPwnsList && mostSelfPwnsList[0].selfPwn > 0 ) {
+        mostSelfPwns = mostSelfPwnsList[0];
+        if (mostSelfPwnsList[0].selfPwn == mostSelfPwnsList[1].selfPwn) {
+          mostSelfPwns.name = "TIE";
+        }
+      }
+
+      //Find the most crashhappy.
+      let mostCrashesList = [...playerTrophyStats].sort((a, b) => (a.crashesCaused <= b.crashesCaused) ? 1 : -1);
+      let mostCrashes = null;
+      if (mostCrashesList && mostCrashesList[0].crashesCaused > 0 ) {
+        mostCrashes = mostCrashesList[0];
+        if (mostCrashesList[0].crashesCaused == mostCrashesList[1].crashesCaused) {
+          mostCrashes.name = "TIE";
+        }
+      }
+      
+      //Find the player with the most successful passwords
+      let mostPasswordsList = [...playerTrophyStats].sort((a, b) => (a.passwordsCreated <= b.passwordsCreated) ? 1 : -1);
+      let mostPasswords = null;
+      if (mostPasswordsList && mostPasswordsList[0].passwordsCreated > 0 ) {
+        mostPasswords = mostPasswordsList[0];
+        if (mostPasswordsList[0].passwordsCreated == mostPasswordsList[1].passwordsCreated) {
+          mostPasswords.name = "TIE";
+        }
+      }
+      
+
+      //Find the player with the most password attempts
+      let mostAttemptsList = [...playerTrophyStats].sort((a, b) => (a.passwordAttempts <= b.passwordAttempts) ? 1 : -1);
+      let mostAttempts = null;
+      if (mostAttemptsList && mostAttemptsList[0].passwordAttempts > 0 ) {
+        mostAttempts = mostAttemptsList[0];
+        if (mostAttemptsList[0].passwordAttempts == mostAttemptsList[1].passwordAttempts) {
+          mostAttempts.name = "TIE";
+        }
+      }
+      
+
+      return {
+        trophyStats: playerTrophyStats,
+        bestCracker: bestCracker,
+        mostCracked: mostCracked,
+        mostSelfPwns: mostSelfPwns,
+        mostCrashes: mostCrashes,
+        mostPasswords: mostPasswords,
+        mostAttempts: mostAttempts
+      };
+
     }
   },
 
@@ -1160,7 +1340,7 @@ var app = new Vue({
     self.maxRounds = 6;
     self.round.phase = "choose rules";
     self.definePossibleChallenges();
-    */
+    */ 
 
     /////////////////////////////////////////////
     // FAKE AN EMPLOYEE
@@ -1245,7 +1425,6 @@ var app = new Vue({
 
     ];
     self.startCountdownToFinalRound();
-    
     */
     
     /////////////////////////////////////////////
@@ -1256,12 +1435,12 @@ var app = new Vue({
     self.my.playerIndex = 0;
     self.currentlyInGame = true;
     self.players = [
-      { name: "Lemon", role:"employee", employeeNumber:1, score:118  },
-      { name: "Boots", role:"SysAdmin", employeeNumber:2, score:320  },
-      { name: "Sanguinary Novel", role:"employee", employeeNumber:3, score:212  },
-      { name: "Bunnybread", role:"employee", employeeNumber:5, score:-40  },
-      { name: "Achilles' Heelies", role:"employee", employeeNumber:99, score:131  },
-      { name: "Victor Laszlo", role:"employee", employeeNumber:8, score:0  },
+      { name: "Lemon", role:"employee", employeeNumber:1, score:118, passwordAttempts: 9  },
+      { name: "Boots", role:"SysAdmin", employeeNumber:2, score:320,passwordAttempts: 17  },
+      { name: "Sanguinary Novel", role:"employee", employeeNumber:3, score:212, passwordAttempts: 14  },
+      { name: "Bunnybread", role:"employee", employeeNumber:5, score:-40, passwordAttempts: 36  },
+      { name: "Achilles' Heelies", role:"employee", employeeNumber:99, score:131, passwordAttempts: 11  },
+      { name: "Victor Laszlo", role:"employee", employeeNumber:8, score:0, passwordAttempts: 9  },
     ];
     self.round.phase = "GAME OVER";
     
@@ -1393,14 +1572,20 @@ var app = new Vue({
       { pw: "AMBER", attackerIndex: 4, victimIndex: 0 },
       { pw: "SUGAR COOKIE", attackerIndex: 4, victimIndex: 2 },
       { pw: "AMBER", attackerIndex: 0, victimIndex: 0 },
+      { pw: "TAMBLYN", attackerIndex: 0, victimIndex: 0 },
       { pw: "DIPPER", attackerIndex: 3, victimIndex: 1 },
       { pw: "SOMALI", attackerIndex: 2, victimIndex: 3 },
+      { pw: "FART", attackerIndex: 4, victimIndex: 1 },
+    ];
+    self.crashSummary = [
+      { playerIndex: 2, sysAdminIndex:  0, word: "SONIC" },
+      { playerIndex: 5, sysAdminIndex:  2, word: "RUBY" },
+      { playerIndex: 2, sysAdminIndex:  4, word: "SONIC" },
+      { playerIndex: 3, sysAdminIndex:  1, word: "SONIC" },
     ];
     */
+    ///////////////////////////////////////////////
     
-    ///////////////////////////////////////////////    
-    
-
 
   },
 
