@@ -6,7 +6,7 @@ const allDecks = [
   {
     name: "Science “Facts”",
     description: "There's a lot of weird but interesting facts in science that actually turn out to be true! This deck contains none of them.",
-    cards: [
+    cards: [ 
       "Honey bees can {speak Korean.}",
       "Eating a carrot a day will {eventually turn your skin orange.}",
       "If a rabbit {hears a D# note,} it will immediately attack any other rabbit it sees.",
@@ -39,6 +39,8 @@ const allDecks = [
       "The human body is made up of 60% {cheap vodka.}",
       "{Dark matter} killed the dinosaurs.",
       "Reiki is 100% effective, but energy fields {are disrupted by asking for evidence.}",
+      "The best cure for hiccups is to {stare directly into the sun.}",
+      "The human liver in an organ that turns toxins into {bitcoin.}"
     ]
   },
 
