@@ -305,12 +305,14 @@ var app = new Vue({
         votingPlayerName: self.my.name,
         downVoteIndex: self.ui.downVoteIndex,
         upVoteIndex: self.ui.upVoteIndex,
+        downVoteCard: app.round.cardsPresented[app.ui.downVoteIndex].card,
+        upVoteCard: app.round.cardsPresented[app.ui.upVoteIndex].card
       });
 
       self.ui.iVoted = true;
+      sendEvent("The Wrongest Words", "Downvote", app.round.cardsPresented[app.ui.downVoteIndex].card);
+      sendEvent("The Wrongest Words", "Upvote", app.round.cardsPresented[app.ui.upVoteIndex].card);
 
-      sendEvent("The Wrongest Words", "Upvote", self.cardsPresented[self.ui.upVoteIndex].card);
-      sendEvent("The Wrongest Words", "Downvote", self.cardsPresented[self.ui.downVoteIndex].card);
     },
 
     startNextRound() {

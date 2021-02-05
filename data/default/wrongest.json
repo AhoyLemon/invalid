@@ -1,0 +1,14 @@
+{
+  "RoomsCreated": 0,
+  "Games": {
+    "Started": 0,
+    "PlayerCounts": [],
+    "MostRecent": {
+      "dateAndTime": "",
+      "date": "",
+      "time": ""
+    }
+  },
+  "Decks": [],
+  "Statements": []
+}

@@ -318,14 +318,17 @@ var app = new Vue({
         // Special process for summoning a flying pig.
         self.my.rulebux -= rule.cost;
         self.round.flyingPig.active = true;
-        self.round.rules.push({
-          type:"Flying Pig", message: "Look at the flying pig."
-        });
+        let r = { 
+          type:"Flying Pig",
+          message: "Look at the flying pig."
+        };
+        self.round.rules.push(r);
         // Inform the other players.
         socket.emit("updatePasswordRules", {
           roomCode: self.roomCode,
           rules: self.round.rules,
-          shibboleth: self.round.shibboleth
+          shibboleth: self.round.shibboleth,
+          newRule: r
         });
         socket.emit('summonThePig',{
           roomCode: self.roomCode,
@@ -351,17 +354,19 @@ var app = new Vue({
         );
         // Pay for it.
         self.my.rulebux = (self.my.rulebux - rule.cost);
-
-        self.round.rules.push({
+        
+        let r = {
           type: "Peek At Answers",
           message: self.my.name + " peeked at the answers",
           inputValue: "",
           inputValueTwo: ""
-        });
+        };
+        self.round.rules.push(r);
         socket.emit("updatePasswordRules", {
           roomCode: self.roomCode,
           rules: self.round.rules,
-          shibboleth: self.round.shibboleth
+          shibboleth: self.round.shibboleth,
+          newRule: r
         });
 
       } else if (rule.name == "Set A Maximum" || rule.name == "Set A Minimum" || rule.name == "Limit Vowels") {
@@ -393,7 +398,8 @@ var app = new Vue({
         socket.emit("updatePasswordRules", {
           roomCode: self.roomCode,
           rules: self.round.rules,
-          shibboleth: self.round.shibboleth
+          shibboleth: self.round.shibboleth,
+          newRule: r
         });
 
 
@@ -481,7 +487,8 @@ var app = new Vue({
         socket.emit("updatePasswordRules", {
           roomCode: self.roomCode,
           rules: self.round.rules,
-          shibboleth: self.round.shibboleth
+          shibboleth: self.round.shibboleth,
+          newRule: r
         });
 
       } else {
@@ -544,14 +551,12 @@ var app = new Vue({
 
       socket.emit("updateBugs", {
         roomCode: self.roomCode,
-        bugs: self.round.bugs
+        bugs: self.round.bugs,
+        newBug: bug
       });
 
-      if (app.isRoomHost) {
-        sendEvent("Invalid", "Add Bug", bug);
-      }
+      sendEvent("Invalid", "Add Bug", bug);
 
-      
     },
 
     onboardEmployees() {
@@ -1340,7 +1345,8 @@ var app = new Vue({
     self.maxRounds = 6;
     self.round.phase = "choose rules";
     self.definePossibleChallenges();
-    */ 
+    */
+    
 
     /////////////////////////////////////////////
     // FAKE AN EMPLOYEE
