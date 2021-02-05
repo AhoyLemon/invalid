@@ -11,13 +11,13 @@ app.use(express.static('public'));
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
-const generalAdapter = new FileSync('./data/db-general.json');
+const generalAdapter = new FileSync('./data/general.json');
 const generalDB = low(generalAdapter);
 
-const invalidAdapter = new FileSync('./data/db-invalid.json');
+const invalidAdapter = new FileSync('./data/invalid.json');
 const invalidDB = low(invalidAdapter);
 
-const wrongestAdapter = new FileSync('./data/db-wrongest.json');
+const wrongestAdapter = new FileSync('./data/wrongest.json');
 const wrongestDB = low(wrongestAdapter);
 
 /////////////////////////////////////////////////////////////////////////////
@@ -46,24 +46,22 @@ app.get('/stats', (req, res) => {
 });
 
 app.get('/general/stats/json', (req, res) => {
-  let dbPath = require('./data/db-general.json');
+  let dbPath = require('./data/general.json');
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(dbPath));
 });
 
 app.get('/invalid/stats/json', (req, res) => {
-  let dbPath = require('./data/db-invalid.json');
+  let dbPath = require('./data/invalid.json');
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(dbPath));
 });
 
 app.get('/wrongest/stats/json', (req, res) => {
-  let dbPath = require('./data/db-wrongest.json');
+  let dbPath = require('./data/wrongest.json');
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(dbPath));
 });
-
-
 
 
 io.on('connection', (socket) => {

@@ -1,0 +1,38 @@
+{
+  "RoomsCreated": 0,
+  "Games": {
+    "Started": 0,
+    "NaughtyMode": {
+      "on": 0,
+      "off": 0
+    },
+    "PlayerCounts": [],
+    "MostRecent": {
+      "dateAndTime": "",
+      "date": "",
+      "time": ""
+    }
+  },
+  "Challenges": [],
+  "Rules": [
+    {
+      "name": "Demand A Letter",
+      "count": 0,
+      "letters": []
+    },
+    {
+      "name": "Ban A Letter",
+      "count": 0,
+      "letters": []
+    },
+    {
+      "name": "Shibboleth",
+      "count": 0,
+      "phrases": []
+    }
+  ],
+  "Bugs": [],
+  "SuccessfulPasswords": [],
+  "Crashes": [],
+  "Cracks": []
+}

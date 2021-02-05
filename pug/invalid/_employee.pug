@@ -48,7 +48,7 @@ main.employee-screen(v-if="my.role == 'employee' && (round.phase == 'choose rule
 
           template(v-if="!ui.roundOver && !ui.passwordSucceeded")
 
-            template(v-if="computedShibbolethRequired || ui.shibboleth")
+            template(v-if="computedShibbolethRequired && ui.shibboleth")
               template(v-if="ui.roundOver || round.phase != 'create password' || !computedShibbolethRequired")
                 form.shibboleth-form.disabled
                   fieldset

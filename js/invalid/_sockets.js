@@ -86,6 +86,7 @@ socket.on("startTheGame", function(msg) {
 socket.on("updatePasswordChallenge", function(msg) {
   console.log("I (an employee) have been informed of the password challenge.");  
   app.round.challenge = msg.challenge;
+  app.round.shibboleth = "";
   soundNewRule.play();
 });
 
