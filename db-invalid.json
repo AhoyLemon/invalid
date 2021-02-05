@@ -7,7 +7,11 @@
       "off": 0
     },
     "PlayerCounts": [],
-    "Ended": 0
+    "MostRecent": {
+      "dateAndTime": "",
+      "date": "",
+      "time": ""
+    }
   },
   "Challenges": [],
   "Rules": [
@@ -28,6 +32,7 @@
     }
   ],
   "Bugs": {},
+  "SuccessfulPasswords": {},
   "Crashes": {},
   "Cracks": {}
 }

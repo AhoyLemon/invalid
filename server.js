@@ -41,12 +41,24 @@ app.get('/sitemap.xml', (req, res) => {
   res.sendFile(__dirname + '/xml/sitemap.xml');
 });
 
-
 app.get('/invalid/stats/json', (req, res) => {
   let dbPath = require('./db-invalid.json');
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(dbPath));
 });
+
+app.get('/wrongest/stats/json', (req, res) => {
+  let dbPath = require('./db-wrongest.json');
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(dbPath));
+});
+
+
+
+
+
+
+
 
 io.on('connection', (socket) => {
 
@@ -111,6 +123,10 @@ io.on('connection', (socket) => {
 
     console.log(msg.roomCode+' - started game of '+msg.gameName);
     const playerCount = msg.players.length;
+    const d = new Date();
+    const fullStamp = d.getFullYear() + '-' + (d.getMonth()<10?'0':'') + d.getMonth() + '-' + (d.getDate()<10?'0':'') + d.getDate() + '@' + (d.getHours()<10?'0':'') + d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes() + ':' + (d.getSeconds()<10?'0':'') + d.getSeconds();
+    const dateStamp = d.getFullYear() + '-' + (d.getMonth()<10?'0':'') + d.getMonth() + '-' + (d.getDate()<10?'0':'') + d.getDate();
+    const timeStamp = (d.getHours()<10?'0':'') + d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes() + ':' + (d.getSeconds()<10?'0':'') + d.getSeconds()
 
     if (msg.gameName == "invalid") {
       io.in(msg.roomCode).emit('startTheGame', {
@@ -134,8 +150,7 @@ io.on('connection', (socket) => {
         invalidDB.get("Games.NaughtyMode").update('off', n => n + 1).write();
       }
       invalidDB.get("Games").update('Started', n => n + 1).write();
-
-
+      invalidDB.get("Games.MostRecent").update('dateAndTime', n => fullStamp).update('date', n => dateStamp).update('time', n => timeStamp).write();
 
     } else if (msg.gameName == "wrongest") {
       io.in(msg.roomCode).emit('startTheGame', {
@@ -159,7 +174,7 @@ io.on('connection', (socket) => {
         wrongestDB.get("Decks").push({ name: msg.chosenDeckName, count: 1} ).write();
       }
       wrongestDB.get("Games").update('Started', n => n + 1).write();
-
+      wrongestDB.get("Games.MostRecent").update('dateAndTime', n => fullStamp).update('date', n => dateStamp).update('time', n => timeStamp).write();
     }
     
     console.table(msg.players);
@@ -292,7 +307,6 @@ io.on('connection', (socket) => {
       result: msg.result
     });
 
-
     if (invalidDB.has("Crashes."+msg.pwAttempt).value()) {
       invalidDB.update("Crashes."+msg.pwAttempt, n => n + 1).write();
     } else {
@@ -311,6 +325,12 @@ io.on('connection', (socket) => {
       playerScore: msg.playerScore,
       result: msg.result
     });
+
+    if (invalidDB.has("SuccessfulPasswords."+msg.pwAttempt).value()) {
+      invalidDB.update("SuccessfulPasswords."+msg.pwAttempt, n => n + 1).write();
+    } else {
+      invalidDB.set("SuccessfulPasswords."+msg.pwAttempt, 1).write();
+    }
   });
 
   // Any Player -> ALL
