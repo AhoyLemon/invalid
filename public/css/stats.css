@@ -205,7 +205,9 @@ p {
 section {
   font-size: 20px;
   font-family: "Lora", serif;
-  padding-bottom: 6rem;
+}
+section.stats {
+  padding: 5rem 40px;
 }
 section figure {
   text-align: center;
@@ -218,7 +220,6 @@ section .tables {
   display: -ms-grid;
   display: grid;
   gap: 40px;
-  grid-template-columns: repeat(auto-fit, 300px);
 }
 section .table-wrapper {
   background: #eee;
@@ -248,8 +249,14 @@ section .table-wrapper td {
   border-bottom: 1px solid black;
 }
 section .grid-wrapper .grid-caption {
-  font-size: 120%;
+  font-size: 110%;
   margin-bottom: 10px;
+  text-transform: uppercase;
+}
+section .grid-wrapper .grid-box {
+  background: #eee;
+  color: #212121;
+  height: 300px;
 }
 section .grid-wrapper .data-grid {
   display: -ms-grid;
@@ -258,8 +265,6 @@ section .grid-wrapper .data-grid {
   grid-template-columns: 36px 1fr;
   padding-top: 16px;
   padding-bottom: 16px;
-  background: #eee;
-  color: #212121;
   max-height: 300px;
   overflow-y: auto;
 }
@@ -272,4 +277,97 @@ section .grid-wrapper .count {
   text-align: right;
   padding-right: 10px;
   font-weight: 900;
+}
+section .timebox {
+  -ms-grid-column-span: 2;
+  grid-column: span 2;
+}
+section .timebox .time-caption {
+  font-size: 110%;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+section .timebox .time-ago {
+  font-size: 180%;
+  font-weight: 900;
+}
+section .statement-grid-wrapper {
+  -ms-grid-column-span: 3;
+  grid-column: span 3;
+}
+section .statement-grid-wrapper .grid-caption {
+  font-size: 110%;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+section .statement-grid-wrapper .data-grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 60px 1fr 30px;
+  grid-template-columns: 60px 1fr 30px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background: #eee;
+  color: #212121;
+  max-height: 300px;
+  overflow-y: auto;
+}
+section .statement-grid-wrapper .data-grid > * {
+  border-bottom: 1px solid black;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+}
+section .statement-grid-wrapper .score {
+  text-align: right;
+  padding-right: 10px;
+  font-weight: 900;
+}
+section .statement-grid-wrapper .score.positive {
+  color: darkgreen;
+}
+section .statement-grid-wrapper .score.negative {
+  color: darkred;
+}
+section .tables {
+  -ms-grid-columns: (1fr)[5];
+  grid-template-columns: repeat(5, 1fr);
+}
+@media (max-width: 1570px) {
+  section .tables {
+    -ms-grid-columns: (1fr)[4];
+    grid-template-columns: repeat(4, 1fr);
+  }
+  section .tables .timebox {
+    -ms-grid-column-span: 1;
+    grid-column: span 1;
+  }
+}
+@media (max-width: 1150px) {
+  section .tables {
+    -ms-grid-columns: (1fr)[3];
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  section .tables {
+    -ms-grid-columns: (1fr)[2];
+    grid-template-columns: repeat(2, 1fr);
+  }
+  section .tables .statement-grid-wrapper {
+    -ms-grid-column-span: 2;
+    grid-column: span 2;
+  }
+}
+@media (max-width: 630px) {
+  section .tables {
+    -ms-grid-columns: (1fr)[1];
+    grid-template-columns: repeat(1, 1fr);
+  }
+  section .tables .statement-grid-wrapper {
+    -ms-grid-column-span: 1;
+    grid-column: span 1;
+  }
+  section .tables .grid-box {
+    height: unset !important;
+  }
 }

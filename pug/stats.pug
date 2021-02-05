@@ -6,74 +6,126 @@ html
     - var testing = true 
     title kinda.fun stats
     link(href="css/stats.css" type="text/css" rel="stylesheet")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
 body
   #app(v-cloak)
-    h1 {{h1}}
 
-    section.general
+    section.general.stats
 
       .tables
 
         .grid-wrapper
           .grid-caption Player Names
-          .data-grid
-            template(v-for="player in sortedList(stats.general.PlayerNames)")
-              .count {{player.count}}
-              .value {{player.name}}
+          .grid-box
+            .data-grid
+              template(v-for="player in sortedList(stats.general.PlayerNames)")
+                .count {{player.count}}
+                .value {{player.name}}
 
-    section.invalid
+        .timebox
+          .time-caption Last Invalid 
+          .time-ago(v-text="formatTime(stats.general.Games.Invalid.MostRecent.dateAndTime,'fromNow')")
+          .calendar(v-text="formatTime(stats.general.Games.Invalid.MostRecent.dateAndTime,'calendar')")
+
+        .timebox
+          .time-caption Last Wrongest Words
+          .time-ago(v-text="formatTime(stats.general.Games.TheWrongestWords.MostRecent.dateAndTime,'fromNow')")
+          .calendar(v-text="formatTime(stats.general.Games.TheWrongestWords.MostRecent.dateAndTime,'calendar')")
+
+    section.invalid.stats
       figure
         img(src="svg/invalid-logo.svg")
       .tables
         .grid-wrapper
           .grid-caption Game Sizes
-          .data-grid
-            template(v-for="game in sortedList(stats.invalid.Games.PlayerCounts)")
-              .count {{game.count}}
-              .value {{game.players}} Players
+          .grid-box
+            .data-grid
+              template(v-for="game in sortedList(stats.invalid.Games.PlayerCounts)")
+                .count {{game.count}}
+                .value {{game.players}} Players
 
         .grid-wrapper
-          .grid-caption Games By Naughty Mode
-          .data-grid
-            .count {{stats.invalid.Games.NaughtyMode.on}}
-            .value Naughty Mode ON
-            .count {{stats.invalid.Games.NaughtyMode.off}}
-            .value Naughty Mode OFF
+          .grid-caption Naughty Mode?
+          .grid-box
+            .data-grid
+              .count {{stats.invalid.Games.NaughtyMode.on}}
+              .value Naughty Mode ON
+              .count {{stats.invalid.Games.NaughtyMode.off}}
+              .value Naughty Mode OFF
 
         .grid-wrapper
           .grid-caption Challenges
-          .data-grid
-            template(v-for="challenge in sortedList(stats.invalid.Challenges)")
-              .count {{challenge.count}}
-              .value {{challenge.name}}
+          .grid-box
+            .data-grid
+              template(v-for="challenge in sortedList(stats.invalid.Challenges)")
+                .count {{challenge.count}}
+                .value {{challenge.name}}
 
         .grid-wrapper
           .grid-caption Rules
-          .data-grid
-            template(v-for="rule in sortedList(stats.invalid.Rules)")
-              .count {{rule.count}}
-              .value {{rule.name}}
+          .grid-box
+            .data-grid
+              template(v-for="rule in sortedList(stats.invalid.Rules)")
+                .count {{rule.count}}
+                .value {{rule.name}}
 
         .grid-wrapper
           .grid-caption Successful Passwords
-          .data-grid
-            template(v-for="suc in sortedList(stats.invalid.SuccessfulPasswords)")
-              .count {{suc.count}}
-              .value {{suc.pw}}
+          .grid-box
+            .data-grid
+              template(v-for="suc in sortedList(stats.invalid.SuccessfulPasswords)")
+                .count {{suc.count}}
+                .value {{suc.pw}}
 
         .grid-wrapper
           .grid-caption Server Crashes
-          .data-grid
-            template(v-for="crash in sortedList(stats.invalid.Crashes)")
-              .count {{crash.count}}
-              .value {{crash.pw}}
+          .grid-box
+            .data-grid
+              template(v-for="crash in sortedList(stats.invalid.Crashes)")
+                .count {{crash.count}}
+                .value {{crash.pw}}
 
         .grid-wrapper
           .grid-caption Cracked Passwords
-          .data-grid
-            template(v-for="crack in sortedList(stats.invalid.Cracks)")
-              .count {{crack.count}}
-              .value {{crack.pw}}
+          .grid-box
+            .data-grid
+              template(v-for="crack in sortedList(stats.invalid.Cracks)")
+                .count {{crack.count}}
+                .value {{crack.pw}}
+
+    section.wrogest.stats
+      figure
+        img(src="svg/wrongest.svg")
+
+
+      .tables
+
+        .grid-wrapper
+          .grid-caption Game Sizes
+          .grid-box
+            .data-grid
+              template(v-for="game in sortedList(stats.wrongest.Games.PlayerCounts)")
+                .count {{game.count}}
+                .value {{game.players}} Players
+
+        .grid-wrapper
+          .grid-caption Decks
+          .grid-box
+            .data-grid
+              template(v-for="deck in sortedList(stats.wrongest.Decks)")
+                .count {{deck.count}}
+                .value {{deck.name}}
+        
+        .statement-grid-wrapper
+          .grid-caption Statements
+          .data-grid.statements
+            template(v-for="statement in sortByScore(stats.wrongest.Statements)")
+              .score(v-bind:class="{negative: (statement.score < 0), positive: (statement.score > 0)}")
+                span(v-if="statement.score > 0") {{'+'+statement.score}}
+                span(v-else-if="statement.score < 0") {{statement.score}}
+                span(v-else) -
+              .words “{{formatQuote(statement.words)}}”
+              .votes {{statement.votes}}
 
 
   .javascripts
@@ -86,4 +138,5 @@ body
       script.
         const testing = false;
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js")
     script(src="js/min/stats.min.js")

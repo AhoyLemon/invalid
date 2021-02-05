@@ -1,107 +1,24 @@
 {
-  "RoomsCreated": 15,
+  "RoomsCreated": 0,
   "Games": {
-    "Started": 13,
+    "Started": 0,
     "NaughtyMode": {
-      "on": 11,
-      "off": 2
+      "on": 0,
+      "off": 0
     },
-    "PlayerCounts": [
-      {
-        "players": 4,
-        "count": 6
-      },
-      {
-        "players": 3,
-        "count": 7
-      }
-    ],
+    "PlayerCounts": [],
     "MostRecent": {
-      "dateAndTime": "2021-01-04@21:59:20",
-      "date": "2021-01-04",
-      "time": "21:59:20"
+      "dateAndTime": "",
+      "date": "",
+      "time": ""
     }
   },
-  "Challenges": [
-    {
-      "name": "Pizza Toppings",
-      "count": 1
-    },
-    {
-      "name": "Words for Vulva",
-      "count": 1
-    },
-    {
-      "name": "Gemstones",
-      "count": 2
-    },
-    {
-      "name": "Fruits",
-      "count": 1
-    },
-    {
-      "name": "Smash Bros.",
-      "count": 1
-    },
-    {
-      "name": "Textiles",
-      "count": 1
-    },
-    {
-      "name": "DC Comics",
-      "count": 1
-    },
-    {
-      "name": "Adobe Products",
-      "count": 1
-    },
-    {
-      "name": "Artist Pigments",
-      "count": 1
-    },
-    {
-      "name": "Game of Thrones",
-      "count": 1
-    },
-    {
-      "name": "Olympic Sports",
-      "count": 1
-    },
-    {
-      "name": "MLB Baseball",
-      "count": 1
-    },
-    {
-      "name": "The Muppet Show",
-      "count": 1
-    },
-    {
-      "name": "Football Teams",
-      "count": 1
-    },
-    {
-      "name": "Human Organs",
-      "count": 1
-    },
-    {
-      "name": "Types of Cheese",
-      "count": 1
-    },
-    {
-      "name": "African Countries",
-      "count": 1
-    }
-  ],
+  "Challenges": [],
   "Rules": [
     {
       "name": "Demand A Letter",
-      "count": 2,
-      "letters": [
-        {
-          "letter": "A",
-          "count": 2
-        }
-      ]
+      "count": 0,
+      "letters": []
     },
     {
       "name": "Ban A Letter",
@@ -112,126 +29,10 @@
       "name": "Shibboleth",
       "count": 0,
       "phrases": []
-    },
-    {
-      "name": "Peek At Answers",
-      "count": 4
-    },
-    {
-      "name": "Limit Vowels",
-      "count": 1
-    },
-    {
-      "name": "Ban A Combo",
-      "count": 1
     }
   ],
-  "Bugs": [
-    {
-      "pw": "TWINS",
-      "count": 2
-    },
-    {
-      "pw": "WHITESOX",
-      "count": 1
-    },
-    {
-      "pw": "BLACKSOCKS",
-      "count": 1
-    },
-    {
-      "pw": "CRASH",
-      "count": 1
-    },
-    {
-      "pw": "FUCK",
-      "count": 2
-    }
-  ],
-  "SuccessfulPasswords": [
-    {
-      "pw": "KERMIT",
-      "count": 1
-    },
-    {
-      "pw": "FOZZIE BEAR",
-      "count": 1
-    },
-    {
-      "pw": "BEAKER",
-      "count": 1
-    },
-    {
-      "pw": "RUBY",
-      "count": 1
-    },
-    {
-      "pw": "DIAMOND",
-      "count": 1
-    },
-    {
-      "pw": "EMERALD",
-      "count": 1
-    },
-    {
-      "pw": "VIKINGS",
-      "count": 1
-    },
-    {
-      "pw": "PACKERS",
-      "count": 1
-    },
-    {
-      "pw": "BEARS",
-      "count": 1
-    },
-    {
-      "pw": "LIVER",
-      "count": 1
-    },
-    {
-      "pw": "BRAIN",
-      "count": 1
-    },
-    {
-      "pw": "HEART",
-      "count": 1
-    }
-  ],
-  "Crashes": [
-    {
-      "pw": "CRASH",
-      "count": 1
-    },
-    {
-      "pw": "FUCK",
-      "count": 1
-    }
-  ],
-  "Cracks": [
-    {
-      "pw": "SCORPION",
-      "count": 1
-    },
-    {
-      "pw": "RAIDEN",
-      "count": 1
-    },
-    {
-      "pw": "GORO",
-      "count": 1
-    },
-    {
-      "pw": "MILEENA",
-      "count": 1
-    },
-    {
-      "pw": "KITANA",
-      "count": 1
-    },
-    {
-      "pw": "KANO",
-      "count": 1
-    }
-  ]
+  "Bugs": [],
+  "SuccessfulPasswords": [],
+  "Crashes": [],
+  "Cracks": []
 }
