@@ -193,7 +193,7 @@
     <main class="player-list" v-if="gameStarted &amp;&amp; round.phase == 'presenting' &amp;&amp; !computedAmIPresenting">
       <div class="inside"> 
         <div class="players">
-          <div class="player" v-for="(player,index) in players" :class="{ 'is-you': (my.playerIndex == index), 'presenting': (round.activePlayerIndex == index &amp;&amp; round.playerPresenting),  'already-went': (index &lt;= round.activePlayerIndex), 'up-next': (((round.activePlayerIndex + 1) == index &amp;&amp; !round.playerPresenting) || (index == 0) &amp;&amp; (players.length == (round.activePlayerIndex + 1))), 'is-dealer': round.dealerIndex == index }">
+          <div class="player" v-for="(player,index) in players" :class="{ 'is-you': (my.playerIndex == index), 'presenting': (round.activePlayerIndex == index &amp;&amp; round.playerPresenting),  'already-went': (index &lt;= round.activePlayerIndex), 'up-next': (((round.activePlayerIndex + 1) == index &amp;&amp; !round.playerPresenting) || (index == 0) &amp;&amp; (players.length == (round.activePlayerIndex + 1)) &amp;&amp; !round.playerPresenting), 'is-dealer': round.dealerIndex == index }">
             <div class="countdown-holder" v-if="round.activePlayerIndex == index &amp;&amp; round.playerPresenting">
               <div class="countdown small dark" :class="{'nearly-done' : (round.presentationTimeLeft &lt; 12) }">
                 <div class="number"> <span>{{parseInt(round.presentationTimeLeft)}}</span></div>
@@ -341,7 +341,7 @@
       var socket = io.connect();
       Vue.use(VueToast);
     </script>
-    <script src="js/min/wrongest.min.js?updated2021-01-02@09:26:07"></script>
+    <script src="js/min/wrongest.min.js?updated2021-01-05@11:15:45"></script>
     <script type="text/javascript">
       var _paq = window._paq = window._paq || [];
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

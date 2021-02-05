@@ -282,5 +282,6 @@ socket.on("gameOver", function(msg) {
   if (app.isRoomHost) {
     sendEvent("Invalid", "Game Over", app.roomCode);
   }
+  document.title = "GAME OVER" + " | " + gameTitle;
 
 });
