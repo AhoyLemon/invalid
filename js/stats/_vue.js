@@ -18,7 +18,12 @@ var app = new Vue({
           return -1;
         return 0;
       }
-      return list.sort(compare);
+      if (list && list.length > 1) {
+        return list.sort(compare);
+      } else {
+        return list;
+      }
+      
     },
 
     sortByScore(list) {
@@ -29,7 +34,11 @@ var app = new Vue({
           return -1;
         return 0;
       }
-      return list.sort(compare);
+      if (list && list.length > 1) {
+        return list.sort(compare);
+      } else {
+        return list;
+      }
     },
 
     formatQuote(quote) {

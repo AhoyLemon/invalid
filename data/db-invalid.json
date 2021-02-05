@@ -1,38 +1,250 @@
 {
-  "RoomsCreated": 0,
+  "RoomsCreated": 8,
   "Games": {
-    "Started": 0,
+    "Started": 3,
     "NaughtyMode": {
-      "on": 0,
+      "on": 3,
       "off": 0
     },
-    "PlayerCounts": [],
+    "PlayerCounts": [
+      {
+        "players": 5,
+        "count": 2
+      },
+      {
+        "players": 3,
+        "count": 1
+      }
+    ],
     "MostRecent": {
-      "dateAndTime": "",
-      "date": "",
-      "time": ""
+      "dateAndTime": "2021-02-05@11:54:12",
+      "date": "2021-02-05",
+      "time": "11:54:12"
     }
   },
-  "Challenges": [],
+  "Challenges": [
+    {
+      "name": "Pizza Toppings",
+      "count": 1
+    },
+    {
+      "name": "Medieval Weaponry",
+      "count": 1
+    },
+    {
+      "name": "Greek Mythology",
+      "count": 1
+    },
+    {
+      "name": "Fast Food Chains",
+      "count": 1
+    },
+    {
+      "name": "Simpsons Characters",
+      "count": 1
+    },
+    {
+      "name": "MLB Baseball",
+      "count": 1
+    },
+    {
+      "name": "Words for Vulva",
+      "count": 1
+    },
+    {
+      "name": "European Countries",
+      "count": 1
+    },
+    {
+      "name": "Types of Cheese",
+      "count": 1
+    },
+    {
+      "name": "Sushi",
+      "count": 1
+    }
+  ],
   "Rules": [
     {
       "name": "Demand A Letter",
-      "count": 0,
-      "letters": []
+      "count": 1,
+      "letters": [
+        {
+          "letter": "A",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Ban A Letter",
-      "count": 0,
-      "letters": []
+      "count": 1,
+      "letters": [
+        {
+          "letter": "A",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Shibboleth",
       "count": 0,
       "phrases": []
+    },
+    {
+      "name": "Peek At Answers",
+      "count": 8
+    },
+    {
+      "name": "Flying Pig",
+      "count": 1
     }
   ],
-  "Bugs": [],
-  "SuccessfulPasswords": [],
-  "Crashes": [],
-  "Cracks": []
+  "Bugs": [
+    {
+      "pw": "ANCHOVY",
+      "count": 1
+    },
+    {
+      "pw": "CRASH",
+      "count": 1
+    },
+    {
+      "pw": "FUCK",
+      "count": 2
+    },
+    {
+      "pw": "BOB",
+      "count": 1
+    }
+  ],
+  "SuccessfulPasswords": [
+    {
+      "pw": "PEPPERONI",
+      "count": 1
+    },
+    {
+      "pw": "SAUSAGE",
+      "count": 1
+    },
+    {
+      "pw": "CANNON",
+      "count": 1
+    },
+    {
+      "pw": "HAND CANNON",
+      "count": 1
+    },
+    {
+      "pw": "ARES",
+      "count": 1
+    },
+    {
+      "pw": "BURGER KING",
+      "count": 1
+    },
+    {
+      "pw": "TWINS",
+      "count": 1
+    },
+    {
+      "pw": "RANGERS",
+      "count": 1
+    },
+    {
+      "pw": "YANKEES",
+      "count": 1
+    },
+    {
+      "pw": "MARLINS",
+      "count": 1
+    },
+    {
+      "pw": "MINGE",
+      "count": 1
+    },
+    {
+      "pw": "MUFF",
+      "count": 1
+    },
+    {
+      "pw": "LADY PARTS",
+      "count": 1
+    },
+    {
+      "pw": "PUSSY",
+      "count": 1
+    },
+    {
+      "pw": "FRANCE",
+      "count": 1
+    },
+    {
+      "pw": "BELGIUM",
+      "count": 1
+    },
+    {
+      "pw": "DENMARK",
+      "count": 1
+    },
+    {
+      "pw": "SPAIN",
+      "count": 1
+    },
+    {
+      "pw": "BRIE",
+      "count": 1
+    },
+    {
+      "pw": "CHEDDAR",
+      "count": 1
+    },
+    {
+      "pw": "ROQUEFORT",
+      "count": 1
+    },
+    {
+      "pw": "GOUDA",
+      "count": 1
+    },
+    {
+      "pw": "EEL",
+      "count": 1
+    },
+    {
+      "pw": "EGG",
+      "count": 1
+    },
+    {
+      "pw": "RICE",
+      "count": 1
+    },
+    {
+      "pw": "SQUID",
+      "count": 1
+    }
+  ],
+  "Crashes": [
+    {
+      "pw": "ANCHOVY",
+      "count": 1
+    },
+    {
+      "pw": "CRASH",
+      "count": 1
+    },
+    {
+      "pw": "FUCK",
+      "count": 2
+    },
+    {
+      "pw": "BOB",
+      "count": 1
+    }
+  ],
+  "Cracks": [
+    {
+      "pw": "PEPPERONI",
+      "count": 1
+    }
+  ]
 }
