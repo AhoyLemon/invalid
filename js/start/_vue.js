@@ -32,6 +32,7 @@ var app = new Vue({
       location.assign(url);
       
     },
+
     joinRoom() {
       const self = this;
       const url = new URL(window.location + "" + self.gameChoice + "?join");

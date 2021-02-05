@@ -130,9 +130,9 @@ io.on('connection', (socket) => {
     console.log(msg.roomCode+' - started game of '+msg.gameName);
     const playerCount = msg.players.length;
     const d = new Date();
-    const fullStamp = d.getFullYear() + '-' + (d.getMonth()<10?'0':'') + d.getMonth() + '-' + (d.getDate()<10?'0':'') + d.getDate() + '@' + (d.getHours()<10?'0':'') + d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes() + ':' + (d.getSeconds()<10?'0':'') + d.getSeconds();
-    const dateStamp = d.getFullYear() + '-' + (d.getMonth()<10?'0':'') + d.getMonth() + '-' + (d.getDate()<10?'0':'') + d.getDate();
-    const timeStamp = (d.getHours()<10?'0':'') + d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes() + ':' + (d.getSeconds()<10?'0':'') + d.getSeconds()
+    const fullStamp = d.getFullYear() + '-' + ((d.getMonth()+1)<10?'0':'') + (d.getMonth()+1) + '-' + (d.getDate()<10?'0':'') + d.getDate() + '@' + (d.getHours()<10?'0':'') + d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes() + ':' + (d.getSeconds()<10?'0':'') + d.getSeconds();
+    const dateStamp = d.getFullYear() + '-' + ((d.getMonth()+1)<10?'0':'') + (d.getMonth()+1) + '-' + (d.getDate()<10?'0':'') + d.getDate();
+    const timeStamp = (d.getHours()<10?'0':'') + d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes() + ':' + (d.getSeconds()<10?'0':'') + d.getSeconds();
 
     if (msg.gameName == "invalid") {
       io.in(msg.roomCode).emit('startTheGame', {
@@ -187,10 +187,10 @@ io.on('connection', (socket) => {
     
     console.table(msg.players);
     msg.players.forEach((player) => {
-      if (generalDB.get("PlayerNames").find({ player: player.name }).value()) {
-        generalDB.get("PlayerNames").find({ player: player.name }).update('count', n => n + 1).write();
+      if (generalDB.get("PlayerNames").find({ name: player.name }).value()) {
+        generalDB.get("PlayerNames").find({ name: player.name }).update('count', n => n + 1).write();
       } else {
-        generalDB.get("PlayerNames").push({ player: player.name, count: 1} ).write();
+        generalDB.get("PlayerNames").push({ name: player.name, count: 1} ).write();
       }
     });
 

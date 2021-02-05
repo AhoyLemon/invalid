@@ -10,11 +10,51 @@ var app = new Vue({
   },
 
   methods: {
+    sortedList(list) {
+      function compare(a, b) {
+        if (a.count < b.count)
+          return 1;
+        if (a.count > b.count)
+          return -1;
+        return 0;
+      }
+      return list.sort(compare);
+    },
 
+    sortByScore(list) {
+      function compare(a, b) {
+        if (a.score > b.score)
+          return 1;
+        if (a.score < b.score)
+          return -1;
+        return 0;
+      }
+      return list.sort(compare);
+    },
+
+    formatQuote(quote) {
+      return quote.replace('{','').replace('}','');
+    },
+
+    formatTime(stamp,format) {
+      if (format == "fromNow") {
+        return moment(stamp).fromNow();
+      } else if (format == "calendar") {
+        if (moment(stamp).diff(moment(),'days') > -7) {
+          return moment(stamp).calendar();
+        } else {
+          return moment(stamp).format('MMM Do @ LT');
+        }
+      } else if (format) {
+        return moment(stamp).format(format);
+      } else {
+        return moment(stamp).format('LLLL');
+      }
+    },
   },
 
   computed: {
-
+    
   },
 
   created: function() {

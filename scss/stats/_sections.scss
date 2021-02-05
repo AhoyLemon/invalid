@@ -1,0 +1,64 @@
+section { font-size:20px; font-family: $serif;
+  &.stats { padding:5rem 40px; }
+  figure { text-align: center; margin-bottom: 2em;
+    img { max-width: 300px; }
+  }
+  .tables { display: grid; gap:40px;  }
+
+
+  .table-wrapper { background:$white; max-height: 360px; overflow-y: auto;
+    th { font-style:  bold; font-size:80%; text-transform: uppercase; }
+    td:first-child { width:36px; max-width: 36px; text-align: right; padding-right: 1rem; }
+    td:last-child { width:calc(100% - 36px); }
+    table {color:$black; padding:6px; width:100%; }
+    td { border-bottom: 1px solid rgba(0,0,0.15); } 
+  }
+
+  .grid-wrapper { 
+    .grid-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
+    .grid-box { background:$white; color:$black; height: 300px; }
+    .data-grid { display:grid; grid-template-columns: 36px 1fr; padding-top:16px; padding-bottom: 16px; max-height: 300px; overflow-y: auto; }
+
+    
+    .count, .value { border-bottom: 1px solid rgba(0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
+    .count { text-align: right; padding-right: 10px; font-weight: 900; }
+  }
+
+  .timebox { grid-column: span 2;
+    .time-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
+    .time-ago { font-size: 180%; font-weight: 900; }
+  }
+
+  .statement-grid-wrapper { grid-column: span 3;
+    .grid-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
+    .data-grid { display:grid; grid-template-columns: 60px 1fr 30px; padding-top:16px; padding-bottom: 16px; background:$white; color:$black; max-height: 300px; overflow-y: auto;
+      > * { border-bottom: 1px solid rgba(0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
+    }
+    .score { text-align: right; padding-right: 10px; font-weight: 900;
+      &.positive { color:darkgreen; }
+      &.negative { color: darkred; }
+    }
+  }
+
+
+  .tables {
+    grid-template-columns: repeat(5, 1fr);
+    @media (max-width:1570px) {
+      grid-template-columns: repeat(4, 1fr);
+      .timebox { grid-column: span 1; }
+    }
+    @media (max-width:1150px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width:900px) {
+      grid-template-columns: repeat(2, 1fr);
+      .statement-grid-wrapper { grid-column: span 2; }
+    }
+    @media (max-width:630px) {
+      grid-template-columns: repeat(1, 1fr);
+      .statement-grid-wrapper { grid-column: span 1; }
+      .grid-box { height: unset !important; }
+    }
+  }
+}
