@@ -41,6 +41,10 @@ app.get('/sitemap.xml', (req, res) => {
   res.sendFile(__dirname + '/xml/sitemap.xml');
 });
 
+app.get('/stats', (req, res) => {
+  res.sendFile(__dirname + '/html/stats.html');
+});
+
 app.get('/general/stats/json', (req, res) => {
   let dbPath = require('./data/db-general.json');
   res.setHeader('Content-Type', 'application/json');
@@ -178,15 +182,15 @@ io.on('connection', (socket) => {
       }
       wrongestDB.get("Games").update('Started', n => n + 1).write();
       wrongestDB.get("Games.MostRecent").update('dateAndTime', n => fullStamp).update('date', n => dateStamp).update('time', n => timeStamp).write();
-      generalDB.get("Games.The Wrongest Words.MostRecent").update('dateAndTime', n => fullStamp).update('date', n => dateStamp).update('time', n => timeStamp).write();
+      generalDB.get("Games.TheWrongestWords.MostRecent").update('dateAndTime', n => fullStamp).update('date', n => dateStamp).update('time', n => timeStamp).write();
     }
     
     console.table(msg.players);
-    msg.players.forEach((player, index, array) => {
-      if (generalDB.has("PlayerNames."+player.name).value()) {
-        generalDB.update("PlayerNames."+player.name, n => n + 1).write();
+    msg.players.forEach((player) => {
+      if (generalDB.get("PlayerNames").find({ player: player.name }).value()) {
+        generalDB.get("PlayerNames").find({ player: player.name }).update('count', n => n + 1).write();
       } else {
-        generalDB.set("PlayerNames."+player.name, 1).write();
+        generalDB.get("PlayerNames").push({ player: player.name, count: 1} ).write();
       }
     });
 
@@ -280,10 +284,10 @@ io.on('connection', (socket) => {
     });
 
     if (msg.newBug) {
-      if (invalidDB.has("Bugs."+msg.newBug).value()) {
-        invalidDB.update("Bugs."+msg.newBug, n => n + 1).write();
+      if (invalidDB.get("Bugs").find({ pw: msg.newBug }).value()) {
+        invalidDB.get("Bugs").find({ pw: msg.newBug }).update('count', n => n + 1).write();
       } else {
-        invalidDB.set("Bugs."+msg.newBug, 1).write();
+        invalidDB.get("Bugs").push({ pw: msg.newBug, count: 1 } ).write(); 
       }
     }
 
@@ -318,10 +322,12 @@ io.on('connection', (socket) => {
       result: msg.result
     });
 
-    if (invalidDB.has("Crashes."+msg.pwAttempt).value()) {
-      invalidDB.update("Crashes."+msg.pwAttempt, n => n + 1).write();
-    } else {
-      invalidDB.set("Crashes."+msg.pwAttempt, 1).write();
+    if (msg.pwAttempt) {
+      if (invalidDB.get("Crashes").find({ pw: msg.pwAttempt }).value()) {
+        invalidDB.get("Crashes").find({ pw: msg.pwAttempt }).update('count', n => n + 1).write();
+      } else {
+        invalidDB.get("Crashes").push({ pw: msg.pwAttempt, count: 1 } ).write(); 
+      }
     }
 
   });
@@ -337,11 +343,16 @@ io.on('connection', (socket) => {
       result: msg.result
     });
 
-    if (invalidDB.has("SuccessfulPasswords."+msg.pwAttempt).value()) {
-      invalidDB.update("SuccessfulPasswords."+msg.pwAttempt, n => n + 1).write();
-    } else {
-      invalidDB.set("SuccessfulPasswords."+msg.pwAttempt, 1).write();
+
+
+    if (msg.pwAttempt) {
+      if (invalidDB.get("SuccessfulPasswords").find({ pw: msg.pwAttempt }).value()) {
+        invalidDB.get("SuccessfulPasswords").find({ pw: msg.pwAttempt }).update('count', n => n + 1).write();
+      } else {
+        invalidDB.get("SuccessfulPasswords").push({ pw: msg.pwAttempt, count: 1 } ).write(); 
+      }
     }
+    
   });
 
   // Any Player -> ALL
@@ -369,6 +380,15 @@ io.on('connection', (socket) => {
       crackSummary: msg.crackSummary
     });
 
+
+
+    if (msg.crackSummary && msg.crackSummary.pw) {
+      if (invalidDB.get("Cracks").find({ pw: msg.crackSummary.pw }).value()) {
+        invalidDB.get("Cracks").find({ pw: msg.crackSummary.pw }).update('count', n => n + 1).write();
+      } else {
+        invalidDB.get("Cracks").push({ pw: msg.crackSummary.pw, count: 1 } ).write(); 
+      }
+    }
 
     if (invalidDB.has("Cracks."+msg.crackSummary.pw).value()) {
       invalidDB.update("Cracks."+msg.crackSummary.pw, n => n + 1).write();
