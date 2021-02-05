@@ -1,19 +1,60 @@
 {
-  "ConnectedUsers": 9,
-  "PlayerNames": [],
+  "ConnectedUsers": 51,
+  "PlayerNames": [
+    {
+      "name": "One",
+      "count": 2
+    },
+    {
+      "name": "Two",
+      "count": 2
+    },
+    {
+      "name": "Three",
+      "count": 3
+    },
+    {
+      "name": "Four",
+      "count": 2
+    },
+    {
+      "name": "Five",
+      "count": 1
+    },
+    {
+      "name": "Six",
+      "count": 1
+    },
+    {
+      "name": "Lemon",
+      "count": 2
+    },
+    {
+      "name": "Carlos",
+      "count": 1
+    },
+    {
+      "name": "LINDA!",
+      "count": 2
+    },
+    {
+      "name": "Pablo",
+      "count": 1
+    }
+  ],
   "Games": {
     "Invalid": {
       "MostRecent": {
-        "dateAndTime": "",
-        "date": "",
-        "time": ""
+        "dateAndTime": "2021-01-04@21:59:20",
+        "date": "2021-01-04",
+        "time": "21:59:20"
       }
     },
     "TheWrongestWords": {
       "MostRecent": {
-        "dateAndTime": "",
-        "date": "",
-        "time": ""
+        "dateAndTime": "2021-01-04@20:49:02",
+        "date": "2021-01-04",
+        "time": "20:49:02"
       }
     }
   }

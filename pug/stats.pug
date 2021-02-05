@@ -1,19 +1,81 @@
 - var pageTitle = "";
-include start/_variables
+include stats/_mixins
 
 html
   head
     - var testing = true 
     title kinda.fun stats
-    link(href="css/start.css" type="text/css" rel="stylesheet")
+    link(href="css/stats.css" type="text/css" rel="stylesheet")
 body
   #app(v-cloak)
     h1 {{h1}}
 
     section.general
 
-      h3 Player Names
-  
+      .tables
+
+        .grid-wrapper
+          .grid-caption Player Names
+          .data-grid
+            template(v-for="player in sortedList(stats.general.PlayerNames)")
+              .count {{player.count}}
+              .value {{player.name}}
+
+    section.invalid
+      figure
+        img(src="svg/invalid-logo.svg")
+      .tables
+        .grid-wrapper
+          .grid-caption Game Sizes
+          .data-grid
+            template(v-for="game in sortedList(stats.invalid.Games.PlayerCounts)")
+              .count {{game.count}}
+              .value {{game.players}} Players
+
+        .grid-wrapper
+          .grid-caption Games By Naughty Mode
+          .data-grid
+            .count {{stats.invalid.Games.NaughtyMode.on}}
+            .value Naughty Mode ON
+            .count {{stats.invalid.Games.NaughtyMode.off}}
+            .value Naughty Mode OFF
+
+        .grid-wrapper
+          .grid-caption Challenges
+          .data-grid
+            template(v-for="challenge in sortedList(stats.invalid.Challenges)")
+              .count {{challenge.count}}
+              .value {{challenge.name}}
+
+        .grid-wrapper
+          .grid-caption Rules
+          .data-grid
+            template(v-for="rule in sortedList(stats.invalid.Rules)")
+              .count {{rule.count}}
+              .value {{rule.name}}
+
+        .grid-wrapper
+          .grid-caption Successful Passwords
+          .data-grid
+            template(v-for="suc in sortedList(stats.invalid.SuccessfulPasswords)")
+              .count {{suc.count}}
+              .value {{suc.pw}}
+
+        .grid-wrapper
+          .grid-caption Server Crashes
+          .data-grid
+            template(v-for="crash in sortedList(stats.invalid.Crashes)")
+              .count {{crash.count}}
+              .value {{crash.pw}}
+
+        .grid-wrapper
+          .grid-caption Cracked Passwords
+          .data-grid
+            template(v-for="crack in sortedList(stats.invalid.Cracks)")
+              .count {{crack.count}}
+              .value {{crack.pw}}
+
+
   .javascripts
     if testing
       script(src="js/libraries/vue.full.js")

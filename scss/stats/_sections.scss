@@ -1,0 +1,24 @@
+section { font-size:20px; font-family: $serif; padding-bottom: 6rem;
+  figure { text-align: center; margin-bottom: 2em;
+    img { max-width: 300px; }
+  }
+  .tables { display: grid; gap:40px; grid-template-columns: repeat( auto-fit, 300px ); }
+
+
+  .table-wrapper { background:$white; max-height: 360px; overflow-y: auto;
+    th { font-style: bold; font-size:80%; text-transform: uppercase; }
+    td:first-child { width:36px; max-width: 36px; text-align: right; padding-right: 1rem; }
+    td:last-child { width:calc(100% - 36px); }
+    table {color:$black; padding:6px; width:100%; }
+    td { border-bottom: 1px solid rgba(0,0,0.15); } 
+  }
+
+  .grid-wrapper { 
+    .grid-caption { font-size:120%; margin-bottom: 10px; }
+    .data-grid { display:grid; grid-template-columns: 36px 1fr; padding-top:16px; padding-bottom: 16px; background:$white; color:$black; max-height: 300px; overflow-y: auto; }
+
+    
+    .count, .value { border-bottom: 1px solid rgba(0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
+    .count { text-align: right; padding-right: 10px; font-weight: 900; }
+  }
+}

@@ -187,10 +187,10 @@ io.on('connection', (socket) => {
     
     console.table(msg.players);
     msg.players.forEach((player) => {
-      if (generalDB.get("PlayerNames").find({ player: player.name }).value()) {
-        generalDB.get("PlayerNames").find({ player: player.name }).update('count', n => n + 1).write();
+      if (generalDB.get("PlayerNames").find({ name: player.name }).value()) {
+        generalDB.get("PlayerNames").find({ name: player.name }).update('count', n => n + 1).write();
       } else {
-        generalDB.get("PlayerNames").push({ player: player.name, count: 1} ).write();
+        generalDB.get("PlayerNames").push({ name: player.name, count: 1} ).write();
       }
     });
 

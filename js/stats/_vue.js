@@ -10,7 +10,16 @@ var app = new Vue({
   },
 
   methods: {
-
+    sortedList(list) {
+      function compare(a, b) {
+        if (a.count < b.count)
+          return 1;
+        if (a.count > b.count)
+          return -1;
+        return 0;
+      }
+      return list.sort(compare);
+    }
   },
 
   computed: {

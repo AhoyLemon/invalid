@@ -2,14 +2,92 @@
 <html>
   <head>
     <title>kinda.fun stats</title>
-    <link href="css/start.css" type="text/css" rel="stylesheet"/>
+    <link href="css/stats.css" type="text/css" rel="stylesheet"/>
   </head>
 </html>
 <body>
   <div id="app" v-cloak="v-cloak">
     <h1>{{h1}}</h1>
     <section class="general">
-      <h3>Player Names</h3>
+      <div class="tables">
+        <div class="grid-wrapper">
+          <div class="grid-caption">Player Names</div>
+          <div class="data-grid">
+            <template v-for="player in sortedList(stats.general.PlayerNames)">
+              <div class="count">{{player.count}}</div>
+              <div class="value">{{player.name}}</div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="invalid">
+      <figure><img src="svg/invalid-logo.svg"/></figure>
+      <div class="tables">
+        <div class="grid-wrapper">
+          <div class="grid-caption">Game Sizes</div>
+          <div class="data-grid">
+            <template v-for="game in sortedList(stats.invalid.Games.PlayerCounts)">
+              <div class="count">{{game.count}}</div>
+              <div class="value">{{game.players}} Players</div>
+            </template>
+          </div>
+        </div>
+        <div class="grid-wrapper">
+          <div class="grid-caption">Games By Naughty Mode</div>
+          <div class="data-grid">
+            <div class="count">{{stats.invalid.Games.NaughtyMode.on}}</div>
+            <div class="value">Naughty Mode ON</div>
+            <div class="count">{{stats.invalid.Games.NaughtyMode.off}}</div>
+            <div class="value">Naughty Mode OFF</div>
+          </div>
+        </div>
+        <div class="grid-wrapper">
+          <div class="grid-caption">Challenges</div>
+          <div class="data-grid">
+            <template v-for="challenge in sortedList(stats.invalid.Challenges)">
+              <div class="count">{{challenge.count}}</div>
+              <div class="value">{{challenge.name}}</div>
+            </template>
+          </div>
+        </div>
+        <div class="grid-wrapper">
+          <div class="grid-caption">Rules</div>
+          <div class="data-grid">
+            <template v-for="rule in sortedList(stats.invalid.Rules)">
+              <div class="count">{{rule.count}}</div>
+              <div class="value">{{rule.name}}</div>
+            </template>
+          </div>
+        </div>
+        <div class="grid-wrapper">
+          <div class="grid-caption">Successful Passwords</div>
+          <div class="data-grid">
+            <template v-for="suc in sortedList(stats.invalid.SuccessfulPasswords)">
+              <div class="count">{{suc.count}}</div>
+              <div class="value">{{suc.pw}}</div>
+            </template>
+          </div>
+        </div>
+        <div class="grid-wrapper">
+          <div class="grid-caption">Server Crashes</div>
+          <div class="data-grid">
+            <template v-for="crash in sortedList(stats.invalid.Crashes)">
+              <div class="count">{{crash.count}}</div>
+              <div class="value">{{crash.pw}}</div>
+            </template>
+          </div>
+        </div>
+        <div class="grid-wrapper">
+          <div class="grid-caption">Cracked Passwords</div>
+          <div class="data-grid">
+            <template v-for="crack in sortedList(stats.invalid.Cracks)">
+              <div class="count">{{crack.count}}</div>
+              <div class="value">{{crack.pw}}</div>
+            </template>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
   <div class="javascripts">
