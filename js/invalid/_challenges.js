@@ -2997,7 +2997,7 @@ const challenges = [
     failedMessage: "[PASS] isn't considered a scavenger, try again.",
     possible: [
       "COCKROACH",
-      "OPOSSUMS",
+      "OPOSSUM",
       "VULTURE",
       // ALSO
       // "TURKEY VULTURE",
@@ -3016,15 +3016,15 @@ const challenges = [
       "MAGPIE",
       "CALIFORNIA CONDOR",
       "BALD EAGLE",
-      "SPOTTED TAIL QUOLLS",
-      "HYENAS",
+      "SPOTTED TAIL QUOLL",
+      "HYENA",
       // ALSO
       // "SPOTTED HYENA",
       // "STRIPED HYENA"
       "DINGO",
       "RACCOON",
       "MICE",
-      "RATS",
+      "RAT",
       "HEDGEHOG",
       "JACKAL",
       "RED FOX",
@@ -4267,7 +4267,7 @@ const challenges = [
   {
     id: 58,
     name: "Words for Penis",
-    nameAsRule: "Your password must be one of Power Thesaurus' synomyms for “penis”",
+    nameAsRule: "Your password must be one of Power Thesaurus' synonym for “penis”",
     failedMessage: "[PASS] is not on the list, please try again.",
     naughty: true,
     possible: [
