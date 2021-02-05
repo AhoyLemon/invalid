@@ -11,13 +11,13 @@ app.use(express.static('public'));
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
-const adapter = new FileSync('db.json');
-const db = low(adapter);
+const generalAdapter = new FileSync('./data/db-general.json');
+const generalDB = low(generalAdapter);
 
-const invalidAdapter = new FileSync('db-invalid.json');
+const invalidAdapter = new FileSync('./data/db-invalid.json');
 const invalidDB = low(invalidAdapter);
 
-const wrongestAdapter = new FileSync('db-wrongest.json');
+const wrongestAdapter = new FileSync('./data/db-wrongest.json');
 const wrongestDB = low(wrongestAdapter);
 
 /////////////////////////////////////////////////////////////////////////////
@@ -41,28 +41,30 @@ app.get('/sitemap.xml', (req, res) => {
   res.sendFile(__dirname + '/xml/sitemap.xml');
 });
 
+app.get('/general/stats/json', (req, res) => {
+  let dbPath = require('./data/db-general.json');
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(dbPath));
+});
+
 app.get('/invalid/stats/json', (req, res) => {
-  let dbPath = require('./db-invalid.json');
+  let dbPath = require('./data/db-invalid.json');
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(dbPath));
 });
 
 app.get('/wrongest/stats/json', (req, res) => {
-  let dbPath = require('./db-wrongest.json');
+  let dbPath = require('./data/db-wrongest.json');
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(dbPath));
 });
-
-
-
-
 
 
 
 
 io.on('connection', (socket) => {
 
-  db.update('ConnectedUsers', n => n + 1)
+  generalDB.update('ConnectedUsers', n => n + 1)
     .write();
 
   const socketID = socket.id;
@@ -178,6 +180,13 @@ io.on('connection', (socket) => {
     }
     
     console.table(msg.players);
+    msg.players.forEach((player, index, array) => {
+      if (generalDB.has("PlayerNames."+player.name).value()) {
+        generalDB.update("PlayerNames."+player.name, n => n + 1).write();
+      } else {
+        generalDB.set("PlayerNames."+player.name, 1).write();
+      }
+    });
 
   });
 
