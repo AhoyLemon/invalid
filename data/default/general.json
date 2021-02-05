@@ -1,6 +1,6 @@
 {
   "ConnectedUsers": 0,
-  "PlayerNames": {},
+  "PlayerNames": [],
   "Games": {
     "Invalid": {
       "MostRecent": {
@@ -9,7 +9,7 @@
         "time": ""
       }
     },
-    "The Wrongest Words": {
+    "TheWrongestWords": {
       "MostRecent": {
         "dateAndTime": "",
         "date": "",
