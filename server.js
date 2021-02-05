@@ -5,6 +5,21 @@ var io = require('socket.io')(http);
 
 app.use(express.static('public'));
 
+
+/////////////////////////////////////////////////////////////////////////////
+// Database
+const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
+
+const adapter = new FileSync('db.json');
+const db = low(adapter);
+
+const invalidAdapter = new FileSync('db-invalid.json');
+const invalidDB = low(invalidAdapter);
+
+const wrongestAdapter = new FileSync('db-wrongest.json');
+const wrongestDB = low(wrongestAdapter);
+
 /////////////////////////////////////////////////////////////////////////////
 // Routing
 
@@ -27,8 +42,17 @@ app.get('/sitemap.xml', (req, res) => {
 });
 
 
+app.get('/invalid/stats/json', (req, res) => {
+  let dbPath = require('./db-invalid.json');
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(dbPath));
+});
 
 io.on('connection', (socket) => {
+
+  db.update('ConnectedUsers', n => n + 1)
+    .write();
+
   const socketID = socket.id;
   console.log('a user connected with the ID of'+socketID);
   io.to(socketID).emit("getSocketID", socketID);
@@ -48,6 +72,14 @@ io.on('connection', (socket) => {
     console.log(msg.roomCode+' - join by creator');
 
     // TODO: I need to figure out how to get a list of all clients in a room.
+
+    if (msg.gameName == "invalid") {
+      invalidDB.update('RoomsCreated', n => n + 1)
+        .write();
+    } else if (msg.gameName == "wrongest") {
+      invalidDB.update('RoomsCreated', n => n + 1)
+        .write();
+    }
   });
 
 
@@ -78,6 +110,7 @@ io.on('connection', (socket) => {
   socket.on('startTheGame', msg => {
 
     console.log(msg.roomCode+' - started game of '+msg.gameName);
+    const playerCount = msg.players.length;
 
     if (msg.gameName == "invalid") {
       io.in(msg.roomCode).emit('startTheGame', {
@@ -87,6 +120,23 @@ io.on('connection', (socket) => {
         sysAdminIndex: msg.sysAdminIndex,
         allowNaughty: msg.allowNaughty
       });
+
+
+      // Save to Invalid Database...
+      if (invalidDB.get("Games.PlayerCounts").find({ players: playerCount }).value()) {
+        invalidDB.get("Games.PlayerCounts").find({ players: playerCount }).update('count', n => n + 1).write();
+      } else {
+        invalidDB.get("Games.PlayerCounts").push({ players: playerCount, count: 1} ).write();
+      }
+      if (msg.allowNaughty) {
+        invalidDB.get("Games.NaughtyMode").update('on', n => n + 1).write();
+      } else {
+        invalidDB.get("Games.NaughtyMode").update('off', n => n + 1).write();
+      }
+      invalidDB.get("Games").update('Started', n => n + 1).write();
+
+
+
     } else if (msg.gameName == "wrongest") {
       io.in(msg.roomCode).emit('startTheGame', {
         gameName: msg.gameName,
@@ -95,9 +145,25 @@ io.on('connection', (socket) => {
         chosenDeckName: msg.chosenDeckName,
         maxRounds: msg.maxRounds
       });
+
+
+      // Save to Wrongest Database...
+      if (wrongestDB.get("Games.PlayerCounts").find({ players: playerCount }).value()) {
+        wrongestDB.get("Games.PlayerCounts").find({ players: playerCount }).update('count', n => n + 1).write();
+      } else {
+        wrongestDB.get("Games.PlayerCounts").push({ players: playerCount, count: 1} ).write();
+      }
+      if (wrongestDB.get("Decks").find({ name: msg.chosenDeckName }).value()) {
+        wrongestDB.get("Decks").find({ name: msg.chosenDeckName }).update('count', n => n + 1).write();
+      } else {
+        wrongestDB.get("Decks").push({ name: msg.chosenDeckName, count: 1} ).write();
+      }
+      wrongestDB.get("Games").update('Started', n => n + 1).write();
+
     }
     
     console.table(msg.players);
+
   });
 
   socket.on("gameOver", msg => {
@@ -129,6 +195,14 @@ io.on('connection', (socket) => {
     io.to(msg.roomCode).emit("updatePasswordChallenge", {
       challenge: msg.challenge
     });
+
+
+    if (invalidDB.get("Challenges").find({ name: msg.challenge.name }).value()) {
+      invalidDB.get("Challenges").find({ name: msg.challenge.name }).update('count', n => n + 1).write();
+    } else {
+      invalidDB.get("Challenges").push({ name: msg.challenge.name, count: 1} ).write();
+    }
+
   });
 
   // SysAdmin -> Employees
@@ -139,6 +213,30 @@ io.on('connection', (socket) => {
       rules: msg.rules,
       shibboleth: msg.shibboleth
     });
+
+    if (msg.newRule && msg.newRule.type) {
+      if (invalidDB.get("Rules").find({ name: msg.newRule.type }).value()) {
+        invalidDB.get("Rules").find({ name: msg.newRule.type }).update('count', n => n + 1).write();
+      } else {
+        invalidDB.get("Rules").push({ name: msg.newRule.type, count: 1} ).write();
+      }
+
+      if (msg.newRule.type == "Demand A Letter" || msg.newRule.type == "Ban A Letter") {
+        if (invalidDB.get("Rules").find({ name: msg.newRule.type }).get("letters").find({letter: msg.newRule.inputValue}).value()) {
+          invalidDB.get("Rules").find({ name: msg.newRule.type }).get("letters").find({letter: msg.newRule.inputValue}).update('count', n => n + 1).write();
+        } else {
+          invalidDB.get("Rules").find({ name: msg.newRule.type }).get('letters').push({ letter: msg.newRule.inputValue, count: 1} ).write(); 
+        }
+      } else if (msg.newRule.type == "Shibboleth") {
+        if (invalidDB.get("Rules").find({ name: msg.newRule.type }).get("phrases").find({letter: msg.newRule.inputValue}).value()) {
+          invalidDB.get("Rules").find({ name: msg.newRule.type }).get("phrases").find({letter: msg.newRule.inputValue}).update('count', n => n + 1).write();
+        } else {
+          invalidDB.get("Rules").find({ name: msg.newRule.type }).get('phrases').push({ letter: msg.newRule.inputValue, count: 1} ).write(); 
+        }
+      }
+    }
+    
+
   });
 
   // SysAdmin -> Employees
@@ -154,6 +252,15 @@ io.on('connection', (socket) => {
     io.to(msg.roomCode).emit("updateBugs", {
       bugs: msg.bugs
     });
+
+    if (msg.newBug) {
+      if (invalidDB.has("Bugs."+msg.newBug).value()) {
+        invalidDB.update("Bugs."+msg.newBug, n => n + 1).write();
+      } else {
+        invalidDB.set("Bugs."+msg.newBug, 1).write();
+      }
+    }
+
   });
 
   // SysAdmin -> ALL
@@ -184,6 +291,14 @@ io.on('connection', (socket) => {
       attemptCount: msg.attemptCount,
       result: msg.result
     });
+
+
+    if (invalidDB.has("Crashes."+msg.pwAttempt).value()) {
+      invalidDB.update("Crashes."+msg.pwAttempt, n => n + 1).write();
+    } else {
+      invalidDB.set("Crashes."+msg.pwAttempt, 1).write();
+    }
+
   });
 
   // An Employee -> ALL
@@ -222,6 +337,14 @@ io.on('connection', (socket) => {
       allEmployeePasswords: msg.allEmployeePasswords,
       crackSummary: msg.crackSummary
     });
+
+
+    if (invalidDB.has("Cracks."+msg.crackSummary.pw).value()) {
+      invalidDB.update("Cracks."+msg.crackSummary.pw, n => n + 1).write();
+    } else {
+      invalidDB.set("Cracks."+msg.crackSummary.pw, 1).write();
+    }
+
   });
 
   //////////////////////////////////////////////////////////////////////////////
@@ -271,6 +394,18 @@ io.on('connection', (socket) => {
       downVoteIndex: msg.downVoteIndex,
       upVoteIndex: msg.upVoteIndex,
     });
+
+    if (wrongestDB.get("Statements").find({ words: msg.downVoteCard }).value()) {
+      wrongestDB.get("Statements").find({ words: msg.downVoteCard }).update('votes', n => n + 1).update('score', n => n - 1).write();
+    } else {
+      wrongestDB.get("Statements").push({ words: msg.downVoteCard, score: -1, votes: 1 } ).write();
+    }
+    if (wrongestDB.get("Statements").find({ words: msg.upVoteCard }).value()) {
+      wrongestDB.get("Statements").find({ words: msg.upVoteCard }).update('votes', n => n + 1).update('score', n => n + 1).write();
+    } else {
+      wrongestDB.get("Statements").push({ words: msg.upVoteCard, score: 1, votes: 1 } ).write();
+    }
+
   });
 
 

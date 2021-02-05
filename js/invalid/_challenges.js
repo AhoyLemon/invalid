@@ -5178,13 +5178,11 @@ const challenges = [
     ],
 	source:"https://www.visualcapitalist.com/top-50-fast-food-chains-ranked/"
   },
-  
 
-  // I LIKE this category, I just want a list that seems a little bit more definitive.
   
   {
     id: 75,
-    name: "Pizza Chain Toppings",
+    name: "Pizza Toppings",
     nameAsRule: "Your password must be a pizza topping available at a large chain.",
     hint: "List sourced from Dominos, Pizza Hut, Little Caesars, Papa John's & Papa Murphy's",
     failedMessage: "[PASS] isn't available at the largest pizza chains.",
@@ -5305,7 +5303,7 @@ const challenges = [
   },
   {
     id: 77,
-    name: " Nestlé Brands",
+    name: "Nestlé Brands",
     nameAsRule: "Your password must be a brand owned by Nestlé",
     hint: "Looking for brands, not products",
     failedMessage: "[PASS] isn't on the list of Nestlé brands",
