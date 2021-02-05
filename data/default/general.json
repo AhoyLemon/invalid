@@ -1,4 +1,20 @@
 {
   "ConnectedUsers": 0,
-  "PlayerNames": {}
+  "PlayerNames": {},
+  "Games": {
+    "Invalid": {
+      "MostRecent": {
+        "dateAndTime": "",
+        "date": "",
+        "time": ""
+      }
+    },
+    "The Wrongest Words": {
+      "MostRecent": {
+        "dateAndTime": "",
+        "date": "",
+        "time": ""
+      }
+    }
+  }
 }

@@ -163,6 +163,7 @@ socket.on("passwordSuccess", function(msg) {
   // Award points and mark pw as claimed.
   let i = msg.playerIndex;
   app.players[i].score = msg.playerScore;
+  app.players[i].passwordSuccess = true;
   app.round.claimedPasswords.push(msg.pwAttempt);
   app.allEmployeePasswords.push({
     pw: msg.pwAttempt,
@@ -202,6 +203,7 @@ socket.on("startNewRound", function(msg) {
   console.log("new round started.");
 
   msg.players.forEach(function(p, index) {
+    p.passwordSuccess = false;
     if (p.employeeNumber == app.players[index].employeeNumber) {
       app.players[index].score = p.score;
     }

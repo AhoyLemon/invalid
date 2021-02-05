@@ -179,7 +179,8 @@ var app = new Vue({
         isRoomHost: self.isRoomHost,
         role: null,
         score: 0,
-        passwordAttempts: 0
+        passwordAttempts: 0,
+        passwordSuccess: false
       };
 
       self.players.forEach(function(player, index) {

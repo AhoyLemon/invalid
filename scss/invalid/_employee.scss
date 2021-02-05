@@ -52,6 +52,9 @@
       &.you { color:rgba(0,0,0,0.9);
         &:before { background:rgba(255,255,255,0.3); }
       }
+      .success-icon {
+        svg * { fill: #10750e; }
+      }
     }
   }
 

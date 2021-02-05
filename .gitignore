@@ -1,1 +1,4 @@
 node_modules/*
+data/db-general.json
+data/db-invalid.json
+data/db-wrongest.json

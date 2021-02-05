@@ -153,6 +153,7 @@ io.on('connection', (socket) => {
       }
       invalidDB.get("Games").update('Started', n => n + 1).write();
       invalidDB.get("Games.MostRecent").update('dateAndTime', n => fullStamp).update('date', n => dateStamp).update('time', n => timeStamp).write();
+      generalDB.get("Games.Invalid.MostRecent").update('dateAndTime', n => fullStamp).update('date', n => dateStamp).update('time', n => timeStamp).write();
 
     } else if (msg.gameName == "wrongest") {
       io.in(msg.roomCode).emit('startTheGame', {
@@ -177,6 +178,7 @@ io.on('connection', (socket) => {
       }
       wrongestDB.get("Games").update('Started', n => n + 1).write();
       wrongestDB.get("Games.MostRecent").update('dateAndTime', n => fullStamp).update('date', n => dateStamp).update('time', n => timeStamp).write();
+      generalDB.get("Games.The Wrongest Words.MostRecent").update('dateAndTime', n => fullStamp).update('date', n => dateStamp).update('time', n => timeStamp).write();
     }
     
     console.table(msg.players);
