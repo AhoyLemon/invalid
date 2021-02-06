@@ -9,7 +9,7 @@
     <link href="/css/invalid.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-01-05@16:46:17">
+    <meta http-equiv="last-modified" content="2021-01-05@20:01:50">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/invalid/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/invalid/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/invalid/favicon-16x16.png">
@@ -477,7 +477,7 @@
                 <!-- IDEA: Show disabled forms if you can't enter yet.-->
                 <!-- However, since the UX is better if the form is inserted in, we're going to swap disabled forms with active forms.-->
                 <template v-if="!ui.roundOver &amp;&amp; !ui.passwordSucceeded">
-                  <template v-if="computedShibbolethRequired &amp;&amp; ui.shibboleth">
+                  <template v-if="computedShibbolethRequired || ui.shibboleth">
                     <template v-if="ui.roundOver || round.phase != 'create password' || !computedShibbolethRequired">
                       <form class="shibboleth-form disabled">
                         <fieldset>
@@ -821,7 +821,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         Vue.use(VueToast);
         
       </script>
-      <script src="js/min/invalid.min.js?updated2021-01-05@16:46:17"></script>
+      <script src="js/min/invalid.min.js?updated2021-01-05@20:01:50"></script>
       <script type="text/javascript">
         var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
