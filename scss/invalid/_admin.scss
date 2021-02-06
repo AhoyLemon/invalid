@@ -1,75 +1,3 @@
-// TODO: The Admin stylesheet is a MESS. Clean it up.
-
-/*
-.admin-screen { background:$black; color:$white; padding:$gap; padding-top:($gap * 2); font-family: $monospace; display:grid; gap:$gap; position: relative; overflow-y: auto;
-
-  .top-info { background: $adminPanelColor; @include position(absolute,0,0,null,0); border-bottom: 1px solid rgba(255,255,255,0.15);
-    padding:10px $gap; display:grid; grid-template-columns: repeat(5,1fr);
-  }
-
-  button { font-weight: $medium; color:$white; border:1px solid $white; border-radius: 3px; padding:$padding; background:transparent; cursor: pointer;
-    &[disabled]:not(.active) { color:rgba($white,0.65); border-color:rgba($white,0.65); }
-    &:hover:not([disabled]) { border-color:$green; color:$green; }
-  }
-  
-  .panel { border:1px solid rgba(255,255,255,0.15); padding:$padding; background:$adminPanelColor; box-shadow: 10px 10px 10px rgba(0,0,0,0.1); }
-
-  .rules-panel {
-    .rules { display:grid; gap:($gap / 2); grid-template-columns: repeat( auto-fit, minmax(190px, 1fr) );
-      button { position: relative; 
-        &.rule { 
-          .name { font-size:16px; }
-          .cost { @include position(absolute,5px,5px); border:1px solid currentColor; line-height: 2em; width:2em; height:2em; text-align: center; border-radius: 50%; }
-        }
-        &.finished { grid-column: 2; font-size:18px; padding:16px 24px;
-          &:hover { color:$green; }
-        }
-        &:hover:not([disabled]) { border-color:$green;
-          .name { color:$green; }
-        }
-        &.active { font-weight: 900; }
-        &[disabled] { cursor: default; }
-        &.too-expensive { position: relative;
-          &:before { content: 'You can not afford this rule.'; @include position(absolute,null,0,3px,0); color:$red; transform: translateY(120%); opacity: 0; transition:all 0.3s ease; font-size:12px; }
-          &:hover:before { transform: translateY(0); opacity: 1; }
-        }
-      }
-      
-    }
-  }
-
-  .rule-details {
-    input[maxlength="1"] { width:1.2em; }
-    select.letter { width:4em; padding:0.3em; }
-    select { font-family: $monospace; padding:0.5em 1.5em; font-size:18px; }
-    font-size:26px;
-    //-input, select { font-size:26px; }
-  }
-
-  .bug-setup { 
-    .bug-errors { color:$adminError; padding-top:1em; }
-    .button-holder { display:grid; grid-template-columns: repeat(3,1fr); gap:($gap / 2); padding-top:$padding; border-top:2px solid rgba(255,255,255,0.15); margin-top:$padding; }
-  }
-
-
-  h2 { text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1em; }
-
-  
-  .crash-notification { 
-    h2 { color:$red; animation: blinkRed 0.5s linear infinite; font-size:200%; letter-spacing: 0.2em; }
-    button { font-weight: $medium; color:$white; border:1px solid $white; border-radius: 3px; padding:$padding; position: relative; background:transparent; cursor: pointer; font-size:18px; padding:16px 24px; text-transform: uppercase; 
-      &:hover, &:focus { color:$green; border-color: $green; }
-    }
-  }
-
-
-  .admin-only { color:$adminOnly; }
-
-  button { font-family: inherit; }
-}
-*/
-
-
 
 @keyframes blinkRed { 
   0%   { color:rgba(255,0,0,0); }
@@ -225,7 +153,7 @@ $admin-panel-color: #101010;
     }
     .panels { padding-left: $gap; }
 
-    .scorekeeper { grid-column: 2; }
+    .scorekeeper { grid-column: 2; max-height: calc(100vh - 120px); overflow-y: auto; }
 
   }
 }

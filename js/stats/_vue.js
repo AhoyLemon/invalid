@@ -47,17 +47,17 @@ var app = new Vue({
 
     formatTime(stamp,format) {
       if (format == "fromNow") {
-        return moment(stamp).add('6','hours').fromNow();
+        return moment(stamp).subtract('6','hours').fromNow();
       } else if (format == "calendar") {
         if (moment(stamp).diff(moment(),'days') > -7) {
-          return moment(stamp).add('6','hours').calendar();
+          return moment(stamp).subtract('6','hours').calendar();
         } else {
-          return moment(stamp).add('6','hours').format('MMM Do @ LT');
+          return moment(stamp).subtract('6','hours').format('MMM Do @ LT');
         }
       } else if (format) {
-        return moment(stamp).add('6','hours').format(format);
+        return moment(stamp).subtract('6','hours').format(format);
       } else {
-        return moment(stamp).add('6','hours').format('LLLL');
+        return moment(stamp).subtract('6','hours').format('LLLL');
       }
     },
   },

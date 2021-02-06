@@ -46,7 +46,7 @@
     form.shibboleth-form { margin-bottom: 2em; }
   }
 
-  .scorekeeper { padding-right: $gap;
+  .scorekeeper { margin-right: $gap; max-height: calc(100vh - 120px); overflow-y: auto; 
     .player { color:rgba(0,0,0,0.72);
       &:before { background:rgba(255,255,255,0.1); }
       &.you { color:rgba(0,0,0,0.9);

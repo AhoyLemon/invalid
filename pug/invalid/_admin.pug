@@ -84,40 +84,6 @@
             input(v-model="ui.currentRule.inputValue" type="text" id="BanTheLetter" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?")
           button(type="submit") Set
 
-        //-form.select-and-button(v-if="ui.currentRule.name == 'Set A Maximum'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
-          select(v-model="ui.currentRule.inputValue" required)
-            option(selected disabled value="") How would you like to phrase this rule?
-            option Your password cannot exceed {{(round.averageSize + round.maxOffset)}} characters
-            option Your password must be less than {{(round.averageSize + round.maxOffset + 1)}} characters
-            option Password must be {{(round.averageSize + round.maxOffset)}} characters in length or less
-            option Password can be a maximum of {{(round.averageSize + round.maxOffset)}} characters
-            option Password can not be {{(round.averageSize + round.maxOffset + 1)}} characters or more.
-            option Password must not exceed {{(round.averageSize + round.maxOffset)}} characters.
-
-          button(type="submit") Set
-
-        //-form.select-and-button(v-if="ui.currentRule.name == 'Set A Minimum'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
-          select(v-model="ui.currentRule.inputValue" required)
-            option(selected disabled value="") How would you like to phrase this rule?
-            option Your password must be at least {{(round.averageSize - round.minOffset)}} characters long
-            option Your password must be more than {{(round.averageSize - round.minOffset - 1)}} characters
-            option Password must be {{(round.averageSize - round.minOffset)}} characters or more
-            option Password minimum is {{(round.averageSize - round.minOffset)}}
-            option Password must exceed {{(round.averageSize - round.minOffset - 1)}} characters
-            option Your password must contain {{(round.averageSize - round.minOffset - 1)}} characters or more
-          button(type="submit") Set
-
-        //-form.select-and-button(v-if="ui.currentRule.name == 'Limit Vowels'" v-on:submit.prevent="saveRule(ui.currentRule)"  v-focus)
-          select(v-model="ui.currentRule.inputValue" required)
-            option(selected disabled value="") How would you like to phrase this rule?
-            option Your password cannot exceed {{(round.averageVowels + round.vowelOffset)}} vowels
-            option Your password must have less than {{(round.averageVowels + round.vowelOffset + 1)}} vowels
-            option Vowels in your password are limited to {{(round.averageVowels + round.vowelOffset)}}
-            option Password vowels cannot exceed {{(round.averageVowels + round.vowelOffset)}}
-            option Your password may not contain {{(round.averageVowels + round.vowelOffset + 1)}} vowels or more
-            option The vowel count in your password must be less than {{(round.averageVowels + round.vowelOffset + 1)}}
-          button(type="submit") Set
-
         form.fieldset-and-button(v-if="ui.currentRule.name == 'Ban A Combo'" v-on:submit.prevent="saveRule(ui.currentRule)")
           fieldset
             label(for="FirstBannedLetter") Ban The Letter 
@@ -154,7 +120,7 @@
         form.fieldset-and-button(v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length < 1 || my.rulebux > 0")
           fieldset 
             label(for="BugPassword") Set a Bug on 
-            input(type="text" id="BugPassword" v-model="ui.addBug" v-touppercase autocomplete="off" v-focus placeholder="PASSWORD")
+            input(type="text" id="BugPassword" v-model="ui.addBug" v-touppercase autocomplete="off" maxlength="25" v-focus placeholder="PASSWORD")
           button(type="Submit") Set
 
     .panel.onboard-button(v-if="round.phase == 'add bugs' && !ui.addBug" :class="{focus: ((round.bugs && round.bugs.length > 0) && my.rulebux < 1)}")

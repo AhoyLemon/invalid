@@ -89,6 +89,6 @@
 
 @media (min-width:721px) {
   .pregame { display: grid; grid-template-columns: $scorebard-width 1fr $scorebard-width;  gap:$gap;
-    .players { max-height: calc(100% - 90px); overflow: auto; }
+    .players { max-height: calc(100vh - 90px); overflow: auto; }
   }
 }

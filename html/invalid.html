@@ -9,7 +9,7 @@
     <link href="/css/invalid.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-01-05@20:01:50">
+    <meta http-equiv="last-modified" content="2021-01-05@20:22:00">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/invalid/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/invalid/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/invalid/favicon-16x16.png">
@@ -375,7 +375,7 @@
               <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length &lt; 1 || my.rulebux &gt; 0">
                 <fieldset> 
                   <label for="BugPassword">Set a Bug on </label>
-                  <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase autocomplete="off" v-focus placeholder="PASSWORD">
+                  <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase autocomplete="off" maxlength="25" v-focus placeholder="PASSWORD">
                 </fieldset>
                 <button type="Submit">Set</button>
               </form>
@@ -491,7 +491,7 @@
                       <!-- This is where the working Shibboleth form goes.-->
                       <form class="shibboleth-form" @submit.prevent="ui.shibboleth = ''" v-if="computedShibbolethRequired">
                         <fieldset>
-                          <input class="shibboleth" type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus>
+                          <input class="shibboleth" type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus maxlength="25">
                           <label for="ShibbolethInput">Type {{round.shibboleth}}<sup class="required">*</sup></label>
                         </fieldset>
                       </form>
@@ -514,7 +514,7 @@
                     <!-- Okay, here's the working password form.-->
                     <form class="password-form" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
                       <fieldset>
-                        <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" v-focus :class="{ 'error' : ui.passwordInputError }" autocomplete="off" required v-touppercase>
+                        <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" maxlength="25" v-focus :class="{ 'error' : ui.passwordInputError }" autocomplete="off" required v-touppercase>
                         <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
                       </fieldset>
                       <div class="button-holder">
@@ -821,7 +821,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         Vue.use(VueToast);
         
       </script>
-      <script src="js/min/invalid.min.js?updated2021-01-05@20:01:50"></script>
+      <script src="js/min/invalid.min.js?updated2021-01-05@20:22:00"></script>
       <script type="text/javascript">
         var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

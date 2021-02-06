@@ -1,19 +1,49 @@
 {
-  "RoomsCreated": 0,
+  "RoomsCreated": 6,
   "Games": {
-    "Started": 0,
+    "Started": 4,
     "NaughtyMode": {
-      "on": 0,
+      "on": 4,
       "off": 0
     },
-    "PlayerCounts": [],
+    "PlayerCounts": [
+      {
+        "players": 3,
+        "count": 2
+      },
+      {
+        "players": 4,
+        "count": 1
+      },
+      {
+        "players": 9,
+        "count": 1
+      }
+    ],
     "MostRecent": {
-      "dateAndTime": "",
-      "date": "",
-      "time": ""
+      "dateAndTime": "2021-02-05@20:30:10",
+      "date": "2021-02-05",
+      "time": "20:30:10"
     }
   },
-  "Challenges": [],
+  "Challenges": [
+    {
+      "name": "Words for Vulva",
+      "count": 1
+    },
+    {
+      "name": "Modern Architecture",
+      "count": 1
+    },
+    {
+      "name": "Fast Food Chains",
+      "count": 1
+    },
+    {
+      "name": "Notable Norse Deities",
+      "count": 1
+    }
+  ],
   "Rules": [
     {
       "name": "Demand A Letter",
@@ -27,12 +57,84 @@
     },
     {
       "name": "Shibboleth",
-      "count": 0,
-      "phrases": []
+      "count": 2,
+      "phrases": [
+        {
+          "letter": "SWORDFISH",
+          "count": 1
+        },
+        {
+          "letter": "SECRET",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "Peek At Answers",
+      "count": 3
     }
   ],
-  "Bugs": [],
-  "SuccessfulPasswords": [],
-  "Crashes": [],
+  "Bugs": [
+    {
+      "pw": "CRASH",
+      "count": 4
+    },
+    {
+      "pw": "SHIT",
+      "count": 2
+    },
+    {
+      "pw": "FUCK",
+      "count": 2
+    },
+    {
+      "pw": "DAMN",
+      "count": 1
+    },
+    {
+      "pw": "CHRIST",
+      "count": 1
+    },
+    {
+      "pw": "HELL",
+      "count": 1
+    },
+    {
+      "pw": "OH",
+      "count": 1
+    }
+  ],
+  "SuccessfulPasswords": [
+    {
+      "pw": "PUSSY",
+      "count": 1
+    },
+    {
+      "pw": "CUNT",
+      "count": 1
+    },
+    {
+      "pw": "BAUHAUS",
+      "count": 1
+    },
+    {
+      "pw": "MODERNISM",
+      "count": 1
+    },
+    {
+      "pw": "MCDONALDS",
+      "count": 1
+    },
+    {
+      "pw": "BURGER KING",
+      "count": 1
+    }
+  ],
+  "Crashes": [
+    {
+      "pw": "FUCK",
+      "count": 1
+    }
+  ],
   "Cracks": []
 }

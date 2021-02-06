@@ -21,7 +21,7 @@
   .player { border: 1px solid currentColor; margin-bottom: 1em; position: relative; backdrop-filter: blur(4px);
     &:before { @include position(absolute,0,0,0,0); content:'';}
     .inside { position: relative; padding:$padding; padding-right: 35px; }
-    .name { text-transform: uppercase; letter-spacing: 0.1em;}
+    .name { text-transform: uppercase; letter-spacing: 0.1em; word-break: break-word; }
     .score { font-size:220%; }
     .admin-icon { width: 20px; height: 20px; position: absolute; right: 10px; top: 10px; }
     .success-icon { @include position(absolute,10px,10px); width:40px; height:40px; 
