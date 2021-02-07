@@ -1,85 +1,12 @@
 {
-  "ConnectedUsers": 29,
-  "PlayerNames": [
-    {
-      "name": "Frank",
-      "count": 1
-    },
-    {
-      "name": "Frunk",
-      "count": 1
-    },
-    {
-      "name": "Fronk",
-      "count": 1
-    },
-    {
-      "name": "dshidsahjdqyhuidwuiqhduihwqidhquih",
-      "count": 1
-    },
-    {
-      "name": "3333333333333333333333333333333333",
-      "count": 3
-    },
-    {
-      "name": "0000000000000000000000000000000000",
-      "count": 1
-    },
-    {
-      "name": "My Name is fairly reasonable it ju",
-      "count": 1
-    },
-    {
-      "name": "4444444444444444444444444444444444",
-      "count": 2
-    },
-    {
-      "name": "Fuck uasdudsaidasudadd adaasdsadaa",
-      "count": 1
-    },
-    {
-      "name": "1111111111111111111111111111111111",
-      "count": 1
-    },
-    {
-      "name": "2222222222222222222222222222222222",
-      "count": 1
-    },
-    {
-      "name": "5555555555555555555555555555555555",
-      "count": 1
-    },
-    {
-      "name": "6666666666666666666666666666666666",
-      "count": 1
-    },
-    {
-      "name": "7777777777777777777777777777777777",
-      "count": 1
-    },
-    {
-      "name": "8888888888888888888888888888888888",
-      "count": 1
-    },
-    {
-      "name": "9999999999999999999999999999999999",
-      "count": 1
-    }
-  ],
+  "ConnectedUsers": 0,
+  "PlayerNames": [],
   "Games": {
     "Invalid": {
-      "MostRecent": {
-        "dateAndTime": "2021-02-05@20:30:10",
-        "date": "2021-02-05",
-        "time": "20:30:10"
-      }
+      "MostRecent":""
     },
     "TheWrongestWords": {
-      "MostRecent": {
-        "dateAndTime": "",
-        "date": "",
-        "time": ""
-      }
+      "MostRecent": ""
     }
   }
 }

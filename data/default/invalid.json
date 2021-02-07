@@ -7,30 +7,12 @@
       "off": 0
     },
     "PlayerCounts": [],
-    "MostRecent": {
-      "dateAndTime": "",
-      "date": "",
-      "time": ""
-    }
+    "MostRecent": ""
   },
   "Challenges": [],
-  "Rules": [
-    {
-      "name": "Demand A Letter",
-      "count": 0,
-      "letters": []
-    },
-    {
-      "name": "Ban A Letter",
-      "count": 0,
-      "letters": []
-    },
-    {
-      "name": "Shibboleth",
-      "count": 0,
-      "phrases": []
-    }
-  ],
+  "Rules": [],
+  "DemandedLetters": [],
+  "BannedLetters":[],
   "Bugs": [],
   "SuccessfulPasswords": [],
   "Crashes": [],

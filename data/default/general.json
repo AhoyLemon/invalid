@@ -3,18 +3,10 @@
   "PlayerNames": [],
   "Games": {
     "Invalid": {
-      "MostRecent": {
-        "dateAndTime": "",
-        "date": "",
-        "time": ""
-      }
+      "MostRecent":""
     },
     "TheWrongestWords": {
-      "MostRecent": {
-        "dateAndTime": "",
-        "date": "",
-        "time": ""
-      }
+      "MostRecent": ""
     }
   }
 }

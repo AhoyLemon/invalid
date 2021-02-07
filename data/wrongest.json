@@ -1,14 +1,12 @@
 {
-  "RoomsCreated": 0,
+  "ConnectedUsers": 0,
+  "PlayerNames": [],
   "Games": {
-    "Started": 0,
-    "PlayerCounts": [],
-    "MostRecent": {
-      "dateAndTime": "",
-      "date": "",
-      "time": ""
+    "Invalid": {
+      "MostRecent":""
+    },
+    "TheWrongestWords": {
+      "MostRecent": ""
     }
-  },
-  "Decks": [],
-  "Statements": []
+  }
 }
