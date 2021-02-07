@@ -1,0 +1,84 @@
+
+<html>
+  <head>
+    <title>kinda.fun CAMEO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  </head>
+</html>
+<body>
+  <div id="app" v-cloak="v-cloak">
+    <div class="title-screen">
+      <div class="choice-holder">
+        <div class="inner">
+          <div class="above-choices"> 
+            <h1>Choose a game.</h1>
+          </div>
+          <div class="game-choices">
+            <div class="game" :class="{ active: (gameChoice == 'invalid'), inactive: (gameChoice &amp;&amp; gameChoice != 'invalid') }">
+              <figure class="logo" @click="gameChoice = 'invalid'"><img src="svg/invalid-logo.svg"/></figure>
+              <figcaption>
+                <div class="slogan">A trivia game of unnecessary suffering.</div>
+                <div class="players-allowed">For 2 or more players.<br/>(but best with 4 - 8)</div>
+              </figcaption>
+              <script type="application/ld+json">
+                {
+                  "@context": "http://schema.org",
+                  "@type": "VideoGame",
+                  "name": "Invalid",
+                  "url": "https://kinda.fun/invalid",
+                  "image": "https://kinda.fun/img/og-invalid.png",
+                  "playMode": "MultiPlayer",
+                  "applicationCategory": "browser game",
+                  "gamePlatform": "web browser",
+                  "operatingSystem": "web browser",
+                  "genre": "comedy",
+                  "description": "A trivia game of unnecessary suffering.",
+                }
+                
+              </script>
+            </div>
+            <div class="game" :class="{ active: (gameChoice == 'wrongest'), inactive: (gameChoice &amp;&amp; gameChoice != 'wrongest') }">
+              <figure class="logo" @click="gameChoice = 'wrongest'"><img src="svg/wrongest.svg"/></figure>
+              <figcaption>
+                <div class="slogan">You're going to defend some very stupid ideas.</div>
+                <div class="players-allowed">For 3 or more players.<br/>(but best with 5 - 10)</div>
+              </figcaption>
+              <script type="application/ld+json">
+                {
+                  "@context": "http://schema.org",
+                  "@type": "VideoGame",
+                  "name": "The Wrongest Words",
+                  "url": "https://kinda.fun/wrongest",
+                  "image": "https://kinda.fun/img/og-wrongest.png",
+                  "playMode": "MultiPlayer",
+                  "applicationCategory": "browser game",
+                  "gamePlatform": "web browser",
+                  "operatingSystem": "web browser",
+                  "genre": "comedy",
+                  "description": "You're going to defend some very stupid ideas.",
+                }
+                
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="create-or-join" v-if="gameChoice">
+        <div class="options">
+          <div class="create">
+            <button @click="createRoom()">Create a New Room</button>
+          </div>
+          <div class="or"><span>or</span></div>
+          <div class="join">
+            <button @click="joinRoom()">Join a Room</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/libraries/vue.full.js"></script>
+  <script>const testing = true;</script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>var socket = io.connect();</script>
+  <script src="js/min/start.min.js?updatedundefined"></script>
+</body>

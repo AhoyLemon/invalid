@@ -1,0 +1,31 @@
+- var pageTitle = "";
+include start/_variables
+html
+  head
+    - var testing = true 
+    title kinda.fun CAMEO
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+body
+  #app(v-cloak)
+    main()
+      //-.celebs
+        .celeb(v-for="person in round.compareThree")
+          //-img(:src="'cameos/'+celeb.slug+'.jpg'")
+          .name {{person.name}}
+      .fart(v-for="cameo in celebs")
+        img(:src="'cameos/'+cameo.slug+'.jpg'")
+        .name {{cameo.name}}
+        
+  if testing
+    script(src="public/js/libraries/vue.full.js")
+    script.
+      const testing = true;
+  else
+    script(src="public/js/libraries/vue.min.js")
+    script.
+      const testing = false;
+
+  //-script(src="node_modules/socket.io/socket.io.js")
+  //-script.
+    var socket = io.connect();
+  script(src="public/js/min/cameo.min.js?updated"+lastUpdated)
