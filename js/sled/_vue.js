@@ -7,11 +7,12 @@ var app = new Vue({
     gameStarted: false,
     my: {
       name: 'Poopy Butt Jr.'
-      //name: ''
     },
     round: {
       askerName: "Simone",
-      question: "What is my favorite subject in school?"
+      question: "",
+      questionAsked: false,
+      questionAnswered: false
     },
     ui: {
       nameEntered: false
@@ -24,7 +25,12 @@ var app = new Vue({
 
     },
     askMyQuestion() {
-
+      const self = this;
+      self.round.questionAsked = true;
+    },
+    answerTheQuestion() {
+      const self = this;
+      self.round.questionAnswered = true;
     }
   },
 

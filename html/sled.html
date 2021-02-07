@@ -10,7 +10,33 @@
 </html>
 <body>
   <div id="app">
-    <main class="answer-a-question">
+    <main class="ask-a-question" v-if="!round.questionAsked">
+      <form @submit.prevent="askMyQuestion()">
+        <select v-model="round.question">
+          <option disabled="disabled" value="">Ask a question</option>
+          <option>What is my favorite candy?</option>
+          <option>What is my favorite food?</option>
+          <option>What is my favorite bug?</option>
+          <option>Do i have 32 teeth?</option>
+          <option>Do i have a living dad?</option>
+          <option>Do i have any pets?</option>
+          <option>What is my favorite color?</option>
+          <option>What is my favorite game?</option>
+          <option>What is my favorite dinosaur?</option>
+          <option>What is my favorite subject in school?</option>
+          <option>What is my favorite brother?</option>
+          <option>What is my favorite sister?</option>
+          <option>What is my favorite juice?</option>
+          <option>What is my favorite person?</option>
+          <option>What is my favorite piece of art?</option>
+          <option>What is my favorite number? (1-10)</option>
+        </select>
+        <div class="button-holder" v-if="round.question">
+          <button type="submit">Send My Question!</button>
+        </div>
+      </form>
+    </main>
+    <main class="answer-a-question" v-if="round.questionAsked">
       <h2>{{round.askerName}} wants to know...</h2>
       <h1>{{round.question}}</h1>
       <form @submit.prevent="AnswerThisQuestion()">
@@ -25,6 +51,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>var socket = io.connect();</script>
-    <script src="js/min/sled.min.js?updated2021-00-24@14:39:51"></script>
+    <script src="js/min/sled.min.js?updated2021-01-07@10:24:38"></script>
   </div>
 </body>

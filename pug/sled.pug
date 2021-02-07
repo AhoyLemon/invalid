@@ -34,8 +34,8 @@ body
           .start-button(v-if="isRoomHost && ui.nameEntered && players.length > 2")
             button(type="button" @click="startTheGame()") Start The Game
     
-    //-main.ask-a-question
-      form(@submit.prevent="AskMyQuestion()")
+    main.ask-a-question(v-if="!round.questionAsked")
+      form(@submit.prevent="askMyQuestion()")
         select(v-model="round.question")
           option(disabled value="") Ask a question
           option What is my favorite candy?
@@ -53,11 +53,11 @@ body
           option What is my favorite juice?
           option What is my favorite person?
           option What is my favorite piece of art?
-          option What is my favorite number?
+          option What is my favorite number? (1-10)
         .button-holder(v-if="round.question")
           button(type="submit") Send My Question!
 
-    main.answer-a-question
+    main.answer-a-question(v-if="round.questionAsked")
       h2 {{round.askerName}} wants to know...
       h1 {{round.question}}
       form(@submit.prevent="AnswerThisQuestion()")
