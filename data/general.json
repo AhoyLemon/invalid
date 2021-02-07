@@ -1,12 +1,12 @@
 {
-  "ConnectedUsers": 0,
+  "ConnectedUsers": 5,
   "PlayerNames": [],
   "Games": {
     "Invalid": {
-      "MostRecent":""
+      "MostRecent": ""
     },
     "TheWrongestWords": {
-      "MostRecent": ""
+      "MostRecent": "2021-02-07T14:32:58.711Z"
     }
   }
 }

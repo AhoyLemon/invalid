@@ -196,7 +196,7 @@ io.on('connection', (socket) => {
 
 
       // Save to Invalid Database...
-      /*
+      
       if (invalidDB.get("Games.PlayerCounts").find({ players: playerCount }).value()) {
         invalidDB.get("Games.PlayerCounts").find({ players: playerCount }).update('count', n => n + 1).write();
       } else {
@@ -207,7 +207,7 @@ io.on('connection', (socket) => {
       } else {
         invalidDB.get("Games.NaughtyMode").update('off', n => n + 1).write();
       }
-      */
+      
       invalidDB.get("Games").update('Started', n => n + 1).write();
       generalDB.get("Games.TheWrongestWords").update('MostRecent', n => fullTimeStamp).write();
 
@@ -222,7 +222,7 @@ io.on('connection', (socket) => {
 
 
       // Save to Wrongest Database...
-      /*
+      
       if (wrongestDB.get("Games.PlayerCounts").find({ players: playerCount }).value()) {
         wrongestDB.get("Games.PlayerCounts").find({ players: playerCount }).update('count', n => n + 1).write();
       } else {
@@ -233,13 +233,13 @@ io.on('connection', (socket) => {
       } else {
         wrongestDB.get("Decks").push({ name: msg.chosenDeckName, count: 1} ).write();
       }
-      */
+      
       wrongestDB.get("Games").update('Started', n => n + 1).write();
       generalDB.get("Games.TheWrongestWords").update('MostRecent', n => fullTimeStamp).write();
     }
     
     console.table(msg.players);
-    /*
+    
     msg.players.forEach((player) => {
       if (generalDB.get("PlayerNames").find({ name: player.name }).value()) {
         generalDB.get("PlayerNames").find({ name: player.name }).update('count', n => n + 1).write();
@@ -247,7 +247,7 @@ io.on('connection', (socket) => {
         generalDB.get("PlayerNames").push({ name: player.name, count: 1} ).write();
       }
     });
-    */
+    
 
   });
 
@@ -282,13 +282,13 @@ io.on('connection', (socket) => {
     });
 
 
-    /*
+    
     if (invalidDB.get("Challenges").find({ name: msg.challenge.name }).value()) {
       invalidDB.get("Challenges").find({ name: msg.challenge.name }).update('count', n => n + 1).write();
     } else {
       invalidDB.get("Challenges").push({ name: msg.challenge.name, count: 1} ).write();
     }
-    */
+    
 
   });
 
@@ -301,29 +301,14 @@ io.on('connection', (socket) => {
       shibboleth: msg.shibboleth
     });
 
-    /*
+    
     if (msg.newRule && msg.newRule.type) {
       if (invalidDB.get("Rules").find({ name: msg.newRule.type }).value()) {
         invalidDB.get("Rules").find({ name: msg.newRule.type }).update('count', n => n + 1).write();
       } else {
         invalidDB.get("Rules").push({ name: msg.newRule.type, count: 1} ).write();
       }
-
-      if (msg.newRule.type == "Demand A Letter" || msg.newRule.type == "Ban A Letter") {
-        if (invalidDB.get("Rules").find({ name: msg.newRule.type }).get("letters").find({letter: msg.newRule.inputValue}).value()) {
-          invalidDB.get("Rules").find({ name: msg.newRule.type }).get("letters").find({letter: msg.newRule.inputValue}).update('count', n => n + 1).write();
-        } else {
-          invalidDB.get("Rules").find({ name: msg.newRule.type }).get('letters').push({ letter: msg.newRule.inputValue, count: 1} ).write(); 
-        }
-      } else if (msg.newRule.type == "Shibboleth") {
-        if (invalidDB.get("Rules").find({ name: msg.newRule.type }).get("phrases").find({letter: msg.newRule.inputValue}).value()) {
-          invalidDB.get("Rules").find({ name: msg.newRule.type }).get("phrases").find({letter: msg.newRule.inputValue}).update('count', n => n + 1).write();
-        } else {
-          invalidDB.get("Rules").find({ name: msg.newRule.type }).get('phrases').push({ letter: msg.newRule.inputValue, count: 1} ).write(); 
-        }
-      }
     }
-    */
     
 
   });
@@ -342,7 +327,7 @@ io.on('connection', (socket) => {
       bugs: msg.bugs
     });
 
-    /*
+    
     if (msg.newBug) {
       if (invalidDB.get("Bugs").find({ pw: msg.newBug }).value()) {
         invalidDB.get("Bugs").find({ pw: msg.newBug }).update('count', n => n + 1).write();
@@ -350,7 +335,7 @@ io.on('connection', (socket) => {
         invalidDB.get("Bugs").push({ pw: msg.newBug, count: 1 } ).write(); 
       }
     }
-    */
+    
 
   });
 
@@ -383,7 +368,7 @@ io.on('connection', (socket) => {
       result: msg.result
     });
 
-    /*
+    
     if (msg.pwAttempt) {
       if (invalidDB.get("Crashes").find({ pw: msg.pwAttempt }).value()) {
         invalidDB.get("Crashes").find({ pw: msg.pwAttempt }).update('count', n => n + 1).write();
@@ -391,7 +376,7 @@ io.on('connection', (socket) => {
         invalidDB.get("Crashes").push({ pw: msg.pwAttempt, count: 1 } ).write(); 
       }
     }
-    */
+    
 
   });
 
@@ -407,8 +392,6 @@ io.on('connection', (socket) => {
     });
 
 
-
-    /*
     if (msg.pwAttempt) {
       if (invalidDB.get("SuccessfulPasswords").find({ pw: msg.pwAttempt }).value()) {
         invalidDB.get("SuccessfulPasswords").find({ pw: msg.pwAttempt }).update('count', n => n + 1).write();
@@ -416,7 +399,6 @@ io.on('connection', (socket) => {
         invalidDB.get("SuccessfulPasswords").push({ pw: msg.pwAttempt, count: 1 } ).write(); 
       }
     }
-    */
     
   });
 
@@ -445,9 +427,6 @@ io.on('connection', (socket) => {
       crackSummary: msg.crackSummary
     });
 
-
-
-    /*
     if (msg.crackSummary && msg.crackSummary.pw) {
       if (invalidDB.get("Cracks").find({ pw: msg.crackSummary.pw }).value()) {
         invalidDB.get("Cracks").find({ pw: msg.crackSummary.pw }).update('count', n => n + 1).write();
@@ -461,7 +440,6 @@ io.on('connection', (socket) => {
     } else {
       invalidDB.set("Cracks."+msg.crackSummary.pw, 1).write();
     }
-    */
 
   });
 
