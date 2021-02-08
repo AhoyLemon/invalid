@@ -5,6 +5,9 @@ html
     - var testing = true 
     title kinda.fun CAMEO
     meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="preconnect" href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet")
+    link(href="css/cameo.css" type="text/css" rel="stylesheet")
 body
   #app(v-cloak)
     main()
@@ -12,10 +15,64 @@ body
         .celeb(v-for="person in round.compareThree")
           //-img(:src="'cameos/'+celeb.slug+'.jpg'")
           .name {{person.name}}
-      .fart(v-for="cameo in celebs")
-        img(:src="'cameos/'+cameo.slug+'.jpg'")
-        .name {{cameo.name}}
+
+      .three-to-compare
+      
+        draggable.list-group.unranked(:list="round.leftSide" group="people" @start="isDragging = true" @end="isDragging = false")
+
+          .cameo.list-group-item(v-for="(element, index) in round.leftSide" :key="index")
+            figure
+              img(:src="'/cameos/'+element.slug+'.jpg'")
+            figcaption
+              .name {{ element.name }}
+              .desc(v-if="element.desc") {{element.desc}}
         
+        draggable.list-group.ranked(:list="round.rightSide" group="people" v-if="computedGuessingPhase != 'answers'")
+          .cameo.list-group-item(v-for="(element, index) in round.rightSide" :rank="(index + 1)" :key="index")
+            figure
+              img(:src="'/cameos/'+element.slug+'.jpg'")
+            figcaption
+              .rank {{'#'+(index + 1)}}
+              .name {{ element.name }}
+              .desc(v-if="element.desc") {{element.desc}}
+          .help-text(v-if="round.rightSide.length < 1") 
+            .inside place guesses here
+
+        .list-group.guessed.ranked(v-if="computedGuessingPhase == 'answers'")
+          .cameo(v-for="(element, index) in round.rightSide" :rank="(index + 1)" :key="index" v-bind:class="{ correct: round.rightSide[index] == round.correctSide[index], incorrect: round.rightSide[index] != round.correctSide[index] }")
+            figure
+              img(:src="'/cameos/'+element.slug+'.jpg'")
+            figcaption
+              .rank {{'#'+(index + 1)}}
+              .name {{ element.name }}
+              .desc(v-if="element.desc") {{element.desc}}
+          .help-text(v-if="round.rightSide.length < 1") 
+        
+        .list-group.correct(v-if="round.orderConfirmed")
+          .cameo(v-for="(element, index) in round.correctSide" :rank="(index + 1)" :key="index")
+            figure
+              img(:src="'/cameos/'+element.slug+'.jpg'")
+            figcaption
+              //-.rank {{'#'+(index + 1)}}
+              .name {{ element.name }}
+              //-.desc(v-if="element.desc") {{element.desc}}
+              .guess-value(v-if="round.guessValueIndex == index")
+                form.guess-value(@submit.prevent="checkValueGuess")
+                  input(placeholder="Guess Value" type="number" v-model="ui.valueGuess" v-focus)
+                  button(v-if="ui.valueGuess > 0") ✔️
+                  .fake-tooltip.arrow_box
+                    .text Now guess {{round.correctSide[round.guessValueIndex].name}}'s Cameo value
+              .value(v-else) {{dollars(element.value)}}
+        
+
+      .underbanner
+        .sort-the-above(v-if="computedGuessingPhase == 'sort'")
+          span Sort the above by their relative Cameo value.
+        .finalize-button-holder(v-else-if="computedGuessingPhase == 'submit'")
+          button(@click="submitSortOrder()") Submit Answers
+        .enter-value-prompt(v-else-if="computedGuessingPhase == 'answers'")
+          span Enter {{round.correctSide[round.guessValueIndex].name}}'s Cameo Value
+		
   if testing
     script(src="public/js/libraries/vue.full.js")
     script.
@@ -25,7 +82,10 @@ body
     script.
       const testing = false;
 
-  //-script(src="node_modules/socket.io/socket.io.js")
-  //-script.
-    var socket = io.connect();
+  script(src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js")
+  script(src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js")
+
+  script(src="public/js/libraries/vue-toast-notification.min.js")
+  link(href="public/css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet")
+
   script(src="public/js/min/cameo.min.js?updated"+lastUpdated)

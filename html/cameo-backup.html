@@ -1,0 +1,56 @@
+
+<html>
+  <head>
+    <title>kinda.fun CAMEO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="css/cameo.css" type="text/css" rel="stylesheet"/>
+  </head>
+</html>
+<body>
+  <div id="app" v-cloak="v-cloak">
+    <main>
+      <div class="three-to-compare">
+        <div class="cameos container" id="left">
+          <div class="cameo" v-for="cameo in round.compareThree">
+            <figure class="drag-item"><img :src="'cameos/'+cameo.slug+'.jpg'"/></figure>
+            <figcaption>
+              <div class="name">{{cameo.name}}</div>
+              <div class="desc" v-if="cameo.desc">{{cameo.desc}}</div>
+            </figcaption>
+          </div>
+        </div>
+        <div class="values" id="right">
+          <div class="value dropzone drop-one" drop-value="Top" id="TopValue">
+            <div class="order"> <sup># </sup>1</div>
+          </div>
+          <div class="value dropzone drop-one" drop-value="Middle" id="MiddleValue">
+            <div class="order"> <sup># </sup>2</div>
+          </div>
+          <div class="value dropzone drop-one" drop-value="Bottom" id="BottomValue">
+            <div class="order"> <sup># </sup>3</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="public/js/libraries/vue.full.js"></script>
+  <script>const testing = true;</script>
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/dragula.min.js"></script>
+  <script src="public/js/min/cameo.min.js?updated2021-01-07@18:11:31"></script>
+  <style>
+    .gu-hide {
+      display: none !important;
+    }
+    .gu-unselectable {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+    }
+    .gu-transit {
+      opacity: 0.4;
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+      filter: alpha(opacity=20);
+    }
+  </style>
+</body>

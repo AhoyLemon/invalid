@@ -1,0 +1,120 @@
+$gold: #FFD700;
+$silver: #aaa9ad;
+$bronze:#b08d57;
+
+
+@keyframes slapOntoScreen {
+  from { opacity: 0; transform: scale(2) translateY(-100%); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+
+html { background: linear-gradient(to right, #FFFFFF, #ECE9E6); }
+.three-to-compare { display:grid; grid-template-columns: repeat(3,1fr); gap:40px; font-family: 'Libre Baskerville', serif;
+  width:100%; max-width: 1400px; margin-left: auto; margin-right: auto;
+
+  .list-group { padding:40px 20px; background:rgba(0,0,0,0.1); min-height: 99.9vh; position: relative;
+    .list-group-item { cursor: move;
+      &.sortable-chosen { cursor: grab;
+        //figcaption { background:lime; }
+      }
+      &.sortable-ghost { opacity: 0.6; }
+    }
+    .help-text { @include position(absolute,0,0,0,0); display:flex; align-items: center; justify-content: center;
+      .inside { opacity: 0.5; font-size: 22px; }
+    }
+  }
+  .cameo { margin-bottom: 40px;
+    figure { margin-bottom: -100px; text-align: right; position: relative; 
+      img { width:140px; height: 140px; position: relative; z-index: 4; object-fit: cover; border:4px solid #111; border-radius: 21px; }
+    }
+    figcaption { 
+      background-color: #000000; background-image: linear-gradient(147deg, #000000 0%, #2c3e50 74%);
+      color:#ddd; padding:20px 130px 10px 10px; margin-right: 20px; border-radius: 4px; position: relative;
+      .name { font-size:36px; font-weight: 700; font-family: 'Big Shoulders Display', sans-serif; }
+      .desc { margin-top:5px; font-size:90%; }
+    }
+  }
+
+  figcaption { min-height: 135px; }
+  .unranked { 
+    figcaption { padding-top:7px;  }
+  }
+  .ranked, .correct {
+    .value { font-size:150%; margin-top:9px; font-weight: 700; }
+    figcaption { border-top:7px solid transparent; border-right: 40px solid transparent; }
+    .rank { position: absolute; bottom:7px; right:20px; }
+    [rank="1"] { 
+      figcaption { border-color: $gold; } 
+      .rank, .value { color:$gold;  }
+    }
+    [rank="2"] { 
+      figcaption { border-color: $silver; } 
+      .rank, .value { color:$silver; }
+    }
+    [rank="3"] { 
+      figcaption { border-color: $bronze; } 
+      .rank, .value { color:$bronze; }
+    }   
+  }
+  .guessed { 
+    .correct { 
+      figcaption { border-color:lime; }
+      .name { color: lime; }
+    }
+    .incorrect { 
+      figcaption { border-color:rgb(255,40,40); }
+      .name { color: rgb(255,40,40); }
+    }
+    .cameo { opacity: 0.85; }
+  }
+  form.guess-value { margin-top:10px;
+    input { font-size:24px; width:6ch; background:transparent; color:white; font-family: inherit; border:none; outline: none;
+      &:focus { color:#5699ff; }
+    }
+
+    .arrow_box { 
+      position: absolute;
+      margin-top:9px;
+      max-width: 120px;
+      font-size:12px; padding:6px; text-align: center;
+      background: #5699ff;
+      border: 2px solid #c2e1f5;
+      &:before, &:after {
+        bottom: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      &:after {
+        border-color: rgba(86, 153, 255, 0);
+        border-bottom-color: #5699ff;
+        border-width: 11px;
+        margin-left: -11px;
+      }
+      &:before {
+        border-color: rgba(194, 225, 245, 0);
+        border-bottom-color: #c2e1f5;
+        border-width: 14px;
+        margin-left: -14px;
+      }
+    }
+  }
+}
+
+.underbanner { @include position(fixed,null,0,0,0); padding:10px;  background: linear-gradient(to top, #141e30, #243b55);
+  .sort-the-above { max-width:1400px; margin-left: auto; margin-right: auto; font-size:20px; font-weight: $bold; color:$white; padding-left: 16px; padding-right: 16px; }
+  .finalize-button-holder {  max-width: 400px; margin-left: auto; margin-right: auto; text-align: center;
+    button { font-size:36px; font-family: 'Big Shoulders Display', sans-serif; margin-top:-25px; padding:0.25em 1em; border:none; border-radius: 8px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5), -1px -1px 2px rgba(0,0,0,0.35); cursor: pointer;
+      background-color: #045de9; background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%); color:white; transition:transform 0.1s ease-in; outline: none;
+      &:hover, &.focus { transform: scale(1.05) translateY(-5px); }
+      &:active { transform: scale(0.95) translateY(5px); }
+    }
+  }
+  .enter-value-prompt { max-width:1400px; margin-left: auto; margin-right: auto; font-size:20px; font-weight: $bold; color:$white; padding-left: 16px; padding-right: 16px; text-align: right; }
+}
+
