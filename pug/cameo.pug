@@ -18,7 +18,14 @@ body
 
       .three-to-compare
       
-        draggable.list-group.unranked(:list="round.leftSide" group="people" @start="isDragging = true" @end="isDragging = false")
+        draggable.list-group.unranked( :list="round.leftSide"
+                                        group="people"
+                                        :options="{ disabled : ui.animateCameoIndex < 3 }"
+                                        :class="{ 'no-move-cursor' : ui.animateCameoIndex < 3 }"
+                                        @start="isDragging = true"
+                                        @end="isDragging = false"
+                                        v-if="computedGuessingPhase == 'sort' || computedGuessingPhase == 'submit'"
+                                        )
 
           .cameo.list-group-item(v-for="(element, index) in round.leftSide" :key="index")
             figure
@@ -27,51 +34,72 @@ body
               .name {{ element.name }}
               .desc(v-if="element.desc") {{element.desc}}
         
-        draggable.list-group.ranked(:list="round.rightSide" group="people" v-if="computedGuessingPhase != 'answers'")
+        draggable.list-group.ranked(:list="round.rightSide" group="people" v-if="computedGuessingPhase != 'answers' && computedGuessingPhase != 'finished'")
           .cameo.list-group-item(v-for="(element, index) in round.rightSide" :rank="(index + 1)" :key="index")
             figure
               img(:src="'/cameos/'+element.slug+'.jpg'")
             figcaption
-              .rank {{'#'+(index + 1)}}
+              .rank 
+                sup #
+                span {{(index + 1)}}
               .name {{ element.name }}
               .desc(v-if="element.desc") {{element.desc}}
           .help-text(v-if="round.rightSide.length < 1") 
-            .inside place guesses here
+            .inside(v-if="ui.showDragHelp") place guesses here
 
-        .list-group.guessed.ranked(v-if="computedGuessingPhase == 'answers'")
+        .list-group.correct(v-if="ui.orderConfirmed || computedGuessingPhase == 'finished'")
+          .cameo.off-table(v-for="(element, index) in round.correctSide" :rank="(index + 1)" :key="index")
+            figure
+              img(:src="'/cameos/'+element.slug+'.jpg'")
+            figcaption
+              .name {{ element.name }}
+              .guess-value(v-if="round.guessValueIndex == index")
+                form.guess-value(@submit.prevent="submitCameoValueGuess()" v-if="ui.itsTimeToGuessValue")
+                  .value 
+                    span $
+                    input(placeholder="???" type="number" v-model="ui.valueGuess" :min="ui.valueGuessMin" :max="ui.valueGuessMax")
+                    button(v-if="ui.valueGuess > 0")
+                      svg( fill="#1A1A1A" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 245" fill-rule="evenodd" clip-rule="evenodd" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality")
+                        path(d="M122 0C55 0 0 55 0 122c0 34 14 65 36 87s53 36 86 36c68 0 123-55 123-123C245 55 190 0 122 0zM62 103l36 36 85-85 26 26L98 191l-62-62 26-26z" fill="#1a1a1a" fill-rule="nonzero")
+                  .fake-tooltip.arrow_box
+                    .text Now guess {{round.correctSide[round.guessValueIndex].name}}'s Cameo value
+                .value(v-else-if="round.valueGuessed") {{dollars(element.value)}}
+                .value(v-else) $???
+              .value(v-else) {{dollars(element.value)}}
+
+        .list-group.guessed.ranked(v-if="computedGuessingPhase == 'answers' || computedGuessingPhase == 'finished'")
           .cameo(v-for="(element, index) in round.rightSide" :rank="(index + 1)" :key="index" v-bind:class="{ correct: round.rightSide[index] == round.correctSide[index], incorrect: round.rightSide[index] != round.correctSide[index] }")
             figure
               img(:src="'/cameos/'+element.slug+'.jpg'")
             figcaption
-              .rank {{'#'+(index + 1)}}
+              .rank 
+                sup #
+                span {{(index + 1)}}
               .name {{ element.name }}
               .desc(v-if="element.desc") {{element.desc}}
           .help-text(v-if="round.rightSide.length < 1") 
-        
-        .list-group.correct(v-if="round.orderConfirmed")
-          .cameo(v-for="(element, index) in round.correctSide" :rank="(index + 1)" :key="index")
-            figure
-              img(:src="'/cameos/'+element.slug+'.jpg'")
-            figcaption
-              //-.rank {{'#'+(index + 1)}}
-              .name {{ element.name }}
-              //-.desc(v-if="element.desc") {{element.desc}}
-              .guess-value(v-if="round.guessValueIndex == index")
-                form.guess-value(@submit.prevent="checkValueGuess")
-                  input(placeholder="Guess Value" type="number" v-model="ui.valueGuess" v-focus)
-                  button(v-if="ui.valueGuess > 0") ✔️
-                  .fake-tooltip.arrow_box
-                    .text Now guess {{round.correctSide[round.guessValueIndex].name}}'s Cameo value
-              .value(v-else) {{dollars(element.value)}}
-        
 
-      .underbanner
-        .sort-the-above(v-if="computedGuessingPhase == 'sort'")
-          span Sort the above by their relative Cameo value.
-        .finalize-button-holder(v-else-if="computedGuessingPhase == 'submit'")
-          button(@click="submitSortOrder()") Submit Answers
-        .enter-value-prompt(v-else-if="computedGuessingPhase == 'answers'")
-          span Enter {{round.correctSide[round.guessValueIndex].name}}'s Cameo Value
+      .underbanner.hud
+        
+        .score
+          div(v-if="my.score > 0") {{my.score}} Points
+          div(v-else) No Points
+
+        .interface
+          .sort-the-above(v-if="computedGuessingPhase == 'sort'")
+            span Sort the above by their relative Cameo value.
+          .button-holder(v-else-if="computedGuessingPhase == 'submit'")
+            button(@click="submitSortOrder()") Submit Answers
+          .button-holder(v-else-if="computedGuessingPhase == 'answers'")
+            span(v-if="ui.itsTimeToGuessValue")
+              button(@click="submitCameoValueGuess()") Valuate {{round.correctSide[round.guessValueIndex].name}}
+          .button-holder(v-else-if="computedGuessingPhase == 'finished'")
+            span(v-if="ui.showNextRoundButton")
+              button(@click="startNextRound()") Okay, Next Round
+
+        .round
+          div(v-if="round.number > 0") Round {{round.number}}
+
 		
   if testing
     script(src="public/js/libraries/vue.full.js")
@@ -81,6 +109,8 @@ body
     script(src="public/js/libraries/vue.min.js")
     script.
       const testing = false;
+
+  script(src="public/js/libraries/jquery.min.js")
 
   script(src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js")
   script(src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js")
