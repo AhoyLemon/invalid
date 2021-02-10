@@ -10,12 +10,16 @@ Vue.directive('focus', {
 var app = new Vue({
   el: '#app',
   data: {
-    h1: 'It works.',
+    gameName: "cameo",
     celebs: allValues,
     isDragging: false,
     my: {
       name: "Lemon",
       score: 0
+    },
+    game: {
+      mode: "",
+      started: false
     },
     round: {
       number: 0,

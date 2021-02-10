@@ -1,5 +1,5 @@
 - var pageTitle = "";
-include start/_variables
+include cameo/_variables
 html
   head
     - var testing = true 
@@ -10,11 +10,11 @@ html
     link(href="css/cameo.css" type="text/css" rel="stylesheet")
 body
   #app(v-cloak)
+
+
+    include cameo/_title-screen
+
     main()
-      //-.celebs
-        .celeb(v-for="person in round.compareThree")
-          //-img(:src="'cameos/'+celeb.slug+'.jpg'")
-          .name {{person.name}}
 
       .three-to-compare
       

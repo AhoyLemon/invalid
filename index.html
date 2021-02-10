@@ -10,6 +10,35 @@
 </html>
 <body>
   <div id="app" v-cloak="v-cloak">
+    <div class="title-screen" v-if="!game.started">
+      <div class="splash">
+        <div class="inside"> 
+          <div class="logo-holder">
+            <figure class="logo"><img src="/svg/wrongest.svg"/></figure>
+          </div>
+          <div class="help-holder" v-if="!ui.watchingVideo"><strong>Need instructions? </strong><a @click="watchVideo()">Click here.</a><br/>I promise I'll try to make it quick.</div>
+          <div class="video-holder" v-if="ui.watchingVideo">
+            <figure class="video">
+              <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+            </figure>
+            <figcaption>
+              <button class="close-video" @click="ui.watchingVideo = false">Okay, close this video. </button>
+            </figcaption>
+          </div>
+        </div>
+      </div>
+      <div class="create">
+        <button @click="createRoom()">Create a New Room</button>
+      </div>
+      <div class="or"><span>or</span></div>
+      <div class="join">
+        <form @submit.prevent="joinRoom()">
+          <button v-if="roomCode &amp;&amp; roomCode.length &gt; 3" type="submit">Join this room.</button>
+          <input id="EnterRoomCode" type="text" minlength="4" maxlength="4" required="required" v-model="roomCode" @input="roomCode = $event.target.value.toUpperCase()" placeholder="Enter A Room Code"/>
+          <div class="enter-a-room-code"></div>
+        </form>
+      </div>
+    </div>
     <main>
       <div class="three-to-compare">
         <draggable class="list-group unranked" :list="round.leftSide" group="people" :options="{ disabled : ui.animateCameoIndex &lt; 3 }" :class="{ 'no-move-cursor' : ui.animateCameoIndex &lt; 3 }" @start="isDragging = true" @end="isDragging = false" v-if="computedGuessingPhase == 'sort' || computedGuessingPhase == 'submit'">
@@ -100,5 +129,5 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
   <script src="public/js/libraries/vue-toast-notification.min.js"></script>
   <link href="public/css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet"/>
-  <script src="public/js/min/cameo.min.js?updated2021-01-08@16:44:42"></script>
+  <script src="public/js/min/cameo.min.js?updated2021-01-09@20:02:49"></script>
 </body>

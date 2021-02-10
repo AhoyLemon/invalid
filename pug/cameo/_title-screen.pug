@@ -1,0 +1,33 @@
+.title-screen(v-if="!game.started")
+
+  .splash
+    .inside 
+      .logo-holder
+        figure.logo
+          img(src="/svg/wrongest.svg")
+
+      .help-holder(v-if="!ui.watchingVideo")
+        strong Need instructions? 
+        a(@click="watchVideo()") Click here.
+        br
+        | I promise I'll try to make it quick.
+      .video-holder(v-if="ui.watchingVideo")
+        figure.video
+          iframe#ytplayer(type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&controls=0&fs=0&modestbranding=1&playsinline=1&color=white" frameborder="0" allowfullscreen)
+        figcaption
+          button.close-video(@click="ui.watchingVideo = false") Okay, close this video. 
+
+  .create
+    button(@click="createRoom()") Create a New Room
+  
+  .or
+    span or
+
+  .join
+    form(@submit.prevent="joinRoom()")
+      button(v-if="roomCode && roomCode.length > 3" type="submit") Join this room.
+      input#EnterRoomCode(type="text" minlength="4" maxlength="4" required v-model="roomCode"
+        @input="roomCode = $event.target.value.toUpperCase()"
+        placeholder="Enter A Room Code"
+      )
+      .enter-a-room-code
