@@ -1,0 +1,26 @@
+main.title-screen { min-height: 99.9999vh;  color:#eee; display:grid; grid-template-rows: 1fr 75px; font-family: $serif; 
+
+  background: radial-gradient(#131015,#18072d);
+
+  .splash { display:flex; align-items: center; justify-content: center;
+    .inside { width:100%; max-width: 360px; }
+    .logo { width:100%; }
+    .help-holder { text-align: center; padding-top:32px;
+      p { padding-bottom: 1em; }
+    }
+  }
+  .single-or-multiplayer { display:grid; grid-template-columns: 1fr 80px 1fr;
+    .single { text-align: right; }
+    .or { text-align: center; line-height: 46px; font-size:24px; }
+
+
+    button { font-family: $displayFont; background:transparent; border:1px solid; color:white; font-size:32px; padding:0.25em 1em; cursor: pointer;
+      &.start-single { color:#efd416; border-color: #efd416;
+        &:hover, &:focus { background:#efd416; color:#18072d; }
+      }
+      &.start-multi { color: #1cb3ef; border-color: #1cb3ef;
+        &:hover, &:focus { background:#1cb3ef; color:#18072d; }
+      }
+    }
+  }
+}

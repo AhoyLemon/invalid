@@ -1,33 +1,31 @@
-.title-screen(v-if="!game.started")
+main.title-screen(v-if="!game.started")
 
   .splash
     .inside 
       .logo-holder
         figure.logo
-          img(src="/svg/wrongest.svg")
+          img(src="svg/comparatively-famous.svg")
 
       .help-holder(v-if="!ui.watchingVideo")
-        strong Need instructions? 
-        a(@click="watchVideo()") Click here.
-        br
-        | I promise I'll try to make it quick.
+        p 
+          strong Cameo
+          |  is a site where people can order videos from celebrities, at prices set by those celebrities.
+        p
+          strong This 
+          |  is a game about guessing those prices.
+        
       .video-holder(v-if="ui.watchingVideo")
         figure.video
           iframe#ytplayer(type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&controls=0&fs=0&modestbranding=1&playsinline=1&color=white" frameborder="0" allowfullscreen)
         figcaption
           button.close-video(@click="ui.watchingVideo = false") Okay, close this video. 
 
-  .create
-    button(@click="createRoom()") Create a New Room
-  
-  .or
-    span or
+  .single-or-multiplayer
+    .single
+      button.start-single(@click="startSinglePlayerGame()") Single Player
+    
+    .or
+      span or
 
-  .join
-    form(@submit.prevent="joinRoom()")
-      button(v-if="roomCode && roomCode.length > 3" type="submit") Join this room.
-      input#EnterRoomCode(type="text" minlength="4" maxlength="4" required v-model="roomCode"
-        @input="roomCode = $event.target.value.toUpperCase()"
-        placeholder="Enter A Room Code"
-      )
-      .enter-a-room-code
+    .multiplayer
+      button.start-multi(@click="createRoom()") Multiplayer

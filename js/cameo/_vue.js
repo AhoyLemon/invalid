@@ -15,11 +15,16 @@ var app = new Vue({
     isDragging: false,
     my: {
       name: "Lemon",
-      score: 0
+      score: 0,
+      pointsEarnedInFinalRound: 0,
+      correctSorts: 0,
+      averageValuationOffset: 0,
     },
     game: {
       mode: "",
-      started: false
+      started: false,
+      finalRound: false,
+      over: false
     },
     round: {
       number: 0,
@@ -27,8 +32,11 @@ var app = new Vue({
       leftSide: [],
       rightSide: [],
       correctSide: [],
+      availableToHire: [],
       guessValueIndex: -1,
-      valueGuessed: false
+      valueGuessed: false,
+      budget: 1000,
+      spent: 0
     },
     ui: {
       orderConfirmed: false,
@@ -39,15 +47,31 @@ var app = new Vue({
       animateCameoIndex: 0,
       itsTimeToGuessValue: false,
       showNextRoundButton: false,
+      showEmailButton: false,
+      showBeginFinalRoundButton: false,
+      hiringFinished: false,
+      countingHireIndex: 0,
+      countingInterval: undefined,
+      exceededBudget: false,
+      cameosPaid: false
     }
 
   },
 
   methods: {
+
+
+    startSinglePlayerGame() {
+      const self = this;
+      self.game.mode = "singleplayer";
+      self.game.started = true;
+      self.compareThreeCelebs();
+    },
+
     compareThreeCelebs() {
       const self = this;
 
-      self.round.number ++;
+      self.round.number++;
 
       // Find the middle celeb.
       let possibleMiddles = self.celebs.filter(celeb => (celeb.value < 750 && celeb.value > 21));
@@ -200,9 +224,29 @@ var app = new Vue({
       self.round.valueGuessed = true;
       self.ui.itsTimeToGuessValue = false;
 
-      setTimeout(function () {
-        self.ui.showNextRoundButton = true;
-      }, 3000);
+
+
+      if (self.round.number < settings.maxRounds) {
+
+        setTimeout(function () {
+          self.ui.showNextRoundButton = true;
+        }, 3000);
+        
+      } else if (self.round.number >= settings.maxRounds) {
+        setTimeout(function () {
+          let instance = Vue.$toast.open(
+            {
+              message: "<h4>You have 1 new email</h4>",
+              type: "info",
+              duration: 1500,
+              position: "bottom-right"
+            }
+          );
+        }, 2000);
+        setTimeout(function () {
+          self.ui.showEmailButton = true;
+        }, 3000);
+      }
     },
 
     startNextRound() {
@@ -242,6 +286,7 @@ var app = new Vue({
         if (self.round.rightSide[n] && self.round.correctSide[n]) {
           if (self.round.rightSide[n].slug == self.round.correctSide[n].slug) {
             self.my.score += 100;
+            self.my.correctSorts += 1;
             let instance = Vue.$toast.open(
               {
                 message: "<h4>100 Points for "+self.round.rightSide[n].name+"</h4>",
@@ -254,6 +299,133 @@ var app = new Vue({
         }
       }, 1000);
     },
+
+    ////////////////////////////////////////////
+    // FINAL ROUND
+
+    showTheEmail() {
+      const self = this;
+      self.populateFinalRound();
+      self.ui.showEmailButton = false;
+      $("#EmailFromPasha").removeClass('off-screen');
+      
+      setTimeout(function () {
+
+        let instance = Vue.$toast.open(
+          {
+            message: "<h4>"+self.dollars(self.round.budget)+" added to bank account.</h4>",
+            type: "info",
+            duration: 2500,
+            position: "bottom-right"
+          }
+        );
+        self.ui.showBeginFinalRoundButton = true;
+      }, 5000);
+    },
+
+    beginFinalRound() {
+      const self = this;
+      self.round.leftSide = self.round.availableToHire;
+      self.round.rightSide = [];
+      self.game.finalRound = true;
+    },
+
+
+    populateFinalRound() {
+      const self = this;
+      let celebs = [...shuffle(self.celebs)];
+      celebs = celebs.slice(0,10);
+      self.round.availableToHire = celebs;
+
+      let costForAll = 0;
+
+      self.round.availableToHire.forEach((cameo,index) => {
+        costForAll += cameo.value;
+      });
+
+      let avg = parseInt(costForAll / 2);
+      if (avg > 1000) {
+        self.round.budget = 1000;
+      } else if (avg < 500) {
+        self.round.budget = 500;
+      } else {
+        self.round.budget = avg;
+      }
+      
+    },
+
+    finishHiring() {
+      const self = this;
+
+      self.round.leftSide = [];
+      self.ui.hiringFinished = true;
+
+      self.ui.countingInterval = window.setInterval(function(){
+
+        if (self.ui.countingHireIndex >= self.round.rightSide.length) {
+          clearInterval(self.ui.countingInterval);
+
+          setTimeout(function () {
+            self.game.finalRound = false;
+            self.game.over = true;
+          }, 2000);
+          
+        } else {
+          self.showHirePrice();
+        }
+      }, 3000);
+
+    },
+
+    showHirePrice() {
+      const self = this;
+      self.ui.countingHireIndex++;
+      let n = (self.ui.countingHireIndex -1);
+      $('.list-group.hired .cameo:nth-child('+self.ui.countingHireIndex+') .value').removeClass('invisible').addClass('animate__animated animate__bounceIn');
+
+      setTimeout(function () {
+
+        self.round.spent += self.round.rightSide[n].value;
+
+        if (self.round.spent <= self.round.budget) {
+          self.my.score += 100;
+          self.my.pointsEarnedInFinalRound += 100;
+          let instance = Vue.$toast.open(
+            {
+              message: "<h4>100 Points for "+self.round.rightSide[n].name+"</h4>",
+              type: "info",
+              duration: 1500,
+              position: "bottom-left"
+            }
+          );
+        } else {
+          if (!self.ui.exceededBudget) {
+            self.my.score -= self.my.pointsEarnedInFinalRound;
+            self.my.pointsEarnedInFinalRound = 0;
+            let instance = Vue.$toast.open(
+              {
+                message: "<h2>"+self.round.rightSide[n].name+" exceeded the budget!</h2>",
+                type: "error",
+                duration: 1500,
+                position: "bottom-left"
+              }
+            );
+            self.ui.exceededBudget = true;
+          }
+        }
+      }, 1000);
+
+      setTimeout(function() {
+        $('.list-group.hired .cameo:nth-child('+self.ui.countingHireIndex+')').addClass('animate__animated animate__backOutUp');
+        setTimeout(function() {
+          $('.list-group.hired .cameo:nth-child('+self.ui.countingHireIndex+')').addClass('display-none');
+        }, 450);
+      }, 2000);
+
+
+    },
+
+
 
     clearUI() {
       const self = this;
@@ -283,21 +455,61 @@ var app = new Vue({
     },
     computedGuessingPhase() {
       const self = this;
-      if (self.round.leftSide.length > 0 || self.round.rightSide.length < 3) {
-        return "sort";
-      } else if (!self.ui.orderConfirmed) {
-        return "submit";
-      } else if (!self.round.valueGuessed) {
-        return "answers";
+      if (self.game.finalRound) {
+        if (!self.ui.hiringFinished) {
+          return "hiring";
+        } else {
+          return "calculatingCosts";
+        }
       } else {
-        return "finished";
+        if (self.round.leftSide.length > 0 || self.round.rightSide.length < 3) {
+          return "sort";
+        } else if (!self.ui.orderConfirmed) {
+          return "submit";
+        } else if (!self.round.valueGuessed) {
+          return "answers";
+        } else if (self.round.valueGuessed && self.round.number >= settings.maxRounds) {
+          return "newMail";
+        } else {
+          return "finished";
+        }
       }
     },
   },
 
   mounted: function() {
     const self = this;
-    self.compareThreeCelebs();
+
+    /*
+    /////////////////////////////////
+    // FAKE A FINAL ROUND
+    self.populateFinalRound();
+    self.my.score = randomNumber(500,5000);
+    */
+
+
+    /*
+    /////////////////////////////////
+    // FAKE A GAME OVER SCREEN
+    let celebs = [...shuffle(self.celebs)];
+
+    const hiredCelebs = randomNumber(3,10);
+
+    celebs = celebs.slice(0,hiredCelebs);
+    self.round.rightSide = celebs;
+
+    self.my.score = randomNumber(500,5000);
+    self.round.spent = (hiredCelebs * 200);
+
+    if (self.round.spent < self.round.budget) {
+      self.my.pointsEarnedInFinalRound = (hiredCelebs * 100);
+    }
+    self.game.finalRound = false;
+    self.game.over = true;
+    //
+    /////////////////////////////////
+    */
+
   }
 
 });

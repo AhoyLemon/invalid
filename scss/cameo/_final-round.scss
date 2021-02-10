@@ -1,0 +1,46 @@
+main.final-round { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; background-blend-mode: multiply,multiply;
+  .casting-interface { display:grid; grid-template-columns: repeat(2,1fr); gap:40px; font-family: $serif; width:100%; max-width: 960px; margin-left: auto; margin-right: auto; }
+
+
+  .list-group { padding:40px 20px; height: 99.9vh; position: relative; overflow-y: auto;
+    background: rgba(25,25,25,0.3);
+    border-left:4px solid rgba(25,25,25,0.15);
+    border-right:4px solid rgba(25,25,25,0.15);
+    .list-group-item { cursor: move;
+      &.sortable-chosen { cursor: grab; }
+      &.sortable-ghost { opacity: 0.6; }
+    }
+    &.no-move-cursor {
+      .list-group-item { cursor: default; }
+    }
+    .help-text { @include position(absolute,0,0,0,0); display:flex; align-items: center; justify-content: center;
+      .inside { opacity: 0.65; font-size: 24px; }
+    }
+    .help-text { @include position(absolute,0,0,0,0); display:flex; align-items: center; justify-content: center;
+      .inside { opacity: 0.65; font-size: 24px; }
+    }
+  }
+
+
+  .cameo { margin-bottom: 40px;
+    figure { margin-bottom: -100px; text-align: right; position: relative; 
+      img { width:140px; height: 140px; position: relative; z-index: 4; object-fit: cover; border:4px solid #111; border-radius: 21px; }
+    }
+    figcaption { 
+      background-color: #000000; background-image: linear-gradient(147deg, #000000 0%, #2c3e50 74%);
+      color:#ddd; padding:20px 130px 10px 10px; margin-right: 20px; border-radius: 4px; position: relative;
+      .name { font-size:38px; font-weight:600; font-family: $displayFont; }
+      .desc { margin-top:5px; }
+      .value { font-size:200%; font-weight: 700; }
+      .invisible { opacity: 0; }
+    }
+    
+  }
+
+  .budget-interface { @include position(fixed,0,0); background-color:rgba(255,255,255,0.6); color:black; padding:10px; padding-bottom: 0; min-width: 140px;
+    .box { margin-bottom: 10px; }
+    .big-number { font-size:32px; font-weight: 600; margin-top:-8%; }
+  }
+}
+
+.display-none { display:none !important; }

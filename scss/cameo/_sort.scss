@@ -1,22 +1,11 @@
-$gold: #FFD700;
-$silver: #aaa9ad;
-$bronze:#b08d57;
-
-$displayFont: 'Big Shoulders Display', sans-serif;
-
-
-@keyframes slapOntoScreen {
-  from { opacity: 0; transform: scale(2) translateY(-100%); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
 
 
 html {  overflow-y: scroll;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
-  background-blend-mode: multiply,multiply;
+  
 }
+main.sort-three { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; background-blend-mode: multiply,multiply; }
 //body { background-color:rgba(215,215,215,0.65); }
-.three-to-compare { display:grid; grid-template-columns: repeat(2,1fr); gap:40px; font-family: 'Libre Baskerville', serif;
+.three-to-compare { display:grid; grid-template-columns: repeat(2,1fr); gap:40px; font-family: $serif;
   width:100%; max-width: 960px; margin-left: auto; margin-right: auto;
 
   .list-group { padding:40px 20px; min-height: 99.9vh; position: relative;
@@ -24,16 +13,14 @@ html {  overflow-y: scroll;
     border-left:4px solid rgba(25,25,25,0.15);
     border-right:4px solid rgba(25,25,25,0.15);
     .list-group-item { cursor: move;
-      &.sortable-chosen { cursor: grab;
-        //figcaption { background:lime; }
-      }
+      &.sortable-chosen { cursor: grab; }
       &.sortable-ghost { opacity: 0.6; }
     }
     &.no-move-cursor {
       .list-group-item { cursor: default; }
     }
     .help-text { @include position(absolute,0,0,0,0); display:flex; align-items: center; justify-content: center;
-      .inside { opacity: 0.6; font-size: 24px; }
+      .inside { opacity: 0.65; font-size: 24px; }
     }
   }
   .cameo { margin-bottom: 40px;
@@ -44,7 +31,7 @@ html {  overflow-y: scroll;
       background-color: #000000; background-image: linear-gradient(147deg, #000000 0%, #2c3e50 74%);
       color:#ddd; padding:20px 130px 10px 10px; margin-right: 20px; border-radius: 4px; position: relative;
       .name { font-size:38px; font-weight:600; font-family: $displayFont; }
-      .desc { margin-top:5px; font-size:90%; }
+      .desc { margin-top:5px; }
     }
   }
 
@@ -100,23 +87,6 @@ html {  overflow-y: scroll;
       &:before { border-color: rgba(194, 225, 245, 0); border-bottom-color: #c2e1f5; border-width: 14px; margin-left: -14px; }
     }
   }
-}
-
-.underbanner { @include position(fixed,null,0,0,0); padding:10px;  background: linear-gradient(to top, #141e30, #243b55);
-  button { font-size:36px; font-family:$displayFont; margin-top:-25px; padding:0.25em 1em; border:none; border-radius: 8px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5), -1px -1px 2px rgba(0,0,0,0.35); cursor: pointer;
-    background-color: #045de9; background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%); color:white; transition:transform 0.1s ease-in; outline: none;
-    &:hover, &.focus { transform: scale(1.05) translateY(-5px); }
-    &:active { transform: scale(0.95) translateY(5px); }
-  }
-}
-
-.hud { display:grid; grid-template-columns: 1fr 960px 1fr; color:white;
-  .score { font-family: $displayFont; order: 1; font-size: 36px; padding-left: 40px; }
-  .interface { order: 2; padding-left: 20px; padding-right: 20px; font-size:24px; text-align: center;
-    .sort-the-above { padding-top:7px; }
-    .button-holder { text-align: center;}
-  }
-  .round { order: 3; font-family: $displayFont; font-size: 36px; text-align: right; padding-right: 40px; }
 }
 
 

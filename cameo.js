@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/html/cameo.html');
 });
 
 io.on('connection', (socket) => {

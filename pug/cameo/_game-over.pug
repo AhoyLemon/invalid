@@ -1,0 +1,51 @@
+main.game-over(v-if="game.over")
+
+  section.headline
+    h1 Game Over
+    
+
+  section.birthday-videos
+
+    .birthday-header
+      h1.headline Happy Birthday, Pasha's Daughter
+      h2.subhead Oops, you forgot to ask Pasha what his daughter's name is. Oh well!
+
+    .video-grid
+      .video(v-for="(element, index) in round.rightSide" :key="index")
+        figure
+          img(:src="'img/cameos/'+element.slug+'.jpg'")
+        .speech-bubble
+          span Happy Birthday!
+
+    .cost-stripe
+      span Total Cost: 
+      strong.cost {{dollars(round.spent)}}
+
+  section.scores.my-scores
+
+    .score-grid
+      dl
+        dt Your Score
+        dd {{my.score}}
+      dl
+        dt Correct Guesses
+        dd {{my.correctSorts}}
+      dl
+        dt Final Round Points
+        dd {{my.pointsEarnedInFinalRound}}
+      dl(v-if="round.spent < round.budget")
+        dt Money Left Over
+        dd {{dollars(round.budget - round.spent) }}
+      dl(v-if="round.spent > round.budget")
+        dt Over Budget By
+        dd {{dollars(Math.abs(round.budget - round.spent)) }}
+
+  .game-by-lemon
+    a(href="https://ahoylemon.xyz")
+      h3 This game is 
+        span by Lemon.
+      img(src="/svg/lemon.svg" alt="Lemon")
+  
+  section.final-links
+    a(href="https://github.com/AhoyLemon/kindafun") GitHub Repo.
+    a(href=siteURL) Play Again.

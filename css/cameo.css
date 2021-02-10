@@ -4271,3 +4271,9 @@ html {
   font-family: "Big Shoulders Display", sans-serif;
   font-size: 19px;
 }
+
+main.title-screen {
+  min-height: 99.9999vh;
+  background: #111;
+  color: #eee;
+}

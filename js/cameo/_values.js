@@ -26,7 +26,7 @@ const allValues = [
   { name: "Krysten Ritter", desc: "The B---- in Apartment 23", slug: "krystenritter", value:275 },
   { name: "Joe Piscopo", desc: "Star of Dead Heat", slug:"joepiscopo", value:250 },
   { name: "Brent Spiner", desc: "Data on Star Trek TNG", slug:"brentspiner", value:250 },
-  { name: "Stormy Daniels", desc: "Received $130,000 in hush money from Trump surrogates", slug:"stormydaniels", value:250 },
+  { name: "Stormy Daniels", desc: "Hush Money Recipient", slug:"stormydaniels", value:250 },
   { name: "Hide The Pain Harold", desc: "photo meme", slug:"hidethepainharold", value:250 },
   { name: "Steve Guttenberg", desc:"Police Academy 1-4", slug:"steveguttenberg", value:250 },
   { name: "David Koechner", desc:"Anchorman", slug:"davidkoechner", value:225 },
@@ -39,7 +39,7 @@ const allValues = [
   { name: "Punxsutawney Phil", desc:"World Famous Groundhog", slug:"punxsyphil", value:199 },
   { name: "Coolio", desc:"Cowrote Gangsta's Paradise", slug:"therealcoolio", value:199 },
   { name: "Dr Drew", desc:"Celebrity Doctor, “Loveline”", slug:"drdrew", value:198 },
-  { name: "Meat Loaf", desc:"Contestant, The Celebrity Apprentice", slug:"redman", value:170 },
+  { name: "Meat Loaf", desc:"Contestant, The Celebrity Apprentice", slug:"meatloaf", value:170 },
   { name: "Redman", desc:"Friends with Method Man", slug:"redman", value:160 },
   { name: "Sir Mix-A-Lot", desc:"Likes Big Butts", slug:"therealsirmixalot", value:150 },
   { name: "Tommy Chong", desc:"Marijuana Enthusiast", slug:"tommychong", value:150 },
@@ -50,15 +50,19 @@ const allValues = [
   { name: "Bret “Hitman” Hart", desc:"Former Professional Wrestler", slug:"hitman", value:150  },
   { name: "Barry Williams", desc:"Greg on The Brady Bunch", slug:"barrywilliams", value:140  },
   { name: "Penn Jillette", desc:"Penn & Teller", slug:"pennj", value:135  },
-  { name: "Violent J", desc:"Insane Clown Posse", slug:"violentj.icp", value:135  },
   { name: "Jerry Springer", desc:"Former Mayor of Cincinnati", slug:"jerryspringer", value:135 },
+
+  { name: "Violent J", desc:"Insane Clown Posse", slug:"violentj.icp", value:135  },
   { name: "Shaggy 2 Dope", desc:"Insane Clown Posse", slug:"shaggy.icp", value:134 },
+
   { name: "Chris Kirkpatrick", desc:"Formerly of *NSYNC", slug:"iamckirkpatrick", value:129 },
   { name: "Victoria Jackson", desc:"SNL", slug:"victoria_jackson_official", value:125 },
   { name: "Tom Arnold", desc:"Was briefly married to Roseanne", slug:"thetomarnold", value:125 },
   { name: "Jamie Farr", desc:"Klinger on M*A*S*H", slug:"jamiefarr1", value:125 },
+  
   { name: "Steve Carlson", desc:"One of the guys from the movie Slapshot", slug:"scarlson17", value:117  },
   { name: "Dave Hanson", desc:"One of the guys from the movie Slapshot", slug:"davehanson16", value:116  },
+
   { name: "Colin Mochrie", desc:"Perennial Contestant, Whose Line is it Anyway?", slug:"colinmochrie7591", value:110 },
   { name: "Fiona the Hippo", desc:"The Cincinnati Zoo’s premature baby hippo", slug:"fionathehippo", value:100 },
   { name: "Dave Foley", desc:"Kids in the Hall", slug:"dsf", value:100 },

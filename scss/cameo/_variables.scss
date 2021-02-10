@@ -1,0 +1,23 @@
+$serif: 'Noto Serif JP', serif;
+$displayFont: 'Big Shoulders Display', sans-serif;
+
+$gold: #FFD700;
+$silver: #aaa9ad;
+$bronze:#b08d57;
+$yellow:#e4e72c;
+$gap:40px;
+$padding:20px;
+
+@keyframes slapOntoScreen {
+  from { opacity: 0; transform: scale(2) translateY(-100%); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+html { font-size:15px;
+
+}
+
+
+// Z-INDEX
+$z-email:9;
+$z-hud: 10;
