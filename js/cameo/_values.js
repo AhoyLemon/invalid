@@ -10,6 +10,7 @@ const allValues = [
   { name: "Ice T", desc: "Law & Order: SVU", slug:"icet", value:500 },
   { name: "Ice Cube", desc: "Actor, Friday", slug:"donmega69", value:500 },
   { name: "Mehmet Oz", desc: "Still has a medical license for some reason", slug:"droz", value:500 },
+  { name: "Steve Wozniak", desc: "Apple Co-Founder", slug:"stevewoz", value:500 },
   { name: "LeVar Burton", desc:"Host, Reading Rainbow", slug:"levarburton", value:450 },
   { name: "Chuck Norris", desc:"Movie Kicker", slug:"chucknorris", value:450 },
   { name: "John Cleese", desc:"Member, Monty Python", slug:"notsirjohncleese", value:450 },
