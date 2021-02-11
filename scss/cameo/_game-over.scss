@@ -5,7 +5,6 @@ main.game-over { font-family: $serif; background:#e4e72c; color:#121212; min-hei
 
   section.headline { min-height: 50vh; margin-bottom: $gap; display: flex; align-items: center; justify-content: center;
     h1 { font-size:9vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
-    h2 { padding-top:05em; }
   }
   
   //h2 { font-size:4vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
@@ -44,7 +43,7 @@ main.game-over { font-family: $serif; background:#e4e72c; color:#121212; min-hei
   .birthday-videos { background:#111;
     .birthday-header { padding:$gap; color:$yellow;
       h1 { font-family: $displayFont; font-size:7vw; text-align: center; }
-      h2 { font-size:19px; text-align: center; }
+      h2 { font-size:19px; text-align: center; margin-top:1.5em; }
     }
     .video-grid { display:grid; grid-template-columns: repeat( auto-fit, minmax(320px, 1fr) ); gap:$gap; padding:($gap * 2) $gap;
       .video { position: relative;
