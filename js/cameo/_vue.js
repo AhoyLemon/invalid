@@ -197,19 +197,19 @@ var app = new Vue({
             position: "bottom-left"
           }
         );
+        soundPerfectValue.play();
       } else if (offBy < 50) {
         let addScore = 200 - (offBy * 4);
-        if (addScore > 0) {
-          self.my.score += addScore;
-          let instance = Vue.$toast.open(
-            {
-              message: "<h4>"+addScore+" Points for being close</h4>",
-              type: "info",
-              duration: 1500,
-              position: "bottom-left"
-            }
-          );
-        }
+        self.my.score += addScore;
+        let instance = Vue.$toast.open(
+          {
+            message: "<h4>"+addScore+" Points for being close</h4>",
+            type: "info",
+            duration: 1500,
+            position: "bottom-left"
+          }
+        );
+        soundCloseValue.play();
       } else {
         let instance = Vue.$toast.open(
           {
@@ -219,6 +219,7 @@ var app = new Vue({
             position: "bottom-left"
           }
         );
+        soundBadValue.play();
       }
 
       self.round.valueGuessed = true;
@@ -242,6 +243,7 @@ var app = new Vue({
               position: "bottom-right"
             }
           );
+          soundNewEmail.play();
         }, 2000);
         setTimeout(function () {
           self.ui.showEmailButton = true;
@@ -287,6 +289,7 @@ var app = new Vue({
           if (self.round.rightSide[n].slug == self.round.correctSide[n].slug) {
             self.my.score += 100;
             self.my.correctSorts += 1;
+            soundCorrect.play();
             let instance = Vue.$toast.open(
               {
                 message: "<h4>100 Points for "+self.round.rightSide[n].name+"</h4>",
@@ -295,6 +298,8 @@ var app = new Vue({
                 position: "bottom-left"
               }
             );
+          } else {
+            soundMiss.play();
           }
         }
       }, 1000);
@@ -329,7 +334,6 @@ var app = new Vue({
       self.round.rightSide = [];
       self.game.finalRound = true;
     },
-
 
     populateFinalRound() {
       const self = this;
@@ -398,6 +402,7 @@ var app = new Vue({
               position: "bottom-left"
             }
           );
+          soundUnderBudget.play();
         } else {
           if (!self.ui.exceededBudget) {
             self.my.score -= self.my.pointsEarnedInFinalRound;
@@ -411,6 +416,9 @@ var app = new Vue({
               }
             );
             self.ui.exceededBudget = true;
+            soundOverBudget.play();
+          } else {
+            soundFutherOverBudget.play();
           }
         }
       }, 1000);
@@ -424,8 +432,6 @@ var app = new Vue({
 
 
     },
-
-
 
     clearUI() {
       const self = this;

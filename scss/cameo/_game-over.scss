@@ -27,19 +27,6 @@ main.game-over { font-family: $serif; background:#e4e72c; color:#121212; min-hei
     }
   }
 
-  .game-by-lemon { text-align: right; padding-bottom: ($gap * 2); padding-right: $gap;
-    h3 { font-size: 5vw; transform: translate(-20%, 130%); }
-    img { width:37vw; }
-    a { color:inherit; text-decoration: none;
-      &:hover span { color: #c85c0d; }
-    }
-  }
-  .final-links { background:$black; text-align: center; padding:4rem;
-    a { color:#c85c0d; display: inline-block; margin-right: 1em; font-size:26px; text-decoration: none;
-      &:hover, &:focus { text-decoration: underline; }
-    }
-  }
-
   .birthday-videos { background:#111;
     .birthday-header { padding:$gap; color:$yellow;
       h1 { font-family: $displayFont; font-size:7vw; text-align: center; }
@@ -78,9 +65,22 @@ main.game-over { font-family: $serif; background:#e4e72c; color:#121212; min-hei
     .score-grid { display:grid; grid-template-columns: repeat(4,1fr); gap:$gap;
       dl { background:#111; color:$yellow; padding:$padding;}
       dd { font-size:250%; }
-
     }
   }
 
+  .game-by-lemon { text-align: right; padding-bottom: ($gap * 2); padding-right: $gap;
+    h3 { font-size: 5vw; transform: translate(-20%, 130%); }
+    img { width:37vw; }
+    a { color:inherit; text-decoration: none;
+      &:hover span { color: #c85c0d; }
+    }
+    .disclaimer { padding-top:$padding; }
+  }
+
+  .final-links { background:$black; text-align: center; padding:4rem;
+    a { color:#c85c0d; display: inline-block; margin-right: 1em; font-size:26px; text-decoration: none;
+      &:hover, &:focus { text-decoration: underline; }
+    }
+  }
 
 }
