@@ -553,6 +553,7 @@ var app = new Vue({
       socket.emit("updateBugs", {
         roomCode: self.roomCode,
         bugs: self.round.bugs,
+        challengeName: self.round.challenge.name,
         newBug: bug
       });
 
@@ -859,7 +860,8 @@ var app = new Vue({
           playerIndex: self.my.playerIndex,
           pwAttempt: attempt,
           attemptCount: self.my.passwordAttempts,
-          result: "crash"
+          result: "crash",
+          challengeName: self.round.challenge.name
         });
         self.my.crashesCaused += 1;
 
@@ -990,6 +992,7 @@ var app = new Vue({
         pwAttempt: attempt,
         attemptCount: self.my.passwordAttempts,
         playerScore: self.my.score,
+        challengeName: self.round.challenge.name,
         result: "success"
       });
 

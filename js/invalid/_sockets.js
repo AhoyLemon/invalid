@@ -192,6 +192,7 @@ socket.on("roundOver", function() {
   app.ui.roundOver = true;
   app.ui.passwordSucceeded = false;
   app.ui.passwordAttemptErrors = [];
+  app.ui.shibboleth = "";
   app.resetHurryTimer();
   app.resetRoundTimer();
   app.killThePig();
