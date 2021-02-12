@@ -72,6 +72,10 @@ app.get('/wrongest', (req, res) => {
   res.sendFile(__dirname + '/html/wrongest.html');
 });
 
+app.get('/cameo', (req, res) => {
+  res.sendFile(__dirname + '/html/cameo.html');
+});
+
 
 app.get('/sitemap.xml', (req, res) => {
   res.contentType('application/xml');

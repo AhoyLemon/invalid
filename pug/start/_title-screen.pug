@@ -8,6 +8,30 @@
 
       .game-choices
 
+        .game(:class="{ active: (gameChoice == 'cameo'), inactive: (gameChoice && gameChoice != 'cameo') }")
+          figure.logo(@click="gameChoice = 'cameo'")
+            img(src="svg/comparatively-famous.svg")
+          figcaption
+            .slogan The Game of Celebrity Value
+            .players-allowed
+              | For 1 player.
+              br
+              | (but can be replayed with friends)
+          script(type="application/ld+json").
+            {
+              "@context": "http://schema.org",
+              "@type": "VideoGame",
+              "name": "Comparatively Famous",
+              "url": "https://kinda.fun/cameo",
+              "image": "https://kinda.fun/img/og-invalid.png",
+              "playMode": "SinglePlayer",
+              "applicationCategory": "browser game",
+              "gamePlatform": "web browser",
+              "operatingSystem": "web browser",
+              "genre": "comedy",
+              "description": "The Game of Celebrity Value",
+            }
+
         .game(:class="{ active: (gameChoice == 'invalid'), inactive: (gameChoice && gameChoice != 'invalid') }")
           figure.logo(@click="gameChoice = 'invalid'")
             img(src="svg/invalid-logo.svg")
@@ -31,7 +55,8 @@
               "genre": "comedy",
               "description": "A trivia game of unnecessary suffering.",
             }
-        
+
+
         .game(:class="{ active: (gameChoice == 'wrongest'), inactive: (gameChoice && gameChoice != 'wrongest') }")
           figure.logo(@click="gameChoice = 'wrongest'")
             img(src="svg/wrongest.svg")
@@ -57,7 +82,9 @@
             }
 
   .create-or-join(v-if="gameChoice")
-    .options
+    .start-playing(v-if="gameChoice == 'cameo'")
+      button(@click="startSinglePlayerGame()") Start Playing
+    .options(v-else)
       .create
         button(@click="createRoom()") Create a New Room
 
@@ -66,3 +93,5 @@
 
       .join
         button(@click="joinRoom()") Join a Room
+
+    
