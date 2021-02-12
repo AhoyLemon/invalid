@@ -1,20 +1,57 @@
 {
-  "RoomsCreated": 1,
+  "RoomsCreated": 18,
   "Games": {
-    "Started": 1,
+    "Started": 17,
     "NaughtyMode": {
-      "on": 0,
-      "off": 0
+      "on": 2,
+      "off": 14
     },
-    "PlayerCounts": [],
+    "PlayerCounts": [
+      {
+        "players": 3,
+        "count": 6
+      },
+      {
+        "players": 2,
+        "count": 10
+      }
+    ],
     "MostRecent": ""
   },
-  "Challenges": [],
+  "Challenges": [
+    {
+      "name": "Simpsons Characters",
+      "count": 1
+    }
+  ],
   "Rules": [],
   "DemandedLetters": [],
   "BannedLetters": [],
-  "Bugs": [],
-  "SuccessfulPasswords": [],
-  "Crashes": [],
+  "Bugs": [
+    {
+      "pw": "FUCK",
+      "count": 3
+    },
+    {
+      "pw": "CRASH",
+      "count": 18
+    }
+  ],
+  "SuccessfulPasswords": [
+    {
+      "pw": "HOCKEY",
+      "count": 1
+    }
+  ],
+  "Crashes": [
+    {
+      "pw": "FUCK",
+      "count": 1
+    },
+    {
+      "pw": "CRASH",
+      "count": 13
+    }
+  ],
   "Cracks": []
 }

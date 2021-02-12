@@ -6,8 +6,31 @@ var io = require('socket.io')(http);
 app.use(express.static('public'));
 
 
+//////////////////////////////////////////////
+// SQL DATABASE
+var mysql = require('mysql');
+var connection = mysql.createConnection('mysql://ln9uumc4l7ec5hl7:sn7bwomt55zt5rz3@pfw0ltdr46khxib3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/r2sqgl0qhc59u3rw');
+connection.connect();
+
+function incrementDatabase(table,value) {
+  const incrementValue = '"' + value.replace("'", "\'") + '"';
+  connection.query('INSERT INTO '+table+' (iname) VALUES ('+incrementValue+') ON DUPLICATE KEY UPDATE icount = icount+1;', function(err, rows, fields) {
+    if (err) throw err;
+  });
+}
+
+
+function incrementDatabaseWithChallenge(table,challenge,value) {
+  const incrementValue = '"' + value.replace("'", "\'") + '"';
+  const challengeValue = '"' + challenge.replace("'", "\'") + '"';
+  connection.query('INSERT INTO '+table+' (iname, challenge) VALUES ('+incrementValue+', '+challengeValue+') ON DUPLICATE KEY UPDATE icount = icount+1;', function(err, rows, fields) {
+    if (err) throw err;
+  });
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // Database
+// TODO: DELETE ALL THIS LOWDB SHIT
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
@@ -126,6 +149,10 @@ io.on('connection', (socket) => {
 
   generalDB.update('ConnectedUsers', n => n + 1)
     .write();
+
+  connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    if (err) throw err;
+  });
 
   const socketID = socket.id;
   console.log('a user connected with the ID of'+socketID);
@@ -281,14 +308,7 @@ io.on('connection', (socket) => {
       challenge: msg.challenge
     });
 
-
-    
-    if (invalidDB.get("Challenges").find({ name: msg.challenge.name }).value()) {
-      invalidDB.get("Challenges").find({ name: msg.challenge.name }).update('count', n => n + 1).write();
-    } else {
-      invalidDB.get("Challenges").push({ name: msg.challenge.name, count: 1} ).write();
-    }
-    
+    incrementDatabase('Challenges', msg.challenge.name);
 
   });
 
@@ -301,12 +321,13 @@ io.on('connection', (socket) => {
       shibboleth: msg.shibboleth
     });
 
-    
-    if (msg.newRule && msg.newRule.type) {
-      if (invalidDB.get("Rules").find({ name: msg.newRule.type }).value()) {
-        invalidDB.get("Rules").find({ name: msg.newRule.type }).update('count', n => n + 1).write();
-      } else {
-        invalidDB.get("Rules").push({ name: msg.newRule.type, count: 1} ).write();
+    if (msg.newRule.type) {
+      incrementDatabase('invalidRules', msg.newRule.type);
+
+      if (msg.newRule.type == "Ban A Letter" && msg.newRule.inputValue) {
+        incrementDatabase('invalidBannedLetters', msg.newRule.inputValue);
+      } else if (msg.newRule.type == "Demand A Letter" && msg.newRule.inputValue) {
+        incrementDatabase('DemandedLetters', msg.newRule.inputValue);
       }
     }
     
@@ -329,11 +350,17 @@ io.on('connection', (socket) => {
 
     
     if (msg.newBug) {
+
+      incrementDatabaseWithChallenge("Bugs", msg.challengeName, msg.newBug);
+
+
+      /*
       if (invalidDB.get("Bugs").find({ pw: msg.newBug }).value()) {
         invalidDB.get("Bugs").find({ pw: msg.newBug }).update('count', n => n + 1).write();
       } else {
         invalidDB.get("Bugs").push({ pw: msg.newBug, count: 1 } ).write(); 
       }
+      */
     }
     
 
@@ -370,11 +397,16 @@ io.on('connection', (socket) => {
 
     
     if (msg.pwAttempt) {
+
+      incrementDatabaseWithChallenge("Crashes", msg.challengeName, msg.pwAttempt);
+
+      /*
       if (invalidDB.get("Crashes").find({ pw: msg.pwAttempt }).value()) {
         invalidDB.get("Crashes").find({ pw: msg.pwAttempt }).update('count', n => n + 1).write();
       } else {
         invalidDB.get("Crashes").push({ pw: msg.pwAttempt, count: 1 } ).write(); 
       }
+      */
     }
     
 
