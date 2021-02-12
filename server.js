@@ -106,7 +106,6 @@ io.on('connection', (socket) => {
   const socketID = socket.id;
   console.log('a user connected with the ID of'+socketID);
   io.to(socketID).emit("getSocketID", socketID);
-  addOneInDatabase("allGames","ConnectedUsers");
 
   //////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////
