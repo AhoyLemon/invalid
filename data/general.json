@@ -1,12 +1,45 @@
 {
-  "ConnectedUsers": 5,
-  "PlayerNames": [],
+  "ConnectedUsers": 88,
+  "PlayerNames": [
+    {
+      "name": "One",
+      "count": 14
+    },
+    {
+      "name": "Two",
+      "count": 13
+    },
+    {
+      "name": "Three",
+      "count": 6
+    },
+    {
+      "name": "two",
+      "count": 1
+    },
+    {
+      "name": "Fart",
+      "count": 1
+    },
+    {
+      "name": "Fuck",
+      "count": 1
+    },
+    {
+      "name": "sadkasjdksjal",
+      "count": 1
+    },
+    {
+      "name": "dsadasdasddas",
+      "count": 1
+    }
+  ],
   "Games": {
     "Invalid": {
       "MostRecent": ""
     },
     "TheWrongestWords": {
-      "MostRecent": "2021-02-07T14:32:58.711Z"
+      "MostRecent": "2021-02-12T02:30:35.370Z"
     }
   }
 }
