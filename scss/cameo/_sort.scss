@@ -4,8 +4,7 @@ html {  overflow-y: scroll;
   
 }
 main.sort-three { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; background-blend-mode: multiply,multiply; }
-//body { background-color:rgba(215,215,215,0.65); }
-.three-to-compare { display:grid; grid-template-columns: repeat(2,1fr); gap:40px; font-family: $serif;
+.three-to-compare { display:grid; grid-template-columns: repeat(2,1fr); gap:40px;
   width:100%; max-width: 960px; margin-left: auto; margin-right: auto;
 
   .list-group { padding:40px 20px; min-height: 99.9vh; position: relative;
@@ -20,10 +19,10 @@ main.sort-three { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 
       .list-group-item { cursor: default; }
     }
     .help-text { @include position(absolute,0,0,0,0); display:flex; align-items: center; justify-content: center;
-      .inside { opacity: 0.65; font-size: 24px; }
+      .inside { opacity: 0.6; font-size: 28px; }
     }
   }
-  .cameo { margin-bottom: 40px;
+  .cameo { margin-bottom: 40px; user-select: none;
     figure { margin-bottom: -100px; text-align: right; position: relative; 
       img { width:140px; height: 140px; position: relative; z-index: 4; object-fit: cover; border:4px solid #111; border-radius: 21px; }
     }
@@ -40,9 +39,9 @@ main.sort-three { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 
     figcaption { padding-top:7px;  }
   }
   .ranked, .correct {
-    .value { font-size:150%; margin-top:9px; font-weight: 700; }
+    .value { font-size:28px; font-weight: 700; }
     figcaption { border-top:7px solid transparent; border-right: 40px solid transparent; }
-    .rank { position: absolute; bottom:7px; right:20px; font-size:120%; }
+    .rank { @include position(absolute,null,10px,5px); font-size:18px; font-weight: 700; }
     [rank="1"] { 
       figcaption { border-color: $gold; } 
       .rank, .value { color:$gold;  }
@@ -72,7 +71,7 @@ main.sort-three { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 
     .cameo { opacity: 0.85; }
   }
   form.guess-value { margin-top:10px;
-    input { font-size:24px; width:4.5ch; background:transparent; color:currentColor; font-family: inherit; border:none; outline: none;
+    input { font-size:28px; font-weight: 700; width:5ch; background:transparent; color:currentColor; font-family: inherit; border:none; outline: none;
       &:hover { color:#5699ff; }
     }
     button { color:currentColor; background:transparent; border:none; padding:0; margin-left: -4px; cursor: pointer;
@@ -81,11 +80,36 @@ main.sort-three { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 
       }
       &:hover, &:focus { color:#5699ff; transform: scale(1.2); }
     }
-    .arrow_box {  position: absolute; margin-top:11px; max-width: 120px; font-size:12px; padding:6px; text-align: center; background: #5699ff; border: 2px solid #c2e1f5; color:#111;
+    .arrow_box { position: absolute; margin-top:11px; max-width: 120px; font-size:12px; padding:6px; text-align: center; background: #5699ff; border: 1px solid #c2e1f5; color:#111; z-index: $z-tooltip;
       &:before, &:after { bottom: 100%; left: 50%; border: solid transparent; content: ""; height: 0; width: 0; position: absolute; pointer-events: none; }
-      &:after { border-color: rgba(86, 153, 255, 0); border-bottom-color: #5699ff; border-width: 11px; margin-left: -11px; }
-      &:before { border-color: rgba(194, 225, 245, 0); border-bottom-color: #c2e1f5; border-width: 14px; margin-left: -14px; }
+      &:after { border-color: rgba(86, 153, 255, 0); border-bottom-color: #5699ff; border-width: 7px; margin-left: -7px; }
+      &:before { border-color: rgba(194, 225, 245, 0); border-bottom-color: #c2e1f5; border-width: 8px; margin-left: -8px; }
     }
+    /*
+    .arrow_box:after, .arrow_box:before {
+      bottom: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: "";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+    
+    .arrow_box:after {
+      border-color: rgba(86, 153, 255, 0);
+      border-bottom-color: #5699ff;
+      border-width: 7px;
+      margin-left: -7px;
+    }
+    .arrow_box:before {
+      border-color: rgba(194, 225, 245, 0);
+      border-bottom-color: #c2e1f5;
+      border-width: 8px;
+      margin-left: -8px;
+    }
+    */
   }
 }
 

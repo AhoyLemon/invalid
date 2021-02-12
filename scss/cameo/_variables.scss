@@ -1,10 +1,13 @@
 $serif: 'Noto Serif JP', serif;
+$sans-serif: 'Open Sans', sans-serif;
 $displayFont: 'Big Shoulders Display', sans-serif;
+$font-family:$sans-serif;
 
 $gold: #FFD700;
 $silver: #aaa9ad;
 $bronze:#b08d57;
 $yellow:#e4e72c;
+
 $gap:40px;
 $padding:20px;
 
@@ -13,11 +16,8 @@ $padding:20px;
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-html { font-size:15px;
-
-}
-
 
 // Z-INDEX
+$z-tooltip:8;
 $z-email:9;
 $z-hud: 10;

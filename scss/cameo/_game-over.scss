@@ -1,10 +1,10 @@
 
-main.game-over { font-family: $serif; background:#e4e72c; color:#121212; min-height: 100vh;
+main.game-over { background:#e4e72c; color:#121212; min-height: 100vh;
 
   section { margin-bottom: ($gap * 3); }
 
   section.headline { min-height: 50vh; margin-bottom: $gap; display: flex; align-items: center; justify-content: center;
-    h1 { font-size:9vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
+    h1 { font-size:15vw; text-align: center; text-transform: uppercase; letter-spacing: 0.15em; margin:0; font-family: $displayFont; }
   }
   
   //h2 { font-size:4vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
@@ -30,9 +30,9 @@ main.game-over { font-family: $serif; background:#e4e72c; color:#121212; min-hei
   .birthday-videos { background:#111;
     .birthday-header { padding:$gap; color:$yellow;
       h1 { font-family: $displayFont; font-size:7vw; text-align: center; }
-      h2 { font-size:19px; text-align: center; margin-top:1.5em; }
+      h2 { font-size:22px; font-weight: 400; text-align: center; padding-top:$gap; }
     }
-    .video-grid { display:grid; grid-template-columns: repeat( auto-fit, minmax(320px, 1fr) ); gap:$gap; padding:($gap * 2) $gap;
+    .video-grid { display:grid; grid-template-columns: repeat( auto-fit, minmax(320px, 480px) ); gap:$gap; padding:($gap * 2) $gap;
       .video { position: relative;
         figure { height:100%;}
         img { width:100%; height:320px; object-fit: cover; }
@@ -74,13 +74,13 @@ main.game-over { font-family: $serif; background:#e4e72c; color:#121212; min-hei
     a { color:inherit; text-decoration: none;
       &:hover span { color: #c85c0d; }
     }
-    .disclaimer { padding-top:$padding; }
   }
 
   .final-links { background:$black; text-align: center; padding:4rem;
     a { color:#c85c0d; display: inline-block; margin-right: 1em; font-size:26px; text-decoration: none;
       &:hover, &:focus { text-decoration: underline; }
     }
+    .disclaimer { padding-top:$padding; color:white; }
   }
 
 }

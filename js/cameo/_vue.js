@@ -19,6 +19,7 @@ var app = new Vue({
       pointsEarnedInFinalRound: 0,
       correctSorts: 0,
       averageValuationOffset: 0,
+      valuationOffBy: 0,
     },
     game: {
       mode: "",
@@ -189,6 +190,7 @@ var app = new Vue({
 
       if (self.round.correctSide[n].value == self.ui.valueGuess) {
         self.my.score += 300;
+        self.my.valuationOffBy += 0;
         let instance = Vue.$toast.open(
           {
             message: "<h4>250 Points for bullseye!</h4>",
@@ -201,6 +203,7 @@ var app = new Vue({
       } else if (offBy < 50) {
         let addScore = 200 - (offBy * 4);
         self.my.score += addScore;
+        self.my.valuationOffBy += offBy;
         let instance = Vue.$toast.open(
           {
             message: "<h4>"+addScore+" Points for being close</h4>",
@@ -211,6 +214,7 @@ var app = new Vue({
         );
         soundCloseValue.play();
       } else {
+        self.my.valuationOffBy += offBy;
         let instance = Vue.$toast.open(
           {
             message: "<h4>Off By $"+offBy+"</h4>",
@@ -481,6 +485,48 @@ var app = new Vue({
         }
       }
     },
+    computedValuationSkill() {
+      const self = this;
+
+
+      if (!self.my.valuationOffBy || self.my.valuationOffBy < 1) {
+        return {
+          number: 0,
+          rating: "Suspiciously Perfect"
+        };
+      } else {
+        let averageValulationOffBy = parseInt(self.my.valuationOffBy / self.round.number);
+        let valuationRating = "";
+        if (averageValulationOffBy > 100) {
+          valuationRating = "Terrible!";
+        } else if (averageValulationOffBy > 90) {
+          valuationRating = "Awful";
+        } else if (averageValulationOffBy > 80) {
+          valuationRating = "Bad";
+        } else if (averageValulationOffBy > 70) {
+          valuationRating = "Not Good";
+        } else if (averageValulationOffBy > 60) {
+          valuationRating = "Okay";
+        } else if (averageValulationOffBy > 50) {
+          valuationRating = "Good";
+        } else if (averageValulationOffBy > 40) {
+          valuationRating = "Great";
+        } else if (averageValulationOffBy > 30) {
+          valuationRating = "Amazing";
+        } else if (averageValulationOffBy > 20) {
+          valuationRating = "Spectacular";
+        } else if (averageValulationOffBy > 10) {
+          valuationRating = "Wonderful!";
+        } else if (averageValulationOffBy > 0) {
+          valuationRating = "Nearly Perfect!";
+        }
+
+        return {
+          number: 0,
+          rating: valuationRating
+        };
+      }
+    }
   },
 
   mounted: function() {

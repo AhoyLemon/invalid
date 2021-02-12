@@ -40,6 +40,9 @@ main.sort-three(v-if="game.started && !game.finalRound && !game.over")
           img(:src="'img/cameos/'+element.slug+'.jpg'")
         figcaption
           .name {{ element.name }}
+          .rank 
+            sup #
+            span {{(index + 1)}}
           .guess-value(v-if="round.guessValueIndex == index")
             form.guess-value(@submit.prevent="submitCameoValueGuess()" v-if="ui.itsTimeToGuessValue")
               .value 

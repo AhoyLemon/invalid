@@ -4,7 +4,7 @@
     <title>kinda.fun CAMEO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
-    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700&amp;family=Noto+Serif+JP:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700&amp;family=Open+Sans:wght@400;700&amp;display=swap" rel="stylesheet"/>
     <link href="css/cameo.css" type="text/css" rel="stylesheet"/>
   </head>
 </html>
@@ -69,6 +69,7 @@
             <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
             <figcaption>
               <div class="name">{{ element.name }}</div>
+              <div class="rank"> <sup>#</sup><span>{{(index + 1)}}</span></div>
               <div class="guess-value" v-if="round.guessValueIndex == index">
                 <form class="guess-value" @submit.prevent="submitCameoValueGuess()" v-if="ui.itsTimeToGuessValue">
                   <div class="value"> <span>$</span>
@@ -246,5 +247,5 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
   <script src="js/libraries/vue-toast-notification.min.js"></script>
   <link href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet"/>
-  <script src="js/min/cameo.min.js?updated2021-01-11@08:47:46"></script>
+  <script src="js/min/cameo.min.js?updated2021-01-12@13:49:34"></script>
 </body>
