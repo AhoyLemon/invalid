@@ -2,19 +2,21 @@ var express = require('express');
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+var secrets = require('./secrets');
 
 app.use(express.static('public'));
 
 
 //////////////////////////////////////////////
 // SQL DATABASE
-var mysql = require('mysql');
-var connection = mysql.createConnection('mysql://ln9uumc4l7ec5hl7:sn7bwomt55zt5rz3@pfw0ltdr46khxib3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/r2sqgl0qhc59u3rw');
-//connection.connect();
 
+const jawsDBurl = (process.env.JAWSDB_CRIMSON_URL || secrets.devSQLurl);
+console.log(secrets.devSQLurl);
+var mysql = require('mysql');
+var connection = mysql.createConnection(jawsDBurl);
 
 function addOneInDatabase(table,value) {
-  const sql = 'UPDATE '+table+' SET icount = icount + 1 WHERE iname = "' + connection.escape(value) + '";';
+  const sql = 'UPDATE '+table+' SET icount = icount + 1 WHERE iname = ' + connection.escape(value) + ';';
   connection.query(sql, function(err, rows, fields) {
     if (err) throw err;
   });
@@ -28,7 +30,7 @@ function incrementDatabase(table,value) {
 }
 
 function decrementDatabase(table,value) {
-  const sql = 'INSERT INTO '+table+' (iname) VALUES ("'+connection.escape(value)+'") ON DUPLICATE KEY UPDATE icount = icount-1;';
+  const sql = 'INSERT INTO '+table+' (iname) VALUES ('+connection.escape(value)+') ON DUPLICATE KEY UPDATE icount = icount-1;';
   connection.query(sql, function(err, rows, fields) {
     if (err) throw err;
   });
@@ -54,81 +56,6 @@ function DateStampInDatabase(table,gameName) {
     if (err) throw err;
   });
 }
-
-/////////////////////////////////////////////////////////////////////////////
-// Database
-// TODO: DELETE ALL THIS LOWDB SHIT
-/*
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-
-const generalAdapter = new FileSync('./data/general.json');
-const generalDB = low(generalAdapter);
-generalDB.defaults({
-  "ConnectedUsers": 0,
-  "PlayerNames": [],
-  "Games": {
-    "Invalid": {
-      "MostRecent": {
-        "dateAndTime": "",
-        "date": "",
-        "time": ""
-      }
-    },
-    "TheWrongestWords": {
-      "MostRecent": {
-        "dateAndTime": "",
-        "date": "",
-        "time": ""
-      }
-    }
-  }
-});
-
-const invalidAdapter = new FileSync('./data/invalid.json');
-const invalidDB = low(invalidAdapter);
-invalidDB.defaults({
-  "RoomsCreated": 0,
-  "Games": {
-    "Started": 0,
-    "NaughtyMode": {
-      "on": 0,
-      "off": 0
-    },
-    "PlayerCounts": [],
-    "MostRecent": {
-      "dateAndTime": "",
-      "date": "",
-      "time": ""
-    }
-  },
-  "Challenges": [],
-  "Rules": [],
-  "DemandedLetters": [],
-  "BannedLetters":[],
-  "Bugs": [],
-  "SuccessfulPasswords": [],
-  "Crashes": [],
-  "Cracks": []
-});
-
-const wrongestAdapter = new FileSync('./data/wrongest.json');
-const wrongestDB = low(wrongestAdapter);
-wrongestDB.defaults({
-  "RoomsCreated": 0,
-  "Games": {
-    "Started": 0,
-    "PlayerCounts": [],
-    "MostRecent": {
-      "dateAndTime": "",
-      "date": "",
-      "time": ""
-    }
-  },
-  "Decks": [],
-  "Statements": []
-});
-*/
 
 /////////////////////////////////////////////////////////////////////////////
 // Routing
@@ -267,7 +194,7 @@ io.on('connection', (socket) => {
 
 
       // Save to Wrongest Database...
-      
+      addOneInDatabase("invalidGames","GamesStarted");
       incrementDatabase("wrongestPlayerCounts", playerCount+ " Players");
       if (msg.chosenDeckName) {
         incrementDatabase("wrongestDecks", msg.chosenDeckName);
