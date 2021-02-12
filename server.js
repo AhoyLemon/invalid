@@ -11,7 +11,7 @@ app.use(express.static('public'));
 // SQL DATABASE
 
 const jawsDBurl = (process.env.JAWSDB_CRIMSON_URL || secrets.devSQLurl);
-console.log(secrets.devSQLurl);
+console.log('SERVER: '+jawsDBurl);
 var mysql = require('mysql');
 var connection = mysql.createConnection(jawsDBurl);
 
