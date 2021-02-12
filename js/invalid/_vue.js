@@ -992,6 +992,7 @@ var app = new Vue({
         pwAttempt: attempt,
         attemptCount: self.my.passwordAttempts,
         playerScore: self.my.score,
+        challengeName: self.round.challenge.name,
         result: "success"
       });
 

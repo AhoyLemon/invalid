@@ -10,20 +10,47 @@ app.use(express.static('public'));
 // SQL DATABASE
 var mysql = require('mysql');
 var connection = mysql.createConnection('mysql://ln9uumc4l7ec5hl7:sn7bwomt55zt5rz3@pfw0ltdr46khxib3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/r2sqgl0qhc59u3rw');
-connection.connect();
+//connection.connect();
 
-function incrementDatabase(table,value) {
-  const incrementValue = '"' + value.replace("'", "\'") + '"';
-  connection.query('INSERT INTO '+table+' (iname) VALUES ('+incrementValue+') ON DUPLICATE KEY UPDATE icount = icount+1;', function(err, rows, fields) {
+
+function addOneInDatabase(table,value) {
+  const sql = 'UPDATE '+table+' SET icount = icount + 1 WHERE iname = "' + connection.escape(value) + '";';
+  connection.query(sql, function(err, rows, fields) {
     if (err) throw err;
   });
 }
 
+function incrementDatabase(table,value) {
+  const sql = 'INSERT INTO '+table+' (iname) VALUES ('+connection.escape(value)+') ON DUPLICATE KEY UPDATE icount = icount+1;';
+  connection.query(sql, function(err, rows, fields) {
+    if (err) throw err;
+  });
+}
+
+function decrementDatabase(table,value) {
+  const sql = 'INSERT INTO '+table+' (iname) VALUES ("'+connection.escape(value)+'") ON DUPLICATE KEY UPDATE icount = icount-1;';
+  connection.query(sql, function(err, rows, fields) {
+    if (err) throw err;
+  });
+}
 
 function incrementDatabaseWithChallenge(table,challenge,value) {
-  const incrementValue = '"' + value.replace("'", "\'") + '"';
-  const challengeValue = '"' + challenge.replace("'", "\'") + '"';
-  connection.query('INSERT INTO '+table+' (iname, challenge) VALUES ('+incrementValue+', '+challengeValue+') ON DUPLICATE KEY UPDATE icount = icount+1;', function(err, rows, fields) {
+  const sql = 'INSERT INTO '+table+' (iname, challenge) VALUES ('+connection.escape(value)+', '+connection.escape(challenge)+') ON DUPLICATE KEY UPDATE icount = icount+1;';
+  connection.query(sql, function(err, rows, fields) {
+    if (err) throw err;
+  });
+}
+
+function addPlayerName(table,gameName,playerName) {
+  const sql = 'INSERT INTO '+table+' (iname, lastPlayed) VALUES ('+connection.escape(playerName)+', '+connection.escape(gameName)+') ON DUPLICATE KEY UPDATE icount = icount+1;';
+  connection.query(sql, function(err, rows, fields) {
+    if (err) throw err;
+  });
+}
+
+function DateStampInDatabase(table,gameName) {
+  const sql = 'UPDATE '+table+' SET lastGameTime = NOW() WHERE gameName = '+connection.escape(gameName)+';';
+  connection.query(sql, function(err, rows, fields) {
     if (err) throw err;
   });
 }
@@ -31,6 +58,7 @@ function incrementDatabaseWithChallenge(table,challenge,value) {
 /////////////////////////////////////////////////////////////////////////////
 // Database
 // TODO: DELETE ALL THIS LOWDB SHIT
+/*
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
@@ -100,6 +128,7 @@ wrongestDB.defaults({
   "Decks": [],
   "Statements": []
 });
+*/
 
 /////////////////////////////////////////////////////////////////////////////
 // Routing
@@ -147,17 +176,10 @@ app.get('/wrongest/stats/json', (req, res) => {
 
 io.on('connection', (socket) => {
 
-  generalDB.update('ConnectedUsers', n => n + 1)
-    .write();
-
-  connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-    if (err) throw err;
-  });
-
   const socketID = socket.id;
   console.log('a user connected with the ID of'+socketID);
   io.to(socketID).emit("getSocketID", socketID);
-
+  addOneInDatabase("allGames","ConnectedUsers");
 
   //////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////
@@ -175,9 +197,9 @@ io.on('connection', (socket) => {
     // TODO: I need to figure out how to get a list of all clients in a room.
 
     if (msg.gameName == "invalid") {
-      invalidDB.update('RoomsCreated', n => n + 1).write();
+      addOneInDatabase("invalidGames","RoomsCreated");
     } else if (msg.gameName == "wrongest") {
-      wrongestDB.update('RoomsCreated', n => n + 1).write();
+      addOneInDatabase("wrongestGames","RoomsCreated");
     }
   });
 
@@ -224,19 +246,15 @@ io.on('connection', (socket) => {
 
       // Save to Invalid Database...
       
-      if (invalidDB.get("Games.PlayerCounts").find({ players: playerCount }).value()) {
-        invalidDB.get("Games.PlayerCounts").find({ players: playerCount }).update('count', n => n + 1).write();
-      } else {
-        invalidDB.get("Games.PlayerCounts").push({ players: playerCount, count: 1} ).write();
-      }
+      incrementDatabase("invalidPlayerCounts",playerCount+ " Players");
+
       if (msg.allowNaughty) {
-        invalidDB.get("Games.NaughtyMode").update('on', n => n + 1).write();
+        addOneInDatabase("invalidGames","NaughtyModeOn");
       } else {
-        invalidDB.get("Games.NaughtyMode").update('off', n => n + 1).write();
+        addOneInDatabase("invalidGames","NaughtyModeOff");
       }
-      
-      invalidDB.get("Games").update('Started', n => n + 1).write();
-      generalDB.get("Games.TheWrongestWords").update('MostRecent', n => fullTimeStamp).write();
+    
+      addOneInDatabase("invalidGames","GamesStarted");
 
     } else if (msg.gameName == "wrongest") {
       io.in(msg.roomCode).emit('startTheGame', {
@@ -250,29 +268,17 @@ io.on('connection', (socket) => {
 
       // Save to Wrongest Database...
       
-      if (wrongestDB.get("Games.PlayerCounts").find({ players: playerCount }).value()) {
-        wrongestDB.get("Games.PlayerCounts").find({ players: playerCount }).update('count', n => n + 1).write();
-      } else {
-        wrongestDB.get("Games.PlayerCounts").push({ players: playerCount, count: 1} ).write();
+      incrementDatabase("wrongestPlayerCounts", playerCount+ " Players");
+      if (msg.chosenDeckName) {
+        incrementDatabase("wrongestDecks", msg.chosenDeckName);
       }
-      if (wrongestDB.get("Decks").find({ name: msg.chosenDeckName }).value()) {
-        wrongestDB.get("Decks").find({ name: msg.chosenDeckName }).update('count', n => n + 1).write();
-      } else {
-        wrongestDB.get("Decks").push({ name: msg.chosenDeckName, count: 1} ).write();
-      }
-      
-      wrongestDB.get("Games").update('Started', n => n + 1).write();
-      generalDB.get("Games.TheWrongestWords").update('MostRecent', n => fullTimeStamp).write();
     }
     
+    DateStampInDatabase("allGamesLastPlayed",msg.gameName);
     console.table(msg.players);
     
     msg.players.forEach((player) => {
-      if (generalDB.get("PlayerNames").find({ name: player.name }).value()) {
-        generalDB.get("PlayerNames").find({ name: player.name }).update('count', n => n + 1).write();
-      } else {
-        generalDB.get("PlayerNames").push({ name: player.name, count: 1} ).write();
-      }
+      addPlayerName("allPlayerNames",msg.gameName,player.name);
     });
     
 
@@ -308,7 +314,7 @@ io.on('connection', (socket) => {
       challenge: msg.challenge
     });
 
-    incrementDatabase('Challenges', msg.challenge.name);
+    incrementDatabase('invalidChallenges', msg.challenge.name);
 
   });
 
@@ -327,7 +333,7 @@ io.on('connection', (socket) => {
       if (msg.newRule.type == "Ban A Letter" && msg.newRule.inputValue) {
         incrementDatabase('invalidBannedLetters', msg.newRule.inputValue);
       } else if (msg.newRule.type == "Demand A Letter" && msg.newRule.inputValue) {
-        incrementDatabase('DemandedLetters', msg.newRule.inputValue);
+        incrementDatabase('invalidDemandedLetters', msg.newRule.inputValue);
       }
     }
     
@@ -350,17 +356,7 @@ io.on('connection', (socket) => {
 
     
     if (msg.newBug) {
-
-      incrementDatabaseWithChallenge("Bugs", msg.challengeName, msg.newBug);
-
-
-      /*
-      if (invalidDB.get("Bugs").find({ pw: msg.newBug }).value()) {
-        invalidDB.get("Bugs").find({ pw: msg.newBug }).update('count', n => n + 1).write();
-      } else {
-        invalidDB.get("Bugs").push({ pw: msg.newBug, count: 1 } ).write(); 
-      }
-      */
+      incrementDatabaseWithChallenge("invalidBugs", msg.challengeName, msg.newBug);
     }
     
 
@@ -397,16 +393,7 @@ io.on('connection', (socket) => {
 
     
     if (msg.pwAttempt) {
-
-      incrementDatabaseWithChallenge("Crashes", msg.challengeName, msg.pwAttempt);
-
-      /*
-      if (invalidDB.get("Crashes").find({ pw: msg.pwAttempt }).value()) {
-        invalidDB.get("Crashes").find({ pw: msg.pwAttempt }).update('count', n => n + 1).write();
-      } else {
-        invalidDB.get("Crashes").push({ pw: msg.pwAttempt, count: 1 } ).write(); 
-      }
-      */
+      incrementDatabaseWithChallenge("invalidCrashes", msg.challengeName, msg.pwAttempt);
     }
     
 
@@ -425,11 +412,7 @@ io.on('connection', (socket) => {
 
 
     if (msg.pwAttempt) {
-      if (invalidDB.get("SuccessfulPasswords").find({ pw: msg.pwAttempt }).value()) {
-        invalidDB.get("SuccessfulPasswords").find({ pw: msg.pwAttempt }).update('count', n => n + 1).write();
-      } else {
-        invalidDB.get("SuccessfulPasswords").push({ pw: msg.pwAttempt, count: 1 } ).write(); 
-      }
+      incrementDatabaseWithChallenge("invalidSuccessfulPasswords",msg.challengeName,msg.pwAttempt);
     }
     
   });
@@ -460,17 +443,7 @@ io.on('connection', (socket) => {
     });
 
     if (msg.crackSummary && msg.crackSummary.pw) {
-      if (invalidDB.get("Cracks").find({ pw: msg.crackSummary.pw }).value()) {
-        invalidDB.get("Cracks").find({ pw: msg.crackSummary.pw }).update('count', n => n + 1).write();
-      } else {
-        invalidDB.get("Cracks").push({ pw: msg.crackSummary.pw, count: 1 } ).write(); 
-      }
-    }
-
-    if (invalidDB.has("Cracks."+msg.crackSummary.pw).value()) {
-      invalidDB.update("Cracks."+msg.crackSummary.pw, n => n + 1).write();
-    } else {
-      invalidDB.set("Cracks."+msg.crackSummary.pw, 1).write();
+      incrementDatabase('invalidCracks', msg.crackSummary.pw);
     }
 
   });
@@ -523,17 +496,8 @@ io.on('connection', (socket) => {
       upVoteIndex: msg.upVoteIndex,
     });
 
-    if (wrongestDB.get("Statements").find({ words: msg.downVoteCard }).value()) {
-      wrongestDB.get("Statements").find({ words: msg.downVoteCard }).update('votes', n => n + 1).update('score', n => n - 1).write();
-    } else {
-      wrongestDB.get("Statements").push({ words: msg.downVoteCard, score: -1, votes: 1 } ).write();
-    }
-    if (wrongestDB.get("Statements").find({ words: msg.upVoteCard }).value()) {
-      wrongestDB.get("Statements").find({ words: msg.upVoteCard }).update('votes', n => n + 1).update('score', n => n + 1).write();
-    } else {
-      wrongestDB.get("Statements").push({ words: msg.upVoteCard, score: 1, votes: 1 } ).write();
-    }
-
+    incrementDatabase('wrongestStatements', msg.upVoteCard);
+    decrementDatabase('wrongestStatements', msg.downVoteCard);
   });
 
 
