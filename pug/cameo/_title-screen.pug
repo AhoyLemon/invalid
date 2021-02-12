@@ -20,12 +20,18 @@ main.title-screen(v-if="!game.started")
         figcaption
           button.close-video(@click="ui.watchingVideo = false") Okay, close this video. 
 
-  .single-or-multiplayer
-    .single
-      button.start-single(@click="startSinglePlayerGame()") Single Player
+  .start-or-load
+    .start
+      button.start-single(@click="startSinglePlayerGame()") Start Game
     
     .or
       span or
 
-    .multiplayer
-      button.start-multi(@click="createRoom()") Multiplayer
+    .load
+      .disclaimer
+        .load-game-disclaimer.animate__animated.animate__fadeInUp.animate__faster(v-if="ui.loadGameClicked")
+          strong Loading saved games isn't ready yet. 
+          br
+          br
+          span Eventually you'll be able to play games your friends created. But for now, just start a new game.
+      button.start-multi(@click="loadGame()") Load Game

@@ -54,7 +54,10 @@ var app = new Vue({
       countingHireIndex: 0,
       countingInterval: undefined,
       exceededBudget: false,
-      cameosPaid: false
+      cameosPaid: false,
+
+      // TODO: Remove temp load game stuff.
+      loadGameClicked: false
     }
 
   },
@@ -67,6 +70,14 @@ var app = new Vue({
       self.game.mode = "singleplayer";
       self.game.started = true;
       self.compareThreeCelebs();
+    },
+
+    loadGame() {
+      const self = this;
+      self.ui.loadGameClicked = true;
+      setTimeout(function () {
+        self.ui.loadGameClicked = false;
+      }, 5000);
     },
 
     compareThreeCelebs() {
@@ -522,7 +533,7 @@ var app = new Vue({
         }
 
         return {
-          number: 0,
+          number: averageValulationOffBy,
           rating: valuationRating
         };
       }
