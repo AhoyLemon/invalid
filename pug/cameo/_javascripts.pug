@@ -1,0 +1,27 @@
+.javascripts
+  if testing
+    script(src="js/libraries/vue.full.js")
+    script.
+      const testing = true;
+  else
+    script(src="js/libraries/vue.min.js")
+    script.
+      const testing = false;
+
+  script(src="js/libraries/jquery.min.js")
+  script(src="js/libraries/howler.min.js")
+
+  //- Sortable & Draggable
+  script(src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js")
+  script(src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js")
+
+  //- Vue Toast
+  script(src="js/libraries/vue-toast-notification.min.js")
+  link(href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet")
+
+  //- Socket.io
+  script(src="/socket.io/socket.io.js")
+  script.
+    var socket = io.connect();
+
+  script(src="js/min/cameo.min.js?updated"+lastUpdated)

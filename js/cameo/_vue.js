@@ -14,7 +14,7 @@ var app = new Vue({
     celebs: allValues,
     isDragging: false,
     my: {
-      name: "Lemon",
+      name: "",
       score: 0,
       pointsEarnedInFinalRound: 0,
       correctSorts: 0,
@@ -25,7 +25,8 @@ var app = new Vue({
       mode: "",
       started: false,
       finalRound: false,
-      over: false
+      over: false,
+      cameoHistory: []
     },
     round: {
       number: 0,
@@ -70,6 +71,12 @@ var app = new Vue({
       self.game.mode = "singleplayer";
       self.game.started = true;
       self.compareThreeCelebs();
+
+
+      socket.emit('cameoStartGame', {
+        gameName: self.gameName
+      });
+
     },
 
     loadGame() {
@@ -110,7 +117,15 @@ var app = new Vue({
       self.round.rightSide = [];
       self.round.correctSide = [...shuffle(celebs)];
       self.round.correctSide = self.sortByValue(self.round.correctSide);
-      self.round.guessValueIndex = ( randomNumber(5,7) - 5);
+
+      let r = randomNumber(1,30);
+      if (r < 11) {
+        self.round.guessValueIndex = 0;
+      } else if (r < 21) {
+        self.round.guessValueIndex = 1;
+      } else {
+        self.round.guessValueIndex = 2;
+      }
 
       $('.list-group.unranked .cameo').addClass('off-table');
       setTimeout(function () {
@@ -237,6 +252,12 @@ var app = new Vue({
         soundBadValue.play();
       }
 
+      socket.emit('cameoValuationMade', {
+        gameName: self.gameName,
+        celeb: self.round.correctSide[self.round.guessValueIndex],
+        valueGuessed: self.ui.valueGuess
+      });
+
       self.round.valueGuessed = true;
       self.ui.itsTimeToGuessValue = false;
 
@@ -272,7 +293,19 @@ var app = new Vue({
       self.round.valueGuessed = false;
       self.round.guessValueIndex = -1;
 
+      self.round.correctSide.forEach((cameo,index) => {
+        let c = {
+          name: cameo.name,
+          correct: false
+        };
+        if (self.round.correctSide[index].slug == self.round.rightSide[index].slug) {
+          c.correct = true;
+        }
+        self.game.cameoHistory.push(c);
+      });
+
       self.compareThreeCelebs();
+
       let instance = Vue.$toast.open(
         {
           message: "<h4>Round "+self.round.number+" begins...</h4>",
@@ -281,6 +314,9 @@ var app = new Vue({
           position: "bottom-right"
         }
       );
+
+
+
     },
 
     showAGuessCard() {
@@ -362,7 +398,7 @@ var app = new Vue({
         costForAll += cameo.value;
       });
 
-      let avg = parseInt(costForAll / 2);
+      let avg = parseInt(costForAll / 2.5);
       if (avg > 1000) {
         self.round.budget = 1000;
       } else if (avg < 500) {
@@ -384,9 +420,27 @@ var app = new Vue({
         if (self.ui.countingHireIndex >= self.round.rightSide.length) {
           clearInterval(self.ui.countingInterval);
 
+          let exceededBudget = "";
+          if ((self.round.budget - self.round.spent) == 0) {
+            exceededBudget = "yes";
+          } else {
+            exceededBudget = "no";
+          }
+
+          socket.emit('cameoFinishGame', {
+            gameName: self.gameName,
+            cameoHistory: self.game.cameoHistory,
+            playerScore: self.my.score,
+            correctSorts: self.my.correctSorts,
+            averageValuationOffset: self.computedValuationSkill.number,
+            birthdayWishes: self.round.rightSide,
+            exceededBudget: exceededBudget
+          });
+
           setTimeout(function () {
             self.game.finalRound = false;
             self.game.over = true;
+            self.playTheGameOverAudio();
           }, 2000);
           
         } else {
@@ -448,6 +502,24 @@ var app = new Vue({
 
     },
 
+    playTheGameOverAudio() {
+      const self = this;
+      birthdayHowls = shuffle(birthdayHowls);
+      let n = 0;
+      let i = self.round.rightSide.length;
+      soundgameOverMusic.play();
+      setTimeout(function () {
+        var intervalId = window.setInterval(function(){
+          if (n < i) {
+            birthdayHowls[n].play();
+            n++;
+          } else {
+            clearInterval(intervalId);
+          }
+        }, 300);
+      }, 2250);
+    },
+
     clearUI() {
       const self = this;
       self.ui.orderConfirmed = false;
@@ -459,9 +531,6 @@ var app = new Vue({
       self.ui.itsTimeToGuessValue =  false;
       self.ui.showNextRoundButton = false;
     }
-
-
-
 
   },
 

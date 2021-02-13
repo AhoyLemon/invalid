@@ -51,7 +51,34 @@ function addPlayerName(table,gameName,playerName) {
 }
 
 function DateStampInDatabase(table,gameName) {
-  const sql = 'UPDATE '+table+' SET lastGameTime = NOW() WHERE gameName = '+connection.escape(gameName)+';';
+  const sql = `UPDATE ${table}
+                SET lastGameTime = NOW() 
+                WHERE gameName = ${connection.escape(gameName)};`;
+  connection.query(sql, function(err, rows, fields) {
+    if (err) throw err;
+  });
+}
+
+function newCameoPlayerScore(playerScore,correctSorts,averageValuationOffset,birthdayWishes,exceededBudget) {
+  const sql = `INSERT INTO cameoPlayerScores (playerScore, correctSorts,averageValuationOffset,birthdayWishes,exceededBudget) 
+                VALUES (${connection.escape(playerScore)},${connection.escape(correctSorts)},${connection.escape(averageValuationOffset)},${connection.escape(birthdayWishes)},${connection.escape(exceededBudget)})`;
+  connection.query(sql, function(err, rows, fields) {
+    if (err) throw err;
+  });
+}
+
+function valuateCameo(cameoName, actualValue, playerValue) {
+  const sql = `INSERT INTO cameoValuations (cameoName, actualValue, playerValue) 
+                VALUES (${connection.escape(cameoName)},${connection.escape(actualValue)},${connection.escape(playerValue)})`;
+  connection.query(sql, function(err, rows, fields) {
+    if (err) throw err;
+  });
+}
+
+function updateCameoStats(cameoName, sortScore, birthdayWishes) {
+  const sql = `INSERT INTO cameoCelebScores (cameoName, sortScore, birthdayWishes) 
+                VALUES (${connection.escape(cameoName)}, ${connection.escape(sortScore)}, ${connection.escape(birthdayWishes)})
+                ON DUPLICATE KEY UPDATE sortScore = sortScore+${connection.escape(sortScore)}, birthdayWishes = birthdayWishes+${connection.escape(birthdayWishes)};`;
   connection.query(sql, function(err, rows, fields) {
     if (err) throw err;
   });
@@ -445,8 +472,44 @@ io.on('connection', (socket) => {
   });
 
 
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
+  // COMPARATIVELY FAMOUS sockets
 
+  socket.on('cameoStartGame', msg => {
+    console.log("a player started a game of COMPARATIVELY FAMOUS");
+    DateStampInDatabase("allGamesLastPlayed",msg.gameName);
+    addOneInDatabase("cameoGames","GamesStarted");
+  });
 
+  socket.on('cameoValuationMade', msg => {
+    console.log(msg.celeb.name + " has been evaluated");
+    var cameoName = msg.celeb.name;
+    var actualValue = msg.celeb.value;
+    var playerValue = msg.valueGuessed;
+    valuateCameo(cameoName, actualValue, playerValue);
+  });
+
+  socket.on('cameoFinishGame', msg => {
+    console.log("a player finished a game of COMPARATIVELY FAMOUS");
+    addOneInDatabase("cameoGames","GamesFinished");
+    newCameoPlayerScore(msg.playerScore,msg.correctSorts,msg.averageValuationOffset,msg.birthdayWishes.length,msg.exceededBudget);
+
+    msg.cameoHistory.forEach((cameo,index) => {
+      if (cameo.correct) {
+        updateCameoStats(cameo.name, 1, 0);
+      } else {
+        updateCameoStats(cameo.name, -1, 0);
+      }
+    });
+
+    msg.birthdayWishes.forEach((cameo,index) => {
+      updateCameoStats(cameo.name, 0, 1);
+    });
+
+  });
 
 
 

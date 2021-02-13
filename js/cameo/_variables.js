@@ -51,3 +51,28 @@ const soundFutherOverBudget = new Howl({
   src: [ audioSrc + 'attracted-2-130.mp3', audioSrc + "attracted-2-130.mp3" ],
   volume: 0.8
 });
+
+const soundgameOverMusic = new Howl({
+  src: [ audioSrc + 'sour-tennessee-red.mp3', audioSrc + "sour-tennessee-red.ogg" ],
+  volume: 0.9
+});
+
+const birthdayMessageFiles = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
+var birthdayHowls = [];
+
+
+for (var i=0; i<birthdayMessageFiles.length; i++) {
+  birthdayHowls[i] = new Howl({
+    src: [ audioSrc + 'birthdays/'+birthdayMessageFiles[i]+'.mp3' ],
+    volume: 0.9
+  });
+}
+
+
+/*
+for (var i=0; i<birthdayMessageFiles.length; i++) {
+  birthdayHowls[i] = new Howl({
+    urls: [ audioSrc + 'birthdays/' + birthdayMessageFiles[i] + '.mp3']
+  });
+}
+*/
