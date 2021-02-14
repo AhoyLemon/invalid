@@ -97,6 +97,7 @@ var app = new Vue({
 
       // Okay, here's all the exhibition round stuff.
       let i = 0;
+      
       while (i < settings.maxRounds) {
         // First, get three celebrities.
         let roundCelebs = self.returnThreeNewCelebs();
@@ -121,7 +122,6 @@ var app = new Vue({
       }
 
       self.populateFinalRound();
-
 
     },
 
@@ -573,8 +573,8 @@ var app = new Vue({
           } else {
             clearInterval(intervalId);
           }
-        }, 300);
-      }, 2250);
+        }, 1000);
+      }, 1200);
     },
 
     clearUI() {
@@ -686,6 +686,7 @@ var app = new Vue({
     */
 
 
+    
     /*
     /////////////////////////////////
     // FAKE A GAME OVER SCREEN
@@ -707,6 +708,7 @@ var app = new Vue({
     //
     /////////////////////////////////
     */
+    
 
   }
 
