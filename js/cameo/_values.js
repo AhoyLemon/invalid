@@ -65,6 +65,7 @@ const allValues = [
   { name: "Gilbert Gottfried", desc:"Iago in Aladdin", slug:"gilbertgottfried", value:150  },
   { name: "Jamie Lynn Sigler", desc:"Meadow on The Sopranos", slug:"jamielynnsigler", value:150  },
   { name: "Bret “Hitman” Hart", desc:"Former Professional Wrestler", slug:"hitman", value:150  },
+  { name: "Alfonso Ribeiro", desc:"Carlton on The Fresh Prince of Bel-Air", slug:"therealalfonsoribeiro", value:150  },
   { name: "Barry Williams", desc:"Greg on The Brady Bunch", slug:"barrywilliams", value:140  },
   { name: "Penn Jillette", desc:"Penn & Teller", slug:"pennj", value:135  },
   { name: "Jerry Springer", desc:"Former Mayor of Cincinnati", slug:"jerryspringer", value:135 },

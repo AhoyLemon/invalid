@@ -26,15 +26,17 @@ var app = new Vue({
       started: false,
       finalRound: false,
       over: false,
+      cameoQueue: [],
+      cameoValuationIndexes: [],
+      availableToHire: [],
       cameoHistory: []
     },
     round: {
-      number: 3,
+      number: 0,
       compareThree: [],
       leftSide: [],
       rightSide: [],
       correctSide: [],
-      availableToHire: [],
       guessValueIndex: -1,
       valueGuessed: false,
       budget: 1000,
@@ -69,9 +71,11 @@ var app = new Vue({
     startSinglePlayerGame() {
       const self = this;
       self.game.mode = "singleplayer";
-      self.game.started = true;
-      self.compareThreeCelebs();
 
+      self.generateGameCelebrities();
+
+      self.game.started = true;
+      self.startNextRound();
 
       socket.emit('cameoStartGame', {
         gameName: self.gameName
@@ -88,10 +92,51 @@ var app = new Vue({
       }, 5000);
     },
 
-    compareThreeCelebs() {
+    generateGameCelebrities() {
       const self = this;
 
-      self.round.number++;
+      // Okay, here's all the exhibition round stuff.
+      let i = 0;
+      
+      while (i < settings.maxRounds) {
+        // First, get three celebrities.
+        let roundCelebs = self.returnThreeNewCelebs();
+
+        // Check if any of them are duplicates. If none of them are, do stuff
+        // (otherwise, this'll just loop again.)
+        if (!self.isThisADuplicate(roundCelebs[0]) && !self.isThisADuplicate(roundCelebs[1]) && !self.isThisADuplicate(roundCelebs[2])) {
+          roundCelebs.forEach((cameo) => {
+            self.game.cameoQueue.push(cameo);
+          });
+  
+          let r = randomNumber(1,30);
+          if (r < 11) {
+            self.game.cameoValuationIndexes.push(0);
+          } else if (r < 21) {
+            self.game.cameoValuationIndexes.push(1);
+          } else {
+            self.game.cameoValuationIndexes.push(2);
+          }
+          i++;
+        }
+      }
+
+      self.populateFinalRound();
+
+    },
+
+    isThisADuplicate(x) {
+      const self = this;
+      if ( self.game.cameoQueue.filter(celeb => (celeb.name == x.name)).length > 0 ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+
+    returnThreeNewCelebs() {
+      const self = this;
 
       // Find the middle celeb.
       let possibleMiddles = self.celebs.filter(celeb => (celeb.value < 750 && celeb.value > 21));
@@ -114,36 +159,14 @@ var app = new Vue({
         lowerCeleb
       ];
 
-      self.round.leftSide = [...shuffle(celebs)];
-      self.round.rightSide = [];
-      self.round.correctSide = [...shuffle(celebs)];
-      self.round.correctSide = self.sortByValue(self.round.correctSide);
-
-      let r = randomNumber(1,30);
-      if (r < 11) {
-        self.round.guessValueIndex = 0;
-      } else if (r < 21) {
-        self.round.guessValueIndex = 1;
-      } else {
-        self.round.guessValueIndex = 2;
-      }
-
-      $('.list-group.unranked .cameo').addClass('off-table');
-      setTimeout(function () {
-        $('.list-group.unranked .cameo').addClass('off-table');
-      }, 1);
+      console.log(celebs[0].name);
+      console.log(celebs[1].name);
+      console.log(celebs[2].name);
+      celebs = shuffle(celebs);
       
-      self.showTheGuesses();
+      //self.showTheGuesses();
+      return celebs;
       
-    },
-
-    dollars(amount) {
-      const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0
-      });
-      return formatter.format(amount);
     },
 
     showTheGuesses() {
@@ -294,19 +317,52 @@ var app = new Vue({
       self.round.valueGuessed = false;
       self.round.guessValueIndex = -1;
 
-      self.round.correctSide.forEach((cameo,index) => {
-        let c = {
-          name: cameo.name,
-          correct: false
-        };
-        if (self.round.correctSide[index].slug == self.round.rightSide[index].slug) {
-          c.correct = true;
-        }
-        self.game.cameoHistory.push(c);
-      });
 
-      self.compareThreeCelebs();
+      //////////////////////////////////////////////////////////////
+      // Let's put the answers in history (if there were any)
+      if (self.round.correctSide && self.round.correctSide.length > 0) {
+        self.round.correctSide.forEach((cameo,index) => {
+          let c = {
+            name: cameo.name,
+            correct: false
+          };
+          if (self.round.correctSide[index].slug == self.round.rightSide[index].slug) {
+            c.correct = true;
+          }
+          self.game.cameoHistory.push(c);
+        });
+      }
 
+      // Advance round number
+      self.round.number++;
+
+      // Let's populate the left side with the queue....
+      var i = 0;
+      while (i < 3) {
+        self.round.leftSide.push(self.game.cameoQueue.shift());
+        i++;
+      }
+      // Empty the right side...
+      self.round.rightSide = [];
+
+      // Populate and then correctly sort the answers side...
+      self.round.correctSide = [...self.round.leftSide];
+      self.round.correctSide = self.sortByValue(self.round.correctSide);
+
+      // And then figure out which one I'm valuating....
+      self.round.guessValueIndex = self.game.cameoValuationIndexes[(self.round.number - 1)];
+
+      // Hide and then show the left side...
+      $('.list-group.unranked .cameo').addClass('off-table');
+      setTimeout(function () {
+        $('.list-group.unranked .cameo').addClass('off-table');
+      }, 1);
+      self.showTheGuesses();
+    
+
+      
+
+      // Show a toast...
       let instance = Vue.$toast.open(
         {
           message: "<h4>Round "+self.round.number+" begins...</h4>",
@@ -382,7 +438,7 @@ var app = new Vue({
 
     beginFinalRound() {
       const self = this;
-      self.round.leftSide = self.round.availableToHire;
+      self.round.leftSide = self.game.availableToHire;
       self.round.rightSide = [];
       self.game.finalRound = true;
     },
@@ -391,11 +447,11 @@ var app = new Vue({
       const self = this;
       let celebs = [...shuffle(self.celebs)];
       celebs = celebs.slice(0,10);
-      self.round.availableToHire = celebs;
+      self.game.availableToHire = celebs;
 
       let costForAll = 0;
 
-      self.round.availableToHire.forEach((cameo,index) => {
+      self.game.availableToHire.forEach((cameo,index) => {
         costForAll += cameo.value;
       });
 
@@ -517,8 +573,8 @@ var app = new Vue({
           } else {
             clearInterval(intervalId);
           }
-        }, 300);
-      }, 2250);
+        }, 1000);
+      }, 1200);
     },
 
     clearUI() {
@@ -531,7 +587,16 @@ var app = new Vue({
       self.ui.animateCameoIndex =  0;
       self.ui.itsTimeToGuessValue =  false;
       self.ui.showNextRoundButton = false;
-    }
+    },
+
+    dollars(amount) {
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0
+      });
+      return formatter.format(amount);
+    },
 
   },
 
@@ -568,7 +633,6 @@ var app = new Vue({
     },
     computedValuationSkill() {
       const self = this;
-
 
       if (!self.my.valuationOffBy || self.my.valuationOffBy < 1) {
         return {
@@ -622,6 +686,7 @@ var app = new Vue({
     */
 
 
+    
     /*
     /////////////////////////////////
     // FAKE A GAME OVER SCREEN
@@ -643,6 +708,7 @@ var app = new Vue({
     //
     /////////////////////////////////
     */
+    
 
   }
 
