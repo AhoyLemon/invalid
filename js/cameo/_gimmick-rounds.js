@@ -4,13 +4,13 @@ const gimmickRounds = {
     description: "Let's evaluate some dicks",
     queue: [
 
-      { name: "Richard Karn", desc:"Al on Home Improvement", slug:"richardkarn", value:100 },
       { name: "Richard Hatch", desc:"Winner, Survivor Season 1", slug:"richhatch", value:50 },
+      { name: "Richard Karn", desc:"Al on Home Improvement", slug:"richardkarn", value:100 },
       { name: "Richard Patrick", desc:"Vocalist of Filter", slug:"filter_richard_patrick", value:70 },
 
-      { name: "Richard Marx", desc:"Wherever you go, whatever you do, he will be right here waiting for you.", slug:"richardmarx", value:250 },
       { name: "Richard Blais", desc:"Perennial Top Chef Contestant", slug:"richardblais", value:115 },
       { name: "Richard Kline", desc:"Larry on Three's Company", slug:"larrydallas", value:100 },
+      { name: "Richard Marx", desc:"Wherever you go, whatever you do, he will be right here waiting for you.", slug:"richardmarx", value:250 },
 
       { name: "Richard Dreyfuss", desc:"Hooper in Jaws", slug:"richarddreyfuss1", value:999 },
       { name: "Richard Rosenblatt", desc:"Former Chairman of MySpace", slug:"richardrosenblatt", value:30 },
@@ -21,7 +21,6 @@ const gimmickRounds = {
       { name: "Richard Petty", desc:"NASCAR driver", slug:"rlpetty43", value:250 },
 
     ],
-    shuffleQueue: false
   }
 };
 

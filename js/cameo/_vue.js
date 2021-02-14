@@ -89,7 +89,7 @@ var app = new Vue({
 
       setTimeout(function () {
         self.ui.loadGameClicked = false;
-      }, 5000);
+      }, 7500);
     },
 
     generateGameCelebrities() {
