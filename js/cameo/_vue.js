@@ -29,7 +29,7 @@ var app = new Vue({
       cameoHistory: []
     },
     round: {
-      number: 0,
+      number: 3,
       compareThree: [],
       leftSide: [],
       rightSide: [],
@@ -82,6 +82,7 @@ var app = new Vue({
     loadGame() {
       const self = this;
       self.ui.loadGameClicked = true;
+
       setTimeout(function () {
         self.ui.loadGameClicked = false;
       }, 5000);
