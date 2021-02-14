@@ -131,6 +131,7 @@ const allValues = [
   { name: "June Shannon", desc:"Honey Boo Boo's Biological Mother", slug:"mamajune", value:50 },
   { name: "D-Roc", desc:"One of the Ying Yang Twins", slug:"yingyangtwins", value:50 },
   { name: "Squid the Griff", desc:"Instagram Dog", slug:"squidthegriff", value:50 },
+  { name: "Prince Charles-Henri de Lobkowicz", desc:"French Nobleman", slug:"princecharleshenri", value:50 },
   { name: "Paul Chuckle", desc:"One of the Chuckle Brothers", slug:"chuckle", value:49 },
   { name: "Paula Poundstone", desc:"Panelist, “Wait Wait... Don't Tell Me”", slug:"paulap33", value:49 },
   { name: "Kevin Allison", desc:"RISK! Podcast", slug:"thekevinallison", value:45 },
