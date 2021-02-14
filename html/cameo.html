@@ -1,272 +1,337 @@
 
 <html>
   <head>
-    <title>kinda.fun CAMEO</title>
+    <meta charset="utf-8"/>
+    <title>Comparatively Famous | The Gme of Celebrity Value</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700&amp;family=Open+Sans:wght@400;700&amp;display=swap" rel="stylesheet"/>
     <link href="css/cameo.css" type="text/css" rel="stylesheet"/>
-  </head>
-</html>
-<body>
-  <div id="app" v-cloak="v-cloak">
-    <main class="title-screen" v-if="!game.started">
-      <div class="splash">
-        <div class="inside"> 
-          <div class="logo-holder">
-            <figure class="logo"><img src="svg/comparatively-famous.svg"/></figure>
-          </div>
-          <div class="help-holder" v-if="!ui.watchingVideo">
-            <p> <strong>Cameo</strong> is a site where people can order videos from celebrities, at prices set by those celebrities.</p>
-            <p><strong>This </strong> is a game about guessing those prices.</p>
-          </div>
-          <div class="video-holder" v-if="ui.watchingVideo">
-            <figure class="video">
-              <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
-            </figure>
-            <figcaption>
-              <button class="close-video" @click="ui.watchingVideo = false">Okay, close this video. </button>
-            </figcaption>
-          </div>
-        </div>
-      </div>
-      <div class="start-or-load">
-        <div class="start">
-          <button class="start-single" @click="startSinglePlayerGame()">Start Game</button>
-        </div>
-        <div class="or"><span>or</span></div>
-        <div class="load">
-          <div class="disclaimer">
-            <div class="load-game-disclaimer animate__animated animate__fadeInUp animate__faster" v-if="ui.loadGameClicked"><strong>Loading saved games isn't ready yet. </strong><br/><br/><span>Eventually you'll be able to play games your friends created. But for now, just start a new game.</span></div>
-          </div>
-          <button class="start-multi" @click="loadGame()">Load Game</button>
-        </div>
-      </div>
-    </main>
-    <main class="sort-three" v-if="game.started &amp;&amp; !game.finalRound &amp;&amp; !game.over">
-      <div class="three-to-compare">
-        <draggable class="list-group unranked" :list="round.leftSide" group="people" :options="{ disabled : ui.animateCameoIndex &lt; 3 }" :class="{ 'no-move-cursor' : ui.animateCameoIndex &lt; 3 }" @start="isDragging = true" @end="isDragging = false" v-if="computedGuessingPhase == 'sort' || computedGuessingPhase == 'submit'">
-          <div class="cameo list-group-item" v-for="(element, index) in round.leftSide" :key="index">
-            <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
-            <figcaption>
-              <div class="name">{{ element.name }}</div>
-              <div class="desc" v-if="element.desc">{{element.desc}}</div>
-            </figcaption>
-          </div>
-        </draggable>
-        <draggable class="list-group ranked" :list="round.rightSide" group="people" v-if="computedGuessingPhase == 'sort' || computedGuessingPhase == 'submit'">
-          <div class="cameo list-group-item" v-for="(element, index) in round.rightSide" :rank="(index + 1)" :key="index">
-            <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
-            <figcaption>
-              <div class="rank"> <sup>#</sup><span>{{(index + 1)}}</span></div>
-              <div class="name">{{ element.name }}</div>
-              <div class="desc" v-if="element.desc">{{element.desc}}</div>
-            </figcaption>
-          </div>
-          <div class="help-text" v-if="round.rightSide.length &lt; 1"> 
-            <div class="inside" v-if="ui.showDragHelp">place guesses here</div>
-          </div>
-        </draggable>
-        <div class="list-group correct" v-if="computedGuessingPhase == 'answers' || computedGuessingPhase == 'newMail' || computedGuessingPhase == 'finished'">
-          <div class="cameo off-table" v-for="(element, index) in round.correctSide" :rank="(index + 1)" :key="index">
-            <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
-            <figcaption>
-              <div class="name">{{ element.name }}</div>
-              <div class="rank"> <sup>#</sup><span>{{(index + 1)}}</span></div>
-              <div class="guess-value" v-if="round.guessValueIndex == index">
-                <form class="guess-value" @submit.prevent="submitCameoValueGuess()" v-if="ui.itsTimeToGuessValue">
-                  <div class="value"> <span>$</span>
-                    <input placeholder="???" type="number" v-model="ui.valueGuess" :min="ui.valueGuessMin" :max="ui.valueGuessMax"/>
-                    <button v-if="ui.valueGuess &gt; 0">
-                      <svg fill="#1A1A1A" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 245" fill-rule="evenodd" clip-rule="evenodd" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality">
-                        <path d="M122 0C55 0 0 55 0 122c0 34 14 65 36 87s53 36 86 36c68 0 123-55 123-123C245 55 190 0 122 0zM62 103l36 36 85-85 26 26L98 191l-62-62 26-26z" fill="#1a1a1a" fill-rule="nonzero"></path>
-                      </svg>
-                    </button>
-                  </div>
-                  <div class="fake-tooltip arrow_box">
-                    <div class="text">Now guess {{round.correctSide[round.guessValueIndex].name}}'s Cameo value</div>
-                  </div>
-                </form>
-                <div class="value" v-else-if="round.valueGuessed">{{dollars(element.value)}}</div>
-                <div class="value" v-else="v-else">$???</div>
-              </div>
-              <div class="value" v-else="v-else">{{dollars(element.value)}}</div>
-            </figcaption>
-          </div>
-        </div>
-        <div class="list-group guessed ranked" v-if="computedGuessingPhase == 'answers' || computedGuessingPhase == 'newMail' || computedGuessingPhase == 'finished'">
-          <div class="cameo" v-for="(element, index) in round.rightSide" :rank="(index + 1)" :key="index" v-bind:class="{ correct: round.rightSide[index] == round.correctSide[index], incorrect: round.rightSide[index] != round.correctSide[index] }">
-            <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
-            <figcaption>
-              <div class="rank"> <sup>#</sup><span>{{(index + 1)}}</span></div>
-              <div class="name">{{ element.name }}</div>
-              <div class="desc" v-if="element.desc">{{element.desc}}</div>
-            </figcaption>
-          </div>
-          <div class="help-text" v-if="round.rightSide.length &lt; 1"> </div>
-        </div>
-      </div>
-    </main>
-    <main class="final-round" v-if="game.started &amp;&amp; game.finalRound">
-      <div class="casting-interface" v-if="!ui.cameosPaid">
-        <draggable class="list-group unhired" :list="round.leftSide" group="people" :options="{ disabled : ui.hiringFinished }" :class="{ 'no-move-cursor' : false }" @start="isDragging = true" @end="isDragging = false" v-if="true">
-          <div class="cameo list-group-item" v-for="(element, index) in round.leftSide" :key="index">
-            <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
-            <figcaption>
-              <div class="name">{{ element.name }}</div>
-              <div class="desc" v-if="element.desc">{{element.desc}}</div>
-            </figcaption>
-          </div>
-        </draggable>
-        <draggable class="list-group hired" :list="round.rightSide" group="people" :options="{ disabled : ui.hiringFinished }" :class="{ 'no-move-cursor' : ui.hiringFinished }" @start="isDragging = true" @end="isDragging = false" v-if="true">
-          <div class="cameo list-group-item" v-for="(element, index) in round.rightSide" :key="index">
-            <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
-            <figcaption>
-              <div class="name">{{ element.name }}</div>
-              <div class="desc" v-if="!ui.hiringFinished &amp;&amp; element.desc">{{element.desc}}</div>
-              <div class="value invisible" v-if="ui.hiringFinished">{{dollars(element.value)}}</div>
-            </figcaption>
-          </div>
-          <div class="help-text" v-if="round.rightSide.length &lt; 1"> 
-            <div class="inside">place all your hires here</div>
-          </div>
-        </draggable>
-        <div class="budget-interface">
-          <div class="box">
-            <div class="label your-budget">Your Budget</div>
-            <div class="big-number dollars">{{dollars(round.budget)}}</div>
-          </div>
-          <div class="box" v-if="round.rightSide.length &gt; 0">
-            <div class="label birthday-wishes">Birthday Wishes</div>
-            <div class="big-number">{{round.rightSide.length}}</div>
-          </div>
-          <div class="box" v-if="round.spent &gt; 0">
-            <div class="label you-spent">You Spent</div>
-            <div class="big-number" :class="{'exceeded-budget': ui.exceededBudget }">{{dollars(round.spent)}}</div>
-          </div>
-        </div>
-      </div>
-    </main>
-    <div class="email inbox off-screen" id="EmailFromPasha" v-if="!game.over &amp;&amp; computedGuessingPhase == 'newMail'">
-      <article>
-        <p>
-           To: <strong>You</strong><br/>From: <strong>Pasha Hollywood</strong></p>
-        <hr/>
-        <p>Hey, it’s me! Influential movie tycoon Pasha Hollywood.</p>
-        <p>
-           You seem to be pretty good at this stupid game, so I got a favor to ask you…<br/>My daughter is turning 17, and I want to get celebrities to wish her a happy birthday. Which celebrities? I don’t give a fuck, just make it as many celebrities as you can. I have no idea what she likes, other than spending my money.</p>
-        <p>Here’s <strong>{{dollars(round.budget)}}</strong>. I’ll give you points for every celebrity you hire, but if you break the budget, no points. That’s the rules. I make the rules.</p>
-        <p>Oh wait, maybe she’s turning 18? Anyway, don’t exceed the budget.</p>
-        <p>
-           xo,<br/>Pasha</p>
-        <div class="disclaimer">The content of this email is confidential and intended for the recipient specified in message only. It is strictly forbidden to share any part of this message with any third party, without a written consent of the sender. If you received this message by mistake, please reply to this message and follow with its deletion, so that we can ensure such a mistake does not occur in the future.</div>
-      </article>
-    </div>
-    <div class="underbanner hud" v-if="game.started &amp;&amp; !game.over ">
-      <div class="score">
-        <div v-if="my.score &gt; 0">{{my.score}} Points</div>
-        <div v-else="v-else">No Points</div>
-      </div>
-      <div class="interface">
-        <div class="sort-the-above" v-if="computedGuessingPhase == 'sort'"><span>Sort the above by their relative Cameo value.</span></div>
-        <div class="button-holder" v-else-if="computedGuessingPhase == 'submit'">
-          <button @click="submitSortOrder()">Submit Answers</button>
-        </div>
-        <div class="button-holder" v-else-if="computedGuessingPhase == 'answers'"><span v-if="ui.itsTimeToGuessValue">
-            <button @click="submitCameoValueGuess()">Valuate {{round.correctSide[round.guessValueIndex].name}}</button></span></div>
-        <div class="button-holder" v-else-if="computedGuessingPhase == 'finished'"><span v-if="ui.showNextRoundButton">
-            <button @click="startNextRound()">Okay, Next Round</button></span></div>
-        <div class="button-holder" v-else-if="computedGuessingPhase == 'newMail'"><span v-if="ui.showEmailButton">
-            <button @click="showTheEmail()">Check Your Email</button></span><span v-else-if="ui.showBeginFinalRoundButton">
-            <button @click="beginFinalRound()">Begin Final Round!</button></span></div>
-        <div v-if="computedGuessingPhase == 'hiring'">
-          <div class="button-holder" v-if="round.rightSide.length &gt; 0">
-            <button @click="finishHiring()">Finish Hiring</button>
-          </div>
-          <div class="text" v-else="v-else"><span>Wish Pasha's daughter a happy birthday.</span></div>
-        </div>
-        <div v-else-if="computedGuessingPhase == 'calculatingCosts'">
-          <div class="text">Calculating your costs...</div>
-        </div>
-      </div>
-      <div class="round">
-        <div v-if="game.finalRound">Final Round</div>
-        <div v-else-if="round.number &gt; 0">Round {{round.number}}</div>
-      </div>
-    </div>
-    <main class="game-over" v-if="game.over">
-      <section class="headline">
-        <h1>Game Over</h1>
-      </section>
-      <section class="birthday-videos">
-        <div class="birthday-header">
-          <h1 class="headline">Happy Birthday, Pasha's Daughter</h1>
-          <h2 class="subhead">Oops, you forgot to ask Pasha what his daughter's name is. Oh well!</h2>
-        </div>
-        <div class="video-grid">
-          <div class="video" v-for="(element, index) in round.rightSide" :key="index">
-            <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
-            <div class="speech-bubble"><span>Happy Birthday!</span></div>
-          </div>
-        </div>
-        <div class="cost-stripe"><span>Total Cost: </span><strong class="cost">{{dollars(round.spent)}}</strong></div>
-      </section>
-      <section class="scores my-scores">
-        <div class="score-grid">
-          <dl>
-            <dt>Your Score</dt>
-            <dd>{{my.score}}</dd>
-          </dl>
-          <dl>
-            <dt>Correct Guesses</dt>
-            <dd>{{my.correctSorts}}</dd>
-          </dl>
-          <dl v-if="computedValuationSkill">
-            <dt>Valuation Skill</dt>
-            <dd> 
-              <div class="word">{{computedValuationSkill.rating}}</div>
-              <div class="number small" v-if="computedValuationSkill.number &gt; 0">(Average Miss By <strong>{{dollars(computedValuationSkill.number)}}</strong>)</div>
-            </dd>
-          </dl>
-          <dl v-if="my.pointsEarnedInFinalRound &amp;&amp; my.pointsEarnedInFinalRound &gt; 0">
-            <dt>Final Round Points</dt>
-            <dd>{{my.pointsEarnedInFinalRound}}</dd>
-          </dl>
-          <dl v-else-if="my.pointsEarnedInFinalRound == 0">
-            <dt>Final Round </dt>
-            <dd>BUSTED!</dd>
-          </dl>
-          <dl v-if="round.spent &lt; round.budget">
-            <dt>Money Left Over</dt>
-            <dd>{{dollars(round.budget - round.spent) }}</dd>
-          </dl>
-          <dl v-if="round.spent &gt; round.budget">
-            <dt>Over Budget By</dt>
-            <dd>{{dollars(Math.abs(round.budget - round.spent)) }}</dd>
-          </dl>
-        </div>
-      </section>
-      <div class="game-by-lemon"><a href="https://ahoylemon.xyz">
-          <h3>This game is <span>by Lemon.</span></h3><img src="/svg/lemon.svg" alt="Lemon"/></a></div>
-      <section class="final-links"><a href="https://github.com/AhoyLemon/kindafun">GitHub Repo.</a><a href="">Play Again.</a>
-        <div class="disclaimer"><span>Prices were accurate at the time when they were collected from the Cameo website. They may have changed since then.</span></div>
-      </section>
-    </main>
-  </div>
-  <div class="javascripts">
-    <script src="js/libraries/vue.full.js"></script>
-    <script>const testing = true;</script>
-    <script src="js/libraries/jquery.min.js"></script>
-    <script src="js/libraries/howler.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
-    <script src="js/libraries/vue-toast-notification.min.js"></script>
-    <link href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet"/>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io.connect();
-      
+    <meta name="description" content="The Game of Celebrity Value"/>
+    <meta http-equiv="last-modified" content="2021-01-13@23:21:36"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/famous/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/famous/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/famous/favicon-16x16.png"/>
+    <link rel="shortcut icon" href="/img/famous/favicon.ico"/>
+    <link rel="mask-icon" href="/img/famous/safari-pinned-tab.svg" color="#1cb3ef"/>
+    <meta name="msapplication-TileColor" content="#3b1666"/>
+    <meta name="theme-color" content="#3b1666"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@AhoyLemon"/>
+    <meta name="twitter:title" content="Comparatively Famous"/>
+    <meta name="twitter:description" content="The Game of Celebrity Value"/>
+    <meta name="twitter:image" content="https://kinda.fun/cameo/img/og-famous.png"/>
+    <meta name="twitter:url"/>
+    <meta property="og:title" content="Comparatively Famous"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:description" content="The Game of Celebrity Value"/>
+    <meta property="og:url"/>
+    <meta property="og:image" content="https://kinda.fun/cameo/img/og-famous.png"/>
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "VideoGame",
+        "name": "Comparatively Famous",
+        "url": "https://kinda.fun/cameo",
+        "image": "https://kinda.fun/img/og-famous.png",
+        "playMode": "SinglePlayer",
+        "applicationCategory": "browser game",
+        "gamePlatform": "web browser",
+        "operatingSystem": "web browser",
+        "genre": "comedy",
+        "description": "The Game of Celebrity Value",
+        "inLanguage": "English",
+        "numberOfPlayers": 1,
+        "aggregateRating": {
+          "ratingValue": 5,
+          "ratingCount": 12
+        },
+        "creator": {
+          "@type": "Person",
+          "name": "Lemon",
+          "url": "https://ahoylemon.xyz",
+          "sameAs": [
+            "https://thefpl.us/meet/lemon",
+            "https://twitter.com/AhoyLemon"
+          ]
+        },
+        "publisher": {
+          "@type": "PerformingGroup",
+          "name": "The F Plus",
+          "url": "https://thefpl.us"
+        },
+        "offers": {
+          "@type": "Offer",
+          "description": "free",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
     </script>
-    <script src="js/min/cameo.min.js?updated2021-01-12@18:22:55"></script>
-  </div>
-</body>
+  </head>
+  <body>
+    <div id="app" v-cloak="v-cloak">
+      <main class="title-screen" v-if="!game.started">
+        <div class="splash">
+          <div class="inside"> 
+            <div class="logo-holder">
+              <figure class="logo"><img src="svg/comparatively-famous.svg"/></figure>
+            </div>
+            <div class="help-holder" v-if="!ui.watchingVideo">
+              <p> <strong>CAMEO</strong> is a site where people can order videos from celebrities, at prices set by those celebrities.</p>
+              <p><strong>THIS </strong> is a game about guessing those prices.</p>
+            </div>
+            <div class="video-holder" v-if="ui.watchingVideo">
+              <figure class="video">
+                <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+              </figure>
+              <figcaption>
+                <button class="close-video" @click="ui.watchingVideo = false">Okay, close this video. </button>
+              </figcaption>
+            </div>
+          </div>
+        </div>
+        <div class="start-or-load">
+          <div class="start">
+            <button class="start-single" @click="startSinglePlayerGame()">Start Game</button>
+          </div>
+          <div class="or"><span>or</span></div>
+          <div class="load">
+            <div class="disclaimer">
+              <div class="load-game-disclaimer animate__animated animate__fadeInUp animate__faster" v-if="ui.loadGameClicked"><strong>Loading saved games isn't ready yet. </strong><br/><br/><span>Eventually you'll be able to play games your friends created. But for now, just start a new game.</span></div>
+            </div>
+            <button class="start-multi" @click="loadGame()">Load Game</button>
+          </div>
+        </div>
+      </main>
+      <main class="sort-three" v-if="game.started &amp;&amp; !game.finalRound &amp;&amp; !game.over">
+        <div class="three-to-compare">
+          <draggable class="list-group unranked" :list="round.leftSide" group="people" :options="{ disabled : ui.animateCameoIndex &lt; 3 }" :class="{ 'no-move-cursor' : ui.animateCameoIndex &lt; 3 }" @start="isDragging = true" @end="isDragging = false" v-if="computedGuessingPhase == 'sort' || computedGuessingPhase == 'submit'">
+            <div class="cameo list-group-item" v-for="(element, index) in round.leftSide" :key="index">
+              <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
+              <figcaption>
+                <div class="name">{{ element.name }}</div>
+                <div class="desc" v-if="element.desc">{{element.desc}}</div>
+              </figcaption>
+            </div>
+          </draggable>
+          <draggable class="list-group ranked" :list="round.rightSide" group="people" v-if="computedGuessingPhase == 'sort' || computedGuessingPhase == 'submit'">
+            <div class="cameo list-group-item" v-for="(element, index) in round.rightSide" :rank="(index + 1)" :key="index">
+              <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
+              <figcaption>
+                <div class="rank"> <sup>#</sup><span>{{(index + 1)}}</span></div>
+                <div class="name">{{ element.name }}</div>
+                <div class="desc" v-if="element.desc">{{element.desc}}</div>
+              </figcaption>
+            </div>
+            <div class="help-text" v-if="round.rightSide.length &lt; 1"> 
+              <div class="inside" v-if="ui.showDragHelp">place guesses here</div>
+            </div>
+          </draggable>
+          <div class="list-group correct" v-if="computedGuessingPhase == 'answers' || computedGuessingPhase == 'newMail' || computedGuessingPhase == 'finished'">
+            <div class="cameo off-table" v-for="(element, index) in round.correctSide" :rank="(index + 1)" :key="index">
+              <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
+              <figcaption>
+                <div class="name">{{ element.name }}</div>
+                <div class="rank"> <sup>#</sup><span>{{(index + 1)}}</span></div>
+                <div class="guess-value" v-if="round.guessValueIndex == index">
+                  <form class="guess-value" @submit.prevent="submitCameoValueGuess()" v-if="ui.itsTimeToGuessValue">
+                    <div class="value"> <span>$</span>
+                      <input placeholder="???" type="number" v-model="ui.valueGuess" :min="ui.valueGuessMin" :max="ui.valueGuessMax"/>
+                      <button v-if="ui.valueGuess &gt; 0">
+                        <svg fill="#1A1A1A" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 245" fill-rule="evenodd" clip-rule="evenodd" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality">
+                          <path d="M122 0C55 0 0 55 0 122c0 34 14 65 36 87s53 36 86 36c68 0 123-55 123-123C245 55 190 0 122 0zM62 103l36 36 85-85 26 26L98 191l-62-62 26-26z" fill="#1a1a1a" fill-rule="nonzero"></path>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="fake-tooltip arrow_box">
+                      <div class="text">Now guess {{round.correctSide[round.guessValueIndex].name}}'s Cameo value</div>
+                    </div>
+                  </form>
+                  <div class="value" v-else-if="round.valueGuessed">{{dollars(element.value)}}</div>
+                  <div class="value" v-else="v-else">$???</div>
+                </div>
+                <div class="value" v-else="v-else">{{dollars(element.value)}}</div>
+              </figcaption>
+            </div>
+          </div>
+          <div class="list-group guessed ranked" v-if="computedGuessingPhase == 'answers' || computedGuessingPhase == 'newMail' || computedGuessingPhase == 'finished'">
+            <div class="cameo" v-for="(element, index) in round.rightSide" :rank="(index + 1)" :key="index" v-bind:class="{ correct: round.rightSide[index] == round.correctSide[index], incorrect: round.rightSide[index] != round.correctSide[index] }">
+              <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
+              <figcaption>
+                <div class="rank"> <sup>#</sup><span>{{(index + 1)}}</span></div>
+                <div class="name">{{ element.name }}</div>
+                <div class="desc" v-if="element.desc">{{element.desc}}</div>
+              </figcaption>
+            </div>
+            <div class="help-text" v-if="round.rightSide.length &lt; 1"> </div>
+          </div>
+        </div>
+      </main>
+      <main class="final-round" v-if="game.started &amp;&amp; game.finalRound">
+        <div class="casting-interface" v-if="!ui.cameosPaid">
+          <draggable class="list-group unhired" :list="round.leftSide" group="people" :options="{ disabled : ui.hiringFinished }" :class="{ 'no-move-cursor' : false }" @start="isDragging = true" @end="isDragging = false" v-if="true">
+            <div class="cameo list-group-item" v-for="(element, index) in round.leftSide" :key="index">
+              <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
+              <figcaption>
+                <div class="name">{{ element.name }}</div>
+                <div class="desc" v-if="element.desc">{{element.desc}}</div>
+              </figcaption>
+            </div>
+          </draggable>
+          <draggable class="list-group hired" :list="round.rightSide" group="people" :options="{ disabled : ui.hiringFinished }" :class="{ 'no-move-cursor' : ui.hiringFinished }" @start="isDragging = true" @end="isDragging = false" v-if="true">
+            <div class="cameo list-group-item" v-for="(element, index) in round.rightSide" :key="index">
+              <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
+              <figcaption>
+                <div class="name">{{ element.name }}</div>
+                <div class="desc" v-if="!ui.hiringFinished &amp;&amp; element.desc">{{element.desc}}</div>
+                <div class="value invisible" v-if="ui.hiringFinished">{{dollars(element.value)}}</div>
+              </figcaption>
+            </div>
+            <div class="help-text" v-if="round.rightSide.length &lt; 1"> 
+              <div class="inside">place all your hires here</div>
+            </div>
+          </draggable>
+          <div class="budget-interface">
+            <div class="box">
+              <div class="label your-budget">Your Budget</div>
+              <div class="big-number dollars">{{dollars(round.budget)}}</div>
+            </div>
+            <div class="box" v-if="round.rightSide.length &gt; 0">
+              <div class="label birthday-wishes">Birthday Wishes</div>
+              <div class="big-number">{{round.rightSide.length}}</div>
+            </div>
+            <div class="box" v-if="round.spent &gt; 0">
+              <div class="label you-spent">You Spent</div>
+              <div class="big-number" :class="{'exceeded-budget': ui.exceededBudget }">{{dollars(round.spent)}}</div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div class="email inbox off-screen" id="EmailFromPasha" v-if="!game.over &amp;&amp; computedGuessingPhase == 'newMail'">
+        <article>
+          <p>
+             To: <strong>You</strong><br/>From: <strong>Pasha Hollywood</strong></p>
+          <hr/>
+          <p>Hey, it’s me! Influential movie tycoon Pasha Hollywood.</p>
+          <p>
+             You seem to be pretty good at this stupid game, so I got a favor to ask you…<br/>My daughter is turning 17, and I want to get celebrities to wish her a happy birthday. Which celebrities? I don’t give a fuck, just make it as many celebrities as you can. I have no idea what she likes, other than spending my money.</p>
+          <p>Here’s <strong>{{dollars(round.budget)}}</strong>. I’ll give you points for every celebrity you hire, but if you break the budget, no points. That’s the rules. I make the rules.</p>
+          <p>Oh wait, maybe she’s turning 18? Anyway, don’t exceed the budget.</p>
+          <p>
+             xo,<br/>Pasha</p>
+          <div class="disclaimer">The content of this email is confidential and intended for the recipient specified in message only. It is strictly forbidden to share any part of this message with any third party, without a written consent of the sender. If you received this message by mistake, please reply to this message and follow with its deletion, so that we can ensure such a mistake does not occur in the future.</div>
+        </article>
+      </div>
+      <div class="underbanner hud" v-if="game.started &amp;&amp; !game.over ">
+        <div class="score">
+          <div v-if="my.score &gt; 0">{{my.score}} Points</div>
+          <div v-else="v-else">No Points</div>
+        </div>
+        <div class="interface">
+          <div class="sort-the-above" v-if="computedGuessingPhase == 'sort'"><span>Sort the above by their relative Cameo value.</span></div>
+          <div class="button-holder" v-else-if="computedGuessingPhase == 'submit'">
+            <button @click="submitSortOrder()">Submit Answers</button>
+          </div>
+          <div class="button-holder" v-else-if="computedGuessingPhase == 'answers'"><span v-if="ui.itsTimeToGuessValue">
+              <button @click="submitCameoValueGuess()">Valuate {{round.correctSide[round.guessValueIndex].name}}</button></span></div>
+          <div class="button-holder" v-else-if="computedGuessingPhase == 'finished'"><span v-if="ui.showNextRoundButton">
+              <button @click="startNextRound()">Okay, Next Round</button></span></div>
+          <div class="button-holder" v-else-if="computedGuessingPhase == 'newMail'"><span v-if="ui.showEmailButton">
+              <button @click="showTheEmail()">Check Your Email</button></span><span v-else-if="ui.showBeginFinalRoundButton">
+              <button @click="beginFinalRound()">Begin Final Round!</button></span></div>
+          <div v-if="computedGuessingPhase == 'hiring'">
+            <div class="button-holder" v-if="round.rightSide.length &gt; 0">
+              <button @click="finishHiring()">Finish Hiring</button>
+            </div>
+            <div class="text" v-else="v-else"><span>Wish Pasha's daughter a happy birthday.</span></div>
+          </div>
+          <div v-else-if="computedGuessingPhase == 'calculatingCosts'">
+            <div class="text">Calculating your costs...</div>
+          </div>
+        </div>
+        <div class="round">
+          <div v-if="game.finalRound">Final Round</div>
+          <div v-else-if="round.number &gt; 0">Round {{round.number}}</div>
+        </div>
+      </div>
+      <main class="game-over" v-if="game.over">
+        <section class="headline">
+          <h1>Game Over</h1>
+        </section>
+        <section class="birthday-videos">
+          <div class="birthday-header">
+            <h1 class="headline">Happy Birthday, Pasha's Daughter</h1>
+            <h2 class="subhead">Oops, you forgot to ask Pasha what his daughter's name is. Oh well!</h2>
+          </div>
+          <div class="video-grid">
+            <div class="video" v-for="(element, index) in round.rightSide" :key="index">
+              <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
+              <div class="speech-bubble"><span>Happy Birthday!</span></div>
+            </div>
+          </div>
+          <div class="cost-stripe"><span>Total Cost: </span><strong class="cost">{{dollars(round.spent)}}</strong></div>
+        </section>
+        <section class="scores my-scores">
+          <div class="score-grid">
+            <dl>
+              <dt>Your Score</dt>
+              <dd>{{my.score}}</dd>
+            </dl>
+            <dl>
+              <dt>Correct Guesses</dt>
+              <dd>{{my.correctSorts}}</dd>
+            </dl>
+            <dl v-if="computedValuationSkill">
+              <dt>Valuation Skill</dt>
+              <dd> 
+                <div class="word">{{computedValuationSkill.rating}}</div>
+                <div class="number small" v-if="computedValuationSkill.number &gt; 0">(Average Miss By <strong>{{dollars(computedValuationSkill.number)}}</strong>)</div>
+              </dd>
+            </dl>
+            <dl v-if="my.pointsEarnedInFinalRound &amp;&amp; my.pointsEarnedInFinalRound &gt; 0">
+              <dt>Final Round Points</dt>
+              <dd>{{my.pointsEarnedInFinalRound}}</dd>
+            </dl>
+            <dl v-else-if="my.pointsEarnedInFinalRound == 0">
+              <dt>Final Round </dt>
+              <dd>BUSTED!</dd>
+            </dl>
+            <dl v-if="round.spent &lt; round.budget">
+              <dt>Money Left Over</dt>
+              <dd>{{dollars(round.budget - round.spent) }}</dd>
+            </dl>
+            <dl v-if="round.spent &gt; round.budget">
+              <dt>Over Budget By</dt>
+              <dd>{{dollars(Math.abs(round.budget - round.spent)) }}</dd>
+            </dl>
+          </div>
+        </section>
+        <div class="game-by-lemon"><a href="https://ahoylemon.xyz">
+            <h3>This game is <span>by Lemon.</span></h3><img src="/svg/lemon.svg" alt="Lemon"/></a></div>
+        <section class="final-links"><a href="https://github.com/AhoyLemon/kindafun">GitHub Repo.</a><a href="https://kinda.fun/cameo">Play Again.</a>
+          <div class="disclaimer"><span>Prices were accurate at the time when they were collected from the Cameo website. They may have changed since then.</span></div>
+        </section>
+      </main>
+    </div>
+    <div class="javascripts">
+      <script src="js/libraries/vue.full.js"></script>
+      <script>const testing = true;</script>
+      <script src="js/libraries/jquery.min.js"></script>
+      <script src="js/libraries/howler.min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+      <script src="js/libraries/vue-toast-notification.min.js"></script>
+      <link href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet"/>
+      <script src="/socket.io/socket.io.js"></script>
+      <script>
+        var socket = io.connect();
+        
+      </script>
+      <script src="js/min/cameo.min.js?updated2021-01-13@23:21:36"></script>
+    </div>
+  </body>
+</html>
