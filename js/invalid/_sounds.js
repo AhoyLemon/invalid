@@ -61,3 +61,46 @@ const soundTooSlow = new Howl({
 const soundGameOver = new Howl({
   src: [ audioSrc + 'end-song.mp3' ]
 });
+
+
+
+
+
+
+
+
+///////////////////////////////////////
+// SIMONE SOUNDS
+const simoneBadGuess = new Howl({
+  src: [ audioSrc + 'simone/badpassword.mp3' ],
+  volume: 0.55,
+});
+const simoneCorrectGuess = new Howl({
+  src: [ audioSrc + 'simone/goodpassword.mp3' ],
+  volume: 0.8,
+});
+const simoneNewRule = new Howl({
+  src: [ audioSrc + 'simone/newrule.mp3' ],
+  volume: 0.35,
+});
+const simoneSystemCrash = new Howl({
+  src: [ audioSrc + 'simone/systemcrash.mp3' ],
+  volume: 0.8,
+});
+const simoneYouIdiot = new Howl({
+  src: [ audioSrc + 'simone/dumdum.mp3' ],
+  volume: 0.8,
+});
+const simoneStartGuessing = new Howl({
+  src: [ audioSrc + 'simone/startguessing.mp3' ],
+  volume: 0.6,
+});
+const simoneGameOver = new Howl({
+  src: [ audioSrc + 'simone/gameover.mp3' ],
+  volume: 0.6,
+});
+
+const simoneOink = new Howl({
+  src: [ audioSrc + 'simone/oink.mp3' ],
+  volume: 0.9,
+});

@@ -92,6 +92,7 @@ var app = new Vue({
       enterFinalPasswords: false,
       passwordSuccessMessage: null,
       watchingVideo: false,
+      simoneMode: false
     },
     // TODO: Deprecate this?
     messages: []
@@ -236,7 +237,7 @@ var app = new Vue({
       });
 
       if (self.players.length == 2) {
-        self.maxRounds = 6;
+        self.maxRounds = 1;
       } else if (self.players.length == 3) {
         self.maxRounds = 6;
       } else if (self.players.length == 4) {
@@ -617,7 +618,11 @@ var app = new Vue({
             // Otherwise, let's generate a new line for the pig.
             if (self.round.phase == "create password") {
               self.round.flyingPig.message = randomFrom(flyingPigLines.guessing);
-              soundOink.play();
+              if (self.ui.simoneMode) {
+                simoneOink.play();
+              } else {
+                soundOink.play();
+              }
             }
           }
         }, 6501);
@@ -868,10 +873,18 @@ var app = new Vue({
         sendEvent("Invalid", "Server Crashed", attempt);
 
       } else if (correctAnswer) {
-        soundCorrectGuess.play();
+        if (self.ui.simoneMode) {
+          simoneCorrectGuess.play();
+        } else {
+          soundCorrectGuess.play();  
+        }
         self.passwordSuccess(attempt);
       } else {
-        soundBadGuess.play();
+        if (self.ui.simoneMode) {
+          simoneBadGuess.play();
+        } else {
+          soundBadGuess.play();  
+        }
         socket.emit("triedPassword", {
           roomCode: self.roomCode,
           playerIndex: self.my.playerIndex,
@@ -1047,7 +1060,11 @@ var app = new Vue({
         if (p.pw.replace(/[^0-9a-z]/gi, '') == attempt.replace(/[^0-9a-z]/gi, '')) {
           pwMatch = true;
           if (p.name == self.my.name || p.playerIndex == self.my.playerIndex) {
-            soundYouIdiot.play();
+            if (self.ui.simoneMode) {
+              simoneYouIdiot.play();
+            } else {
+              simoneYouIdiot.play();
+            }
             pwMatchErrorMessage = "You just hacked into your own account. Did you mean to do that?";
             self.players[self.my.playerIndex].score += settings.points.forCrackingOwnPassword;
             self.allEmployeePasswords[i].claimed = self.my.name;
@@ -1114,7 +1131,11 @@ var app = new Vue({
       clearInterval(self.round.roundTimer);
       self.round.roundTimer = undefined;
       self.round.phase = "GAME OVER";
-      soundGameOver.play();
+      if (self.ui.simoneMode) {
+        simoneGameOver.play();
+      } else {
+        soundGameOver.play();
+      }
       socket.emit("gameOver", {
         roomCode: self.roomCode,
         gameName: self.gameName,

@@ -9,7 +9,7 @@
     <link href="/css/invalid.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-01-05@20:22:00">
+    <meta http-equiv="last-modified" content="2021-01-13@19:16:02">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/invalid/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/invalid/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/invalid/favicon-16x16.png">
@@ -173,6 +173,10 @@
               <div class="button-holder">
                 <button type="submit"> <span v-if="!ui.appliedForJob">Apply For Job</span><span v-if="ui.appliedForJob">Update Resume</span></button>
               </div>
+              <fieldset class="checkbox">
+                <input v-model="ui.simoneMode" type="checkbox" id="EngageSimoneMode">
+                <label for="EngageSimoneMode" title="Check this box to replace all game sounds with my daughter, Simone. She's the best.">Simone Mode</label>
+              </fieldset>
               <fieldset class="checkbox" v-if="isRoomHost &amp;&amp; ui.appliedForJob &amp;&amp; players.length &gt; 1">
                 <input v-model="allowNaughty" type="checkbox" id="AllowNaughtyChallenges">
                 <label for="AllowNaughtyChallenges" title="Checking this will allow profane and/or sexual challenges, passwords and options to be available">Allow naughty things.</label>
@@ -348,6 +352,7 @@
                 <fieldset><span style="font-size:16px">Before an employee can type a password</span>
                   <select v-model="ui.currentRule.inputValue" required>
                     <option selected disabled value="">they must first type...</option>
+                    <option v-if="ui.simoneMode">SIMONE</option>
                     <option>LOVE</option>
                     <option>SECRET</option>
                     <option v-if="allowNaughty">SEX</option>
@@ -821,7 +826,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         Vue.use(VueToast);
         
       </script>
-      <script src="js/min/invalid.min.js?updated2021-01-05@20:22:00"></script>
+      <script src="js/min/invalid.min.js?updated2021-01-13@19:16:02"></script>
       <script type="text/javascript">
         var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

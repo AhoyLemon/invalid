@@ -43,6 +43,10 @@
           button(type="submit") 
             span(v-if="!ui.appliedForJob") Apply For Job
             span(v-if="ui.appliedForJob") Update Resume
+        
+        fieldset.checkbox
+          input(v-model="ui.simoneMode" type="checkbox" id="EngageSimoneMode")
+          label(for="EngageSimoneMode" title="Check this box to replace all game sounds with my daughter, Simone. She's the best.") Simone Mode
 
         fieldset.checkbox(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
           input(v-model="allowNaughty" type="checkbox" id="AllowNaughtyChallenges")

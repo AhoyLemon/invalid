@@ -87,7 +87,12 @@ socket.on("updatePasswordChallenge", function(msg) {
   console.log("I (an employee) have been informed of the password challenge.");  
   app.round.challenge = msg.challenge;
   app.round.shibboleth = "";
-  soundNewRule.play();
+  if (app.ui.simoneMode) {
+    simoneNewRule.play();
+  } else {
+    soundNewRule.play();
+  }
+  
 });
 
 // The SysAdmin has set a new rule.
@@ -95,7 +100,11 @@ socket.on("updatePasswordRules", function(msg) {
   console.log("I (an employee) am being updated on the password rules.");  
   app.round.rules = msg.rules;
   app.round.shibboleth = msg.shibboleth;
-  soundNewRule.play();
+  if (app.ui.simoneMode) {
+    simoneNewRule.play();
+  } else {
+    soundNewRule.play();
+  }
 });
 
 // The Flying Pig has been summoned!
@@ -108,7 +117,11 @@ socket.on("summonThePig", function() {
 socket.on("updateBugs", function(msg) {
   console.log("I (an employee) am being updated on the round bugs.");  
   app.round.bugs = msg.bugs;
-  soundNewRule.play();
+  if (app.ui.simoneMode) {
+    simoneNewRule.play();
+  } else {
+    soundNewRule.play();
+  }
 });
 
 // The guessing has begun!
@@ -117,7 +130,12 @@ socket.on("startGuessing", function(msg) {
   app.round.phase = "create password";
   app.round.sysAdminIndex = msg.sysAdminIndex;
   app.roundStartTimer();
-  soundStartGuessing.play();
+  if (app.ui.simoneMode) {
+    simoneStartGuessing.play();
+  } else {
+    soundStartGuessing.play();
+  }
+  
 
 });
 
@@ -148,7 +166,11 @@ socket.on("crashedServer", function(msg) {
     word: msg.pwAttempt
   });
 
-  soundSystemCrash.play();
+  if (app.ui.simoneMode) {
+    simoneSystemCrash.play();
+  } else {
+    soundSystemCrash.play();
+  }
   app.players[app.round.sysAdminIndex].score += settings.points.forServerCrash;
   if (app.my.role == "SysAdmin") {
     app.my.score += settings.points.forServerCrash;

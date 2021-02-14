@@ -97,6 +97,7 @@
             span(style="font-size:16px") Before an employee can type a password
             select(v-model="ui.currentRule.inputValue" required)
               option(selected disabled value="") they must first type...
+              option(v-if="ui.simoneMode") SIMONE
               option LOVE
               option SECRET
               option(v-if="allowNaughty") SEX
