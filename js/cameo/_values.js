@@ -76,7 +76,8 @@ const allValues = [
   { name: "Victoria Jackson", desc:"SNL", slug:"victoria_jackson_official", value:125 },
   { name: "Tom Arnold", desc:"Was briefly married to Roseanne", slug:"thetomarnold", value:125 },
   { name: "Jamie Farr", desc:"Klinger on M*A*S*H", slug:"jamiefarr1", value:125 },
-  
+  { name: "Takeru Kobayashi", desc:"Competitive Eater", slug:"takerukobayashi", value:120 },
+
   { name: "Steve Carlson", desc:"One of the guys from the movie Slapshot", slug:"scarlson17", value:117  },
   { name: "Dave Hanson", desc:"One of the guys from the movie Slapshot", slug:"davehanson16", value:116  },
 
@@ -110,8 +111,10 @@ const allValues = [
   { name: "Didi Conn", desc:"Frenchy in Grease", slug:"didiconn1", value:75 },
   { name: "Roger Stone", desc:"Commuted Felon", slug:"rogerstone", value:75 },
   { name: "Danny Bonaduce", desc:"The Partridge Family", slug:"dannybonaduce", value:75 },
-  { name: "Peter Keys", desc:"Keyboardist for Lynyrd Skynyrd", slug:"peterkeys", value:75 },
+  { name: "Butterbean", desc:"Professional Boxer (Retired)", slug:"butterbean67", value:75 },
+  { name: "Hacksaw Jim Duggan", desc:"Former Professional Wrestler", slug:"hacksawjimduggan", value:75 },
   { name: "Doug E. Fresh", desc:"La Di Da Di, He Likes To Party", slug:"dougeversofresh", value:75 },
+  { name: "Peter Keys", desc:"Keyboardist for Lynyrd Skynyrd", slug:"peterkeys", value:75 },
   { name: "John Kassir", desc:"Voice Actor of the Crypt Keeper", slug:"cryptkeeper", value:70  },
   { name: "Steve Wilkos", desc:"Former Security, “The Jerry Springer Show”", slug:"stevewilkos", value:70  },
   { name: "KID from Kid N Play", desc:"Costar of House Party 1, 2 & 3", slug:"kidfromkidnplay", value:65  },
@@ -152,6 +155,7 @@ const allValues = [
   { name: "Kyle Troup", desc:"Professional Bowler", slug:"afrofish300", value:25 },
   { name: "Jonah Falcon", desc:"Has a 13.5\" penis. Talks about it a lot", slug:"jonahfalcon1970", value:25 },
   { name: "Boffo The Bear", desc: "YouTube Comedy Bear", slug: "boffothebear", value:20 },
+  { name: "Ray Williams", desc: "Olympic Deadlifter", slug: "optimusprime_334", value:20 },
   { name: "Ryan Creamer", desc:"Star of non-pornographic PornHub videos", slug: "coolboyryan", value:20 },
   { name: "Bobo Sasquatch", desc:"Finding Bigfoot", slug: "bobosquatch", value:20 },
   { name: "Jonathan Donais", desc:"Guitarist, Anthrax", slug: "jondonais", value:15 },

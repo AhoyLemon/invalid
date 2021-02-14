@@ -616,8 +616,9 @@ var app = new Vue({
     /*
     /////////////////////////////////
     // FAKE A FINAL ROUND
+    self.round.number = 4;
     self.populateFinalRound();
-    self.my.score = randomNumber(500,5000);
+    self.my.score = randomNumber(500,1500);
     */
 
 
