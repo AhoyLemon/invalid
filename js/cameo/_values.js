@@ -53,6 +53,7 @@ const allValues = [
   { name: "George Clinton", desc:"Parliament Funkadelic", slug:"george_clinton", value:200 },
   { name: "Henry", desc:"aka The NoTortoise BIG", slug:"thenotortoisebig", value:200 },
   { name: "John Popper", desc:"Singer & Harmonica Player, Blues Traveler", slug:"johnpopper", value:200 },
+  { name: "Sarah Palin", desc:"Portent of Things To Come", slug:"sarahpalin", value:200 },
   { name: "Punxsutawney Phil", desc:"World Famous Groundhog", slug:"punxsyphil", value:199 },
   { name: "Coolio", desc:"Cowrote Gangsta's Paradise", slug:"therealcoolio", value:199 },
   { name: "Dr Drew", desc:"Celebrity Doctor, “Loveline”", slug:"drdrew", value:198 },
