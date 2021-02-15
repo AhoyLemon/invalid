@@ -2,6 +2,15 @@ const audioSrc = 'audio/';
 
 
 /////////////////////////////////
+// Lobby Sounds
+const musicLobby = new Howl({
+  src: [ audioSrc + 'invalid/lobby-music.mp3', audioSrc + 'invalid/lobby-music.ogg' ],
+  volume: 0.6,
+  loop: true
+});
+
+
+/////////////////////////////////
 // Employee Sounds
 const soundOink = new Howl({
   src: [ audioSrc + 'oink1.mp3' ],

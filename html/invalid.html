@@ -9,7 +9,7 @@
     <link href="/css/invalid.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-01-13@21:42:53">
+    <meta http-equiv="last-modified" content="2021-01-15@13:33:02">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/invalid/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/invalid/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/invalid/favicon-16x16.png">
@@ -138,7 +138,7 @@
               <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/uhA83jtHmzM?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen></iframe>
             </figure>
             <figcaption>
-              <button @click="ui.watchingVideo = false">Okay, close this video.</button>
+              <button @click="stopWatchingVideo()">Okay, close this video.</button>
             </figcaption>
           </div>
         </div>
@@ -821,7 +821,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         Vue.use(VueToast);
         
       </script>
-      <script src="js/min/invalid.min.js?updated2021-01-13@21:42:53"></script>
+      <script src="js/min/invalid.min.js?updated2021-01-15@13:33:02"></script>
       <script type="text/javascript">
         var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

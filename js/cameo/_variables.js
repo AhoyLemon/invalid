@@ -57,16 +57,21 @@ const soundgameOverMusic = new Howl({
   volume: 0.9
 });
 
-const birthdayMessageFiles = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"];
+
 var birthdayHowls = [];
 
-for (var i=0; i<birthdayMessageFiles.length; i++) {
+for (var i=0; i<30; i++) {
+  var slug = "";
+  if (i < 10) {
+    slug = "0" + i;
+  } else {
+    slug = i.toString();
+  }
   birthdayHowls[i] = new Howl({
     src: [ audioSrc + 'birthdays/'+birthdayMessageFiles[i]+'.mp3' ],
     volume: 0.9
   });
 }
-
 
 /*
 for (var i=0; i<birthdayMessageFiles.length; i++) {

@@ -92,6 +92,7 @@ var app = new Vue({
       enterFinalPasswords: false,
       passwordSuccessMessage: null,
       watchingVideo: false,
+      musicPlaying: false,
     },
     // TODO: Deprecate this?
     messages: []
@@ -163,6 +164,17 @@ var app = new Vue({
       } else {
         sendEvent("Invalid", "Instruction Video", "Title Screen");
       }
+      if (self.ui.musicPlaying) {
+        musicLobby.volume(0.2);
+      }
+    },
+
+    stopWatchingVideo() {
+      const self = this;
+      self.ui.watchingVideo = false;
+      if (self.ui.musicPlaying) {
+        musicLobby.volume(0.6);
+      }
     },
 
     updatePlayer() {
@@ -208,6 +220,11 @@ var app = new Vue({
       }
 
       self.sendPlayerUpdate();
+
+      if (!self.ui.musicPlaying) {
+        musicLobby.play();
+        self.ui.musicPlaying = true;
+      }
 
     },
     
