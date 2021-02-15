@@ -57,7 +57,7 @@ const soundgameOverMusic = new Howl({
   volume: 0.9
 });
 
-const birthdayMessageFiles = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', "11", "12", "13"];
+const birthdayMessageFiles = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
 var birthdayHowls = [];
 
 

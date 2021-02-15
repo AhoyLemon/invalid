@@ -125,7 +125,7 @@ const allValues = [
   { name: "Anthony Scaramucci", desc:"Former White House Communications Director", slug:"themooch", value:55 },
   { name: "Bonnie Chapman", desc:"Daughter of Dog The Bounty Hunter", slug:"bonniejoc", value:50  },
   { name: "Deep Roy", desc:"Oompa Loompa in the 2015 Willy Wonka movie", slug:"deeproy", value:50  },
-  { name: "Xanman", desc:"Rapper", slug:"theonlyxanman20", value:50  },
+  { name: "Xanman", desc:"Fan of Xanax", slug:"theonlyxanman20", value:50  },
   { name: "Chris Hansen", desc:"Host, “To Catch A Predator”", slug:"chansen", value:50  },
   { name: "iAmMoshow", desc:"The Cat Rapper", slug:"iammoshow", value:50 },
   { name: "Max Cavalera", desc:"Vocalist, Sepultura", slug:"maxcavalera", value:50 },

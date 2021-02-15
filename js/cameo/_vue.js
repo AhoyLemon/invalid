@@ -705,6 +705,7 @@ var app = new Vue({
     }
     self.game.finalRound = false;
     self.game.over = true;
+    self.playTheGameOverAudio()
     //
     /////////////////////////////////
     */
