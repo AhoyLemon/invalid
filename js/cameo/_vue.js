@@ -240,7 +240,7 @@ var app = new Vue({
       let offBy = Math.abs(self.ui.valueGuess - self.round.correctSide[self.round.guessValueIndex].value);
 
       if (self.round.correctSide[n].value == self.ui.valueGuess) {
-        self.my.score += 300;
+        self.my.score += 250;
         self.my.valuationOffBy += 0;
         let instance = Vue.$toast.open(
           {
@@ -566,6 +566,7 @@ var app = new Vue({
       let n = 0;
       let i = self.round.rightSide.length;
       soundgameOverMusic.play();
+
       setTimeout(function () {
         var intervalId = window.setInterval(function(){
           if (n < i) {
@@ -706,7 +707,7 @@ var app = new Vue({
     }
     self.game.finalRound = false;
     self.game.over = true;
-    self.playTheGameOverAudio()
+    self.playTheGameOverAudio();
     //
     /////////////////////////////////
     */

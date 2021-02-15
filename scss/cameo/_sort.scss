@@ -85,40 +85,13 @@ main.sort-three { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 
       &:after { border-color: rgba(86, 153, 255, 0); border-bottom-color: #5699ff; border-width: 7px; margin-left: -7px; }
       &:before { border-color: rgba(194, 225, 245, 0); border-bottom-color: #c2e1f5; border-width: 8px; margin-left: -8px; }
     }
-    /*
-    .arrow_box:after, .arrow_box:before {
-      bottom: 100%;
-      left: 50%;
-      border: solid transparent;
-      content: "";
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-    }
-    
-    .arrow_box:after {
-      border-color: rgba(86, 153, 255, 0);
-      border-bottom-color: #5699ff;
-      border-width: 7px;
-      margin-left: -7px;
-    }
-    .arrow_box:before {
-      border-color: rgba(194, 225, 245, 0);
-      border-bottom-color: #c2e1f5;
-      border-width: 8px;
-      margin-left: -8px;
-    }
-    */
   }
 }
 
 
 
 .cameo {
-
   &.off-table { opacity: 0; }
-  //&.off-table { transform: scale(1.5) translateY(-100%); }
 }
 
 .v-toast.v-toast--bottom { padding-bottom: 3.2em;}
