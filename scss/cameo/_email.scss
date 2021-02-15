@@ -1,6 +1,7 @@
 .inbox.email { @include position(fixed,null,0,0,0); z-index: $z-email;
-  article { width: 100%; max-width: 960px; margin-left: auto; margin-right: auto; background: #e3e3e3; font-size: 18px; padding: 3em; padding-bottom: 80px; color:rgba(0,0,0,.75); font-family: Lato,Helvetica Neue,Helvetica,sans-serif; box-shadow: 0 0 15px rgba(0,0,0,.7);
+  article { width: 100%; max-width: 68ch; margin-left: auto; margin-right: auto; background: #e3e3e3; font-size: 18px; padding: 3em; padding-bottom: 80px; color:rgba(0,0,0,.75); font-family: Lato,Helvetica Neue,Helvetica,sans-serif; box-shadow: 0 0 15px rgba(0,0,0,.7);
     p { padding-bottom: 1em; }
+    hr { border-bottom:1px solid rgba(0,0,0,.25); margin-bottom: 1em; }
     .disclaimer { font-style: italic; font-size:85%; }
   }
   transition: transform 2s ease-in;

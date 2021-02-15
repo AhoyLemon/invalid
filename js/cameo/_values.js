@@ -62,7 +62,7 @@ const allValues = [
   { name: "Sir Mix-A-Lot", desc:"Likes Big Butts", slug:"therealsirmixalot", value:150 },
   { name: "Tommy Chong", desc:"Marijuana Enthusiast", slug:"tommychong", value:150 },
   { name: "Adam Duritz", desc:"Counting Crows", slug:"countingcrows", value:150 },
-  { name: "Jon Lovitz", desc:"SNL", slug:"jonlovitz", value:150 },
+  { name: "Jon Lovitz", desc:"“Yeah, That's The Ticket”, SNL", slug:"jonlovitz", value:150 },
   { name: "Gilbert Gottfried", desc:"Iago in Aladdin", slug:"gilbertgottfried", value:150  },
   { name: "Jamie Lynn Sigler", desc:"Meadow on The Sopranos", slug:"jamielynnsigler", value:150  },
   { name: "Bret “Hitman” Hart", desc:"Former Professional Wrestler", slug:"hitman", value:150  },
