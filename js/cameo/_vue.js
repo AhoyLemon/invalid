@@ -80,6 +80,7 @@ var app = new Vue({
       socket.emit('cameoStartGame', {
         gameName: self.gameName
       });
+      sendEvent("Comparatively Famous", "Game Started", "Fresh Game");
 
     },
 
@@ -282,6 +283,8 @@ var app = new Vue({
         celeb: self.round.correctSide[self.round.guessValueIndex],
         valueGuessed: self.ui.valueGuess
       });
+
+      sendEvent("Comparatively Famous", "Valuation", self.round.correctSide[self.round.guessValueIndex].name);
 
       self.round.valueGuessed = true;
       self.ui.itsTimeToGuessValue = false;
@@ -494,6 +497,8 @@ var app = new Vue({
             birthdayWishes: self.round.rightSide,
             exceededBudget: exceededBudget
           });
+
+          sendEvent("Comparatively Famous", "Game Finished", self.my.score);
 
           setTimeout(function () {
             self.game.finalRound = false;
@@ -711,6 +716,7 @@ var app = new Vue({
     //
     /////////////////////////////////
     */
+    
     
 
   }

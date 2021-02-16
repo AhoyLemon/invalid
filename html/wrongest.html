@@ -145,6 +145,7 @@
           <div class="content">
             <h2>There's nobody here.</h2>
             <p>Either you have the wrong room code, or your host hasn't entered their name yet.</p>
+            <p> <a href="https://kinda.fun/wrongest">Try again</a>?</p>
           </div>
         </div>
       </div>
@@ -168,6 +169,9 @@
               <p>{{chosenDeck.description}}</p>
               <p v-if="chosenDeck.cards"><strong>{{chosenDeck.cards.length}} cards</strong></p>
             </div>
+          </div>
+          <div class="issues-prompt" v-if="ui.nameEntered">
+            <p>Want to suggest your own lies for this game?  <a href="https://github.com/AhoyLemon/kinda.fun/issues/new/choose" taget="_blank">Open a new GitHub issue.</a></p>
           </div>
           <div class="start-button" v-if="isRoomHost &amp;&amp; ui.nameEntered &amp;&amp; players.length &gt; 2 &amp;&amp; chosenDeck.name">
             <button type="button" @click="startTheGame()">Start The Game</button>
@@ -325,8 +329,12 @@
         </div>
       </section>
       <div class="game-by-lemon"><a href="https://ahoylemon.xyz">
-          <h3>This game is <span>by Lemon.</span></h3><img src="/svg/lemon.svg" alt="Lemon"/></a></div>
-      <section class="final-links"><a href="https://github.com/AhoyLemon/invalid">GitHub Repo.</a><a href="https://kinda.fun">Play Again.</a></section>
+          <h3>This game is <span>by Lemon.</span></h3><img src="/svg/lemon.svg" alt="Lemon"/></a>
+        <div class="issue-prompt">
+          <p>Found a bug? Want to add your own lies to the game? <a href="https://github.com/AhoyLemon/kinda.fun/issues/new/choose">Submit an issue</a> on GitHub. </p>
+        </div>
+      </div>
+      <section class="final-links"><a href="https://github.com/AhoyLemon/invalid">GitHub Repo.</a><a href="https://kinda.fun/wrongest">Play Again.</a></section>
     </main>
   </div>
   <div class="javascripts">
@@ -341,7 +349,7 @@
       var socket = io.connect();
       Vue.use(VueToast);
     </script>
-    <script src="js/min/wrongest.min.js?updated2021-01-05@11:15:45"></script>
+    <script src="js/min/wrongest.min.js?updated2021-01-16@15:19:09"></script>
     <script type="text/javascript">
       var _paq = window._paq = window._paq || [];
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

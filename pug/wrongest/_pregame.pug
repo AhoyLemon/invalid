@@ -17,6 +17,9 @@
       .content
         h2 There's nobody here.
         p Either you have the wrong room code, or your host hasn't entered their name yet.
+        p 
+          a(href=pageURL) Try again
+          | ?
 
   .sign-in(v-else-if="(isRoomHost || players.length > 0) && !gameStarted")
 
@@ -43,6 +46,10 @@
           p {{chosenDeck.description}}
           p(v-if="chosenDeck.cards")
             strong {{chosenDeck.cards.length}} cards
+
+      .issues-prompt(v-if="ui.nameEntered")
+        p Want to suggest your own lies for this game?  
+          a(href="https://github.com/AhoyLemon/kinda.fun/issues/new/choose" taget="_blank") Open a new GitHub issue.
 
             
       .start-button(v-if="isRoomHost && ui.nameEntered && players.length > 2 && chosenDeck.name")

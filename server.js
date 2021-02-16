@@ -493,6 +493,7 @@ io.on('connection', (socket) => {
 
   socket.on('cameoFinishGame', msg => {
     console.log("a player finished a game of COMPARATIVELY FAMOUS");
+    console.table(msg.birthdayWishes);
     addOneInDatabase("cameoGames","GamesFinished");
     newCameoPlayerScore(msg.playerScore,msg.correctSorts,msg.averageValuationOffset,msg.birthdayWishes.length,msg.exceededBudget);
 

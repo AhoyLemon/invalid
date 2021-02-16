@@ -1483,9 +1483,9 @@ var app = new Vue({
     self.startCountdownToFinalRound();
     */
     
+    /*
     /////////////////////////////////////////////
     // FAKE A GAME OVER SCREEN.
-    /*
     self.my.role = "employee";
     self.my.name = "Lemon";
     self.my.playerIndex = 0;
@@ -1639,9 +1639,8 @@ var app = new Vue({
       { playerIndex: 2, sysAdminIndex:  4, word: "SONIC" },
       { playerIndex: 3, sysAdminIndex:  1, word: "SONIC" },
     ];
-    */
     ///////////////////////////////////////////////
-    
+    */
 
   },
 

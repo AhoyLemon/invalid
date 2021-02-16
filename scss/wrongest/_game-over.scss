@@ -31,6 +31,12 @@ main.game-over { font-family: $font-family; background:#e4e72c; color:#121212; m
     a { color:inherit; text-decoration: none;
       &:hover span { color: #c85c0d; }
     }
+    .issue-prompt { padding-top:($gap * 2); text-align: center;
+      p { font-size:20px; }
+      a { color:#c85c0d; font-weight: bold;
+        &:hover, &:focus { text-decoration: underline; }
+      }
+    }
   }
   .final-links { background:$black; text-align: center; padding:4rem;
     a { color:#c85c0d; display: inline-block; margin-right: 1em; font-size:26px; text-decoration: none;
