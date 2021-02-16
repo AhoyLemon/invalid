@@ -9,9 +9,10 @@ assignees: ''
 ---
 
 ## The Game
+
 (Let's get this defined right away)
 
-## Okay, what would you like to add?
+## Here's what I wanna add
 
 Here, list everything you'd like to add. If you have multiple additions, please put them all in a single issue ticket.
 
