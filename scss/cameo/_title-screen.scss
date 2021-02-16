@@ -1,0 +1,47 @@
+main.title-screen { min-height: 99.9999vh;  color:#eee; display:grid; grid-template-rows: 1fr 75px;
+
+  background: radial-gradient(#131015,#18072d);
+
+  .splash { display:flex; align-items: center; justify-content: center;
+    .inside { width:100%; max-width: 360px; }
+    .logo { width:100%; }
+    .help-holder { text-align: center; padding-top:32px;
+      p { padding-bottom: 1em; }
+    }
+  }
+  .start-or-load { display:grid; grid-template-columns: 1fr 80px 1fr;
+    .start { text-align: right; }
+    .or { text-align: center; line-height: 46px; font-size:24px; }
+    .load { position: relative;
+      
+      .disclaimer { @include position(absolute,0,null,null,0); transform: translate(-25%,-120%); }
+      .load-game-disclaimer { max-width: 330px; padding:20px; background:#000; font-size:13px; text-align: center; position: relative;
+        &:after { 
+          top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-top-color: #000000;
+	border-width: 10px;
+	margin-left: -10px;
+        }
+        
+      }
+    }
+
+
+    button { font-family: $displayFont; background:transparent; border:1px solid; color:white; font-size:32px; padding:0.25em 1em; cursor: pointer;
+      &.start-single { color:#efd416; border-color: #efd416;
+        &:hover, &:focus { background:#efd416; color:#18072d; }
+      }
+      &.start-multi { color: #1cb3ef; border-color: #1cb3ef;
+        &:hover, &:focus { background:#1cb3ef; color:#18072d; }
+      }
+    }
+  }
+}

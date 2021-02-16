@@ -66,6 +66,10 @@ socket.on("updatePlayers", function(msg) {
 
 // The host has started the game!
 socket.on("startTheGame", function(msg) {
+
+  musicLobby.stop();
+  app.ui.musicPlaying = false;
+
   app.players = msg.players;
   app.my.role = msg.players[app.my.playerIndex].role;
   app.round.phase = "choose rules";

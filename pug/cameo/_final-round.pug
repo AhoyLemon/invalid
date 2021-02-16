@@ -1,0 +1,50 @@
+main.final-round(v-if="game.started && game.finalRound")
+
+  .casting-interface(v-if="!ui.cameosPaid")
+
+    draggable.list-group.unhired( :list="round.leftSide"
+                                      group="people"
+                                      :options="{ disabled : ui.hiringFinished }"
+                                      :class="{ 'no-move-cursor' : false }"
+                                      @start="isDragging = true"
+                                      @end="isDragging = false"
+                                      v-if="true"
+                                      )
+
+        .cameo.list-group-item(v-for="(element, index) in round.leftSide" :key="index")
+          figure
+            img(:src="'img/cameos/'+element.slug+'.jpg'")
+          figcaption
+            .name {{ element.name }}
+            .desc(v-if="element.desc") {{element.desc}}
+
+    draggable.list-group.hired( :list="round.rightSide"
+                                      group="people"
+                                      :options="{ disabled : ui.hiringFinished }"
+                                      :class="{ 'no-move-cursor' : ui.hiringFinished }"
+                                      @start="isDragging = true"
+                                      @end="isDragging = false"
+                                      v-if="true"
+                                      )
+        .cameo.list-group-item(v-for="(element, index) in round.rightSide" :key="index")
+          figure
+            img(:src="'img/cameos/'+element.slug+'.jpg'")
+          figcaption
+            .name {{ element.name }}
+            .desc(v-if="!ui.hiringFinished && element.desc") {{element.desc}}
+            .value.invisible(v-if="ui.hiringFinished") {{dollars(element.value)}}
+
+        .help-text(v-if="round.rightSide.length < 1") 
+          .inside place all your hires here
+
+
+    .budget-interface
+      .box
+        .label.your-budget Your Budget
+        .big-number.dollars {{dollars(round.budget)}}
+      .box(v-if="round.rightSide.length > 0")
+        .label.birthday-wishes Birthday Wishes
+        .big-number {{round.rightSide.length}}
+      .box(v-if="round.spent > 0")
+        .label.you-spent You Spent
+        .big-number(:class="{'exceeded-budget': ui.exceededBudget }") {{dollars(round.spent)}}

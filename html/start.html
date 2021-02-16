@@ -39,6 +39,29 @@
             <h1>Choose a game.</h1>
           </div>
           <div class="game-choices">
+            <div class="game" :class="{ active: (gameChoice == 'cameo'), inactive: (gameChoice &amp;&amp; gameChoice != 'cameo') }">
+              <figure class="logo" @click="gameChoice = 'cameo'"><img src="svg/comparatively-famous.svg"/></figure>
+              <figcaption>
+                <div class="slogan">The Game of Celebrity Value</div>
+                <div class="players-allowed">For 1 player.<br/>(but can be replayed with friends)</div>
+              </figcaption>
+              <script type="application/ld+json">
+                {
+                  "@context": "http://schema.org",
+                  "@type": "VideoGame",
+                  "name": "Comparatively Famous",
+                  "url": "https://kinda.fun/cameo",
+                  "image": "https://kinda.fun/img/og-invalid.png",
+                  "playMode": "SinglePlayer",
+                  "applicationCategory": "browser game",
+                  "gamePlatform": "web browser",
+                  "operatingSystem": "web browser",
+                  "genre": "comedy",
+                  "description": "The Game of Celebrity Value",
+                }
+                
+              </script>
+            </div>
             <div class="game" :class="{ active: (gameChoice == 'invalid'), inactive: (gameChoice &amp;&amp; gameChoice != 'invalid') }">
               <figure class="logo" @click="gameChoice = 'invalid'"><img src="svg/invalid-logo.svg"/></figure>
               <figcaption>
@@ -59,6 +82,7 @@
                   "genre": "comedy",
                   "description": "A trivia game of unnecessary suffering.",
                 }
+                
                 
               </script>
             </div>
@@ -89,7 +113,10 @@
         </div>
       </div>
       <div class="create-or-join" v-if="gameChoice">
-        <div class="options">
+        <div class="start-playing" v-if="gameChoice == 'cameo'">
+          <button @click="startSinglePlayerGame()">Start Playing</button>
+        </div>
+        <div class="options" v-else="v-else">
           <div class="create">
             <button @click="createRoom()">Create a New Room</button>
           </div>
@@ -106,7 +133,7 @@
     <script>const testing = true;</script>
     <script src="/socket.io/socket.io.js"></script>
     <script>var socket = io.connect();</script>
-    <script src="js/min/start.min.js?updated2021-01-12@17:36:26"></script>
+    <script src="js/min/start.min.js?updated2021-01-15@12:59:03"></script>
     <script type="text/javascript">
       var _paq = window._paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

@@ -37,6 +37,12 @@ var app = new Vue({
       const self = this;
       const url = new URL(window.location + "" + self.gameChoice + "?join");
       location.assign(url);
+    },
+
+    startSinglePlayerGame() {
+      const self = this;
+      const url = new URL(window.location + "" + self.gameChoice);
+      location.assign(url);
     }
   },
 

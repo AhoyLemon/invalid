@@ -1,0 +1,89 @@
+
+main.game-over { background:#e4e72c; color:#121212; min-height: 100vh;
+
+  section { margin-bottom: ($gap * 3); }
+
+  section.headline { min-height: 68vh; margin-bottom: $gap; display: flex; align-items: center; justify-content: center;
+    h1 { font-size:15vw; text-align: center; text-transform: uppercase; letter-spacing: 0.15em; margin:0; font-family: $displayFont; }
+  }
+  
+  //h2 { font-size:4vw; text-align: center; text-transform: uppercase; letter-spacing: 0.25em; margin:0; }
+
+  .final-scores { background:#111; padding:$gap;
+    .players { display:flex; overflow-y: auto; padding-bottom: $padding; }
+    .player { background:#fff; padding:$padding; border-radius: 3px; flex-basis: 320px; flex-shrink: 0; margin-left: $gap; border-top-left-radius: 26px; border-bottom-left-radius: 82px; position: relative;
+      border-left:solid 3em #c55766;
+      .rank { @include position(absolute,5px,null,null,5px); transform: translate(-45px,16px); color:white; font-size:320%; font-weight: 700;
+        text-shadow: 3px 3px 3px rgba(12,12,12,0.3), -1px -1px 3px rgba(12,12,12,0.7);
+      }
+      .name { font-size:180%; }
+      .score { font-size:240%; font-weight: 800;
+        &.positive span:before { content:'+' }
+      }
+
+      &[rank="1"] { border-color: gold; }
+      &[rank="2"] { border-color: silver; }
+      &[rank="3"] { border-color: #cd7f32; }
+    }
+  }
+
+  .birthday-videos { background:#111;
+    .birthday-header { padding:$gap; color:$yellow;
+      h1 { font-family: $displayFont; font-size:7vw; text-align: center; }
+      h2 { font-size:22px; font-weight: 400; text-align: center; padding-top:$gap; }
+    }
+    .video-grid { display:grid; grid-template-columns: repeat( auto-fit, minmax(320px, 1fr) ); gap:$gap; padding:($gap * 2) $gap;
+      .video { position: relative;
+        figure { height:100%;}
+        img { width:100%; height:320px; object-fit: cover; }
+      }
+      .speech-bubble { 
+        filter: drop-shadow(1px 1px 1px #111) drop-shadow(-3px 3px 2px #111) ;
+        position: absolute; top:-20px; right:-20px; font-size:20px;
+        background: #edeeee; border-radius: .4em; padding:10px; font-family: "Comic Sans MS"; font-weight: bold;
+        &:after { content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border: 24px solid transparent;
+          border-top-color: #edeeee;
+          border-bottom: 0;
+          border-left: 0;
+          margin-left: -12px;
+          margin-bottom: -24px;
+        }
+      }
+    }
+    
+    .cost-stripe { color:$yellow; padding:0 $gap $gap $gap; font-size:5.2vw; text-align: center;
+    }
+  }
+
+  .my-scores { padding:$gap;
+    .score-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:$gap;
+      dl { background:#111; color:$yellow; padding:$padding;}
+      dd { font-size:250%;
+        .small { font-size:1rem; }
+      }
+
+    }
+  }
+
+  .game-by-lemon { text-align: right; padding-bottom: ($gap * 2); padding-right: $gap;
+    h3 { font-size: 5vw; transform: translate(-20%, 130%); }
+    img { width:37vw; }
+    a { color:inherit; text-decoration: none;
+      &:hover span { color: #c85c0d; }
+    }
+  }
+
+  .final-links { background:$black; text-align: center; padding:4rem;
+    a { color:#c85c0d; display: inline-block; margin-right: 1em; font-size:26px; text-decoration: none;
+      &:hover, &:focus { text-decoration: underline; }
+    }
+    .disclaimer { padding-top:$padding; color:white; }
+  }
+
+}

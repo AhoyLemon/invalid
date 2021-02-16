@@ -1,762 +1,133 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<html>
   <head>
-    <meta charset="utf-8">
-    <title>Invalid! A trivia game of unnecessary suffering.</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;500&amp;family=Fira+Code:wght@300;600&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
-    <link href="css/site.css" type="text/css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-00-17@22:41:42">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#d31500">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Twitter-->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:creator" content="@AhoyLemon">
-    <meta name="twitter:title" content="Invalid!">
-    <meta name="twitter:description" content="A trivia game of unnecessary suffering.">
-    <meta name="twitter:image" content="https://invalidgame.herokuapp.com/og-wide.png">
-    <meta name="twitter:url" content="https://invalidgame.herokuapp.com">
-    <meta property="og:title" content="Invalid!">
-    <meta property="og:type" content="website">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:description" content="A trivia game of unnecessary suffering.">
-    <meta property="og:url" content="https://invalidgame.herokuapp.com">
-    <meta property="og:image" content="https://invalidgame.herokuapp.com/og-wide.png">
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "VideoGame",
-        "name": "Invalid!",
-        "url": "https://invalidgame.herokuapp.com",
-        "image": "https://invalidgame.herokuapp.com/og-image.png",
-        "playMode": "MultiPlayer",
-        "applicationCategory": "browser game",
-        "gamePlatform": "web browser",
-        "operatingSystem": "web browser",
-        "genre": "comedy",
-        "description": "A trivia game of unnecessary suffering.",
-        "inLanguage": "English",
-        "numberOfPlayers": {
-          "minValue": 2,
-          "maxValue": 100
-        },
-        "aggregateRating": {
-          "ratingValue": 4.33333,
-          "ratingCount": 3
-        },
-        "creator": {
-          "@type": "Person",
-          "name": "Lemon",
-          "url": "https://ahoylemon.xyz",
-          "sameAs": [
-            "https://thefpl.us/meet/lemon",
-            "https://twitter.com/AhoyLemon"
-          ]
-        },
-        "publisher": {
-          "@type": "PerformingGroup",
-          "name": "The F Plus",
-          "url": "https://thefpl.us"
-        },
-        "offers": {
-          "@type": "Offer",
-          "description": "free",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "screenshot": [
-          {
-            "@type": "ImageObject",
-            "url": "https://invalidgame.herokuapp.com/img/screenshots/1.jpg",
-            "width": 1920,
-            "height": 1080
-          },
-          {
-            "@type": "ImageObject",
-            "url": "https://invalidgame.herokuapp.com/img/screenshots/2.jpg",
-            "width": 1920,
-            "height": 1080
-          },
-          {
-            "@type": "ImageObject",
-            "url": "https://invalidgame.herokuapp.com/img/screenshots/3.jpg",
-            "width": 1920,
-            "height": 1080
-          }
-        ]
-      }
-    </script>
+    <title>kinda.fun CAMEO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;800&amp;family=Libre+Baskerville:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <link href="css/cameo.css" type="text/css" rel="stylesheet"/>
   </head>
-  <body>
-    <div id="app" v-cloak>
-      <div class="title-screen" v-if="!currentlyInGame">
-        <div class="logo-holder">
-          <figure class="logo">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 100 33.7" space="preserve">
-              <path class="star" d="M10.3 5.4l-.5-1.5c-.1-.3-.4-.4-.7-.3L6.2 5l.5-3.3c0-.3-.2-.6-.5-.6H4.6c-.3 0-.5.3-.5.6L4.6 5l-3-1.4c-.2-.1-.5 0-.6.3L.4 5.4c0 .3.1.6.4.6l3.2.6-2.2 2.3c-.2.2-.2.6 0 .8l1.3 1c.2.2.6.1.7-.2l1.5-2.9 1.5 2.9c.1.3.5.3.7.2l1.3-1c.4-.2.4-.5.2-.8L6.7 6.6 9.9 6c.3 0 .5-.3.4-.6z"></path>
-              <path d="M97.7 27.2c.6 0 1.2-.1 1.9-.1v2.2h-5.7c-.1-.4-.1-.8-.2-1.3-.1.1-.2.1-.3.2-2.6 2.6-7.6 2.2-9.3-1.7-1.5-3.5-1.4-7 .9-10.1 1.6-2.2 4.7-3.2 7.4-2.4.3.1.7.2 1.1.3V9.6h-2V7.4c.8-.2 1.7-.3 2.5-.4.7-.1 1.3-.4 1.9-.6.6-.1 1.1-.1 1.8-.2v21zM93.5 21v-4.2c0-.2-.1-.4-.2-.5-1.4-.8-3.9-.8-4.8 1.3-.3.8-.6 1.7-.7 2.5-.2 1.8-.1 3.5.6 5.2.9 1.9 2.9 2.4 4.5 1 .4-.3.7-.7.7-1.4-.2-1.2-.1-2.6-.1-3.9zM20.2 29.3h-7.9v-1.8l.1-.1c1.2-.2 1.6-.6 1.6-1.8 0-1.6.1-3.3.1-4.9v-3.8h-2v-2.2c.9-.1 1.8-.1 2.7-.3.6-.1 1.2-.4 1.8-.5.5-.1 1.1-.1 1.7-.2.1.6.1 1 .2 1.6.3-.2.5-.3.7-.4 1.1-.7 2.2-1.2 3.4-1.3 2.2-.1 4.4.4 5.1 3.2.3 1.2.4 2.4.4 3.6 0 2.1 0 4.3-.1 6.4v.3c.6 0 1.2-.1 1.9-.1v2.2H22v-1.8s0-.1.1-.1c1.3-.2 1.7-.6 1.7-1.9 0-2.3 0-4.6-.1-6.8-.1-1.9-1.5-2.7-3.4-2.1-.1 0-.3.1-.4.1-1.2.5-1.4.7-1.4 2 0 2.7-.1 5.4-.1 8v.4h1.9c-.1.8-.1 1.5-.1 2.3zM60 27.2c.7 0 1.3-.1 1.9-.1v2.3h-5.1c-.5 0-.7-.1-.7-.6 0-.2 0-.4-.1-.8-.2.2-.4.3-.5.4-1.8 1.4-3.8 2-5.9 1.1-2.5-1-3.1-4.6-1.2-6.7.8-.9 1.8-1.4 2.9-1.7 1.3-.4 2.6-.6 3.9-.8.2 0 .4-.1.7-.1-.1-.9 0-1.9-.2-2.7-.3-1.5-1.7-2-3.2-1.4-.3.1-.6.4-1 .6.1.2.2.3.2.5.3.8.1 1.7-.5 2.2-.5.5-1.5.6-2.2.3-.8-.4-1-1.1-1-1.9 0-1.3.8-2.2 1.9-2.8 1.5-.9 3.2-1.2 4.9-1.1.7 0 1.5.2 2.2.4 1.9.6 2.7 2.1 3 4 .1.7.1 1.4.1 2.1 0 2.2-.1 4.4-.1 6.6v.2zm-4.1-4.9c-1.2.1-2.2.4-3.2 1-.3.2-.5.4-.7.7-.7 1-.4 2.3.7 2.7 1 .3 2.4-.1 3.1-.9.1-.1.1-.2.1-.2v-3.3zM63.1 9.4V7.2c.9 0 1.8-.1 2.6-.2.6-.1 1.3-.4 1.9-.5.6-.1 1.2-.1 1.8-.2v20.9c.6 0 1.2-.1 1.9-.1v2.2h-7.9v-1.8c1.4-.3 1.7-.6 1.7-2.1 0-3.7 0-7.4.1-11.1 0-1.5.1-3 .1-4.5v-.3c-.8-.1-1.5-.1-2.2-.1zM40.5 17h4.4c1.5 0 1.6.2 1.4 1.7 0 .1-.1.3-.2.3-.7.3-1.2.8-1.5 1.4l-2.7 6.3c-.7 1.7-1.4 3.5-2.1 5.2-.1.3-.3.5-.7.5h-1.8c-.2 0-.5-.2-.5-.3-1.7-3.6-3.3-7.3-5-10.9-.3-.6-.4-1.2-.6-1.8h-1v-2.2h7V19c-1 .3-1.2.8-.9 1.8.5 1.5 1.1 3 1.7 4.4.3.8.7 1.7 1.1 2.6 1.1-2.9 2.1-5.7 3.2-8.5-.5 0-1.1.1-1.7.1-.1-.8-.1-1.5-.1-2.4zM79.4 27.2c.6 0 1.2-.1 1.9-.1v2.2h-7.9v-1.8c1.4-.3 1.7-.5 1.7-1.9.1-1.9 0-3.7.1-5.6v-3h-2v-2.2c.9-.1 1.8-.1 2.7-.3.6-.1 1.2-.4 1.8-.5.6-.1 1.1-.1 1.8-.2-.1 4.4-.1 8.9-.1 13.4zM2.1 16.9v-2.2c.9-.1 1.7-.1 2.6-.3.7-.1 1.3-.4 1.9-.6.5-.1 1.1-.1 1.7-.2V27c.6 0 1.2-.1 1.9-.1v2.2H2.3v-1.8c1.4-.1 1.7-.5 1.7-1.9v-5.7-2.8H2.1zM79.9 8.6c0 1.4-1 2.5-2.3 2.4-1.3 0-2.4-1.1-2.3-2.5 0-1.4 1.1-2.5 2.3-2.5 1.4.1 2.3 1.1 2.3 2.6z"></path>
-            </svg>
-            <figcaption>
-              <div class="slogan">A trivia game of unnecessary suffering.</div>
-              <div class="players-allowed">For 2 or more players.<br>(but best with 4- 8)</div>
-            </figcaption>
-          </figure>
-        </div>
-        <div class="create">
-          <button @click="createRoom()">Create a New Room</button>
-        </div>
-        <div class="or"><span>or</span></div>
-        <div class="join">
-          <form @submit.prevent="joinRoom()">
-            <button v-if="roomCode &amp;&amp; roomCode.length &gt; 3" type="submit">Join this room.</button>
-            <input type="text" minlength="4" maxlength="4" required v-model="roomCode" @input="roomCode = $event.target.value.toUpperCase()" placeholder="Enter A Room Code">
-            <div class="enter-a-room-code"></div>
-          </form>
-        </div>
-      </div>
-      <div class="pregame" v-if="currentlyInGame &amp;&amp; round.phase == 'pregame'">
-        <div class="room-code">
-          <div class="label">Your room code</div>
-          <div class="display">{{roomCode}}</div>
-        </div>
-        <div class="nobody-here" v-if="!isRoomHost &amp;&amp; players.length &lt; 1">
-          <div class="inside">
-            <div class="content">
-              <h2>There's nobody here.</h2>
-              <p>Either you have the wrong room code, or your host hasn't entered their name yet.</p>
-            </div>
-          </div>
-        </div>
-        <div class="game-started" v-if="gameStarted">
-          <div class="inside">
-            <div class="content">
-              <h2>The game has already started.</h2>
-              <p>Ask the game host to start a new game, so you can join.</p>
-            </div>
-          </div>
-        </div>
-        <div class="sign-in" v-if="(isRoomHost || players.length &gt; 0) &amp;&amp; !gameStarted">
-          <div class="inside">
-            <h1>Welcome to BigCorp</h1>
-            <form class="pregame-form" @submit.prevent="updatePlayer()">
-              <fieldset>
-                <input v-model="my.employeeNumber" type="text" readonly disabled>
-                <label>Employee Number</label>
-              </fieldset>
-              <fieldset>
-                <input v-model="my.name" type="text" v-focus maxlength="34" required>
-                <label>Employee Name</label>
-              </fieldset>
-              <div class="button-holder">
-                <button type="submit"> <span v-if="!ui.appliedForJob">Apply For Job</span><span v-if="ui.appliedForJob">Update Resume</span></button>
-              </div>
-              <fieldset class="checkbox" v-if="isRoomHost &amp;&amp; ui.appliedForJob &amp;&amp; players.length &gt; 1">
-                <input v-model="allowNaughty" type="checkbox" id="AllowNaughtyChallenges">
-                <label for="AllowNaughtyChallenges" title="Checking this will allow profane and/or sexual challenges, passwords and options to be available">Allow naughty things.</label>
-              </fieldset>
-            </form>
-            <div class="start-button" v-if="isRoomHost &amp;&amp; ui.appliedForJob &amp;&amp; players.length &gt; 1">
-              <button type="button" @click="startTheGame()">Start The Game</button>
-            </div>
-          </div>
-        </div>
-        <div class="players">
-          <div class="player" v-for="player in players" :class="{ 'is-me' : (my.employeeNumber == player.employeeNumber), 'is-host': player.isRoomHost }">
-            <div class="player-inside">
-              <div class="number">{{'#' + player.employeeNumber}}</div>
-              <div class="name">{{player.name}}</div>
-              <div class="host" v-if="player.isRoomHost">
-                <svg height="100px" width="100px" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 80 80" style="enable-background:new 0 0 80 80;" space="preserve">
-                  <path d="M65,26c-1.6499,0-3,1.3501-3,3c0,0.46,0.1001,0.8999,0.29,1.29l-5.1499,5.1499c-0.2202,0.22-0.52,0.3301-0.8301,0.29   c-0.3101-0.05-0.5903-0.23-0.7402-0.5l-2.6997-4.73c-0.1602-0.27-0.4302-0.45-0.7402-0.49s-0.6201,0.0601-0.8398,0.28L47.3799,34.2   c-0.2397,0.24-0.5698,0.3401-0.8999,0.28c-0.3301-0.0701-0.5898-0.28-0.7202-0.5898L42.0303,25.2C42.6299,24.6599,43,23.8701,43,23   c0-1.6499-1.3501-3-3-3s-3,1.3501-3,3c0,0.8599,0.3599,1.6499,0.9697,2.2l-3.7295,8.6902C34.1099,34.2,33.8501,34.4099,33.52,34.48   c-0.3301,0.0601-0.6602-0.04-0.8999-0.28L28.71,30.29c-0.2197-0.22-0.5298-0.3201-0.8398-0.28s-0.5801,0.22-0.7402,0.49   l-2.6997,4.73c-0.1499,0.27-0.4302,0.45-0.7402,0.5c-0.3101,0.03-0.6099-0.0701-0.8301-0.29L17.71,30.29   C17.8999,29.8999,18,29.46,18,29c0-1.6499-1.3501-3-3-3s-3,1.3501-3,3c0,1.5701,1.2197,2.8599,2.7598,2.98l6.25,22.2   C21.2803,58.1899,30.6802,60,40,60s18.7197-1.8101,18.9902-5.8201l6.25-22.2C66.7803,31.8599,68,30.5701,68,29   C68,27.3501,66.6499,26,65,26z M40,58c-11.3198,0-17-2.5601-17-4s5.6802-4,17-4s17,2.5601,17,4S51.3198,58,40,58z"></path>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="instructions-banner">
-          <div class="banner-inside"><strong>Need instructions? </strong><a href="https://github.com/AhoyLemon/invalid/wiki" target="_blank">Click here.</a><br>I promise I'll try to make it quick.</div>
-        </div>
-      </div>
-      <div class="admin-screen" v-if="my.role == 'SysAdmin' &amp;&amp; (round.phase == 'choose rules' || round.phase == 'add bugs' || round.phase == 'create password' || round.phase == 'crashed')">
-        <div class="top-info">
-          <div class="name">{{my.name}}</div>
-          <div class="job">SysAdmin</div>
-          <div class="rulebux">{{my.rulebux}}<sup>ƒ</sup></div>
-          <div class="round-number">ROUND {{round.number}} / {{maxRounds}}</div>
-        </div>
-        <div class="panels">
-          <div class="panel challenge-select focus" v-if="ui.challengeID == null">
-            <div class="notched">
-              <p>First, select your password challenge.</p>
-              <form @submit.prevent="chooseAChallenge()">
-                <fieldset>
-                  <select v-model="ui.challengeID" @change="chooseAChallenge()">
-                    <option disabled selected></option>
-                    <option v-for="option in round.possibleChallenges" :value="option.id">{{option.name}}</option>
-                  </select>
-                  <label>Password Challenge</label>
-                </fieldset>
-              </form>
-            </div>
-          </div>
-          <div class="panel rules-summary" v-if="ui.challengeID != null &amp;&amp; round.phase != 'crashed' &amp;&amp; !ui.roundOver">
-            <div class="notched">
-              <ul>
-                <li>{{round.challenge.nameAsRule}}</li>
-                <li v-if="round.challenge.hint">{{round.challenge.hint}}</li>
-                <li class="admin-only">There are {{round.possibleAnswerCount}} possible</li>
-                <li class="admin-only">Average password size is {{round.averageSize}} characters</li>
-                <li class="admin-only">There's an average of {{round.averageVowels}} vowels</li>
-                <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
-                <li>Passwords are case-insensitive</li>
-                <li v-if="round.bugs.length &gt; 0"> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
-                <li class="admin-only" v-for="(bug,index) in round.bugs">{{bug}} will cause a system crash.</li>
-              </ul>
-              <p class="admin-only">Info in this color is for admin eyes only.</p>
-            </div>
-          </div>
-          <div class="panel rules-panel" v-if="ui.challengeID != null &amp;&amp; round.phase == 'choose rules'" :class="{focus: (!ui.currentRule.editing)}">
-            <div class="notched">
-              <div class="add-a-rule">
-                <div class="desc">
-                  <h2>Add a Password Rule</h2>
-                  <p>You have <strong class="rulebux">{{my.rulebux}}<sup>ƒ</sup></strong> to spend</p>
-                </div>
-                <div class="rules">
-                  <button class="rule" @click="chooseRule({name:'Demand A Letter', cost:5})" :class="{ active: (ui.currentRule.name == 'Demand A Letter'), 'too-expensive': (my.rulebux &lt; 5) }" :disabled="isRuleButtonDisabled('Demand A Letter',5,false)">
-                    <div class="name">Demand A Letter</div>
-                    <div class="cost">5<sup>ƒ</sup></div>
-                    <div class="disabled-reason"></div>
-                    <div class="tooltip"><span>A letter of your choosing must be in the password.</span>
-                    </div>
-                  </button>
-                  <button class="rule" @click="chooseRule({name:'Ban A Letter', cost:3})" :class="{ active: (ui.currentRule.name == 'Ban A Letter'), 'too-expensive': (my.rulebux &lt; 3) }" :disabled="isRuleButtonDisabled('Ban A Letter',3,false)">
-                    <div class="name">Ban A Letter</div>
-                    <div class="cost">3<sup>ƒ</sup></div>
-                    <div class="disabled-reason"></div>
-                    <div class="tooltip"><span>A letter of your choosing cannot be in the password.</span>
-                    </div>
-                  </button>
-                  <button class="rule" @click="chooseRule({name:'Shibboleth', cost:3})" :class="{ active: (ui.currentRule.name == 'Shibboleth'), 'too-expensive': (my.rulebux &lt; 3) }" :disabled="isRuleButtonDisabled('Shibboleth',3,true)">
-                    <div class="name">Shibboleth</div>
-                    <div class="cost">3<sup>ƒ</sup></div>
-                    <div class="disabled-reason"></div>
-                    <div class="tooltip"><span>Employees must type a special word before typing their password</span>
-                    </div>
-                  </button>
-                  <button class="rule" @click="chooseRule({name:'Flying Pig', cost:3})" :class="{ active: (ui.currentRule.name == 'Flying Pig'), 'too-expensive': (my.rulebux &lt; 3) }" :disabled="isRuleButtonDisabled('Flying Pig',3,true)">
-                    <div class="name">Flying Pig</div>
-                    <div class="cost">3<sup>ƒ</sup></div>
-                    <div class="disabled-reason"></div>
-                    <div class="tooltip"><span>Summon a flying pig to offer the employees unhelpful suggestions.</span>
-                    </div>
-                  </button>
-                  <button class="rule" @click="chooseRule({name:'Set A Maximum', cost:2})" :class="{ active: (ui.currentRule.name == 'Set A Maximum'), 'too-expensive': (my.rulebux &lt; 2) }" :disabled="isRuleButtonDisabled('Set A Maximum',2,true)">
-                    <div class="name">Set A Maximum</div>
-                    <div class="cost">2<sup>ƒ</sup></div>
-                    <div class="disabled-reason"></div>
-                    <div class="tooltip"><span>Maximum Characters, defined by the list average</span>
-                    </div>
-                  </button>
-                  <button class="rule" @click="chooseRule({name:'Set A Minimum', cost:2})" :class="{ active: (ui.currentRule.name == 'Set A Minimum'), 'too-expensive': (my.rulebux &lt; 2) }" :disabled="isRuleButtonDisabled('Set A Minimum',2,true)">
-                    <div class="name">Set A Minimum</div>
-                    <div class="cost">2<sup>ƒ</sup></div>
-                    <div class="disabled-reason"></div>
-                    <div class="tooltip"><span>Minimum Characters, defined by the list average</span>
-                    </div>
-                  </button>
-                  <button class="rule" @click="chooseRule({name:'Limit Vowels', cost:1})" :class="{ active: (ui.currentRule.name == 'Limit Vowels'), 'too-expensive': (my.rulebux &lt; 1) }" :disabled="isRuleButtonDisabled('Limit Vowels',1,true)">
-                    <div class="name">Limit Vowels</div>
-                    <div class="cost">1<sup>ƒ</sup></div>
-                    <div class="disabled-reason"></div>
-                    <div class="tooltip"><span>Maximum Vowels, defined by the list average</span>
-                    </div>
-                  </button>
-                  <button class="rule" @click="chooseRule({name:'Ban A Combo', cost:1})" :class="{ active: (ui.currentRule.name == 'Ban A Combo'), 'too-expensive': (my.rulebux &lt; 1) }" :disabled="isRuleButtonDisabled('Ban A Combo',1,false)">
-                    <div class="name">Ban A Combo</div>
-                    <div class="cost">1<sup>ƒ</sup></div>
-                    <div class="disabled-reason"></div>
-                    <div class="tooltip"><span>Ban Two Letters From Being Used Together</span>
-                    </div>
-                  </button>
-                  <button class="finished" type="button" @click="round.phase = 'add bugs'" v-if="!ui.currentRule.editing">FINISH RULES
-                    <div class="tooltip"><span>Set rules and enter in {{my.rulebux + 1}} system bugs</span></div>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="panel rule-details focus" v-if="ui.currentRule.editing &amp;&amp; (round.phase == 'choose rules')">
-            <div class="notched">
-              <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Demand A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)">
-                <fieldset>
-                  <label for="DemandTheLetter">Demand the letter</label>
-                  <select class="letter" v-model="ui.currentRule.inputValue" id="DemandTheLetter" required>
-                    <option disabled selected value="">?</option>
-                    <option v-for="letter in round.demandableLetters" :value="letter">{{letter}}</option>
-                  </select>
-                </fieldset>
-                <button type="submit">Set</button>
-              </form>
-              <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Ban A Letter'" v-on:submit.prevent="saveRule(ui.currentRule)">
-                <fieldset>
-                  <label for="BanTheLetter">Ban the letter</label>
-                  <input v-model="ui.currentRule.inputValue" type="text" id="BanTheLetter" maxlength="1" minlength="1" required v-touppercase v-focus placeholder="?">
-                </fieldset>
-                <button type="submit">Set</button>
-              </form>
-              <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Ban A Combo'" v-on:submit.prevent="saveRule(ui.currentRule)">
-                <fieldset>
-                  <label for="FirstBannedLetter">Ban The Letter </label>
-                  <input v-model="ui.currentRule.inputValue" type="text" id="FirstBannedLetter" maxlength="1" minlength="1" required v-touppercase v-focus>
-                  <label for="SecondBannedLetter">from being used with </label>
-                  <input v-model="ui.currentRule.inputValueTwo" type="text" id="SecondBannedLetter" maxlength="1" minlength="1" required v-touppercase>
-                </fieldset>
-                <button type="submit">Set</button>
-              </form>
-              <form class="fieldset-and-button" v-if="ui.currentRule.name == 'Shibboleth'" v-on:submit.prevent="saveRule(ui.currentRule)">
-                <fieldset><span style="font-size:16px">Before an employee can type a password</span>
-                  <select v-model="ui.currentRule.inputValue" required>
-                    <option selected disabled value="">they must first type...</option>
-                    <option>LOVE</option>
-                    <option>SECRET</option>
-                    <option v-if="allowNaughty">SEX</option>
-                    <option>SWORDFISH</option>
-                    <option>QWERTY</option>
-                    <option v-if="allowNaughty">FUCKTHIS</option>
-                    <option>PASSWORD1</option>
-                  </select>
-                </fieldset>
-                <button type="submit">Set</button>
-              </form>
-            </div>
-          </div>
-          <div class="panel bug-setup focus" v-if="round.phase == 'add bugs' &amp;&amp; (!round.bugs || round.bugs.length &lt; 1 || my.rulebux &gt; 0)">
-            <div class="notched">
-              <div class="first-bug-intro" v-if="!round.bugs || round.bugs.length &lt; 1">
-                <h2>Add a bug to the system.</h2>
-                <p>Enter a word to use as a bug.</p>
-                <p>If a player tries to use that word as a password, the system will crash (and you earn points.)</p>
-                <p v-if="(!round.bugs || round.bugs.length &lt; 1 ) &amp;&amp; my.rulebux &lt; 1">FYI, next time you're SysAdmin, you can buy additional bugs for 1<sup>ƒ</sup>.</p>
-              </div>
-              <div class="additional-bug" v-else-if="my.rulebux &gt; 0">
-                <p>You may add {{my.rulebux}} additional bugs to the system</p>
-              </div>
-              <form class="fieldset-and-button" v-on:submit.prevent="addBug()" v-if="!round.bugs || round.bugs.length &lt; 1 || my.rulebux &gt; 0">
-                <fieldset> 
-                  <label for="BugPassword">Set a Bug on </label>
-                  <input type="text" id="BugPassword" v-model="ui.addBug" v-touppercase autocomplete="off" v-focus placeholder="PASSWORD">
-                </fieldset>
-                <button type="Submit">Set</button>
-              </form>
-            </div>
-          </div>
-          <div class="panel onboard-button" v-if="round.phase == 'add bugs' &amp;&amp; !ui.addBug" :class="{focus: ((round.bugs &amp;&amp; round.bugs.length &gt; 0) &amp;&amp; my.rulebux &lt; 1)}">
-            <div class="notched">
-              <button class="onboard-employees" @click="onboardEmployees()">Onboard Employees</button>
-            </div>
-          </div>
-          <div class="panel attempt-console" v-if="round.phase == 'create password' || round.phase == 'crashed'" :class="{focus: (round.phase == 'create password')}">
-            <div class="notched">
-              <h3 v-if="round.phase == 'create password'">Employees are trying to enter passwords...</h3>
-              <div class="crash-notification" v-if="round.phase == 'crashed'">
-                <h2>System Crash!</h2>
-                <p>Congratulations! <strong>{{round.crash.player.name}}</strong> has crashed the system with the password <strong>{{round.crash.word}}</strong></p>
-                <p>You have earned <strong>100</strong> points</p>
-              </div>
-              <ol>
-                <li v-for="a in round.attempts" :class="a.result">
-                  <template v-if="a.result == 'failed'"><span class="name">{{players[a.playerIndex].name}}</span> tried <span class="pass">{{a.pwAttempt}}</span></template>
-                  <template v-else-if="a.result == 'success'"><span class="name">{{players[a.playerIndex].name}}</span> guessed one correctly</template>
-                  <template v-else-if="a.result == 'crash'"><span class="name">{{players[a.playerIndex].name}}</span> crashed the server!</template>
-                </li>
-              </ol>
-            </div>
-          </div>
-          <div class="panel round-over" v-if="ui.roundOver" :class="{focus: ui.roundOver}">
-            <div class="notched">
-              <h2>This round is over.</h2>
-              <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
-              <div v-else>
-                <p>Middle management is unsatisfied with the passwords provided. A new SysAdmin will be named.</p>
-                <p>BigCorp thanks you for your service! 🙂</p>
-                <p>Now clean out your desk immediately.</p>
-              </div>
-              <p>
-                <button class="start-next-round" type="button" @click="startNextRoundClicked()">Start Next Round</button>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="admin-timer" v-if="round.adminTimer != undefined">
-          <div class="label">TIME LEFT</div>
-          <time><span class="integer">{{round.adminTimeLeft.toFixed(2).split('.')[0]}}</span>.<sup class="decimal">{{round.adminTimeLeft.toFixed(2).split('.')[1]}}</sup></time>
-        </div>
-        <div class="scorekeeper" :player-count="players.length">
-          <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
-            <div class="inside">
-              <div class="admin-icon" v-if="index == round.sysAdminIndex">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                  <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
-                </svg>
-              </div>
-              <div class="name">{{player.name}}</div>
-              <div class="score">{{player.score}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <main class="employee-screen" v-if="my.role == 'employee' &amp;&amp; (round.phase == 'choose rules' || round.phase == 'create password' || round.phase == 'crashed')">
-        <div class="top-info">
-          <div class="name">{{my.name}}</div>
-          <div class="job"> <span>Employee </span><sup>#</sup><span>{{my.employeeNumber}}</span></div>
-          <div class="round-number">ROUND {{round.number}} / {{maxRounds}}</div>
-          <div class="attempts"><span v-if="my.passwordAttempts &gt; 0">{{my.passwordAttempts}} tries</span></div>
-          <div class="score">SCORE: {{players[my.playerIndex].score}}</div>
-        </div>
-        <div class="interface">
-          <div class="inside">
-            <!-- This tells you about criteria and status-->
-            <div class="info">
-              <div class="content">
-                <ul>
-                  <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">{{round.challenge.nameAsRule}}</li>
-                  <li v-if="round.challenge &amp;&amp; round.challenge.hint"> <strong>HINT: </strong> {{round.challenge.hint}}</li>
-                  <li v-for="(rule,index) in round.rules">{{rule.message}}</li>
-                  <li v-if="round.challenge &amp;&amp; round.challenge.nameAsRule">Passwords are case-insensitive</li>
-                  <li v-if="round.bugs &amp;&amp; round.bugs.length &gt; 0 "> <span v-if="round.bugs.length == 1">There is a system bug.</span><span v-else>There are {{round.bugs.length}} system bugs.</span></li>
-                </ul>
-                <div class="stand-by" v-if="round.phase != 'create password' &amp;&amp; !ui.roundOver">
-                  <p>Your password rules are still being created by {{computedSysAdminName}}, your friendly and helpful System Administrator.</p>
-                </div>
-              </div>
-            </div>
-            <!-- This is where you put in the password, and get feedback about your password.-->
-            <div class="entry">
-              <div class="content">
-                <h2 class="please-wait" v-if="round.phase != 'create password'">Please Wait</h2>
-                <h2 v-else-if="ui.roundOver">This round is over.</h2>
-                <h2 v-else-if="ui.passwordSucceeded">SUCCESS!</h2>
-                <h2 v-else>Create Your Password.</h2>
-                <!-- IDEA: Show disabled forms if you can't enter yet.-->
-                <!-- However, since the UX is better if the form is inserted in, we're going to swap disabled forms with active forms.-->
-                <template v-if="!ui.roundOver &amp;&amp; !ui.passwordSucceeded">
-                  <template v-if="computedShibbolethRequired || ui.shibboleth">
-                    <template v-if="ui.roundOver || round.phase != 'create password' || !computedShibbolethRequired">
-                      <form class="shibboleth-form disabled">
-                        <fieldset>
-                          <input class="shibboleth" type="text" v-model="ui.shibboleth" disabled>
-                          <label>Type {{round.shibboleth}}<sup class="required">*</sup></label>
-                        </fieldset>
-                        <div class="disabled-reason" v-if="ui.roundOver || round.phase != 'create password'">Please wait for {{computedSysAdminName}} to finish creating password rules.</div>
-                      </form>
-                    </template>
-                    <template v-else>
-                      <!-- This is where the working Shibboleth form goes.-->
-                      <form class="shibboleth-form" @submit.prevent="ui.shibboleth = ''" v-if="computedShibbolethRequired">
-                        <fieldset>
-                          <input class="shibboleth" type="text" v-model="ui.shibboleth" id="ShibbolethInput" v-touppercase v-focus>
-                          <label for="ShibbolethInput">Type {{round.shibboleth}}<sup class="required">*</sup></label>
-                        </fieldset>
-                      </form>
-                    </template>
-                  </template>
-                  <template v-if="ui.roundOver || round.phase != 'create password' || computedShibbolethRequired">
-                    <form class="password-form disabled">
-                      <fieldset>
-                        <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" autocomplete="off" required v-touppercase disabled>
-                        <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
-                      </fieldset>
-                      <div class="button-holder">
-                        <button type="submit" disabled>Submit</button>
-                      </div>
-                      <div class="disabled-reason" v-if="round.phase != 'create password'">Please wait for {{computedSysAdminName}} to finish creating password rules.</div>
-                      <div class="disabled-reason" v-else-if="computedShibbolethRequired">You must type {{round.shibboleth}} first.</div>
-                    </form>
-                  </template>
-                  <template v-else>
-                    <!-- Okay, here's the working password form.-->
-                    <form class="password-form" @submit.prevent="tryThisPassword(ui.passwordAttempt)">
-                      <fieldset>
-                        <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" v-focus :class="{ 'error' : ui.passwordInputError }" autocomplete="off" required v-touppercase>
-                        <label for="PasswordAttempt">Create A Password<sup class="required">*</sup></label>
-                      </fieldset>
-                      <div class="button-holder">
-                        <button type="submit">Submit</button>
-                      </div>
-                    </form>
-                  </template>
-                </template>
-                <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
-                  <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
-                  <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
-                    <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
-                  </ul>
-                </div>
-                <template v-if="ui.passwordSucceeded &amp;&amp; !ui.roundOver">
-                  <p>You've set a password.</p>
-                  <p>Please stand by while your coworkers try to do the same.</p>
-                </template>
-                <div v-if="ui.roundOver">
-                  <p v-if="round.number == maxRounds">BigCorp Middle Management is pleased with all the passwords which have been provided. Management sincerely hopes nobody tries to hack any of the passwords given.</p>
-                  <p v-else>Your password(s) have been sent to BigCorp Middle Management, who finds them lacking. A new SysAdmin will be named to help create better passwords.</p>
-                </div>
-              </div>
-              <div class="flying-pig" v-if="round.flyingPig.active">
-                <div class="speech" v-html="round.flyingPig.message"></div><img src="img/flying-pig.png">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="scorekeeper" :player-count="players.length">
-          <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
-            <div class="inside">
-              <div class="admin-icon" v-if="index == round.sysAdminIndex">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                  <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
-                </svg>
-              </div>
-              <div class="name">{{player.name}}</div>
-              <div class="score">{{player.score}}</div>
-            </div>
-          </div>
-        </div>
-        <div class="hurry-timer" v-if="round.hurryTimer != undefined">
-          <div class="time-left" v-if="round.hurryTime &gt;= 10"><span class="integer double-digit">{{parseInt(round.hurryTime)}}</span></div>
-          <div class="time-left" v-else-if="round.hurryTime &lt; 10 &amp;&amp; round.hurryTime &gt; 0"><span class="integer">{{round.hurryTime.toFixed(1).split('.')[0]}}</span>.<sup class="decimal">{{round.hurryTime.toFixed(1).split('.')[1]}}</sup></div>
-          <div class="label" v-if="!ui.passwordSucceeded">Hurry Up</div>
-        </div>
-        <div class="crash-screen" v-if="round.phase == 'crashed'">
-          <div class="inside">
-            <h1>Server error in '/' Application</h1>
-            <p><strong>Description: </strong>An unhandled exception occured when <strong>{{round.crash.player.name}}</strong> entered the password <strong>{{round.crash.word}}</strong></p>
-            <p><strong>Source Error</strong></p>
-            <pre><code>Line 109113:     protected isTheSiteCrashed(ooobject pwassword) {
-Line 109114:       while (password != error) {
-Line 109115:         destroyWebsite = false;
-Line 109116:       }
-Line 109117:     }
-</code></pre>
-            <p><strong>Password Entered</strong></p>
-            <pre><code>{{round.crash.word}}
-</code></pre>
-            <p><strong>Employee Record</strong></p>
-            <pre><code>EMPloyeeNuumber:     {{round.crash.player.employeeNumber}}
-EMpoyeeNAME:         {{round.crash.player.name}}
-</code></pre>
-            <p><strong>Source File</strong></p>
-            <pre><code>D:\Code\Projects\BigCorp\Profiles\Scum\Auth\Processes\FuckItThisWillWorkForNow.aspx
-</code></pre>
-            <footer><strong>Version Information:</strong><br><code>BigCorp Framework Version 4.00.1134.Release5-Final--Version2.TestBuild-5</code></footer>
-          </div>
-        </div>
-      </main>
-      <div class="final-round" v-if="round.phase == 'FINAL ROUND'">
-        <video class="fullscreen" muted autoplay loop poster="img/polygons.jpg">
-          <source src="video/polygons.mp4">
-        </video>
-        <div class="interface">
-          <div class="inside">
-            <template v-if="!ui.enterFinalPasswords">
-              <h1>This is the final round!</h1>
-              <p>In the final round, your goal is to hack into accounts of your coworkers.</p>
-              <p>When the timer starts, type in any password you think any of your coworkers may have used successfully. If you're right, you'll <em>steal </em>40 points from that player!</p>
-              <p>You can type as many passwords as you like, but if you crack your own password, you will be punished.</p>
-              <p>There are {{computedUnclaimedPasswords}} crackable passwords in the system.</p>
-              <h2>Round begins in {{round.hurryTime}} seconds.</h2>
-            </template>
-            <template v-if="ui.enterFinalPasswords">
-              <h2 class="success" v-if="ui.passwordSuccessMessage">Success!</h2>
-              <h2 v-else>Crack your Coworkers</h2>
-              <form class="password-form" @submit.prevent="tryToCrackWith(ui.passwordAttempt)">
-                <fieldset>
-                  <input type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" :class="{ 'error' : ui.passwordInputError }" autocomplete="off" required v-focus>
-                  <label for="PasswordAttempt">Enter A Password<sup class="required">*</sup></label>
-                </fieldset>
-                <div class="button-holder">
-                  <button type="submit">Submit</button>
-                </div>
-              </form>
-              <div class="password-errors" v-if="ui.passwordAttemptErrors &amp;&amp; ui.passwordAttemptErrors.length &gt; 0">
-                <div class="error" v-if="ui.passwordAttemptErrors.length == 1">{{ui.passwordAttemptErrors[0]}}</div>
-                <ul v-if="ui.passwordAttemptErrors.length &gt; 1">
-                  <li class="error" v-for="(err,index) in ui.passwordAttemptErrors">{{err}}</li>
-                </ul>
-              </div>
-              <div class="success" v-if="ui.passwordSuccessMessage">
-                <p class="success">{{ui.passwordSuccessMessage}}</p>
-              </div>
-              <p class="there-are-unclaimed">There are <span class="count">{{computedUnclaimedPasswords}}</span> unclaimed passwords in the system.</p>
-            </template>
-          </div>
-        </div>
-        <div class="round-reminder" :class="{'visible': (round.hurryTime &lt;= 10)}">
-          <h3>Played rounds...</h3>
-          <ol>
-            <li v-for="round in roundSummary"> 
-              <div class="challenge-name">{{round.challenge}}</div>
-              <ul>
-                <template v-for="rule in round.rules">
-                  <li v-if="rule.type=='Demand A Letter'">Required <strong>{{rule.inputValue}} </strong></li>
-                  <li v-if="rule.type=='Ban A Letter'">Banned <strong>{{rule.inputValue}} </strong></li>
-                  <li v-if="rule.type=='Ban A Combo'">Can't use <strong>{{rule.inputValue}} </strong>with <strong>{{rule.inputValueTwo}}</strong></li>
-                  <li v-if="rule.type=='Set A Minimum'">Min of <strong>{{rule.inputValue}}</strong></li>
-                  <li v-if="rule.type=='Set A Maximum'">Max of <strong>{{rule.inputValue}}</strong></li>
-                  <li v-if="rule.type=='Limit Vowels'">Vowel limit of <strong>{{rule.inputValue}}</strong></li>
-                </template>
-              </ul>
-            </li>
-          </ol>
-        </div>
-        <div class="timer final-timer" v-if="round.roundTimer != undefined">
-          <time>{{round.finalTimeLeft}}</time>
-        </div>
-        <div class="scorekeeper" :player-count="players.length">
-          <div class="player" v-for="(player,index) in players" :class="{ you: (index == my.playerIndex) }">
-            <div class="inside">
-              <div class="admin-icon" v-if="index == round.sysAdminIndex">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                  <path d="M6.24 93.81V76a9 9 0 013.28-7 135.29 135.29 0 0117.65-12.14A2.55 2.55 0 0130.78 58l12 26.47 4.36-10.37a6.07 6.07 0 115.73 0l4.33 10.38L69.22 58a2.55 2.55 0 013.61-1.16A135.08 135.08 0 0190.48 69a9 9 0 013.28 7v17.82A5.18 5.18 0 0188.58 99H11.43a5.19 5.19 0 01-5.19-5.19zm22.14-70a22.23 22.23 0 012.22-5.34l-2.5-3.57a3.3 3.3 0 01.37-4.23L31 8.1a3.3 3.3 0 014.23-.37l3.57 2.5A22.23 22.23 0 0144.18 8l.75-4.29A3.3 3.3 0 0148.18 1h3.64a3.3 3.3 0 013.25 2.73L55.82 8a22.27 22.27 0 015.34 2.22l3.57-2.5A3.3 3.3 0 0169 8.1l2.57 2.57a3.3 3.3 0 01.37 4.23l-2.5 3.57a22.22 22.22 0 012.22 5.34l4.29.75a3.3 3.3 0 012.73 3.25v3.64a3.3 3.3 0 01-2.73 3.25l-4.29.75a22.23 22.23 0 01-2.22 5.35l2.5 3.57a3.3 3.3 0 01-.37 4.23L69 51.18a3.3 3.3 0 01-4.23.37L61.17 49a22.25 22.25 0 01-5.34 2.22l-.75 4.29a3.3 3.3 0 01-3.25 2.73h-3.65a3.3 3.3 0 01-3.25-2.73l-.75-4.29A22.23 22.23 0 0138.83 49l-3.57 2.5a3.3 3.3 0 01-4.26-.32l-2.57-2.57a3.3 3.3 0 01-.37-4.23l2.5-3.57a22.24 22.24 0 01-2.22-5.35l-4.29-.75a3.3 3.3 0 01-2.73-3.25v-3.64a3.3 3.3 0 012.73-3.25zm11.35 5.82A10.27 10.27 0 1050 19.37a10.27 10.27 0 00-10.27 10.27z"></path>
-                </svg>
-              </div>
-              <div class="name">{{player.name}}</div>
-              <div class="score">{{player.score}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <main class="game-over" v-if="round.phase == 'GAME OVER'">
-        <section class="headline">
-          <h1>Game Over!</h1>
-        </section>
-        <section class="round-summaries">
-          <div class="summaries">
-            <div class="round-summary" v-for="(r, index) in roundSummary">
-              <div class="number">{{(index + 1)}}</div>
-              <div class="sysadmin">{{r.sysAdmin}} presented...</div>
-              <div class="challenge">{{r.challenge}}</div>
-              <div class="source" v-if="r.listSource"><a :href="r.listSource" target="_blank">List Source</a></div>
-              <ul class="rules">
-                <li class="rule" v-for="m in r.rules">{{m.message}}</li>
-                <li class="rule" v-if="!r.rules || r.rules.length &lt; 1">{{r.sysAdmin}} didn't set any rules.</li>
-                <li class="bug" v-for="b in r.bugs"> <strong>{{b}} </strong> was a bug</li>
-                <li class="bug" v-if="!r.bugs || r.bugs.length &lt; 1">{{r.sysAdmin}} didn't create any bugs.</li>
-              </ul>
-              <div class="possible-count" v-if="r.possibleAnswers">There were {{r.possibleAnswers}} possible answers</div>
-              <div class="attempts">
-                <ol>
-                  <li v-for="a in r.attempts" :class="a.result">{{players[a.playerIndex].name}} tried <strong>{{a.pwAttempt}}</strong><span v-if="a.result == 'crash'">, which crashed the server.</span></li>
-                </ol>
-              </div>
-            </div>
-          </div>
-        </section>
-        <h2>In the final round...</h2>
-        <section class="crack-summary">
-          <template v-if="crackSummary || crackSummary.length &gt; 0">
-            <div class="crack-headline" v-if="crackSummary.length &gt; 0">{{crackSummary.length}} passwords were cracked.</div>
-            <div class="crack-headline" v-else>There we no cracked passwords.</div>
-            <div class="cracks" v-if="crackSummary.length &gt; 0">
-              <div class="crack" v-for="c in crackSummary" v-if="c" :class="{'self-own': (c.attackerIndex == c.victimIndex)}">
-                <div class="inside">
-                  <div class="password">{{c.pw}}</div>
-                  <div class="icon attacker-icon">
-                    <template v-if="c.attackerIndex != c.victimIndex">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path d="M500.381 474.501c-.618-4.234-1.237-8.278-1.618-10.085-5.043-25.118-13.51-46.954-25.927-66.792-10.704-17.031-23.834-29.733-38.772-37.82-21.693-11.513-44.195-22.74-65.888-33.586a1476.81 1476.81 0 01-26.022-12.987l-6.755-3.425c0 .333-4.615 6.613-5.186 7.231-6.517 7.041-15.604 13.082-23.501 18.458-15.461 10.513-32.968 12.369-50.712 12.369s-35.251-1.855-50.712-12.369c-7.897-5.376-16.983-11.418-23.501-18.458-.571-.618-5.186-6.898-5.186-7.231l-6.755 3.425a1473.351 1473.351 0 01-26.022 12.987c-21.693 10.846-44.195 22.074-65.888 33.586-14.938 8.087-28.068 20.789-38.772 37.82-12.417 19.838-20.884 41.674-25.927 66.792-.381 1.808-.999 5.851-1.618 10.085-1.142 7.279 3.853 14.129 11.085 15.223 72.976 11.18 151.471 17.27 233.296 17.317 81.825-.048 160.32-6.137 233.296-17.317 7.232-1.093 12.227-7.944 11.085-15.223zM257.423 4.959c-10.652.655-19.986.861-29.232 1.87-22.376 2.441-38.639 13.324-45.578 35.46-3.03 9.666-4.984 19.697-6.934 29.659-.601 3.068-1.567 3.968-4.547 4.338-13.987 1.736-28.035 3.246-41.871 5.846-11.458 2.153-22.586 5.981-31.59 13.946-10.695 9.461-9.133 22.614 2.206 30.66 13.259 9.41 30.621 5.288 45.738 5.148 8.322-.078 16.643-.13 24.965-.179 24.504-.144 49.008-.239 73.512-.311 26.03-.076 52.061-.127 78.091-.108 14.785.011 30.029.019 44.987.343 13.707.297 29.331 3.66 42.216-2.385 9.46-4.438 14.685-14.248 10.947-24.365-4.518-12.227-19.752-17.503-31.086-21.043-15.779-4.929-32.175-6.549-48.603-7.6-2.879-.184-3.692-1.244-4.26-4.085-1.989-9.957-3.886-20.001-6.922-29.665-6.37-20.278-20.578-32.004-41.602-34.878-10.498-1.437-21.134-1.871-30.437-2.651zM354.216 160.713c-.511-3.227-6.244-4.159-6.306-4.167-7.216-.982-13.536-1.636-19.32-2.001-8.704-.551-16.444-.818-23.664-.818-10.25 0-19.567.533-28.482 1.631-6.465.797-13.42 1.551-20.409 1.667-7.06-.116-14.015-.87-20.48-1.667-8.915-1.098-18.231-1.631-28.482-1.631-7.219 0-14.96.267-23.663.818-5.784.365-12.104 1.02-19.325 2.002-.058.008-5.79.94-6.303 4.173-.37 2.388-.683 6.777 1.379 9.347 2.758 3.439 4.006 6.65 4.173 10.738.347 8.42 2.735 16.591 7.101 24.289 4.258 7.487 10.75 11.905 19.296 13.128 5.742.827 11.373 1.246 16.734 1.246 5.301 0 10.532-.409 15.548-1.217 11.941-1.929 20.214-8.672 23.927-19.501 1.944-5.672 3.216-11.609 4.446-17.35.344-1.603.687-3.206 1.044-4.801.828-3.686 2.081-4.361 4.568-4.439 2.486.078 3.74.753 4.567 4.438.358 1.598.702 3.203 1.046 4.808 1.23 5.739 2.502 11.674 4.445 17.345 3.713 10.828 11.986 17.571 23.929 19.501 5.014.807 10.245 1.216 15.547 1.216 5.361 0 10.992-.419 16.733-1.246 8.547-1.224 15.039-5.641 19.299-13.131 4.364-7.697 6.753-15.868 7.099-24.287.168-4.088 1.416-7.299 4.173-10.737 2.064-2.569 1.752-6.959 1.38-9.354zm-61.561 47.39c-11.646-2.023-18.045-8.759-19.564-20.593-.243-1.881-.371-3.839-.496-5.733a144.151 144.151 0 00-.297-3.966c-.414-4.489 1.516-7.642 5.582-9.12 5.253-1.913 10.465-3.161 15.492-3.708 4.642-.504 8.829-.75 12.798-.75 7.228 0 13.688.818 19.753 2.501 9.271 2.566 11.407 5.423 10.886 14.552-.345 5.867-1.478 11.462-3.275 16.179-2.502 6.559-8.182 10.206-17.367 11.148-2.415.246-4.924.349-7.58.459-1.223.051-2.493.103-3.828.171-1.058-.092-2.177-.166-3.336-.243-2.87-.19-5.837-.387-8.768-.897zm-82.076.898c-1.159.077-2.278.151-3.336.243a375.48 375.48 0 00-3.828-.171c-2.657-.109-5.166-.213-7.58-.458-9.186-.943-14.867-4.589-17.368-11.148-1.798-4.717-2.931-10.312-3.276-16.176-.52-9.132 1.616-11.989 10.887-14.556 6.063-1.682 12.525-2.501 19.752-2.501 3.969 0 8.155.245 12.798.75 5.026.547 10.238 1.794 15.493 3.708 4.065 1.477 5.995 4.63 5.581 9.116a141.548 141.548 0 00-.298 3.971c-.124 1.893-.253 3.851-.496 5.732-1.519 11.833-7.918 18.568-19.564 20.591-2.93.511-5.896.708-8.765.899zM364.041 246.448c-5.941-3.265-13.168-3.843-19.858-1.574a.588.588 0 00-.36.772c.171.466.501.318.866.348.937.082 2.364.029 3.307.077 1.851.094 3.259.283 5.051.772 3.666 1.008 6.684 3.301 7.998 6.955 3.366 9.378-7.315 18.419-18.979 16.633-15.366-2.358-23.541-13.014-33.88-23.4-2.134-2.14-4.02-4.456-5.93-6.743-10.999-13.138-32.919-12.13-43.988.973-.566.666-1.138 1.326-1.833 2.14a.585.585 0 01-.436.212.589.589 0 01-.436-.212c-.696-.813-1.267-1.474-1.833-2.14-11.069-13.103-32.99-14.111-43.988-.973-1.91 2.287-3.796 4.603-5.93 6.743-10.338 10.386-18.514 21.042-33.88 23.4-11.665 1.786-22.345-7.256-18.979-16.633 1.314-3.654 4.332-5.947 7.998-6.955 1.792-.489 3.201-.678 5.051-.772.943-.047 2.369.006 3.307-.077.365-.03.696.118.866-.348a.587.587 0 00-.36-.772c-6.69-2.269-13.916-1.692-19.858 1.574-7.256 3.99-10.244 10.627-8.299 18.172 2.582 9.997 10.356 16.227 21.137 20.093 10.94 3.926 22.433 6.1 34.316 6.932 17.075 1.202 33.32-.76 48.055-8.558 4.379-2.316 8.541-4.922 12.802-7.409.012-.006.018-.012.029-.012.012 0 .018.006.029.012 4.262 2.487 8.423 5.093 12.802 7.409 14.736 7.798 30.98 9.761 48.055 8.558 11.883-.831 23.376-3.006 34.316-6.932 10.78-3.867 18.555-10.097 21.137-20.093 1.949-7.545-1.04-14.182-8.295-18.172z"></path>
-                      </svg>
-                    </template>
-                    <template v-if="c.attackerIndex == c.victimIndex">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                        <path d="M97.7 92.7c-.1-.8-.2-1.6-.3-2-1-4.9-2.6-9.2-5.1-13-2.1-3.3-4.7-5.8-7.6-7.4-4.2-2.2-8.6-4.4-12.9-6.6-1.7-.8-3.4-1.7-5.1-2.5l-1.3-.7c0 .1-.9 1.3-1 1.4-1.3 1.4-3 2.6-4.6 3.6-3 2.1-6.4 2.4-9.9 2.4s-6.9-.4-9.9-2.4c-1.5-1.1-3.3-2.2-4.6-3.6-.1-.1-1-1.3-1-1.4l-1.3.7c-1.7.9-3.4 1.7-5.1 2.5-4.2 2.1-8.6 4.3-12.9 6.6-2.9 1.6-5.5 4.1-7.6 7.4-2.4 3.9-4.1 8.1-5.1 13-.1.4-.2 1.1-.3 2-.2 1.4.8 2.8 2.2 3C18.7 97.8 34 99 50 99c16 0 31.3-1.2 45.6-3.4 1.4-.2 2.4-1.5 2.1-2.9zM48.1 19.2c0-7.5-6.1-13.8-13.8-13.8s-13.8 6.1-13.8 13.8S26.7 33 34.3 33s13.8-6.2 13.8-13.8zm-22.5 0c0-4.8 4-8.8 8.8-8.8 2.5 0 4.6 1 6.2 2.6h-1.3c-3.5 0-6.2 2.8-6.2 6.2 0 3.5 2.8 6.2 6.2 6.2.4 0 .8 0 1.2-.1a8.51 8.51 0 01-6.2 2.7c-4.8-.1-8.7-4-8.7-8.8zM65.7 5.4c-7.5 0-13.8 6.1-13.8 13.8S58 33 65.7 33s13.8-6.1 13.8-13.8S73.2 5.4 65.7 5.4zm0 22.5c-2.5 0-4.6-1-6.2-2.6.4.1.8.1 1.2.1 3.5 0 6.2-2.8 6.2-6.2 0-3.5-2.8-6.2-6.2-6.2-.4 0-.8 0-1.2.1 1.6-1.6 3.8-2.6 6.2-2.6 4.8 0 8.8 4 8.8 8.8s-4 8.6-8.8 8.6z"></path>
-                        <path d="M69.2 38.5H30.6c-1.5 0-2.7 1.2-2.5 2.8C29.6 52.2 38.9 60.5 50 60.5s20.4-8.3 21.8-19.1c.2-1.5-1-2.9-2.6-2.9z"></path>
-                      </svg>
-                    </template>
-                  </div>
-                  <div class="attacker">{{players[c.attackerIndex].name}}</div>
-                  <div class="icon victim-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                      <path d="M38.661 77.593c-.506.034-.958.163-1.416.304l-1.241.403c-.008.151-.009.303-.045.451-.1.487-.313.928-.484 1.281a5.535 5.535 0 00-.161.346c-.067.151-.114.28-.153.392 1.024.217 2.062.392 3.099.519.024-.071.042-.135.079-.219.112-.283.325-.673.639-1.164l.146-.236c.203-.323.413-.655.542-1.019.06-.178.085-.318.07-.401-.016-.098-.064-.229-.228-.441-.157-.199-.558-.244-.847-.216zM31.211 76.928c-.083.002-.149.008-.225.012.006.354-.051.73-.184 1.132-.1.316-.239.636-.38.954-.097.221-.186.427-.258.622a38.378 38.378 0 013.078.669c.066-.222.151-.461.266-.719.052-.125.122-.271.196-.423.143-.295.278-.574.338-.864.058-.23-.079-.547-.314-.791-.645-.607-1.821-.601-2.517-.592zM26.953 76.175l-.282.006c-.339.016-.704.046-1.07.077-.153.014-.308.02-.463.03.114.717.127 1.396.126 1.946l-.02.701c1.001.117 1.995.251 2.962.396.113-.397.268-.765.417-1.101.111-.254.226-.505.308-.767.096-.29.118-.519.066-.653-.056-.146-.208-.299-.458-.469-.417-.195-.984-.181-1.586-.166zM40.646 80.944c-.144.227-.246.399-.322.535.837.053 1.664.073 2.467.055l-.007-.554c-.031-.686-.064-1.469-.336-2.14-.099-.236-.249-.39-.345-.426a.79.79 0 00-.401-.041c-.011.359-.1.686-.179.922-.208.582-.501 1.047-.735 1.422l-.142.227zM20.444 77.585c-.077.292-.152.576-.203.851.973.083 2 .177 3.043.284l.013-.489c.002-.765.004-1.717-.328-2.531-.101-.236-.303-.44-.488-.48-.3-.073-.621-.062-.978.028a4.556 4.556 0 00-.818.266h-.002c.059.392.053.813-.039 1.25-.056.273-.128.549-.2.821zM15.181 70.133c.433.482 1.01.717 1.763.717h.03c.898-.008 1.126-.167 1.467-.278.241-.738.703-1.502.764-1.606l.816-1.399s.579.988.647 1.389c.059.344.293.768.373 2.266.391.321 1.153.55 2.175.642 1.358.121 2.08-.063 2.461-.274.37-1.016.533-1.723.609-1.844l.903-1.462c-5.895-1.423-11.009-2.011-13.042-2.076-.01 1.177.17 2.963 1.034 3.925zM13.939 78.01c.849.044 2.41.13 4.333.271.066-.423.172-.822.27-1.196.063-.24.127-.48.178-.723.045-.217.077-.528-.03-.771-.094-.218-.283-.433-.599-.687-.744-.618-1.914-.722-2.901-.297-.061.024-.122.046-.181.074-.205.229-.718.862-.979 1.702a3.142 3.142 0 00-.091 1.627z"></path>
-                      <path d="M88.811 27.258C80.778 11.196 70.29 7.262 70.29 7.262S56.686-.113 40.953 3.492C25.22 7.099 23.745 20.209 21.942 22.341c0 0-.289 3.86-4.222 6.811-3.934 2.95-3.808 6.874-4.464 10.725C12.6 43.729 6.468 50.71 8.45 56.506c1.526 4.463 5.052.417 5.707 4.104.306 1.723-.135 2.733-.635 3.63 2.786-.088 13.027 1.16 22.606 4.665 9.833 3.598 11.627 1.667 13.083-1.457 1.517-3.26 4.707-3.714 7.304-4.01.938-.105 2.781-.43 5.462-.541.62-.025 1.349.031 2.11.106.764.063 1.579.119 2.387.213 3.238.334 6.438.835 6.438.835s-3.243-.011-6.464.148c-.806.026-1.606.098-2.355.147-.753.041-1.436.15-2.027.206-.6.05-1.043.185-1.375.232l-.511.096c-.591.14-1.099.899-1.62 1.63-2.352 3.289-1.214 7.274-5.379 13.024-2.18 3.01-6.488 3.978-10.875 3.978-3.496 0-7.043-.616-9.598-1.304-6.215-1.673-19.4-2.263-19.533-2.269l-.375-.016c-.048.44-.134.886-.365 1.335-1.721 3.359-4.507 10.489-2.048 11.964 2.458 1.475 18.383 4.18 28.941 4.262 10.558.081 19.244 0 22.275-5.982 3.032-5.983 2.867-4.506 6.229-4.917 3.359-.409 11.964-1.066 15.733-11.226 3.771-10.16 13.276-32.041 5.246-48.101zM32.186 57.53c-.983 3.637-3.113.785-6.638-.033-3.524-.82-5.572 1.639-4.671-2.213.612-2.615 3.264-9.196 4.903-13.153-1.809 1.769-4.068 3.011-5.782 3.499-3.878 1.103-5.221.308-5.052-4.465.17-4.771 2.826-11.497 5.052-11.349 0 0 6.391-2.689 8.473 3.532.705 2.103.394 4.058-.459 5.773 2.977 1.702 5.069 15.098 4.174 18.409zm20.487-6.917c-4.508-.246-12.949-4.099-13.358-9.016-.409-4.917 5.817-11.8 5.817-11.8s8.687-3.441 13.932 5.574c5.244 9.013-1.886 15.487-6.391 15.242zm19.896 9.285s-.074-.021-.181-.055l-.054.113-.347-.086c-.237-.048-.559-.171-.964-.36a8.312 8.312 0 01-1.353-.855c-.473-.39-1.004-.852-1.487-1.427-.5-.565-.992-1.218-1.434-1.964-.229-.37-.441-.766-.635-1.196a5.705 5.705 0 01-.276-.7 3.313 3.313 0 01-.139-.558 2.223 2.223 0 01-.035-.262l-.007-.083-.001-.021v-.01c-.003.036.015-.349.009-.196l.02-.082c.056-.223.132-.446.22-.656l.163-.315.3-.573c.207-.361.329-.714.497-1.083.235-.735.377-1.573.327-2.358l-.045-.591-.018-.3c-.021-.107-.059-.225-.087-.338-.12-.454-.242-.905-.362-1.352a500.93 500.93 0 00-.353-1.354l-.178-.695-.084-.691-.157-1.341c-.021-.438-.021-.866-.022-1.281-.029-.83.053-1.605.098-2.322.038-.716.156-1.364.217-1.938.078-.574.179-1.072.25-1.479.168-.818.283-1.275.283-1.275l.231.041.017-.071.193.032s-.055.471-.112 1.285l-.069 1.477c.004.57-.04 1.212.001 1.911.035.697.041 1.454.158 2.242l.14 1.21.258 1.235.13.63.218.607.457 1.283.48 1.313c.092.208.15.455.192.724l.145.784c.135.791.123 1.573.03 2.353-.029.288-.068.578-.116.866-.14.503-.255 1.045-.461 1.496-.094.236-.188.474-.276.651l-.119.26.01-.009c.012-.022-.008-.045.032.072l.17.508.418 1.058c.179.415.367.807.555 1.186.147.283.295.56.44.819.657 1.18 1.337 2.08 1.873 2.67.275.286.5.517.67.65l.254.228-.084.173zm-.839 7.25s-.539.842-1.366 2.054c-.201.309-.438.624-.649.987-.196.373-.422.751-.646 1.147l-.69 1.214c-.224.418-.398.871-.6 1.306-.185.443-.394.872-.55 1.316a12.54 12.54 0 01-.444 1.296c-.187.4-.367.788-.539 1.153-.172.368-.354.711-.539 1.026-.286.598-.595 1.102-.808 1.472-.066.151-.129.293-.18.415l-.277.656-.175-.003s-.102-.242-.158-.693a4.114 4.114 0 01-.077-.816v-.009a4.52 4.52 0 01-.021-.43c0-.318.001-.684.033-1.078.052-.386.128-.801.228-1.236a5.33 5.33 0 01.434-1.326c.202-.438.443-.878.701-1.313l.857-1.269c.287-.421.547-.857.851-1.253l.921-1.137c.301-.366.58-.726.861-1.052.29-.32.601-.592.866-.857.413-.403.774-.748 1.064-1.022l.796-.802.136.093-.081.112.052.049z"></path>
-                      <path d="M27.645 68.391l.124 1.516c.012.308-.015 1.214-.048 2.388l.002.004c.284.396.936.739 2.025.856 1.352.142 2.144-.008 2.603-.206.795-.891.979-1.152 1.548-1.813l.844-.638a76.65 76.65 0 00-7.098-2.107zM34.948 70.571l-.051 1.102c.007.087-.062.725-.152 1.633.291.153.762.348 1.513.554 1.487.403 2.345.405 2.819.32.036-.836.542-1.748 1.297-1.903-1.43-.34-3.059-.841-4.922-1.523a21.574 21.574 0 00-.504-.183zM42.579 74.746c1.12.037 1.946-.167 2.373-.582.364-.355.457-.893.48-1.393-1.153.121-2.527.031-4.193-.305.226.169.387.428.437.739a2.54 2.54 0 01-.161 1.393c.236.073.579.132 1.064.148z"></path>
-                    </svg>
-                  </div>
-                  <div class="victim">{{players[c.victimIndex].name}}</div>
-                </div>
-              </div>
-            </div>
-          </template>
-          <div class="crack-headline" v-if="computedUncrackedPasswords.length &gt; 0">There were {{computedUncrackedPasswords.length}} secure passwords.</div>
-          <div class="crack-headline" v-else="">There were no secure passwords.</div>
-          <div class="cracks" v-if="computedUncrackedPasswords.length &gt; 0">
-            <div class="crack" v-for="u in computedUncrackedPasswords">
-              <div class="inside">
-                <div class="password">{{u.pw}}</div>
-                <div class="icon secure-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                    <path d="M36.94 36.73L29 44.62l-2.56-2.56a1 1 0 10-1.41 1.41l3.27 3.28a1 1 0 001.41 0l8.61-8.61a1 1 0 000-1.41 1 1 0 00-1.38 0z"></path>
-                    <path d="M47.6 22.82a9.58 9.58 0 00-1.8-.74V16.8a13.8 13.8 0 10-27.6 0v5.26a9.05 9.05 0 00-6.45 8.67V52a9.06 9.06 0 009.05 9h22.4a9.06 9.06 0 009-9V30.73a9.06 9.06 0 00-4.6-7.91zM32 52.59a11.25 11.25 0 1111.25-11.25A11.27 11.27 0 0132 52.59zm-7.8-30.91V16.8a7.8 7.8 0 1115.6 0v4.88zm19.6 0h-2V16.8a9.8 9.8 0 10-19.6 0v4.88h-2V16.8a11.8 11.8 0 1123.6 0z"></path>
-                  </svg>
-                </div>
-                <div class="creator">{{u.name}}</div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <h2>And so, the scores...</h2>
-        <section class="final-scores">
-          <div class="players">
-            <div class="player" v-for="(p,rank) in computedPlayersByScore" :rank="(rank + 1)">
-              <div class="rank">{{(rank+1)}}</div>
-              <div class="name">{{p.name}}</div>
-              <div class="score">{{p.score}}</div>
-            </div>
-          </div>
-        </section>
-        <div class="game-by-lemon"><a href="https://ahoylemon.xyz">
-            <h3>This game is <span>by Lemon.</span></h3><img src="svg/lemon.svg" alt="Lemon"></a></div>
-        <section class="final-links"><a href="https://github.com/AhoyLemon/invalid">GitHub Repo.</a><a href="https://invalidgame.herokuapp.com">Play Again.</a></section>
-      </main>
-    </div>
-    <div class="javascripts">
-      <script src="js/libraries/vue.full.js"></script>
-      <script>const testing = true;</script>
-      <script src="js/libraries/howler.min.js"></script>
-      <script src="/socket.io/socket.io.js"></script>
-      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-      <script>
-        //var socket = io();
-        var socket = io.connect();
-        
-      </script>
-      <script src="js/min/site.min.js?updated2021-00-17@22:41:42"></script>
-      <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-      <script>
-        TrackJS.install({
-          token: "9947e081831c42b8aeb3a5fb81a152c4",
-          application: "invalidgame"
-        });
-        
-      </script>
-      <!--  Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-99MNSSHL0B"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-        
-          gtag('config', 'G-99MNSSHL0B');
-      </script>
-    </div>
-  </body>
 </html>
+<body>
+  <div id="app" v-cloak="v-cloak">
+    <main class="title-screen" v-if="!game.started">
+      <div class="splash">
+        <div class="inside"> 
+          <div class="logo-holder">
+            <figure class="logo"><img src="/svg/wrongest.svg"/></figure>
+          </div>
+          <div class="help-holder" v-if="!ui.watchingVideo"><strong>Need instructions? </strong><a @click="watchVideo()">Click here.</a><br/>I promise I'll try to make it quick.</div>
+          <div class="video-holder" v-if="ui.watchingVideo">
+            <figure class="video">
+              <iframe id="ytplayer" type="text/html" src="https://www.youtube-nocookie.com/embed/2jE6ifrz9bU?autoplay=1&amp;controls=0&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;color=white" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+            </figure>
+            <figcaption>
+              <button class="close-video" @click="ui.watchingVideo = false">Okay, close this video. </button>
+            </figcaption>
+          </div>
+        </div>
+      </div>
+      <div class="create">
+        <button @click="createRoom()">Create a New Room</button>
+      </div>
+      <div class="or"><span>or</span></div>
+      <div class="join">
+        <form @submit.prevent="joinRoom()">
+          <button v-if="roomCode &amp;&amp; roomCode.length &gt; 3" type="submit">Join this room.</button>
+          <input id="EnterRoomCode" type="text" minlength="4" maxlength="4" required="required" v-model="roomCode" @input="roomCode = $event.target.value.toUpperCase()" placeholder="Enter A Room Code"/>
+          <div class="enter-a-room-code"></div>
+        </form>
+      </div>
+    </main>
+    <main>
+      <div class="three-to-compare">
+        <draggable class="list-group unranked" :list="round.leftSide" group="people" :options="{ disabled : ui.animateCameoIndex &lt; 3 }" :class="{ 'no-move-cursor' : ui.animateCameoIndex &lt; 3 }" @start="isDragging = true" @end="isDragging = false" v-if="computedGuessingPhase == 'sort' || computedGuessingPhase == 'submit'">
+          <div class="cameo list-group-item" v-for="(element, index) in round.leftSide" :key="index">
+            <figure><img :src="'/cameos/'+element.slug+'.jpg'"/></figure>
+            <figcaption>
+              <div class="name">{{ element.name }}</div>
+              <div class="desc" v-if="element.desc">{{element.desc}}</div>
+            </figcaption>
+          </div>
+        </draggable>
+        <draggable class="list-group ranked" :list="round.rightSide" group="people" v-if="computedGuessingPhase != 'answers' &amp;&amp; computedGuessingPhase != 'finished'">
+          <div class="cameo list-group-item" v-for="(element, index) in round.rightSide" :rank="(index + 1)" :key="index">
+            <figure><img :src="'/cameos/'+element.slug+'.jpg'"/></figure>
+            <figcaption>
+              <div class="rank"> <sup>#</sup><span>{{(index + 1)}}</span></div>
+              <div class="name">{{ element.name }}</div>
+              <div class="desc" v-if="element.desc">{{element.desc}}</div>
+            </figcaption>
+          </div>
+          <div class="help-text" v-if="round.rightSide.length &lt; 1"> 
+            <div class="inside" v-if="ui.showDragHelp">place guesses here</div>
+          </div>
+        </draggable>
+        <div class="list-group correct" v-if="ui.orderConfirmed || computedGuessingPhase == 'finished'">
+          <div class="cameo off-table" v-for="(element, index) in round.correctSide" :rank="(index + 1)" :key="index">
+            <figure><img :src="'/cameos/'+element.slug+'.jpg'"/></figure>
+            <figcaption>
+              <div class="name">{{ element.name }}</div>
+              <div class="guess-value" v-if="round.guessValueIndex == index">
+                <form class="guess-value" @submit.prevent="submitCameoValueGuess()" v-if="ui.itsTimeToGuessValue">
+                  <div class="value"> <span>$</span>
+                    <input placeholder="???" type="number" v-model="ui.valueGuess" :min="ui.valueGuessMin" :max="ui.valueGuessMax"/>
+                    <button v-if="ui.valueGuess &gt; 0">
+                      <svg fill="#1A1A1A" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 245" fill-rule="evenodd" clip-rule="evenodd" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality">
+                        <path d="M122 0C55 0 0 55 0 122c0 34 14 65 36 87s53 36 86 36c68 0 123-55 123-123C245 55 190 0 122 0zM62 103l36 36 85-85 26 26L98 191l-62-62 26-26z" fill="#1a1a1a" fill-rule="nonzero"></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="fake-tooltip arrow_box">
+                    <div class="text">Now guess {{round.correctSide[round.guessValueIndex].name}}'s Cameo value</div>
+                  </div>
+                </form>
+                <div class="value" v-else-if="round.valueGuessed">{{dollars(element.value)}}</div>
+                <div class="value" v-else="v-else">$???</div>
+              </div>
+              <div class="value" v-else="v-else">{{dollars(element.value)}}</div>
+            </figcaption>
+          </div>
+        </div>
+        <div class="list-group guessed ranked" v-if="computedGuessingPhase == 'answers' || computedGuessingPhase == 'finished'">
+          <div class="cameo" v-for="(element, index) in round.rightSide" :rank="(index + 1)" :key="index" v-bind:class="{ correct: round.rightSide[index] == round.correctSide[index], incorrect: round.rightSide[index] != round.correctSide[index] }">
+            <figure><img :src="'/cameos/'+element.slug+'.jpg'"/></figure>
+            <figcaption>
+              <div class="rank"> <sup>#</sup><span>{{(index + 1)}}</span></div>
+              <div class="name">{{ element.name }}</div>
+              <div class="desc" v-if="element.desc">{{element.desc}}</div>
+            </figcaption>
+          </div>
+          <div class="help-text" v-if="round.rightSide.length &lt; 1"> </div>
+        </div>
+      </div>
+      <div class="underbanner hud">
+        <div class="score">
+          <div v-if="my.score &gt; 0">{{my.score}} Points</div>
+          <div v-else="v-else">No Points</div>
+        </div>
+        <div class="interface">
+          <div class="sort-the-above" v-if="computedGuessingPhase == 'sort'"><span>Sort the above by their relative Cameo value.</span></div>
+          <div class="button-holder" v-else-if="computedGuessingPhase == 'submit'">
+            <button @click="submitSortOrder()">Submit Answers</button>
+          </div>
+          <div class="button-holder" v-else-if="computedGuessingPhase == 'answers'"><span v-if="ui.itsTimeToGuessValue">
+              <button @click="submitCameoValueGuess()">Valuate {{round.correctSide[round.guessValueIndex].name}}</button></span></div>
+          <div class="button-holder" v-else-if="computedGuessingPhase == 'finished'"><span v-if="ui.showNextRoundButton">
+              <button @click="startNextRound()">Okay, Next Round</button></span></div>
+        </div>
+        <div class="round">
+          <div v-if="round.number &gt; 0">Round {{round.number}}</div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="public/js/libraries/vue.full.js"></script>
+  <script>const testing = true;</script>
+  <script src="public/js/libraries/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+  <script src="public/js/libraries/vue-toast-notification.min.js"></script>
+  <link href="public/css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet"/>
+  <script src="public/js/min/cameo.min.js?updated2021-01-10@08:55:59"></script>
+</body>

@@ -92,6 +92,7 @@ var app = new Vue({
       enterFinalPasswords: false,
       passwordSuccessMessage: null,
       watchingVideo: false,
+      musicPlaying: false,
     },
     // TODO: Deprecate this?
     messages: []
@@ -163,6 +164,17 @@ var app = new Vue({
       } else {
         sendEvent("Invalid", "Instruction Video", "Title Screen");
       }
+      if (self.ui.musicPlaying) {
+        musicLobby.volume(0.2);
+      }
+    },
+
+    stopWatchingVideo() {
+      const self = this;
+      self.ui.watchingVideo = false;
+      if (self.ui.musicPlaying) {
+        musicLobby.volume(0.6);
+      }
     },
 
     updatePlayer() {
@@ -208,6 +220,11 @@ var app = new Vue({
       }
 
       self.sendPlayerUpdate();
+
+      if (!self.ui.musicPlaying) {
+        musicLobby.play();
+        self.ui.musicPlaying = true;
+      }
 
     },
     
@@ -663,6 +680,7 @@ var app = new Vue({
           self.startFinalRoundCounter();
         }
       }, 1000);
+      musicFinalRound.play();
     },
 
     startFinalRoundCounter() {
@@ -1032,6 +1050,7 @@ var app = new Vue({
     tryToCrackWith(attempt) {
       const self = this;
       attempt = attempt.toUpperCase();
+      document.getElementById("PasswordAttempt").focus();
 
       self.ui.passwordAttempt = "";
       self.ui.passwordSuccessMessage = "";
@@ -1102,19 +1121,18 @@ var app = new Vue({
         if (self.computedUnclaimedPasswords < 1) {
           self.setGameOver();
         }
-
-        document.getElementById("PasswordAttempt").focus();
       }
-
       document.getElementById("PasswordAttempt").focus();
     },
 
     setGameOver() {
+      musicFinalRound.stop();
+      soundFinalRoundOver.play();
       const self = this;
       clearInterval(self.round.roundTimer);
       self.round.roundTimer = undefined;
       self.round.phase = "GAME OVER";
-      soundGameOver.play();
+      //soundGameOver.play();
       socket.emit("gameOver", {
         roomCode: self.roomCode,
         gameName: self.gameName,
@@ -1379,34 +1397,52 @@ var app = new Vue({
 
     /////////////////////////////////////////////
     // FAKE A PLAYER IN THE FINAL ROUND.
-    /*
+    
     self.my.role = "employee";
     self.my.name = "Lemon";
     self.my.playerIndex = 1;
     self.currentlyInGame = true;
     self.players = [
-      { name: "Carlos", role:"SysAdmin", employeeNumber:2, score:320  },
-      { name: "Lemon", role:"employee", employeeNumber:1, score:118  },
-      { name: "Pablo", role:"employee", employeeNumber:3, score:212  }
+      { name: "Carlos", role:"SysAdmin", employeeNumber:2, score:320, passwordAttempts: 9   },
+      { name: "Lemon", role:"employee", employeeNumber:1, score:118, passwordAttempts: 11   },
+      { name: "Pablo", role:"employee", employeeNumber:3, score:212, passwordAttempts: 25   }
     ];
     self.round.phase = "FINAL ROUND";
 
     self.allEmployeePasswords = [
-      { pw: "SCORPION", name: "Carlos", playerIndex:0, claimed: false },
-      { pw: "RAIDEN", name: "Pablo", playerIndex:2, claimed: false },
-      { pw: "GORO", name: "Lemon", playerIndex:1, claimed: false },
-      { pw: "MILEENA", name: "Pablo", playerIndex:2, claimed: false },
-      { pw: "KITANA", name: "Lemon", playerIndex:1, claimed: false },
-      { pw: "KANO", name: "Pablo", playerIndex:2, claimed: false },
+
+      { pw: "BOB", name: "Lemon", playerIndex:1, claimed: false },
+      { pw: "BARNEY", name: "Pablo", playerIndex:2, claimed: false },
+
+      { pw: "PINEAL GLAND", name: "Carlos", playerIndex:0, claimed: false },
+      { pw: "THYROID", name: "Pablo", playerIndex:2, claimed: false },
+
+      { pw: "MONOPOLY", name: "Lemon", playerIndex:0, claimed: false },
+      { pw: "MOUSE TRAP", name: "Carlos", playerIndex:0, claimed: false },
+
+      { pw: "CESIUM", name: "Lemon", playerIndex:1, claimed: false },
+      { pw: "CHLORINE", name: "Pablo", playerIndex:2, claimed: false },
+
+      { pw: "PINWHEEL", name: "Carlos", playerIndex:0, claimed: false },
+      { pw: "CHLORINE", name: "Pablo", playerIndex:2, claimed: false },
+
+      { pw: "FRANKEN BERRY", name: "Carlos", playerIndex:0, claimed: false },
+      { pw: "CHEX", name: "Lemon", playerIndex:1, claimed: false },
     ];
     self.roundSummary = [
-      { challenge: "Top 100 SNES Games",
+      { challenge: "Simpsons Characters",
+        sysAdmin: "Lemon",
         rules: [
-          { type: "Ban A Letter", inputValue: "D" },
-          { type: "Ban A Letter", inputValue: "S" },
-        ]
+          { type: "Ban A Letter", inputValue: "D", message: "You may not use the letter D" },
+          { type: "Ban A Letter", inputValue: "S", message: "You may not use the letter S" },
+          { message: "Before entering a password, you must type SWORDFISH", },
+        ],
+        bugs: [
+          "APU"
+        ],
       },
       { challenge: "Human Organs",
+      sysAdmin: "Carlos",
       rules: [
         { type: "Set A Maximum", inputValue: 15 },
         { type: "Limit Vowels", inputValue: 6 },
@@ -1414,28 +1450,37 @@ var app = new Vue({
       ]
       },
       { challenge: "Classic Board Games",
+        sysAdmin: "Pablo",
         rules: [
           { type: "Ban A Combo", inputValue: "E", inputValueTwo:"S" },
           { type: "Ban A Letter", inputValue: "E" },
         ]
       },
       { challenge: "Periodic Table of Elements",
+        sysAdmin: "Lemon",
         rules: [
           { type: "Demand A Letter", inputValue: "I" },
           { type: "Set A Maximum", inputValue: 12 },
         ]
       },
       { challenge: "Types of Cookies",
+        sysAdmin: "Carlos",
         rules: [
           { type: "Demand A Letter", inputValue: "I" },
           { type: "Set A Minimum", inputValue: 6 },
         ] 
       },
+      { challenge: "Breakfast Cereal",
+        rules: [
+          { type: "Demand A Letter", inputValue: "I" },
+          { type: "Set A Minimum", inputValue: 6 },
+        ] 
+      }
 
 
     ];
     self.startCountdownToFinalRound();
-    */
+    
     
     /////////////////////////////////////////////
     // FAKE A GAME OVER SCREEN.
