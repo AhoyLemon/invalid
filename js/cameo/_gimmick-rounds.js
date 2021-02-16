@@ -21,6 +21,26 @@ const gimmickRounds = {
       { name: "Richard Petty", desc:"NASCAR driver", slug:"rlpetty43", value:250 },
 
     ],
+  },
+
+  trumpworld: {
+    name: "Trumpworld",
+    desc: "This round is cursed.",
+    queue: [
+      { name: "Roger Stone", desc:"Commuted Felon", slug:"rogerstone", value:75 },
+      { name: "Michael Cohen", desc:"Disbarred Legal Fixer", slug:"michaelcohen212", value:100 },
+      { name: "Joe Arpaio", desc: "Former Sheriff, Convicted of Criminal Contempt", slug:"sheriffjoearpaio", value:30 },
+
+      { name: "Kevin Sorbo", desc: "Former Hercules, Current Gab Poster", slug:"ksorbs", value:80 },
+      { name: "Anthony Scaramucci", desc:"Former White House Communications Director", slug:"themooch", value:55 },
+      { name: "Mike Cernovich", desc: "Liar", slug:"cerno", value:50 },
+
+      { name: "Sarah Palin", desc:"Portent of Things To Come", slug:"sarahpalin", value:200 },
+      { name: "Sebastian Gorka", desc:"Trump Strategist", slug:"sebastian_gorka", value:99 },
+      { name: "Sean Spicer", desc:"Former White House Press Secretary", slug:"seanspicer", value:99 },
+
+      { name: "Ice Cube", desc: "Helped Trump Solve Racism", slug:"donmega69", value:500 },
+    ]
   }
 };
 

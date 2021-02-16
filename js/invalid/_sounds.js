@@ -53,19 +53,33 @@ const soundNo = new Howl({
 });
 
 const soundCracked = new Howl({
-  src: [ audioSrc + 'password_cracked.mp3' ]
+  src: [ audioSrc + 'password_cracked.mp3' ],
+  volume: 1
 });
 
 const soundYouIdiot = new Howl({
-  src: [ audioSrc + 'you_idiot.mp3' ]
+  src: [ audioSrc + 'you_idiot.mp3' ],
+  volume: 1
 });
 
 const soundTooSlow = new Howl({
-  src: [ audioSrc + 'too_slow.mp3' ]
+  src: [ audioSrc + 'too_slow.mp3' ],
+  volume: 1
 });
 
 /////////////////////////////////
 // Game Over sounds.
+
+const musicFinalRound = new Howl({
+  src: [ audioSrc + 'invalid/crack-music-with-intro.mp3' ],
+  volume: 0.72,
+  loop: true
+});
+
+const soundFinalRoundOver = new Howl({
+  src: [ audioSrc + 'invalid/crack-gong.mp3' ]
+});
+
 
 const soundGameOver = new Howl({
   src: [ audioSrc + 'end-song.mp3' ]

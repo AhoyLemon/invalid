@@ -2865,7 +2865,7 @@ const challenges = [
 
   {
     id: 41,
-    name: "Popular Breakfast Cereal",
+    name: "Breakfast Cereal",
     nameAsRule: "Your password must be a popular breakfast cereal.",
     failedMessage: "Haven't seen [PASS] on the shelves, try again.",
     possible: [
