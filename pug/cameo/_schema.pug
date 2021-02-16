@@ -3,8 +3,8 @@ script(type="application/ld+json").
     "@context": "http://schema.org",
     "@type": "VideoGame",
     "name": "Comparatively Famous",
-    "url": "https://kinda.fun/cameo",
-    "image": "https://kinda.fun/img/og-famous.png",
+    "url": "#{pageURL}",
+    "image": "#{siteURL}/img/og-famous.png",
     "playMode": "SinglePlayer",
     "applicationCategory": "browser game",
     "gamePlatform": "web browser",
@@ -36,5 +36,31 @@ script(type="application/ld+json").
       "description": "free",
       "price": "0",
       "priceCurrency": "USD"
-    }
+    },
+    "screenshot": [
+      {
+        "@type": "ImageObject",
+        "url": "#{siteURL}/img/famous/screenshots/title-screen.jpg",
+        "width": 1128,
+        "height": 788
+      },
+      {
+        "@type": "ImageObject",
+        "url": "#{siteURL}/img/famous/screenshots/sort-three.jpg",
+        "width": 1128,
+        "height": 788
+      },
+      {
+        "@type": "ImageObject",
+        "url": "#{siteURL}/img/famous/screenshots/valuate.jpg",
+        "width": 1128,
+        "height": 788
+      },
+      {
+        "@type": "ImageObject",
+        "url": "#{siteURL}/img/famous/screenshots/final-round.jpg",
+        "width": 1128,
+        "height": 788
+      },
+    ]
   }
