@@ -8,11 +8,11 @@ assignees: ''
 
 ---
 
-#### Which game is this for?
-Or is this for the website overall?
+## The Game
+(which game is this for, or is this about the site overall)
 
-#### Okay, what's your idea?
-Describe in as much detail as possible. Include screenshots if possible.
+## Get Ready, because here's my excellent idea!
+(Describe your idea in as much detail as possible. Try to use the words "mindblowing", ""kickass", or "leverage")
 
-#### Why is this a good idea?
-If at all possible, include the phrase "I'm not an engineer or nothing, I'm more of a BIG IDEAS kind of person"
+## And here's why this is a great idea.
+(Please sell me on why this idea should be implemented. If at all possible, include the phrase "I dunno man, I'm not an engineer or nothing, I'm more of a BIG IDEAS kind of person")

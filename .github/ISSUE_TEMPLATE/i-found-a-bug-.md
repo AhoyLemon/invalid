@@ -7,24 +7,21 @@ assignees: ''
 
 ---
 
-**Tell me which game you were playing**
-Invalid, The Wrongest Words, Comparatively Famous...
+## The Game
+(Invalid, The Wrongest Words, Comparatively Famous...)
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## The Bug
+(Leave a clear and concise description of what the bug is.)
 
-**To Reproduce**
+## To Reproduce
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Screenshots!
+Whenever possible, PLEASE add a screenshot (or more) to your report.
 
-**Screenshots**
-Whenever possible, PLEASE add a screenshot to your report.
-
-**Additional context**
+## Additional Context
 Add any other context about the problem here.
