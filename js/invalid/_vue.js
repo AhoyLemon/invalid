@@ -1395,6 +1395,7 @@ var app = new Vue({
     self.round.rules = [{"type":"Set A Minimum","message":"Your password must be more than 5 characters","inputValue":6,"inputValueTwo":null}];
     */
 
+    /*
     /////////////////////////////////////////////
     // FAKE A PLAYER IN THE FINAL ROUND.
     
@@ -1480,7 +1481,7 @@ var app = new Vue({
 
     ];
     self.startCountdownToFinalRound();
-    
+    */
     
     /////////////////////////////////////////////
     // FAKE A GAME OVER SCREEN.

@@ -3,9 +3,9 @@
 There's currently three games here.
 
 ## Comparatively Famous
-![Comparatively Famous Logo](https://kinda.fun/og-famous.png)
+![Comparatively Famous Logo](https://kinda.fun/img/og-famous.png)
 
-* [The Wrongest Words Wiki](https://github.com/AhoyLemon/kinda.fun/wiki/Comparatively-Famous)
+* [Comparatively Famous Wiki](https://github.com/AhoyLemon/kinda.fun/wiki/Comparatively-Famous)
 
 ## Invalid
 ![Invalid Logo](https://kinda.fun/img/invalid/og-wide.png)
