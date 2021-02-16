@@ -18,7 +18,7 @@ main.sort-three { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 
     &.no-move-cursor {
       .list-group-item { cursor: default; }
     }
-    .help-text { @include position(absolute,0,0,0,0); display:flex; align-items: center; justify-content: center;
+    .help-text { @include position(absolute,0,0,0,0); display:flex; align-items: center; justify-content: center; padding:20px; text-align: center;
       .inside { opacity: 0.6; font-size: 28px; }
     }
   }
@@ -98,4 +98,28 @@ main.sort-three { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 
 .v-toast__text { 
   h2 { font-family:$displayFont; font-size:38px; }
   h4 { font-family:$displayFont; font-size:19px; }
+}
+
+@media (max-width:794px) {
+  .three-to-compare { gap:4px; }
+}
+
+@media (max-width:720px) {
+  .three-to-compare .cameo figcaption .name { font-size:24px; }
+}
+
+@media (max-width:666px) {
+  .three-to-compare .cameo {
+    figcaption { padding-right:70px; min-height: 105px; }
+    figure img { width:80px; height: 80px; } 
+  }
+}
+
+@media (max-width:520px) {
+  .three-to-compare .cameo {
+    figure { margin-bottom: -20px; text-align: center;
+      img { width:120px; height:120px; }
+    }
+    figcaption { margin-right: 0; padding:30px 20px 20px 20px; }
+  }
 }

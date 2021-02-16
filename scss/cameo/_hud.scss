@@ -18,3 +18,7 @@
 @media (max-width:1430px) {
   .hud { grid-template-columns: 180px 1fr 180px; }
 }
+@media (max-width:585px) {
+  .score, .round { display: none !important; }
+  .hud { grid-template-columns:1fr; }
+}
