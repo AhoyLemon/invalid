@@ -44,14 +44,15 @@
             span(v-if="!ui.appliedForJob") Apply For Job
             span(v-if="ui.appliedForJob") Update Resume
 
-        fieldset.checkbox(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
+        fieldset.checkbox(v-if="isRoomHost && ui.appliedForJob")
           input(v-model="allowNaughty" type="checkbox" id="AllowNaughtyChallenges")
           label(for="AllowNaughtyChallenges" title="Checking this will allow profane and/or sexual challenges, passwords and options to be available") Allow naughty things.
             
-      .start-button(v-if="isRoomHost && ui.appliedForJob && players.length > 1")
-        button(type="button" @click="startTheGame()") Start The Game
-
-
+      .start-button(v-if="isRoomHost && ui.appliedForJob")
+        button(type="button" @click="startTheGame()" :disabled="players.length < 2") Start The Game
+        .not-enough-players(v-if="players.length < 2") You need at least 2 people to play 
+          strong Invalid
+          | .
 
   .players
     .player(v-for="player in players" :class="{ 'is-me' : (my.employeeNumber == player.employeeNumber), 'is-host': player.isRoomHost }")

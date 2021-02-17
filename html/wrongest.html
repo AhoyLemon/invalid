@@ -170,11 +170,12 @@
               <p v-if="chosenDeck.cards"><strong>{{chosenDeck.cards.length}} cards</strong></p>
             </div>
           </div>
+          <div class="start-button" v-if="isRoomHost &amp;&amp; ui.nameEntered &amp;&amp; chosenDeck.name">
+            <button type="button" @click="startTheGame()" :disabled="players.length &lt; 3">Start The Game</button>
+            <div class="not-enough-players" v-if="players.length &lt; 3">You need at least 3 people to play <strong>The Wrongest Words</strong>.</div>
+          </div>
           <div class="issues-prompt" v-if="ui.nameEntered">
             <p>Want to suggest your own lies for this game?  <a href="https://github.com/AhoyLemon/kinda.fun/issues/new/choose" taget="_blank">Open a new GitHub issue.</a></p>
-          </div>
-          <div class="start-button" v-if="isRoomHost &amp;&amp; ui.nameEntered &amp;&amp; players.length &gt; 2 &amp;&amp; chosenDeck.name">
-            <button type="button" @click="startTheGame()">Start The Game</button>
           </div>
         </div>
       </div>
@@ -349,7 +350,7 @@
       var socket = io.connect();
       Vue.use(VueToast);
     </script>
-    <script src="js/min/wrongest.min.js?updated2021-01-16@15:19:09"></script>
+    <script src="js/min/wrongest.min.js?updated2021-01-16@21:03:06"></script>
     <script type="text/javascript">
       var _paq = window._paq = window._paq || [];
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

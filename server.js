@@ -113,24 +113,14 @@ app.get('/stats', (req, res) => {
   res.sendFile(__dirname + '/html/stats.html');
 });
 
-app.get('/general/stats/json', (req, res) => {
-  let dbPath = require('./data/general.json');
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(dbPath));
+app.get('/stats/live/json', (req, res) => {
+  connection.query('SELECT * FROM cameoCelebScores;', function(err, results) {
+    if(err) throw err;
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(results));
+    connection.end();
+  });
 });
-
-app.get('/invalid/stats/json', (req, res) => {
-  let dbPath = require('./data/invalid.json');
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(dbPath));
-});
-
-app.get('/wrongest/stats/json', (req, res) => {
-  let dbPath = require('./data/wrongest.json');
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(dbPath));
-});
-
 
 io.on('connection', (socket) => {
 

@@ -15,7 +15,7 @@
       }
       &.checkbox {
         label { @include position(relative,null,null,null,null); display: inline-block; }
-        input { width: auto; display: inline-block; }
+        input { width: auto; display: inline-block; cursor: pointer; }
       }
     }
     button { display: block; width:100%; font-family: inherit; background: linear-gradient(to top, #0f0c29, #302b63, #24243e); background-size:100%; color:white; border:none; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.35); font-size:16px; padding:10px; cursor: pointer; outline:none;
@@ -25,7 +25,10 @@
   .start-button { margin-top: 1em; position: relative;
     button { display: block; width:100%; font-family: inherit; background:linear-gradient(to bottom, #650524, #e4084f, #650527); border:1px solid currentColor; font-size:16px; padding:10px; cursor: pointer; border-radius: 8px; color:white; border:none; box-shadow: 0 0 8px rgba(0,0,0,0.5);
       &:hover, &:focus { background:linear-gradient(to bottom, #650524, #e4084f, #e4084f, #650527); }
+      &[disabled] { filter:grayscale(50%); opacity: 0.75; cursor: not-allowed; }
     }
+    .not-enough-players { position: absolute; font-size: 85%; text-align: center; left: 0; right: 0; margin-top: 10px; visibility: hidden; pointer-events: none; }
+    button[disabled]:hover ~ .not-enough-players { visibility: visible; }
   }
 
   .players {
