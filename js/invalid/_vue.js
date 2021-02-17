@@ -1349,6 +1349,9 @@ var app = new Vue({
       document.getElementById("EnterRoomCode").focus();
     }
 
+    if (urlParams.has('ref')) { 
+      sendEvent("Invalid", "Ref", urlParams.get('ref'));
+    }
     
     /////////////////////////////////////////////
     // FAKE A SYSADMIN
