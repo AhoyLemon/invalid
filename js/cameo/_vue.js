@@ -482,10 +482,10 @@ var app = new Vue({
           clearInterval(self.ui.countingInterval);
 
           let exceededBudget = "";
-          if ((self.round.budget - self.round.spent) == 0) {
-            exceededBudget = "yes";
+          if ((self.round.budget - self.round.spent) <= 0) {
+            exceededBudget = "YES";
           } else {
-            exceededBudget = "no";
+            exceededBudget = "NO";
           }
 
           socket.emit('cameoFinishGame', {
