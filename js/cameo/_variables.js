@@ -58,11 +58,9 @@ const soundgameOverMusic = new Howl({
 });
 
 
-
-
 var birthdayHowls = [];
 
-for (var i=1; i<33; i++) {
+for (var i=1; i<35; i++) {
   var slug = "";
   if (i < 10) {
     slug = "0" + i;
