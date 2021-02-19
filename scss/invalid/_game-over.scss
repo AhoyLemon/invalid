@@ -20,9 +20,9 @@ main.game-over { font-family: $serif; background:#e4e72c; min-height: 100vh;
     }
     .attempts { margin-top: 1em;
       li { margin-left: 1.2em; padding-left: 0.25em; list-style-type: decimal; margin-bottom: 0.3em; }
-      .failed { color:rgba(128,18,18); }
-      .success { color:rgba(18,118,18); }
-      .crash { color: rgba(190,1,1); }
+      .failed { color:rgb(128,18,18); }
+      .success { color:rgb(18,118,18); }
+      .crash { color: rgb(190,1,1); }
     } 
   }
 
@@ -40,11 +40,11 @@ main.game-over { font-family: $serif; background:#e4e72c; min-height: 100vh;
       .inside { display:grid; grid-template-columns: 22px 1fr; gap:($padding / 2); }
       .password { font-size:200%; font-family: $monospace; grid-column: span 2; color:rgb(47, 82, 47); } 
       .icon { grid-column: 1; }
-      .attacker { grid-column: 2; color:rgba(18,118,18); font-size:108%; font-weight: 700; }
-      .victim { grid-column: 2; color:rgba(128,18,18); font-size:108%; }
+      .attacker { grid-column: 2; color:rgb(18,118,18); font-size:108%; font-weight: 700; }
+      .victim { grid-column: 2; color:rgb(128,18,18); font-size:108%; }
       &.self-own {
-        .password { color:rgb(82, 47, 47); }
-        .attacker { color:rgba(128,18,18); }
+        .password { color:rgb(82,47,47);  }
+        .attacker { color:rgb(128,18,18); }
       }
     }
 
