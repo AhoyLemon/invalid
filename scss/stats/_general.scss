@@ -11,6 +11,6 @@ main.general-stats { grid-column: span 2; min-height: 99vh; display: flex; align
   }
 }
 
-aside.general-stats { padding:$padding;
+aside.general-stats { padding:100px $padding; font-family: $serif;
   .summary { margin-bottom: 2em; }
 }

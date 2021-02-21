@@ -20,19 +20,19 @@ var app = new Vue({
             label: "Actual Value",
             field: "actualValue",
             type:  "number",
-            formatFn: this.dollars
+            formatFn: this.dollars,
           },
           {
             label: "Avg Value",
             field: "averageValuation",
-            type:  "number",
-            formatFn: this.dollars
+            type:  "decimal",
+            formatFn: this.dollars,
           },
           {
             label: "Market Forces",
             field: "marketForces",
-            type:  "number",
-            formatFn: this.dollars
+            type:  "decimal",
+            formatFn: this.dollars,
           },
           {
             label: "Sort Score",
@@ -437,8 +437,6 @@ var app = new Vue({
       .then(function () {
         // always executed
       });
-
-    self.getData('invalid');
   }
 
 });

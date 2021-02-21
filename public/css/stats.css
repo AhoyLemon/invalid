@@ -388,7 +388,8 @@ main.general-stats .game-summaries button {
 }
 
 aside.general-stats {
-  padding: 20px;
+  padding: 100px 20px;
+  font-family: "Lora", serif;
 }
 aside.general-stats .summary {
   margin-bottom: 2em;
