@@ -232,6 +232,28 @@ app.get('/stats/live/invalid/json', (req, res) => {
   });
 });
 
+app.get('/stats/live/wrongest/json', (req, res) => {
+  let wrongestData =  {
+    decks: [],
+    playerCounts: [],
+    statements: []
+  };
+  liveConnection.query('SELECT * FROM wrongestDecks;', function(err, results) {
+    if(err) throw err;
+    wrongestData.decks = results;
+  });
+  liveConnection.query('SELECT * FROM wrongestPlayerCounts;', function(err, results) {
+    if(err) throw err;
+    wrongestData.playerCounts = results;
+  });
+  liveConnection.query('SELECT * FROM wrongestStatements;', function(err, results) {
+    if(err) throw err;
+    wrongestData.statements = results;
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(wrongestData));
+  });
+});
+
 
 io.on('connection', (socket) => {
 

@@ -13,35 +13,13 @@ body
     .stats-screen
 
       include stats/_general
-
-      aside.general.general-stats(v-if="ui.viewing != 'general'")
-
-        .summary(:class="{ active: (ui.viewing == 'cameo') }")
-          figure
-            img(src="svg/comparatively-famous.svg" @click="getData('cameo')")
-          .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.cameo")
-            .time-caption Last Game
-            .time-ago(v-text="formatTime(stats.general.lastPlayed.cameo,'fromNow')")
-          .more-info
-
-        .summary(:class="{ active: (ui.viewing == 'invalid') }")
-          figure
-            img(src="svg/invalid-logo.svg" @click="getData('invalid')")
-          .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.invalid")
-            .time-caption Last Game
-            .time-ago(v-text="formatTime(stats.general.lastPlayed.invalid,'fromNow')")
-
-        .summary(v-if="stats.general && stats.general.lastPlayed && stats.general.wrongest")
-          figure
-            img(src="svg/wrongest.svg")
-          .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.wrongest")
-            .time-caption Last Game
-            .time-ago(v-text="formatTime(stats.general.lastPlayed.wrongest,'fromNow')")
+      include stats/_aside
 
       main(v-if="ui.viewing != 'general'")
 
         include stats/_famous
         include stats/_invalid
+        include stats/_wrongest
 
     //-section.invalid.stats
       figure

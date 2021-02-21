@@ -1,14 +1,37 @@
 main.general-stats { grid-column: span 2; min-height: 99vh; display: flex; align-items: center; font-family: $serif;
   .inside { width:100%; }
-  .game-summaries { display:grid; gap:$gap; grid-template-columns: repeat( 3, 1fr ); margin-left: auto; margin-right: auto;  width:100%; max-width: 1000px;
+  .game-summaries { display:grid; gap:($gap * 2); grid-template-columns: repeat( 3, 1fr ); margin-left: auto; margin-right: auto;  width:100%; max-width: 1000px;
     .summary { text-align: center; }
-    figure { height: 42%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+    figure { height: 42%; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
+    img { cursor: pointer; opacity: 0.8;
+      &:hover, &:focus { opacity: 1; }
+    }
     .last-played { padding-bottom: $padding; }
     .time-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
-    .time-ago { font-size: 180%; font-weight: 900; }
+    .time-ago { font-size: 140%; font-weight: 900; }
     .more-stats { min-height: 3em; }
-    button { background: #38a4dc; font-family: inherit; font-weight: 900; font-size: 1.65rem; border: 2px solid rgba(255, 255, 255, 0.5); color: white; text-shadow: 2px 2px 2px rgba(0,0,0,0.35); padding: 0.25em 1em; border-radius: 12px; cursor: pointer; }
+    button { background: #2d4450; font-family: inherit; font-weight: 900; font-size: 1.3rem; border: 2px solid rgba(255, 255, 255, 0.5); color: white; padding: 0.25em 1em; border-radius: 6px; cursor: pointer;
+      &:hover, &:focus { background:saturate($color: #2d4450, $amount: 50%)}
+    }
   }
+  display:grid; grid-template-columns: 1fr 340px; gap:$gap;
+
+
+  .player-table { max-height: 99.999vh; overflow-y: auto;}
+  .good-table {
+    h2 { font-size:190%; padding-bottom: 0.35em; }
+    table.vgt-table {
+      th { font-weight: 900; padding:5px; text-transform: uppercase; font-size: 85%; }
+      td { padding: 5px; } 
+      .vgt-right-align { text-align: left; }
+      .player-name-cell { max-width: 180px; overflow:hidden; text-overflow: ellipsis; }
+      .last-played-cell { max-width: 100px; overflow:hidden; text-overflow: ellipsis; }
+    }
+
+    //&.celeb-table { max-width: 960px; }
+    //&.player-table { max-width: 600px; }
+  }
+
 }
 
 aside.general-stats { padding:100px $padding; font-family: $serif;

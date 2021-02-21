@@ -17,6 +17,7 @@
 
 
 
+
   .password-form { max-width: 360px; margin:$gap auto;
 
     fieldset { position: relative;
@@ -61,6 +62,25 @@
 
     transform: translateY(102%); transition: transform 8s ease;
     &.visible { transform: translateY(0); }
+  }
+
+  button.quiet-music { @include position(absolute,10px,10px); background: transparent; color: white; border: none; cursor: pointer; outline: none;
+    svg { width:32px; height:32px; }
+    .tip { position: absolute; top: 10px; left: 0; width: 140px; text-align: right; opacity: 0; pointer-events: none; transform: translateX(-140px); transition:all 0.2s ease; }  
+    &:hover {
+      .tip { opacity: 1;}
+    }
+    &.hush {
+      &:hover {
+        .middle, .right { opacity: 0.5; }
+      }
+    }
+    &.enlouden {
+      .middle, .right { opacity: 0; }
+      &:hover {
+        .middle, .right { opacity: 0.5; }
+      }
+    }
   }
 }
 

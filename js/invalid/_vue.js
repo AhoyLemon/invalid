@@ -93,6 +93,7 @@ var app = new Vue({
       passwordSuccessMessage: null,
       watchingVideo: false,
       musicPlaying: false,
+      musicHushed: false
     },
     // TODO: Deprecate this?
     messages: []
@@ -165,7 +166,7 @@ var app = new Vue({
         sendEvent("Invalid", "Instruction Video", "Title Screen");
       }
       if (self.ui.musicPlaying) {
-        musicLobby.volume(0.2);
+        musicLobby.volume(0);
       }
     },
 
@@ -173,7 +174,23 @@ var app = new Vue({
       const self = this;
       self.ui.watchingVideo = false;
       if (self.ui.musicPlaying) {
+        if (self.ui.musicHushed) {
+          musicLobby.volume(0.05);
+        } else {
+          musicLobby.volume(0.6);
+        }
+      }
+    },
+
+    toggleMusicVolume() {
+      const self = this;
+      self.ui.musicHushed = !self.ui.musicHushed;
+      if (self.ui.musicHushed) {
+        musicLobby.volume(0.05);
+        musicFinalRound.volume(0.1);
+      } else {
         musicLobby.volume(0.6);
+        musicFinalRound.volume(0.75);
       }
     },
 
@@ -1484,6 +1501,8 @@ var app = new Vue({
 
     ];
     self.startCountdownToFinalRound();
+    //
+    /////////////////////////////////////////////
     */
     
     /*

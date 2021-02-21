@@ -11,6 +11,24 @@ var app = new Vue({
       },
 
       columns: {
+        playerNames: [
+          {
+            label: "Player Name",
+            field: "iname",
+            tdClass: 'player-name-cell'
+          },
+          {
+            label: "Played",
+            field: "icount",
+            type:  "number"
+          },
+          {
+            label: "Last Played",
+            field: "lastPlayed",
+            tdClass: 'last-played-cell',
+            //width: "100px"
+          }
+        ],
         celebs: [
           {
             label: "Name",
@@ -153,13 +171,37 @@ var app = new Vue({
             type: "number"
           },
         ],
+        wrongestStatements: [
+          {
+            label: "Statement",
+            field: "iname",
+            formatFn: this.formatStatement
+          },
+          {
+            label: "Total Score",
+            field: "icount",
+            type: "number"
+          },
+        ],
+        decks: [
+          {
+            label: "Deck",
+            field: "iname",
+          },
+          {
+            label: "Played",
+            field: "icount",
+            type: "number"
+          },
+        ]
       },
       ui: {
         viewing: "general",
         cameoLoaded: false,
-        invalidLoaded: false
+        invalidLoaded: false,
+        wrongestLoaded: false
       }
-    }
+    };
   },
 
   methods: {
@@ -311,6 +353,22 @@ var app = new Vue({
             self.ui.invalidLoaded = true;
             self.ui.viewing = "invalid";
           });
+      } else if (game == "wrongest") {
+        axios.get('/stats/live/wrongest/json')
+          .then(function (response) {
+            // handle success
+            self.stats.wrongest = response.data;
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+
+            self.ui.wrongestLoaded = true;
+            self.ui.viewing = "wrongest";
+          });
       }
     },
 
@@ -343,7 +401,10 @@ var app = new Vue({
       } else {
         return "-";
       }
-      
+    },
+
+    formatStatement(statement) {
+      return statement.replace('{','').replace('}','');
     },
 
     exceededBudgetOutput(v) {

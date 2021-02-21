@@ -9,7 +9,7 @@
     <link href="/css/invalid.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A trivia game of unnecessary suffering.">
-    <meta http-equiv="last-modified" content="2021-01-16@20:52:24">
+    <meta http-equiv="last-modified" content="2021-01-21@14:05:58">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/invalid/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/invalid/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/invalid/favicon-16x16.png">
@@ -182,6 +182,16 @@
               <button type="button" @click="startTheGame()" :disabled="players.length &lt; 2">Start The Game</button>
               <div class="not-enough-players" v-if="players.length &lt; 2">You need at least 2 people to play <strong>Invalid</strong>.</div>
             </div>
+            <button class="quiet-music" @click="toggleMusicVolume()" v-bind:class="{ hush: !ui.musicHushed, enlouden: ui.musicHushed }" v-if="ui.musicPlaying">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path class="speaker" d="M51.6 13.3L24.5 34.1 4.8 35.8v28.4l19.7 1.7 27.1 20.8z"></path>
+                <path class="left" d="M64.6 51.7c0 7.3-2.3 14.1-6.1 19.7l7 4.8c4.8-7 7.6-15.4 7.6-24.5s-2.8-17.5-7.6-24.5l-7 4.8c3.9 5.6 6.1 12.4 6.1 19.7z"></path>
+                <path class="middle" d="M77.4 51.7c0 10-3.1 19.2-8.3 26.9l7 4.8c6.2-9 9.8-19.9 9.8-31.7C85.9 40 82.3 29 76.1 20l-7 4.8c5.2 7.7 8.3 17 8.3 26.9z"></path>
+                <path class="right" d="M86.3 90.4c7.5-11 11.9-24.3 11.9-38.6s-4.4-27.6-11.9-38.6l-7 4.8c6.6 9.6 10.5 21.3 10.5 33.8S85.9 76 79.3 85.6l7 4.8z"></path>
+              </svg>
+              <div class="tip" v-if="ui.musicHushed">Enlouden The Music</div>
+              <div class="tip" v-if="!ui.musicHushed">Hush The Music</div>
+            </button>
           </div>
         </div>
         <div class="players">
@@ -631,6 +641,16 @@ EMpoyeeNAME:         {{round.crash.player.name}}
               </div>
               <p class="there-are-unclaimed">There are <span class="count">{{computedUnclaimedPasswords}}</span> unclaimed passwords in the system.</p>
             </template>
+            <button class="quiet-music" @click="toggleMusicVolume()" v-bind:class="{ hush: !ui.musicHushed, enlouden: ui.musicHushed }">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path class="speaker" d="M51.6 13.3L24.5 34.1 4.8 35.8v28.4l19.7 1.7 27.1 20.8z"></path>
+                <path class="left" d="M64.6 51.7c0 7.3-2.3 14.1-6.1 19.7l7 4.8c4.8-7 7.6-15.4 7.6-24.5s-2.8-17.5-7.6-24.5l-7 4.8c3.9 5.6 6.1 12.4 6.1 19.7z"></path>
+                <path class="middle" d="M77.4 51.7c0 10-3.1 19.2-8.3 26.9l7 4.8c6.2-9 9.8-19.9 9.8-31.7C85.9 40 82.3 29 76.1 20l-7 4.8c5.2 7.7 8.3 17 8.3 26.9z"></path>
+                <path class="right" d="M86.3 90.4c7.5-11 11.9-24.3 11.9-38.6s-4.4-27.6-11.9-38.6l-7 4.8c6.6 9.6 10.5 21.3 10.5 33.8S85.9 76 79.3 85.6l7 4.8z"></path>
+              </svg>
+              <div class="tip" v-if="ui.musicHushed">Enlouden The Music</div>
+              <div class="tip" v-if="!ui.musicHushed">Hush The Music</div>
+            </button>
           </div>
         </div>
         <div class="round-reminder" :class="{'visible': (round.hurryTime &lt;= 10)}">
@@ -826,7 +846,7 @@ EMpoyeeNAME:         {{round.crash.player.name}}
         Vue.use(VueToast);
         
       </script>
-      <script src="js/min/invalid.min.js?updated2021-01-16@20:52:24"></script>
+      <script src="js/min/invalid.min.js?updated2021-01-21@14:05:58"></script>
       <script type="text/javascript">
         var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

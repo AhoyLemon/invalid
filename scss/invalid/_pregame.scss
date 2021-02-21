@@ -76,6 +76,25 @@
     button { font-family: inherit; background:linear-gradient(to bottom, #650524, #e4084f, #650527); border:1px solid currentColor; font-size:16px; padding:10px; cursor: pointer; border-radius: 8px; color:white; border:none; box-shadow: 0 0 8px rgba(0,0,0,0.5); }
   }
 
+
+  button.quiet-music { @include position(absolute,10px,10px); background: transparent; color: white; border: none; cursor: pointer; outline: none;
+    svg { width:42px; height:42px; }
+    .tip { position: absolute; top: 15px; left: 0; width: 140px; text-align: right; opacity: 0; pointer-events: none; transform: translateX(-140px); transition:all 0.2s ease; }  
+    &:hover {
+      .tip { opacity: 1;}
+    }
+    &.hush {
+      &:hover {
+        .middle, .right { opacity: 0.5; }
+      }
+    }
+    &.enlouden {
+      .middle, .right { opacity: 0; }
+      &:hover {
+        .middle, .right { opacity: 0.5; }
+      }
+    }
+  }
 }
 @media (max-width:600px) {
   .pregame {

@@ -15,20 +15,25 @@ main.general-stats(v-if="ui.viewing == 'general'")
 
       .summary
         figure
-          img(src="svg/invalid-logo.svg")
+          img(src="svg/invalid-logo.svg" @click="getData('invalid')")
         .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.invalid")
           .time-caption Last Game
           .time-ago(v-text="formatTime(stats.general.lastPlayed.invalid,'fromNow')")
           .calendar(v-text="formatTime(stats.general.lastPlayed.invalid,'calendar')")
         .button-holder
-          button Details
+          button(@click="getData('invalid')") Details
 
       .summary(v-if="stats.general && stats.general.lastPlayed && stats.general.wrongest")
         figure
-          img(src="svg/wrongest.svg")
+          img(src="svg/wrongest.svg" @click="getData('wrongest')")
         .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.wrongest")
           .time-caption Last Game
           .time-ago(v-text="formatTime(stats.general.lastPlayed.wrongest,'fromNow')")
           .calendar(v-text="formatTime(stats.general.lastPlayed.wrongest,'calendar')")
         .button-holder
-          button Details
+          button(@click="getData('wrongest')") Details
+
+  .player-table
+    .good-table.player-table
+      vue-good-table(:rows="stats.general.playerNames" :columns="columns.playerNames" styleClass="vgt-table condensed"
+        :pagination-options="{ enabled: true, perPage: 28, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")

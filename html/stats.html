@@ -24,27 +24,32 @@
               </div>
             </div>
             <div class="summary">
-              <figure><img src="svg/invalid-logo.svg"/></figure>
+              <figure><img src="svg/invalid-logo.svg" @click="getData('invalid')"/></figure>
               <div class="last-played" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.invalid">
                 <div class="time-caption">Last Game</div>
                 <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.invalid,'fromNow')"></div>
                 <div class="calendar" v-text="formatTime(stats.general.lastPlayed.invalid,'calendar')"></div>
               </div>
               <div class="button-holder">
-                <button>Details</button>
+                <button @click="getData('invalid')">Details</button>
               </div>
             </div>
             <div class="summary" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.wrongest">
-              <figure><img src="svg/wrongest.svg"/></figure>
+              <figure><img src="svg/wrongest.svg" @click="getData('wrongest')"/></figure>
               <div class="last-played" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.wrongest">
                 <div class="time-caption">Last Game</div>
                 <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.wrongest,'fromNow')"></div>
                 <div class="calendar" v-text="formatTime(stats.general.lastPlayed.wrongest,'calendar')"></div>
               </div>
               <div class="button-holder">
-                <button>Details</button>
+                <button @click="getData('wrongest')">Details</button>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="player-table">
+          <div class="good-table player-table">
+            <vue-good-table :rows="stats.general.playerNames" :columns="columns.playerNames" styleClass="vgt-table condensed" :pagination-options="{ enabled: true, perPage: 28, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
           </div>
         </div>
       </main>
@@ -64,8 +69,8 @@
             <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.invalid,'fromNow')"></div>
           </div>
         </div>
-        <div class="summary" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.wrongest">
-          <figure><img src="svg/wrongest.svg"/></figure>
+        <div class="summary" :class="{ active: (ui.viewing == 'wrongest') }">
+          <figure><img src="svg/wrongest.svg" @click="getData('wrongest')"/></figure>
           <div class="last-played" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.wrongest">
             <div class="time-caption">Last Game</div>
             <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.wrongest,'fromNow')"></div>
@@ -158,6 +163,36 @@
             <div class="good-table">
               <h2>Letters</h2>
               <vue-good-table :rows="stats.invalid.letters" :columns="columns.letters" :sort-options="{ enabled: true, initialSortBy: {field: 'banned', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+            </div>
+          </div>
+        </section>
+        <section class="wrongest stats" v-if="ui.viewing == 'wrongest'">
+          <figure><img src="svg/wrongest.svg"/></figure>
+          <div class="stats-boxes">
+            <div class="box big-number">
+              <div class="caption">Games Started</div>
+              <div class="number" v-text="stats.general.wrongest.GamesStarted"></div>
+            </div>
+            <div class="box big-number">
+              <div class="caption">Rooms Created</div>
+              <div class="number" v-text="stats.general.wrongest.RoomsCreated"></div>
+            </div>
+            <div class="box date" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.cameo">
+              <div class="caption">Last Game</div>
+              <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.wrongest,'fromNow')"></div>
+              <div class="calendar" v-text="formatTime(stats.general.lastPlayed.wrongest,'calendar')"></div>
+            </div>
+          </div>
+          <div class="good-tables" v-if="ui.wrongestLoaded">
+            <div class="good-table pass-table">
+              <h2>Statements</h2>
+              <vue-good-table :rows="stats.wrongest.statements" :columns="columns.wrongestStatements" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'asc'} }" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+            </div>
+            <div class="good-table">
+              <h2>Decks</h2>
+              <vue-good-table :rows="stats.wrongest.decks" :columns="columns.decks" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table><br/><br/>
+              <h2>Player Counts</h2>
+              <vue-good-table :rows="stats.wrongest.playerCounts" :columns="columns.playerCounts" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
             </div>
           </div>
         </section>

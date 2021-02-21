@@ -317,6 +317,10 @@ section.invalid {
   padding: 80px 40px 40px 0;
 }
 
+section.wrongest {
+  padding: 80px 40px 40px 0;
+}
+
 main.general-stats {
   -ms-grid-column-span: 2;
   grid-column: span 2;
@@ -328,6 +332,11 @@ main.general-stats {
       -ms-flex-align: center;
           align-items: center;
   font-family: "Lora", serif;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 40px 340px;
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
 }
 main.general-stats .inside {
   width: 100%;
@@ -335,8 +344,8 @@ main.general-stats .inside {
 main.general-stats .game-summaries {
   display: -ms-grid;
   display: grid;
-  gap: 40px;
-  -ms-grid-columns: 1fr 40px 1fr 40px 1fr;
+  gap: 80px;
+  -ms-grid-columns: 1fr 80px 1fr 80px 1fr;
   grid-template-columns: repeat(3, 1fr);
   margin-left: auto;
   margin-right: auto;
@@ -357,7 +366,14 @@ main.general-stats .game-summaries figure {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+}
+main.general-stats .game-summaries img {
+  cursor: pointer;
+  opacity: 0.8;
+}
+main.general-stats .game-summaries img:hover, main.general-stats .game-summaries img:focus {
+  opacity: 1;
 }
 main.general-stats .game-summaries .last-played {
   padding-bottom: 20px;
@@ -368,23 +384,57 @@ main.general-stats .game-summaries .time-caption {
   text-transform: uppercase;
 }
 main.general-stats .game-summaries .time-ago {
-  font-size: 180%;
+  font-size: 140%;
   font-weight: 900;
 }
 main.general-stats .game-summaries .more-stats {
   min-height: 3em;
 }
 main.general-stats .game-summaries button {
-  background: #38a4dc;
+  background: #2d4450;
   font-family: inherit;
   font-weight: 900;
-  font-size: 1.65rem;
+  font-size: 1.3rem;
   border: 2px solid rgba(255, 255, 255, 0.5);
   color: white;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
   padding: 0.25em 1em;
-  border-radius: 12px;
+  border-radius: 6px;
   cursor: pointer;
+}
+main.general-stats .game-summaries button:hover, main.general-stats .game-summaries button:focus {
+  background: #0e4e6f;
+}
+main.general-stats .player-table {
+  max-height: 99.999vh;
+  overflow-y: auto;
+}
+main.general-stats .good-table h2 {
+  font-size: 190%;
+  padding-bottom: 0.35em;
+}
+main.general-stats .good-table table.vgt-table th {
+  font-weight: 900;
+  padding: 5px;
+  text-transform: uppercase;
+  font-size: 85%;
+}
+main.general-stats .good-table table.vgt-table td {
+  padding: 5px;
+}
+main.general-stats .good-table table.vgt-table .vgt-right-align {
+  text-align: left;
+}
+main.general-stats .good-table table.vgt-table .player-name-cell {
+  max-width: 180px;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+}
+main.general-stats .good-table table.vgt-table .last-played-cell {
+  max-width: 100px;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
 }
 
 aside.general-stats {
