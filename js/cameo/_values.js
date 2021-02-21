@@ -96,7 +96,7 @@ const allValues = [
   { name: "Jamie Farr", desc:"Klinger on M*A*S*H", slug:"jamiefarr1", value:125 },
   { name: "Andrea Barber", desc:"Kimmy Gibler on Full House", slug:"andreabarber", value:125 },
   { name: "George Wendt", desc:"Norm on Cheers", slug:"georgewendt", value:125 },
-  { name: "Takeru Kobayashi", desc:"Competitive Eater", slug:"takerukobayashi", value:120 },
+  { name: "Takeru Kobayashi", desc:"Competitive Gurgitator", slug:"takerukobayashi", value:120 },
 
   { name: "Steve Carlson", desc:"One of the guys from the movie Slapshot", slug:"scarlson17", value:117  },
   { name: "Dave Hanson", desc:"One of the guys from the movie Slapshot", slug:"davehanson16", value:116  },

@@ -205,9 +205,44 @@ p {
 section {
   font-size: 20px;
   font-family: "Lora", serif;
-}
-section.stats {
-  padding: 5rem 40px;
+  /*
+  .tables { display: grid; gap:40px;  }
+
+
+  .table-wrapper { background:$white; max-height: 360px; overflow-y: auto;
+    th { font-style:  bold; font-size:80%; text-transform: uppercase; }
+    td:first-child { width:36px; max-width: 36px; text-align: right; padding-right: 1rem; }
+    td:last-child { width:calc(100% - 36px); }
+    table {color:$black; padding:6px; width:100%; }
+    td { border-bottom: 1px solid rgba(0,0,0.15); } 
+  }
+
+  .grid-wrapper { 
+    .grid-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
+    .grid-box { background:$white; color:$black; height: 300px; }
+    .data-grid { display:grid; grid-template-columns: 36px 1fr; padding-top:16px; padding-bottom: 16px; max-height: 300px; overflow-y: auto; }
+
+
+    .count, .value { border-bottom: 1px solid rgba(0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
+    .count { text-align: right; padding-right: 10px; font-weight: 900; }
+  }
+
+  .timebox { grid-column: span 2;
+    .time-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
+    .time-ago { font-size: 180%; font-weight: 900; }
+  }
+
+  .statement-grid-wrapper { grid-column: span 3;
+    .grid-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
+    .data-grid { display:grid; grid-template-columns: 60px 1fr 30px; padding-top:16px; padding-bottom: 16px; background:$white; color:$black; max-height: 300px; overflow-y: auto;
+      > * { border-bottom: 1px solid rgba(0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
+    }
+    .score { text-align: right; padding-right: 10px; font-weight: 900;
+      &.positive { color:darkgreen; }
+      &.negative { color: darkred; }
+    }
+  }
+  */
 }
 section figure {
   text-align: center;
@@ -216,158 +251,153 @@ section figure {
 section figure img {
   max-width: 300px;
 }
-section .tables {
+section section.stats {
+  margin-bottom: 3em;
+}
+section .stats-boxes {
   display: -ms-grid;
   display: grid;
   gap: 40px;
+  grid-template-columns: repeat(auto-fill, 260px);
 }
-section .table-wrapper {
-  background: #eee;
-  max-height: 360px;
-  overflow-y: auto;
+section .stats-boxes .box {
+  background: rgba(255, 255, 255, 0.75);
+  padding: 20px;
+  color: rgba(0, 0, 0, 0.9);
 }
-section .table-wrapper th {
-  font-style: bold;
-  font-size: 80%;
-  text-transform: uppercase;
+section .stats-boxes .big-number .number {
+  font-size: 260%;
 }
-section .table-wrapper td:first-child {
-  width: 36px;
-  max-width: 36px;
-  text-align: right;
-  padding-right: 1rem;
+section .stats-boxes .time-ago {
+  font-size: 185%;
 }
-section .table-wrapper td:last-child {
-  width: calc(100% - 36px);
-}
-section .table-wrapper table {
-  color: #212121;
-  padding: 6px;
-  width: 100%;
-}
-section .table-wrapper td {
-  border-bottom: 1px solid black;
-}
-section .grid-wrapper .grid-caption {
-  font-size: 110%;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-section .grid-wrapper .grid-box {
-  background: #eee;
-  color: #212121;
-  height: 300px;
-}
-section .grid-wrapper .data-grid {
+section .good-tables {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 36px 1fr;
-  grid-template-columns: 36px 1fr;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  max-height: 300px;
-  overflow-y: auto;
+  -ms-grid-columns: 1fr 40px 1fr 40px 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
 }
-section .grid-wrapper .count, section .grid-wrapper .value {
-  border-bottom: 1px solid black;
-  padding-bottom: 6px;
-  margin-bottom: 6px;
-}
-section .grid-wrapper .count {
-  text-align: right;
-  padding-right: 10px;
-  font-weight: 900;
-}
-section .timebox {
+section .good-tables .pass-table {
   -ms-grid-column-span: 2;
   grid-column: span 2;
 }
-section .timebox .time-caption {
+section .good-table {
+  padding-top: 2em;
+}
+section .good-table h2 {
+  font-size: 190%;
+  padding-bottom: 0.35em;
+}
+section .good-table table.vgt-table th {
+  font-weight: 900;
+  padding: 5px;
+  text-transform: uppercase;
+  font-size: 85%;
+}
+section .good-table table.vgt-table td {
+  padding: 5px;
+}
+section .good-table table.vgt-table .vgt-right-align {
+  text-align: left;
+}
+
+section.famous {
+  padding: 80px 40px 40px 0;
+}
+section.famous .two-tables {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 20px 1fr;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+section.invalid {
+  padding: 80px 40px 40px 0;
+}
+
+main.general-stats {
+  -ms-grid-column-span: 2;
+  grid-column: span 2;
+  min-height: 99vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: "Lora", serif;
+}
+main.general-stats .inside {
+  width: 100%;
+}
+main.general-stats .game-summaries {
+  display: -ms-grid;
+  display: grid;
+  gap: 40px;
+  -ms-grid-columns: 1fr 40px 1fr 40px 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1000px;
+}
+main.general-stats .game-summaries .summary {
+  text-align: center;
+}
+main.general-stats .game-summaries figure {
+  height: 42%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 10px;
+}
+main.general-stats .game-summaries .last-played {
+  padding-bottom: 20px;
+}
+main.general-stats .game-summaries .time-caption {
   font-size: 110%;
   margin-bottom: 10px;
   text-transform: uppercase;
 }
-section .timebox .time-ago {
+main.general-stats .game-summaries .time-ago {
   font-size: 180%;
   font-weight: 900;
 }
-section .statement-grid-wrapper {
-  -ms-grid-column-span: 3;
-  grid-column: span 3;
+main.general-stats .game-summaries .more-stats {
+  min-height: 3em;
 }
-section .statement-grid-wrapper .grid-caption {
-  font-size: 110%;
-  margin-bottom: 10px;
-  text-transform: uppercase;
+main.general-stats .game-summaries button {
+  background: #38a4dc;
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 1.65rem;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
+  padding: 0.25em 1em;
+  border-radius: 12px;
+  cursor: pointer;
 }
-section .statement-grid-wrapper .data-grid {
+
+aside.general-stats {
+  padding: 20px;
+}
+aside.general-stats .summary {
+  margin-bottom: 2em;
+}
+
+.stats-screen {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 60px 1fr 30px;
-  grid-template-columns: 60px 1fr 30px;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  background: #eee;
-  color: #212121;
-  max-height: 300px;
-  overflow-y: auto;
-}
-section .statement-grid-wrapper .data-grid > * {
-  border-bottom: 1px solid black;
-  padding-bottom: 6px;
-  margin-bottom: 6px;
-}
-section .statement-grid-wrapper .score {
-  text-align: right;
-  padding-right: 10px;
-  font-weight: 900;
-}
-section .statement-grid-wrapper .score.positive {
-  color: darkgreen;
-}
-section .statement-grid-wrapper .score.negative {
-  color: darkred;
-}
-section .tables {
-  -ms-grid-columns: (1fr)[5];
-  grid-template-columns: repeat(5, 1fr);
-}
-@media (max-width: 1570px) {
-  section .tables {
-    -ms-grid-columns: (1fr)[4];
-    grid-template-columns: repeat(4, 1fr);
-  }
-  section .tables .timebox {
-    -ms-grid-column-span: 1;
-    grid-column: span 1;
-  }
-}
-@media (max-width: 1150px) {
-  section .tables {
-    -ms-grid-columns: (1fr)[3];
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (max-width: 900px) {
-  section .tables {
-    -ms-grid-columns: (1fr)[2];
-    grid-template-columns: repeat(2, 1fr);
-  }
-  section .tables .statement-grid-wrapper {
-    -ms-grid-column-span: 2;
-    grid-column: span 2;
-  }
-}
-@media (max-width: 630px) {
-  section .tables {
-    -ms-grid-columns: (1fr)[1];
-    grid-template-columns: repeat(1, 1fr);
-  }
-  section .tables .statement-grid-wrapper {
-    -ms-grid-column-span: 1;
-    grid-column: span 1;
-  }
-  section .tables .grid-box {
-    height: unset !important;
-  }
+  gap: 40px;
+  -ms-grid-columns: 240px 40px 1fr;
+  grid-template-columns: 240px 1fr;
 }

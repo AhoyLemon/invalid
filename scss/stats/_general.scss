@@ -1,0 +1,16 @@
+main.general-stats { grid-column: span 2; min-height: 99vh; display: flex; align-items: center; font-family: $serif;
+  .inside { width:100%; }
+  .game-summaries { display:grid; gap:$gap; grid-template-columns: repeat( 3, 1fr ); margin-left: auto; margin-right: auto;  width:100%; max-width: 1000px;
+    .summary { text-align: center; }
+    figure { height: 42%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+    .last-played { padding-bottom: $padding; }
+    .time-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
+    .time-ago { font-size: 180%; font-weight: 900; }
+    .more-stats { min-height: 3em; }
+    button { background: #38a4dc; font-family: inherit; font-weight: 900; font-size: 1.65rem; border: 2px solid rgba(255, 255, 255, 0.5); color: white; text-shadow: 2px 2px 2px rgba(0,0,0,0.35); padding: 0.25em 1em; border-radius: 12px; cursor: pointer; }
+  }
+}
+
+aside.general-stats { padding:$padding;
+  .summary { margin-bottom: 2em; }
+}

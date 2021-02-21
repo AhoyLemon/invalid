@@ -1,0 +1,52 @@
+section.invalid.stats(v-if="ui.viewing == 'invalid'")
+  figure
+    img(src="svg/invalid-logo.svg")
+
+  .stats-boxes
+
+    .box.big-number
+      .caption Games Started
+      .number(v-text="stats.general.invalid.GamesStarted")
+    .box.big-number
+      .caption Rooms Created
+      .number(v-text="stats.general.invalid.RoomsCreated")
+    .box.big-number
+      .caption Naughty Mode
+      .number.percent(v-text="computedNaughtyPercentage + '%'")
+    .box.big-number
+      .caption Cracked Passwords
+      .number.percent(v-text="computedCrackedPasswordPercent + '%'")
+
+
+  .good-tables(v-if="ui.invalidLoaded")
+
+
+    .good-table.pass-table
+      h2 Passwords
+      vue-good-table(:rows="stats.invalid.passwords" :columns="columns.passwords" :sort-options="{ enabled: true, initialSortBy: {field: 'used', type: 'desc'} }"
+        :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
+
+    .good-table
+      h2 Bugs
+      vue-good-table(:rows="stats.invalid.bugs" :columns="columns.bugs" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }"
+        :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
+    
+    .good-table
+      h2 Challenges
+      vue-good-table(:rows="stats.invalid.challenges" :columns="columns.challenges" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }"
+        :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
+    
+    .good-table
+      h2 Rules
+      vue-good-table(:rows="stats.invalid.rules" :columns="columns.rules" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }"
+        :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
+    
+    .good-table
+      h2 Player Counts
+      vue-good-table(:rows="stats.invalid.playerCounts" :columns="columns.playerCounts" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }"
+        :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
+    
+    .good-table
+      h2 Letters
+      vue-good-table(:rows="stats.invalid.letters" :columns="columns.letters" :sort-options="{ enabled: true, initialSortBy: {field: 'banned', type: 'desc'} }"
+        :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")

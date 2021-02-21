@@ -10,29 +10,40 @@ html
 body
   #app(v-cloak)
 
-    section.general.stats
+    .stats-screen
 
-      .tables
+      include stats/_general
 
-        .grid-wrapper
-          .grid-caption Player Names
-          .grid-box
-            .data-grid
-              template(v-for="player in sortedList(stats.general.PlayerNames)")
-                .count {{player.count}}
-                .value {{player.name}}
+      aside.general.general-stats(v-if="ui.viewing != 'general'")
 
-        .timebox
-          .time-caption Last Invalid 
-          .time-ago(v-text="formatTime(stats.general.Games.Invalid.MostRecent.dateAndTime,'fromNow')")
-          .calendar(v-text="formatTime(stats.general.Games.Invalid.MostRecent.dateAndTime,'calendar')")
+        .summary(:class="{ active: (ui.viewing == 'cameo') }")
+          figure
+            img(src="svg/comparatively-famous.svg" @click="getData('cameo')")
+          .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.cameo")
+            .time-caption Last Game
+            .time-ago(v-text="formatTime(stats.general.lastPlayed.cameo,'fromNow')")
+          .more-info
 
-        .timebox
-          .time-caption Last Wrongest Words
-          .time-ago(v-text="formatTime(stats.general.Games.TheWrongestWords.MostRecent.dateAndTime,'fromNow')")
-          .calendar(v-text="formatTime(stats.general.Games.TheWrongestWords.MostRecent.dateAndTime,'calendar')")
+        .summary
+          figure
+            img(src="svg/invalid-logo.svg")
+          .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.invalid")
+            .time-caption Last Game
+            .time-ago(v-text="formatTime(stats.general.lastPlayed.invalid,'fromNow')")
 
-    section.invalid.stats
+        .summary(v-if="stats.general && stats.general.lastPlayed && stats.general.wrongest")
+          figure
+            img(src="svg/wrongest.svg")
+          .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.wrongest")
+            .time-caption Last Game
+            .time-ago(v-text="formatTime(stats.general.lastPlayed.wrongest,'fromNow')")
+
+      main(v-if="ui.viewing != 'general'")
+
+        include stats/_famous
+        include stats/_invalid
+
+    //-section.invalid.stats
       figure
         img(src="svg/invalid-logo.svg")
       .tables
@@ -93,7 +104,7 @@ body
                 .count {{crack.count}}
                 .value {{crack.pw}}
 
-    section.wrogest.stats
+    //-section.wrogest.stats
       figure
         img(src="svg/wrongest.svg")
 
@@ -137,6 +148,10 @@ body
       script(src="js/libraries/vue.min.js")
       script.
         const testing = false;
+    
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js")
+
+    script(src="https://cdn.jsdelivr.net/npm/vue-good-table@2.15.3/dist/vue-good-table.min.js")
+    link(href="https://cdn.jsdelivr.net/npm/vue-good-table@2.12.2/dist/vue-good-table.css" rel="stylesheet")
     script(src="js/min/stats.min.js")

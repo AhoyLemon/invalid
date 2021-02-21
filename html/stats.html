@@ -8,156 +8,172 @@
 </html>
 <body>
   <div id="app" v-cloak="v-cloak">
-    <section class="general stats">
-      <div class="tables">
-        <div class="grid-wrapper">
-          <div class="grid-caption">Player Names</div>
-          <div class="grid-box">
-            <div class="data-grid">
-              <template v-for="player in sortedList(stats.general.PlayerNames)">
-                <div class="count">{{player.count}}</div>
-                <div class="value">{{player.name}}</div>
-              </template>
+    <div class="stats-screen">
+      <main class="general-stats" v-if="ui.viewing == 'general'">
+        <div class="inside">
+          <figure>
+            <h1>Kinda fun Games</h1>
+          </figure>
+          <div class="game-summaries">
+            <div class="summary">
+              <figure><img src="svg/comparatively-famous.svg" @click="getData('cameo')"/></figure>
+              <div class="last-played" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.cameo">
+                <div class="time-caption">Last Game</div>
+                <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.cameo,'fromNow')"></div>
+                <div class="calendar" v-text="formatTime(stats.general.lastPlayed.cameo,'calendar')"></div>
+              </div>
+              <div class="button-holder">
+                <button @click="getData('cameo')">Details</button>
+              </div>
+            </div>
+            <div class="summary">
+              <figure><img src="svg/invalid-logo.svg"/></figure>
+              <div class="last-played" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.invalid">
+                <div class="time-caption">Last Game</div>
+                <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.invalid,'fromNow')"></div>
+                <div class="calendar" v-text="formatTime(stats.general.lastPlayed.invalid,'calendar')"></div>
+              </div>
+              <div class="button-holder">
+                <button>Details</button>
+              </div>
+            </div>
+            <div class="summary" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.wrongest">
+              <figure><img src="svg/wrongest.svg"/></figure>
+              <div class="last-played" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.wrongest">
+                <div class="time-caption">Last Game</div>
+                <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.wrongest,'fromNow')"></div>
+                <div class="calendar" v-text="formatTime(stats.general.lastPlayed.wrongest,'calendar')"></div>
+              </div>
+              <div class="button-holder">
+                <button>Details</button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="timebox">
-          <div class="time-caption">Last Invalid </div>
-          <div class="time-ago" v-text="formatTime(stats.general.Games.Invalid.MostRecent.dateAndTime,'fromNow')"></div>
-          <div class="calendar" v-text="formatTime(stats.general.Games.Invalid.MostRecent.dateAndTime,'calendar')"></div>
+      </main>
+      <aside class="general general-stats" v-if="ui.viewing != 'general'">
+        <div class="summary" :class="{ active: (ui.viewing == 'cameo') }">
+          <figure><img src="svg/comparatively-famous.svg" @click="getData('cameo')"/></figure>
+          <div class="last-played" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.cameo">
+            <div class="time-caption">Last Game</div>
+            <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.cameo,'fromNow')"></div>
+          </div>
+          <div class="more-info"></div>
         </div>
-        <div class="timebox">
-          <div class="time-caption">Last Wrongest Words</div>
-          <div class="time-ago" v-text="formatTime(stats.general.Games.TheWrongestWords.MostRecent.dateAndTime,'fromNow')"></div>
-          <div class="calendar" v-text="formatTime(stats.general.Games.TheWrongestWords.MostRecent.dateAndTime,'calendar')"></div>
+        <div class="summary">
+          <figure><img src="svg/invalid-logo.svg"/></figure>
+          <div class="last-played" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.invalid">
+            <div class="time-caption">Last Game</div>
+            <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.invalid,'fromNow')"></div>
+          </div>
         </div>
-      </div>
-    </section>
-    <section class="invalid stats">
-      <figure><img src="svg/invalid-logo.svg"/></figure>
-      <div class="tables">
-        <div class="grid-wrapper">
-          <div class="grid-caption">Game Sizes</div>
-          <div class="grid-box">
-            <div class="data-grid">
-              <template v-for="game in sortedList(stats.invalid.Games.PlayerCounts)">
-                <div class="count">{{game.count}}</div>
-                <div class="value">{{game.players}} Players</div>
-              </template>
+        <div class="summary" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.wrongest">
+          <figure><img src="svg/wrongest.svg"/></figure>
+          <div class="last-played" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.wrongest">
+            <div class="time-caption">Last Game</div>
+            <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.wrongest,'fromNow')"></div>
+          </div>
+        </div>
+      </aside>
+      <main v-if="ui.viewing != 'general'">
+        <section class="famous stats" v-if="ui.viewing == 'cameo'">
+          <figure><img src="svg/comparatively-famous.svg"/></figure>
+          <div class="stats-boxes">
+            <div class="box big-number" v-if="stats.general.cameo &amp;&amp; stats.general.cameo.GamesStarted &gt; 0">
+              <div class="caption">Games Started</div>
+              <div class="number" v-text="stats.general.cameo.GamesStarted"></div>
+              <div class="sub-number"><strong v-text="stats.general.cameo.GamesFinished">finished</strong> finished</div>
+            </div>
+            <div class="box date" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.cameo">
+              <div class="caption">Last Game</div>
+              <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.cameo,'fromNow')"></div>
+              <div class="calendar" v-text="formatTime(stats.general.lastPlayed.cameo,'calendar')"></div>
+            </div>
+            <div class="box big-number" v-if="computedCameoPlayerData.averagePoints &gt; 0">
+              <div class="caption">Average Player Score</div>
+              <div class="number" v-text="computedCameoPlayerData.averagePoints"></div>
+            </div>
+            <div class="box big-number" v-if="computedCameoPlayerData.exceededBudgetPercent &gt; 0">
+              <div class="caption">Exceeded Budget</div>
+              <div class="number percent" v-text="computedCameoPlayerData.exceededBudgetPercent + '%'"></div>
+            </div>
+            <div class="box big-number" v-if="computedCameoPlayerData.correctSortPercent &gt; 0">
+              <div class="caption">Average Correct Sorts</div>
+              <div class="number percent" v-text="computedCameoPlayerData.correctSortPercent + '%'"></div>
+            </div>
+            <div class="box big-number" v-if="computedCameoPlayerData.averageBirthdayWishes &gt; 0">
+              <div class="caption">Average Birthday Wishes</div>
+              <div class="number" v-text="computedCameoPlayerData.averageBirthdayWishes"></div>
             </div>
           </div>
-        </div>
-        <div class="grid-wrapper">
-          <div class="grid-caption">Naughty Mode?</div>
-          <div class="grid-box">
-            <div class="data-grid">
-              <div class="count">{{stats.invalid.Games.NaughtyMode.on}}</div>
-              <div class="value">Naughty Mode ON</div>
-              <div class="count">{{stats.invalid.Games.NaughtyMode.off}}</div>
-              <div class="value">Naughty Mode OFF</div>
+          <div class="two-tables">
+            <div class="good-table celeb-table" v-if="ui.cameoLoaded">
+              <h2>Celebrity Performance</h2>
+              <vue-good-table :rows="stats.cameo.celebs" :columns="columns.celebs" styleClass="vgt-table condensed" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+            </div>
+            <div class="good-table player-table" v-if="ui.cameoLoaded">
+              <h2>Player Performance</h2>
+              <vue-good-table :rows="stats.cameo.playerScores" :columns="columns.cameoPlayers" styleClass="vgt-table condensed" :line-numbers="true" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
             </div>
           </div>
-        </div>
-        <div class="grid-wrapper">
-          <div class="grid-caption">Challenges</div>
-          <div class="grid-box">
-            <div class="data-grid">
-              <template v-for="challenge in sortedList(stats.invalid.Challenges)">
-                <div class="count">{{challenge.count}}</div>
-                <div class="value">{{challenge.name}}</div>
-              </template>
+        </section>
+        <section class="invalid stats" v-if="ui.viewing == 'invalid'">
+          <figure><img src="svg/invalid-logo.svg"/></figure>
+          <div class="stats-boxes">
+            <div class="box big-number">
+              <div class="caption">Games Started</div>
+              <div class="number" v-text="stats.general.invalid.GamesStarted"></div>
+            </div>
+            <div class="box big-number">
+              <div class="caption">Rooms Created</div>
+              <div class="number" v-text="stats.general.invalid.RoomsCreated"></div>
+            </div>
+            <div class="box big-number">
+              <div class="caption">Naughty Mode</div>
+              <div class="number percent" v-text="computedNaughtyPercentage + '%'"></div>
+            </div>
+            <div class="box big-number">
+              <div class="caption">Cracked Passwords</div>
+              <div class="number percent" v-text="computedCrackedPasswordPercent + '%'"></div>
             </div>
           </div>
-        </div>
-        <div class="grid-wrapper">
-          <div class="grid-caption">Rules</div>
-          <div class="grid-box">
-            <div class="data-grid">
-              <template v-for="rule in sortedList(stats.invalid.Rules)">
-                <div class="count">{{rule.count}}</div>
-                <div class="value">{{rule.name}}</div>
-              </template>
+          <div class="good-tables" v-if="ui.invalidLoaded">
+            <div class="good-table pass-table">
+              <h2>Passwords</h2>
+              <vue-good-table :rows="stats.invalid.passwords" :columns="columns.passwords" :sort-options="{ enabled: true, initialSortBy: {field: 'used', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+            </div>
+            <div class="good-table">
+              <h2>Bugs</h2>
+              <vue-good-table :rows="stats.invalid.bugs" :columns="columns.bugs" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+            </div>
+            <div class="good-table">
+              <h2>Challenges</h2>
+              <vue-good-table :rows="stats.invalid.challenges" :columns="columns.challenges" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+            </div>
+            <div class="good-table">
+              <h2>Rules</h2>
+              <vue-good-table :rows="stats.invalid.rules" :columns="columns.rules" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+            </div>
+            <div class="good-table">
+              <h2>Player Counts</h2>
+              <vue-good-table :rows="stats.invalid.playerCounts" :columns="columns.playerCounts" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+            </div>
+            <div class="good-table">
+              <h2>Letters</h2>
+              <vue-good-table :rows="stats.invalid.letters" :columns="columns.letters" :sort-options="{ enabled: true, initialSortBy: {field: 'banned', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
             </div>
           </div>
-        </div>
-        <div class="grid-wrapper">
-          <div class="grid-caption">Successful Passwords</div>
-          <div class="grid-box">
-            <div class="data-grid">
-              <template v-for="suc in sortedList(stats.invalid.SuccessfulPasswords)">
-                <div class="count">{{suc.count}}</div>
-                <div class="value">{{suc.pw}}</div>
-              </template>
-            </div>
-          </div>
-        </div>
-        <div class="grid-wrapper">
-          <div class="grid-caption">Server Crashes</div>
-          <div class="grid-box">
-            <div class="data-grid">
-              <template v-for="crash in sortedList(stats.invalid.Crashes)">
-                <div class="count">{{crash.count}}</div>
-                <div class="value">{{crash.pw}}</div>
-              </template>
-            </div>
-          </div>
-        </div>
-        <div class="grid-wrapper">
-          <div class="grid-caption">Cracked Passwords</div>
-          <div class="grid-box">
-            <div class="data-grid">
-              <template v-for="crack in sortedList(stats.invalid.Cracks)">
-                <div class="count">{{crack.count}}</div>
-                <div class="value">{{crack.pw}}</div>
-              </template>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="wrogest stats">
-      <figure><img src="svg/wrongest.svg"/></figure>
-      <div class="tables">
-        <div class="grid-wrapper">
-          <div class="grid-caption">Game Sizes</div>
-          <div class="grid-box">
-            <div class="data-grid">
-              <template v-for="game in sortedList(stats.wrongest.Games.PlayerCounts)">
-                <div class="count">{{game.count}}</div>
-                <div class="value">{{game.players}} Players</div>
-              </template>
-            </div>
-          </div>
-        </div>
-        <div class="grid-wrapper">
-          <div class="grid-caption">Decks</div>
-          <div class="grid-box">
-            <div class="data-grid">
-              <template v-for="deck in sortedList(stats.wrongest.Decks)">
-                <div class="count">{{deck.count}}</div>
-                <div class="value">{{deck.name}}</div>
-              </template>
-            </div>
-          </div>
-        </div>
-        <div class="statement-grid-wrapper">
-          <div class="grid-caption">Statements</div>
-          <div class="data-grid statements">
-            <template v-for="statement in sortByScore(stats.wrongest.Statements)">
-              <div class="score" v-bind:class="{negative: (statement.score &lt; 0), positive: (statement.score &gt; 0)}"><span v-if="statement.score &gt; 0">{{'+'+statement.score}}</span><span v-else-if="statement.score &lt; 0">{{statement.score}}</span><span v-else="v-else">-</span></div>
-              <div class="words">“{{formatQuote(statement.words)}}”</div>
-              <div class="votes">{{statement.votes}}</div>
-            </template>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      </main>
+    </div>
   </div>
   <div class="javascripts">
     <script src="js/libraries/vue.full.js"></script>
     <script>const testing = true;</script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-good-table@2.15.3/dist/vue-good-table.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/vue-good-table@2.12.2/dist/vue-good-table.css" rel="stylesheet"/>
     <script src="js/min/stats.min.js"></script>
   </div>
 </body>

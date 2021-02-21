@@ -11,9 +11,11 @@ app.use(express.static('public'));
 // SQL DATABASE
 
 const jawsDBurl = (process.env.JAWSDB_CRIMSON_URL || secrets.devSQLurl);
+const liveDBurl = (process.env.JAWSDB_CRIMSON_URL || secrets.liveSQLurl);
 console.log('SERVER: '+jawsDBurl);
 var mysql = require('mysql');
 var connection = mysql.createConnection(jawsDBurl);
+var liveConnection = mysql.createConnection(liveDBurl);
 
 function addOneInDatabase(table,value) {
   const sql = 'UPDATE '+table+' SET icount = icount + 1 WHERE iname = ' + connection.escape(value) + ';';
@@ -113,14 +115,123 @@ app.get('/stats', (req, res) => {
   res.sendFile(__dirname + '/html/stats.html');
 });
 
-app.get('/stats/live/json', (req, res) => {
-  connection.query('SELECT * FROM cameoCelebScores;', function(err, results) {
+app.get('/stats/live/general/json', (req, res) => {
+  let gameData =  {
+    lastPlayed: {},
+    cameo: {},
+    invalid: {},
+    wrongest: {},
+    playerNames: []
+  };
+  liveConnection.query('SELECT * FROM allGamesLastPlayed;', function(err, results) {
     if(err) throw err;
+    results.forEach((key) => {
+      gameData.lastPlayed[key.gameName] = key.lastGameTime;
+    });
+  });
+  liveConnection.query('SELECT * FROM cameoGames;', function(err, results) {
+    if(err) throw err;
+    results.forEach((key) => {
+      gameData.cameo[key.iname] = key.icount;
+    });
+  });
+  liveConnection.query('SELECT * FROM invalidGames;', function(err, results) {
+    if(err) throw err;
+    results.forEach((key) => {
+      gameData.invalid[key.iname] = key.icount;
+    });
+  });
+  liveConnection.query('SELECT * FROM wrongestGames;', function(err, results) {
+    if(err) throw err;
+    results.forEach((key) => {
+      gameData.wrongest[key.iname] = key.icount;
+    });
+  });
+  liveConnection.query('SELECT * FROM allPlayerNames;', function(err, results) {
+    if(err) throw err;
+    gameData.playerNames = results;
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(results));
-    connection.end();
+    res.send(JSON.stringify(gameData));
   });
 });
+
+app.get('/stats/live/cameo/json', (req, res) => {
+  let cameoData =  {
+    celebScores: [],
+    playerScores: [],
+    valuations: [],
+    celebs: []
+  };
+  liveConnection.query('SELECT * FROM cameoCelebScores;', function(err, results) {
+    if(err) throw err;
+    cameoData.celebScores = results;
+  });
+  liveConnection.query('SELECT * FROM cameoPlayerScores;', function(err, results) {
+    if(err) throw err;
+    cameoData.playerScores = results;
+  });
+  liveConnection.query('SELECT * FROM cameoValuations;', function(err, results) {
+    if(err) throw err;
+    cameoData.valuations = results;
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(cameoData));
+  });
+});
+
+app.get('/stats/live/invalid/json', (req, res) => {
+  let invalidData =  {
+    bannedLetters: [],
+    bugs: [],
+    challenges: [],
+    cracks: [],
+    crashes: [],
+    demandedLetters: [],
+    letters: [],
+    passwords: [],
+    playerCounts: [],
+    rules: [],
+    successfulPasswords: []
+  };
+  liveConnection.query('SELECT * FROM invalidBannedLetters;', function(err, results) {
+    if(err) throw err;
+    invalidData.bannedLetters = results;
+  });
+  liveConnection.query('SELECT * FROM invalidBugs;', function(err, results) {
+    if(err) throw err;
+    invalidData.bugs = results;
+  });
+  liveConnection.query('SELECT * FROM invalidChallenges;', function(err, results) {
+    if(err) throw err;
+    invalidData.challenges = results;
+  });
+  liveConnection.query('SELECT * FROM invalidCracks;', function(err, results) {
+    if(err) throw err;
+    invalidData.cracks = results;
+  });
+  liveConnection.query('SELECT * FROM invalidCrashes;', function(err, results) {
+    if(err) throw err;
+    invalidData.crashes = results;
+  });
+  liveConnection.query('SELECT * FROM invalidDemandedLetters;', function(err, results) {
+    if(err) throw err;
+    invalidData.demandedLetters = results;
+  });
+  liveConnection.query('SELECT * FROM invalidPlayerCounts;', function(err, results) {
+    if(err) throw err;
+    invalidData.playerCounts = results;
+  });
+  liveConnection.query('SELECT * FROM invalidRules;', function(err, results) {
+    if(err) throw err;
+    invalidData.rules = results;
+  });
+  liveConnection.query('SELECT * FROM invalidSuccessfulPasswords;', function(err, results) {
+    if(err) throw err;
+    invalidData.successfulPasswords = results;
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(invalidData));
+  });
+});
+
 
 io.on('connection', (socket) => {
 
@@ -214,7 +325,7 @@ io.on('connection', (socket) => {
 
 
       // Save to Wrongest Database...
-      addOneInDatabase("invalidGames","GamesStarted");
+      addOneInDatabase("wrongestGames","GamesStarted");
       incrementDatabase("wrongestPlayerCounts", playerCount+ " Players");
       if (msg.chosenDeckName) {
         incrementDatabase("wrongestDecks", msg.chosenDeckName);

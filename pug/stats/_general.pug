@@ -1,0 +1,36 @@
+main.general-stats(v-if="ui.viewing == 'general'")
+
+  .inside
+    figure
+      h1 Kinda fun Games
+
+    .game-summaries
+      .summary
+        figure
+          img(src="svg/comparatively-famous.svg" @click="getData('cameo')")
+        .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.cameo")
+          .time-caption Last Game
+          .time-ago(v-text="formatTime(stats.general.lastPlayed.cameo,'fromNow')")
+          .calendar(v-text="formatTime(stats.general.lastPlayed.cameo,'calendar')")
+        .button-holder
+          button(@click="getData('cameo')") Details
+
+      .summary
+        figure
+          img(src="svg/invalid-logo.svg")
+        .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.invalid")
+          .time-caption Last Game
+          .time-ago(v-text="formatTime(stats.general.lastPlayed.invalid,'fromNow')")
+          .calendar(v-text="formatTime(stats.general.lastPlayed.invalid,'calendar')")
+        .button-holder
+          button Details
+
+      .summary(v-if="stats.general && stats.general.lastPlayed && stats.general.wrongest")
+        figure
+          img(src="svg/wrongest.svg")
+        .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.wrongest")
+          .time-caption Last Game
+          .time-ago(v-text="formatTime(stats.general.lastPlayed.wrongest,'fromNow')")
+          .calendar(v-text="formatTime(stats.general.lastPlayed.wrongest,'calendar')")
+        .button-holder
+          button Details

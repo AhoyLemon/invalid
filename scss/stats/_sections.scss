@@ -1,8 +1,8 @@
 section { font-size:20px; font-family: $serif;
-  &.stats { padding:5rem 40px; }
   figure { text-align: center; margin-bottom: 2em;
     img { max-width: 300px; }
   }
+  /*
   .tables { display: grid; gap:40px;  }
 
 
@@ -39,26 +39,43 @@ section { font-size:20px; font-family: $serif;
       &.negative { color: darkred; }
     }
   }
+  */
 
+  section.stats { margin-bottom: 3em; }
 
-  .tables {
-    grid-template-columns: repeat(5, 1fr);
-    @media (max-width:1570px) {
-      grid-template-columns: repeat(4, 1fr);
-      .timebox { grid-column: span 1; }
+  .stats-boxes { display:grid; gap:$gap; grid-template-columns: repeat( auto-fill, 260px);
+    .box { background:rgba(255,255,255,0.75); padding:$padding; color:rgba(0,0,0,0.9) }
+    .big-number {
+      .number { font-size:260%; }
     }
-    @media (max-width:1150px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    @media (max-width:900px) {
-      grid-template-columns: repeat(2, 1fr);
-      .statement-grid-wrapper { grid-column: span 2; }
-    }
-    @media (max-width:630px) {
-      grid-template-columns: repeat(1, 1fr);
-      .statement-grid-wrapper { grid-column: span 1; }
-      .grid-box { height: unset !important; }
-    }
+    .time-ago { font-size:185%; }
   }
+
+  .good-tables { display:grid; grid-template-columns: repeat(3,1fr); gap:$gap;
+    .pass-table { grid-column: span 2; }
+  }
+
+  .good-table { padding-top:2em;
+    h2 { font-size:190%; padding-bottom: 0.35em; }
+    table.vgt-table {
+      th { font-weight: 900; padding:5px; text-transform: uppercase; font-size: 85%; }
+      td { padding: 5px; } 
+      .vgt-right-align { text-align: left; }
+    }
+
+    //&.celeb-table { max-width: 960px; }
+    //&.player-table { max-width: 600px; }
+  }
+
+}
+
+
+section.famous { padding:($gap * 2) $gap $gap 0;
+  .two-tables { 
+    display: grid; grid-template-columns: 2fr 1fr; gap:20px;
+  }
+}
+
+section.invalid { padding:($gap * 2) $gap $gap 0;
+  
 }

@@ -1,0 +1,44 @@
+section.famous.stats(v-if="ui.viewing == 'cameo'")
+  figure
+    img(src="svg/comparatively-famous.svg")
+
+  .stats-boxes
+
+    .box.big-number(v-if="stats.general.cameo && stats.general.cameo.GamesStarted > 0")
+      .caption Games Started
+      .number(v-text="stats.general.cameo.GamesStarted")
+      .sub-number
+        strong(v-text="stats.general.cameo.GamesFinished") finished
+        |  finished
+
+    .box.date(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.cameo")
+      .caption Last Game
+      .time-ago(v-text="formatTime(stats.general.lastPlayed.cameo,'fromNow')")
+      .calendar(v-text="formatTime(stats.general.lastPlayed.cameo,'calendar')")
+
+    .box.big-number(v-if="computedCameoPlayerData.averagePoints > 0")
+      .caption Average Player Score
+      .number(v-text="computedCameoPlayerData.averagePoints")
+
+    .box.big-number(v-if="computedCameoPlayerData.exceededBudgetPercent > 0")
+      .caption Exceeded Budget
+      .number.percent(v-text="computedCameoPlayerData.exceededBudgetPercent + '%'")
+
+    .box.big-number(v-if="computedCameoPlayerData.correctSortPercent > 0")
+      .caption Average Correct Sorts
+      .number.percent(v-text="computedCameoPlayerData.correctSortPercent + '%'")
+    
+    .box.big-number(v-if="computedCameoPlayerData.averageBirthdayWishes > 0")
+      .caption Average Birthday Wishes
+      .number(v-text="computedCameoPlayerData.averageBirthdayWishes")
+
+  .two-tables
+    .good-table.celeb-table(v-if="ui.cameoLoaded")
+      h2 Celebrity Performance
+      vue-good-table(:rows="stats.cameo.celebs" :columns="columns.celebs" styleClass="vgt-table condensed"
+        :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
+
+    .good-table.player-table(v-if="ui.cameoLoaded")
+      h2 Player Performance
+      vue-good-table(:rows="stats.cameo.playerScores" :columns="columns.cameoPlayers" styleClass="vgt-table condensed" :line-numbers="true"
+        :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")

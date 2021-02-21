@@ -12,8 +12,11 @@
 @import "start/_variables";
 @import "start/_default";
 @import "stats/_sections";
-
+@import "stats/_general";
 
 
 // OTHER PAGES
 
+
+
+.stats-screen { display:grid; gap:$gap; grid-template-columns: 240px 1fr; }
