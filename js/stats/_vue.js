@@ -20,7 +20,7 @@ var app = new Vue({
             label: "Actual Value",
             field: "actualValue",
             type:  "number",
-            formatFn: this.dollars,
+            formatFn: this.dollars
           },
           {
             label: "Avg Value",
@@ -32,17 +32,17 @@ var app = new Vue({
             label: "Market Forces",
             field: "marketForces",
             type:  "decimal",
-            formatFn: this.dollars,
+            formatFn: this.dollars
           },
           {
             label: "Sort Score",
             field: "sortScore",
-            type:  "number"
+            type:  "number",
           },
           {
             label: "Birthdays",
             field: "birthdayWishes",
-            type:  "number"
+            type:  "number",
           },
         ],
         cameoPlayers: [
@@ -157,6 +157,7 @@ var app = new Vue({
       ui: {
         viewing: "general",
         cameoLoaded: false,
+        invalidLoaded: false
       }
     }
   },
@@ -205,11 +206,11 @@ var app = new Vue({
                     m.actualValue = celeb.actualValue;
                     m.totalValuation = celeb.playerValue;
                     m.valuations = 1;
-                    m.averageValuation = m.totalValuation.totalValuation;
+                    m.averageValuation = m.totalValuation.toFixed(2); 
                   } else if (m.actualValue) {
                     m.totalValuation += celeb.playerValue;
                     m.valuations += 1;
-                    m.averageValuation = (m.totalValuation / m.valuations);
+                    m.averageValuation = (m.totalValuation / m.valuations).toFixed(2);
                   }
                 }
               } else {

@@ -12,5 +12,10 @@ main.general-stats { grid-column: span 2; min-height: 99vh; display: flex; align
 }
 
 aside.general-stats { padding:100px $padding; font-family: $serif;
-  .summary { margin-bottom: 2em; }
+  .summary { margin-bottom: 6em;
+    figure { cursor: pointer; opacity: 0.5;
+      &:hover { opacity: 1; }
+    }
+    &.active figure { cursor: default; opacity: 1; }
+  }
 }

@@ -392,7 +392,18 @@ aside.general-stats {
   font-family: "Lora", serif;
 }
 aside.general-stats .summary {
-  margin-bottom: 2em;
+  margin-bottom: 6em;
+}
+aside.general-stats .summary figure {
+  cursor: pointer;
+  opacity: 0.5;
+}
+aside.general-stats .summary figure:hover {
+  opacity: 1;
+}
+aside.general-stats .summary.active figure {
+  cursor: default;
+  opacity: 1;
 }
 
 .stats-screen {

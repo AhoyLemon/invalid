@@ -24,9 +24,9 @@ body
             .time-ago(v-text="formatTime(stats.general.lastPlayed.cameo,'fromNow')")
           .more-info
 
-        .summary
+        .summary(:class="{ active: (ui.viewing == 'invalid') }")
           figure
-            img(src="svg/invalid-logo.svg")
+            img(src="svg/invalid-logo.svg" @click="getData('invalid')")
           .last-played(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.invalid")
             .time-caption Last Game
             .time-ago(v-text="formatTime(stats.general.lastPlayed.invalid,'fromNow')")
