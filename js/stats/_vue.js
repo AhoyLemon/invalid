@@ -196,7 +196,7 @@ var app = new Vue({
         ]
       },
       ui: {
-        viewing: "general",
+        viewing: "loading",
         cameoLoaded: false,
         invalidLoaded: false,
         wrongestLoaded: false
@@ -208,6 +208,8 @@ var app = new Vue({
 
     getData(game) {
       const self = this;
+
+      self.ui.viewing = "loading";
 
       if (game == "cameo") {
 
@@ -498,6 +500,7 @@ var app = new Vue({
       })
       .then(function () {
         // always executed
+        self.ui.viewing = "general";
       });
   }
 

@@ -258,7 +258,7 @@ section .stats-boxes {
   display: -ms-grid;
   display: grid;
   gap: 40px;
-  grid-template-columns: repeat(auto-fill, 260px);
+  grid-template-columns: repeat(auto-fill, 320px);
 }
 section .stats-boxes .box {
   background: rgba(255, 255, 255, 0.75);
@@ -300,6 +300,29 @@ section .good-table table.vgt-table td {
 }
 section .good-table table.vgt-table .vgt-right-align {
   text-align: left;
+}
+
+section.loading {
+  padding: 80px 40px 40px 0;
+  min-height: 99vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+section.loading .inside {
+  text-align: center;
+  width: 100%;
+}
+section.loading img {
+  width: 92px;
+  height: 92px;
+}
+section.loading h3 {
+  margin-top: 50px;
+  font-weight: 100;
 }
 
 section.famous {

@@ -48,8 +48,8 @@
           </div>
         </div>
         <div class="player-table">
-          <div class="good-table player-table">
-            <vue-good-table :rows="stats.general.playerNames" :columns="columns.playerNames" styleClass="vgt-table condensed" :pagination-options="{ enabled: true, perPage: 28, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+          <div class="good-table player-table" v-if="stats.general.playerNames">
+            <vue-good-table :rows="stats.general.playerNames" :columns="columns.playerNames" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
           </div>
         </div>
       </main>
@@ -78,6 +78,11 @@
         </div>
       </aside>
       <main v-if="ui.viewing != 'general'">
+        <section class="loading stats" v-if="ui.viewing == 'loading'">
+          <div class="inside"><img src="svg/rings.svg"/>
+            <h3>Loading data...</h3>
+          </div>
+        </section>
         <section class="famous stats" v-if="ui.viewing == 'cameo'">
           <figure><img src="svg/comparatively-famous.svg"/></figure>
           <div class="stats-boxes">

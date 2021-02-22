@@ -34,6 +34,6 @@ main.general-stats(v-if="ui.viewing == 'general'")
           button(@click="getData('wrongest')") Details
 
   .player-table
-    .good-table.player-table
-      vue-good-table(:rows="stats.general.playerNames" :columns="columns.playerNames" styleClass="vgt-table condensed"
-        :pagination-options="{ enabled: true, perPage: 28, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
+    .good-table.player-table(v-if="stats.general.playerNames")
+      vue-good-table(:rows="stats.general.playerNames" :columns="columns.playerNames" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }"
+        :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")

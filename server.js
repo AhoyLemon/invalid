@@ -46,7 +46,7 @@ function incrementDatabaseWithChallenge(table,challenge,value) {
 }
 
 function addPlayerName(table,gameName,playerName) {
-  const sql = 'INSERT INTO '+table+' (iname, lastPlayed) VALUES ('+connection.escape(playerName)+', '+connection.escape(gameName)+') ON DUPLICATE KEY UPDATE icount = icount+1;';
+  const sql = 'INSERT INTO '+table+' (iname, lastPlayed, lastPlayTime) VALUES ('+connection.escape(playerName)+', '+connection.escape(gameName)+', NOW()) ON DUPLICATE KEY UPDATE icount = icount+1, lastPlayTime = NOW();';
   connection.query(sql, function(err, rows, fields) {
     if (err) throw err;
   });
@@ -62,8 +62,8 @@ function DateStampInDatabase(table,gameName) {
 }
 
 function newCameoPlayerScore(playerScore,correctSorts,averageValuationOffset,birthdayWishes,exceededBudget) {
-  const sql = `INSERT INTO cameoPlayerScores (playerScore, correctSorts,averageValuationOffset,birthdayWishes,exceededBudget) 
-                VALUES (${connection.escape(playerScore)},${connection.escape(correctSorts)},${connection.escape(averageValuationOffset)},${connection.escape(birthdayWishes)},${connection.escape(exceededBudget)})`;
+  const sql = `INSERT INTO cameoPlayerScores (playerScore, correctSorts,averageValuationOffset,birthdayWishes,exceededBudget,finishTime) 
+                VALUES (${connection.escape(playerScore)},${connection.escape(correctSorts)},${connection.escape(averageValuationOffset)},${connection.escape(birthdayWishes)},${connection.escape(exceededBudget)},NOW())`;
   connection.query(sql, function(err, rows, fields) {
     if (err) throw err;
   });

@@ -17,6 +17,11 @@ body
 
       main(v-if="ui.viewing != 'general'")
 
+        section.loading.stats(v-if="ui.viewing == 'loading'")
+          .inside
+            img(src="svg/rings.svg")
+            h3 Loading data...
+
         include stats/_famous
         include stats/_invalid
         include stats/_wrongest

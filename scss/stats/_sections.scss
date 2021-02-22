@@ -43,7 +43,7 @@ section { font-size:20px; font-family: $serif;
 
   section.stats { margin-bottom: 3em; }
 
-  .stats-boxes { display:grid; gap:$gap; grid-template-columns: repeat( auto-fill, 260px);
+  .stats-boxes { display:grid; gap:$gap; grid-template-columns: repeat( auto-fill, 320px);
     .box { background:rgba(255,255,255,0.75); padding:$padding; color:rgba(0,0,0,0.9) }
     .big-number {
       .number { font-size:260%; }
@@ -69,6 +69,11 @@ section { font-size:20px; font-family: $serif;
 
 }
 
+section.loading { padding:($gap * 2) $gap $gap 0; min-height: 99vh; display: flex; align-items: center;
+  .inside { text-align: center; width:100%; }
+  img { width:92px; height: 92px;}
+  h3 { margin-top: 50px; font-weight: 100; }
+}
 
 section.famous { padding:($gap * 2) $gap $gap 0;
   .two-tables { 
@@ -83,3 +88,4 @@ section.invalid { padding:($gap * 2) $gap $gap 0;
 section.wrongest { padding:($gap * 2) $gap $gap 0;
   
 }
+
