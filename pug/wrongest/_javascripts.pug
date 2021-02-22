@@ -9,10 +9,11 @@
       const testing = false;
 
   script(src="js/libraries/howler.min.js")
-  script(src="socket.io/socket.io.js")
-  script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+  
   script(src="js/libraries/vue-toast-notification.min.js")
   link(href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet")
+
+  script(src="socket.io/socket.io.js")
   script.
     var socket = io.connect();
     Vue.use(VueToast);
