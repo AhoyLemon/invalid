@@ -11,16 +11,14 @@ section { font-size:20px; font-family: $serif;
     td:first-child { width:36px; max-width: 36px; text-align: right; padding-right: 1rem; }
     td:last-child { width:calc(100% - 36px); }
     table {color:$black; padding:6px; width:100%; }
-    td { border-bottom: 1px solid rgba(0,0,0.15); } 
+    td { border-bottom: 1px solid rgba(0,0,0,0.15); } 
   }
 
   .grid-wrapper { 
     .grid-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
     .grid-box { background:$white; color:$black; height: 300px; }
     .data-grid { display:grid; grid-template-columns: 36px 1fr; padding-top:16px; padding-bottom: 16px; max-height: 300px; overflow-y: auto; }
-
-    
-    .count, .value { border-bottom: 1px solid rgba(0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
+    .count, .value { border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
     .count { text-align: right; padding-right: 10px; font-weight: 900; }
   }
 
@@ -32,7 +30,7 @@ section { font-size:20px; font-family: $serif;
   .statement-grid-wrapper { grid-column: span 3;
     .grid-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
     .data-grid { display:grid; grid-template-columns: 60px 1fr 30px; padding-top:16px; padding-bottom: 16px; background:$white; color:$black; max-height: 300px; overflow-y: auto;
-      > * { border-bottom: 1px solid rgba(0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
+      > * { border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
     }
     .score { text-align: right; padding-right: 10px; font-weight: 900;
       &.positive { color:darkgreen; }
