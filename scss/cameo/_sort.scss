@@ -1,16 +1,12 @@
-
-
-html {  overflow-y: scroll;
-  
-}
-main.sort-three { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; background-blend-mode: multiply,multiply; }
+main.sort-three { background: #282828; background: linear-gradient(#282828,#212121); }
 .three-to-compare { display:grid; grid-template-columns: repeat(2,1fr); gap:40px;
   width:100%; max-width: 960px; margin-left: auto; margin-right: auto;
 
   .list-group { padding:40px 20px; min-height: 99.9vh; position: relative;
-    background: rgba(25,25,25,0.3);
-    border-left:4px solid rgba(25,25,25,0.15);
-    border-right:4px solid rgba(25,25,25,0.15);
+    background: rgba(255,255,255,0.4);
+    border-left:4px solid rgba(15,15,15,0.6);
+    border-right:4px solid rgba(15,15,15,0.6);
+    box-shadow: inset -2px 5px 10px rgba(15, 15, 15, 0.5);
     .list-group-item { cursor: move;
       &.sortable-chosen { cursor: grab; }
       &.sortable-ghost { opacity: 0.6; }

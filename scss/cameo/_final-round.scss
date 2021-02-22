@@ -1,9 +1,6 @@
-main.final-round { background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; background-blend-mode: multiply,multiply;
+main.final-round { background-image:url('../img/bg/balloons.jpg'); background-size:cover; background-position: center;
   .casting-interface { display:grid; grid-template-columns: repeat(2,1fr); gap:40px; width:100%; max-width: 960px; margin-left: auto; margin-right: auto; }
-  .list-group { padding:40px 20px; height: 99.9vh; position: relative; overflow-y: auto;
-    background: rgba(25,25,25,0.3);
-    border-left:4px solid rgba(25,25,25,0.15);
-    border-right:4px solid rgba(25,25,25,0.15);
+  .list-group { padding:40px 20px; height: 99.9vh; position: relative; overflow-y: auto; background:rgba(255,255,255,0.35); border-left:4px solid rgba(25,25,25,0.6); border-right:4px solid rgba(25,25,25,0.15); backdrop-filter: blur(12px);
     .list-group-item { cursor: move;
       &.sortable-chosen { cursor: grab; }
       &.sortable-ghost { opacity: 0.6; }

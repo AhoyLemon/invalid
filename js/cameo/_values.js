@@ -14,7 +14,7 @@ const allValues = [
   { name: "Mehmet Oz", desc: "Still has a medical license for some reason", slug:"droz", value:500 },
   { name: "Steve Wozniak", desc: "Apple Co-Founder", slug:"stevewoz", value:500 },
   { name: "Chris Tucker", desc: "Carter in Rush Hour 1, 2 & 3", slug:"christucker404", value:500 },
-  { name: "Rebecca Black", desc: "Singer of “Friday”", slug:"christucker404", value:500 },
+  { name: "Rebecca Black", desc: "Singer of “Friday”", slug:"rebeccablack", value:500 },
   { name: "LeVar Burton", desc:"Host, Reading Rainbow", slug:"levarburton", value:450 },
   { name: "Chuck Norris", desc:"Movie Kicker", slug:"chucknorris", value:450 },
   { name: "John Cleese", desc:"Member, Monty Python", slug:"notsirjohncleese", value:450 },
