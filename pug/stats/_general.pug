@@ -36,4 +36,4 @@ main.general-stats(v-if="ui.viewing == 'general'")
   .player-table
     .good-table.player-table(v-if="stats.general.playerNames")
       vue-good-table(:rows="stats.general.playerNames" :columns="columns.playerNames" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }"
-        :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
+        :pagination-options="{ enabled: true, perPage: 20, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")

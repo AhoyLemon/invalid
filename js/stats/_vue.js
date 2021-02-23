@@ -6,8 +6,7 @@ var app = new Vue({
         general: {},
         cameo: {},
         invalid: {},
-        wrongest: {},
-        celebArray: []
+        wrongest: {}
       },
 
       columns: {
@@ -84,7 +83,13 @@ var app = new Vue({
             label: "Blew Budget",
             field: "exceededBudget",
             formatFn: this.exceededBudgetOutput
-          }
+          },
+          {
+            label: "Finished",
+            field: "finishTime",
+            type: "date",
+            formatFn: this.formatDate
+          } 
         ],
         bugs: [
           {
@@ -250,11 +255,11 @@ var app = new Vue({
                     m.actualValue = celeb.actualValue;
                     m.totalValuation = celeb.playerValue;
                     m.valuations = 1;
-                    m.averageValuation = m.totalValuation.toFixed(2); 
+                    m.averageValuation = m.totalValuation; 
                   } else if (m.actualValue) {
                     m.totalValuation += celeb.playerValue;
                     m.valuations += 1;
-                    m.averageValuation = (m.totalValuation / m.valuations).toFixed(2);
+                    m.averageValuation = (m.totalValuation / m.valuations);
                   }
                 }
               } else {
@@ -390,6 +395,11 @@ var app = new Vue({
       }
     },
 
+    addCommas(n) {
+      const self = this;
+      return addCommas(n);
+    },
+
     dollars(amount) {
       const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -403,6 +413,14 @@ var app = new Vue({
       } else {
         return "-";
       }
+    },
+    formatDate(d) {
+      if (d) {
+        return moment(d).subtract('6','hours').format('MMM Do @ h:ss a'); 
+      } else {
+        return "";
+      }
+      
     },
 
     formatStatement(statement) {
@@ -457,6 +475,7 @@ var app = new Vue({
 
       let playerCount = self.stats.cameo.playerScores.length;
       cameoObject.averagePoints = parseInt(totalPoints / playerCount);
+      cameoObject.averagePoints = addCommas(cameoObject.averagePoints);
       cameoObject.averageCorrectSorts = parseInt(totalCorrectSorts / playerCount);
       cameoObject.averageBirthdayWishes = parseInt(totalBirthdayWishes /playerCount);
 
@@ -484,7 +503,36 @@ var app = new Vue({
       }
 
       return percentOf(self.stats.invalid.successfulPasswords.length, self.stats.invalid.cracks.length);
+    },
+
+    computedServerCrashes() {
+      const self = this;
+      if (!self.stats.invalid || !self.stats.invalid.crashes) {
+        return "0";
+      }
+      let c = 0;
+      self.stats.invalid.crashes.forEach((crash) => {
+        c += crash.icount;
+      });
+      return c;
+    },
+
+    computedAvgMarketForces() {
+      const self = this;
+      if (!self.stats.cameo || !self.stats.cameo.celebs) {
+        return "0";
+      }
+      let cCount = 0;
+      let cCombined = 0;
+      self.stats.cameo.celebs.forEach((celeb) => {
+        cCount++;
+        cCombined += celeb.marketForces;
+      });
+      let a = (cCombined / cCount);
+      return self.dollars(a);
     }
+
+
   },
 
   created: function() {

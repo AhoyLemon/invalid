@@ -2,7 +2,7 @@ section.famous.stats(v-if="ui.viewing == 'cameo'")
   figure
     img(src="svg/comparatively-famous.svg")
 
-  .stats-boxes
+  .stats-boxes.with-table
 
     .box.big-number(v-if="stats.general.cameo && stats.general.cameo.GamesStarted > 0")
       .caption Games Started
@@ -16,7 +16,7 @@ section.famous.stats(v-if="ui.viewing == 'cameo'")
       .time-ago(v-text="formatTime(stats.general.lastPlayed.cameo,'fromNow')")
       .calendar(v-text="formatTime(stats.general.lastPlayed.cameo,'calendar')")
 
-    .box.big-number(v-if="computedCameoPlayerData.averagePoints > 0")
+    .box.big-number(v-if="computedCameoPlayerData.averagePoints != 0")
       .caption Average Player Score
       .number(v-text="computedCameoPlayerData.averagePoints")
 
@@ -27,6 +27,10 @@ section.famous.stats(v-if="ui.viewing == 'cameo'")
     .box.big-number(v-if="computedCameoPlayerData.correctSortPercent > 0")
       .caption Average Correct Sorts
       .number.percent(v-text="computedCameoPlayerData.correctSortPercent + '%'")
+
+    .box.big-number
+      .caption Avg Market Forces
+      .number(v-text="computedAvgMarketForces")
     
     .box.big-number(v-if="computedCameoPlayerData.averageBirthdayWishes > 0")
       .caption Average Birthday Wishes
@@ -35,10 +39,10 @@ section.famous.stats(v-if="ui.viewing == 'cameo'")
   .two-tables
     .good-table.celeb-table(v-if="ui.cameoLoaded")
       h2 Celebrity Performance
-      vue-good-table(v-if="stats.cameo.celebs && stats.cameo.celebs.length" :rows="stats.cameo.celebs" :columns="columns.celebs" styleClass="vgt-table condensed"
+      vue-good-table(v-if="stats.cameo.celebs && stats.cameo.celebs.length" :rows="stats.cameo.celebs" :columns="columns.celebs"
         :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
 
     .good-table.player-table(v-if="ui.cameoLoaded")
       h2 Player Performance
-      vue-good-table(:rows="stats.cameo.playerScores" :columns="columns.cameoPlayers" styleClass="vgt-table condensed" :line-numbers="true"
+      vue-good-table(:rows="stats.cameo.playerScores" :columns="columns.cameoPlayers" styleClass="vgt-table condensed" :line-numbers="true" :sort-options="{ enabled: true, initialSortBy: {field: 'finishTime', type: 'desc'} }"
         :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")

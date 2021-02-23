@@ -205,44 +205,6 @@ p {
 section {
   font-size: 20px;
   font-family: "Lora", serif;
-  /*
-  .tables { display: grid; gap:40px;  }
-
-
-  .table-wrapper { background:$white; max-height: 360px; overflow-y: auto;
-    th { font-style:  bold; font-size:80%; text-transform: uppercase; }
-    td:first-child { width:36px; max-width: 36px; text-align: right; padding-right: 1rem; }
-    td:last-child { width:calc(100% - 36px); }
-    table {color:$black; padding:6px; width:100%; }
-    td { border-bottom: 1px solid rgba(0,0,0.15); } 
-  }
-
-  .grid-wrapper { 
-    .grid-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
-    .grid-box { background:$white; color:$black; height: 300px; }
-    .data-grid { display:grid; grid-template-columns: 36px 1fr; padding-top:16px; padding-bottom: 16px; max-height: 300px; overflow-y: auto; }
-
-
-    .count, .value { border-bottom: 1px solid rgba(0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
-    .count { text-align: right; padding-right: 10px; font-weight: 900; }
-  }
-
-  .timebox { grid-column: span 2;
-    .time-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
-    .time-ago { font-size: 180%; font-weight: 900; }
-  }
-
-  .statement-grid-wrapper { grid-column: span 3;
-    .grid-caption { font-size:110%; margin-bottom: 10px; text-transform: uppercase; }
-    .data-grid { display:grid; grid-template-columns: 60px 1fr 30px; padding-top:16px; padding-bottom: 16px; background:$white; color:$black; max-height: 300px; overflow-y: auto;
-      > * { border-bottom: 1px solid rgba(0,0,0.15); padding-bottom: 6px; margin-bottom: 6px; }
-    }
-    .score { text-align: right; padding-right: 10px; font-weight: 900;
-      &.positive { color:darkgreen; }
-      &.negative { color: darkred; }
-    }
-  }
-  */
 }
 section figure {
   text-align: center;
@@ -258,7 +220,8 @@ section .stats-boxes {
   display: -ms-grid;
   display: grid;
   gap: 40px;
-  grid-template-columns: repeat(auto-fill, 320px);
+  -ms-grid-columns: 1fr 40px 1fr 40px 1fr 40px 1fr;
+  grid-template-columns: repeat(4, 1fr);
 }
 section .stats-boxes .box {
   background: rgba(255, 255, 255, 0.75);
@@ -298,9 +261,6 @@ section .good-table table.vgt-table th {
 section .good-table table.vgt-table td {
   padding: 5px;
 }
-section .good-table table.vgt-table .vgt-right-align {
-  text-align: left;
-}
 
 section.loading {
   padding: 80px 40px 40px 0;
@@ -331,8 +291,8 @@ section.famous {
 section.famous .two-tables {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 2fr 20px 1fr;
-  grid-template-columns: 2fr 1fr;
+  -ms-grid-columns: 3fr 20px 2fr;
+  grid-template-columns: 3fr 2fr;
   gap: 20px;
 }
 

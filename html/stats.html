@@ -49,7 +49,7 @@
         </div>
         <div class="player-table">
           <div class="good-table player-table" v-if="stats.general.playerNames">
-            <vue-good-table :rows="stats.general.playerNames" :columns="columns.playerNames" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+            <vue-good-table :rows="stats.general.playerNames" :columns="columns.playerNames" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 20, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
           </div>
         </div>
       </main>
@@ -85,7 +85,7 @@
         </section>
         <section class="famous stats" v-if="ui.viewing == 'cameo'">
           <figure><img src="svg/comparatively-famous.svg"/></figure>
-          <div class="stats-boxes">
+          <div class="stats-boxes with-table">
             <div class="box big-number" v-if="stats.general.cameo &amp;&amp; stats.general.cameo.GamesStarted &gt; 0">
               <div class="caption">Games Started</div>
               <div class="number" v-text="stats.general.cameo.GamesStarted"></div>
@@ -96,7 +96,7 @@
               <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.cameo,'fromNow')"></div>
               <div class="calendar" v-text="formatTime(stats.general.lastPlayed.cameo,'calendar')"></div>
             </div>
-            <div class="box big-number" v-if="computedCameoPlayerData.averagePoints &gt; 0">
+            <div class="box big-number" v-if="computedCameoPlayerData.averagePoints != 0">
               <div class="caption">Average Player Score</div>
               <div class="number" v-text="computedCameoPlayerData.averagePoints"></div>
             </div>
@@ -108,6 +108,10 @@
               <div class="caption">Average Correct Sorts</div>
               <div class="number percent" v-text="computedCameoPlayerData.correctSortPercent + '%'"></div>
             </div>
+            <div class="box big-number">
+              <div class="caption">Avg Market Forces</div>
+              <div class="number" v-text="computedAvgMarketForces"></div>
+            </div>
             <div class="box big-number" v-if="computedCameoPlayerData.averageBirthdayWishes &gt; 0">
               <div class="caption">Average Birthday Wishes</div>
               <div class="number" v-text="computedCameoPlayerData.averageBirthdayWishes"></div>
@@ -116,11 +120,11 @@
           <div class="two-tables">
             <div class="good-table celeb-table" v-if="ui.cameoLoaded">
               <h2>Celebrity Performance</h2>
-              <vue-good-table v-if="stats.cameo.celebs &amp;&amp; stats.cameo.celebs.length" :rows="stats.cameo.celebs" :columns="columns.celebs" styleClass="vgt-table condensed" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+              <vue-good-table v-if="stats.cameo.celebs &amp;&amp; stats.cameo.celebs.length" :rows="stats.cameo.celebs" :columns="columns.celebs" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
             </div>
             <div class="good-table player-table" v-if="ui.cameoLoaded">
               <h2>Player Performance</h2>
-              <vue-good-table :rows="stats.cameo.playerScores" :columns="columns.cameoPlayers" styleClass="vgt-table condensed" :line-numbers="true" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+              <vue-good-table :rows="stats.cameo.playerScores" :columns="columns.cameoPlayers" styleClass="vgt-table condensed" :line-numbers="true" :sort-options="{ enabled: true, initialSortBy: {field: 'finishTime', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
             </div>
           </div>
         </section>
@@ -135,9 +139,18 @@
               <div class="caption">Rooms Created</div>
               <div class="number" v-text="stats.general.invalid.RoomsCreated"></div>
             </div>
+            <div class="box date" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.invalid">
+              <div class="caption">Last Played</div>
+              <div class="time-ago" v-text="formatTime(stats.general.lastPlayed.invalid,'fromNow')"></div>
+              <div class="calendar" v-text="formatTime(stats.general.lastPlayed.invalid,'calendar')"></div>
+            </div>
             <div class="box big-number">
               <div class="caption">Naughty Mode</div>
               <div class="number percent" v-text="computedNaughtyPercentage + '%'"></div>
+            </div>
+            <div class="box big-number">
+              <div class="caption">Server Crashes</div>
+              <div class="number percent" v-text="computedServerCrashes"></div>
             </div>
             <div class="box big-number">
               <div class="caption">Cracked Passwords</div>
@@ -155,20 +168,24 @@
             </div>
             <div class="good-table">
               <h2>Challenges</h2>
-              <vue-good-table :rows="stats.invalid.challenges" :columns="columns.challenges" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+              <vue-good-table :rows="stats.invalid.challenges" :columns="columns.challenges" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 40, position: 'top', perPageDropdown: [25, 40, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
             </div>
             <div class="good-table">
               <h2>Rules</h2>
-              <vue-good-table :rows="stats.invalid.rules" :columns="columns.rules" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+              <vue-good-table :rows="stats.invalid.rules" :columns="columns.rules" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table><br/><br/>
+              <h2>Letters</h2>
+              <vue-good-table :rows="stats.invalid.letters" :columns="columns.letters" :sort-options="{ enabled: true, initialSortBy: {field: 'letter', type: 'asc'} }" :pagination-options="{ enabled: true, perPage: 25, position: 'top', perPageDropdown: [10, 25, 50], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
             </div>
             <div class="good-table">
               <h2>Player Counts</h2>
-              <vue-good-table :rows="stats.invalid.playerCounts" :columns="columns.playerCounts" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+              <vue-good-table :rows="stats.invalid.playerCounts" :columns="columns.playerCounts" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 20], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table><br/><br/>
+              <h2>Player Names</h2>
+              <vue-good-table :rows="stats.general.playerNames" :columns="columns.playerNames" :sort-options="{ enabled: true, initialSortBy: {field: 'lastPlayed', type: 'asc'} }" :pagination-options="{ enabled: true, perPage: 27, position: 'top', perPageDropdown: [10, 27, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
             </div>
-            <div class="good-table">
-              <h2>Letters</h2>
-              <vue-good-table :rows="stats.invalid.letters" :columns="columns.letters" :sort-options="{ enabled: true, initialSortBy: {field: 'banned', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
-            </div>
+          </div>
+          <div class="good-tables" v-if="ui.invalidLoaded">
+            <div class="good-table"></div>
+            <div class="good-table player-table" v-if="stats.general.playerNames"></div>
           </div>
         </section>
         <section class="wrongest stats" v-if="ui.viewing == 'wrongest'">
@@ -191,13 +208,15 @@
           <div class="good-tables" v-if="ui.wrongestLoaded">
             <div class="good-table pass-table">
               <h2>Statements</h2>
-              <vue-good-table :rows="stats.wrongest.statements" :columns="columns.wrongestStatements" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'asc'} }" :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+              <vue-good-table :rows="stats.wrongest.statements" :columns="columns.wrongestStatements" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'asc'} }" :pagination-options="{ enabled: true, perPage: 50, position: 'top', perPageDropdown: [25, 50, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
             </div>
             <div class="good-table">
               <h2>Decks</h2>
               <vue-good-table :rows="stats.wrongest.decks" :columns="columns.decks" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table><br/><br/>
               <h2>Player Counts</h2>
-              <vue-good-table :rows="stats.wrongest.playerCounts" :columns="columns.playerCounts" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
+              <vue-good-table :rows="stats.wrongest.playerCounts" :columns="columns.playerCounts" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table><br/><br/>
+              <h2>Player Names</h2>
+              <vue-good-table :rows="stats.general.playerNames" :columns="columns.playerNames" :sort-options="{ enabled: true, initialSortBy: {field: 'lastPlayed', type: 'desc'} }" :pagination-options="{ enabled: true, perPage: 25, position: 'top', perPageDropdown: [10, 25, 50], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}"></vue-good-table>
             </div>
           </div>
         </section>

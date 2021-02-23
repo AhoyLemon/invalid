@@ -19,7 +19,7 @@ section.wrongest.stats(v-if="ui.viewing == 'wrongest'")
     .good-table.pass-table
       h2 Statements
       vue-good-table(:rows="stats.wrongest.statements" :columns="columns.wrongestStatements" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'asc'} }"
-        :pagination-options="{ enabled: true, perPage: 30, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
+        :pagination-options="{ enabled: true, perPage: 50, position: 'top', perPageDropdown: [25, 50, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
 
     .good-table
       h2 Decks
@@ -30,3 +30,8 @@ section.wrongest.stats(v-if="ui.viewing == 'wrongest'")
       h2 Player Counts
       vue-good-table(:rows="stats.wrongest.playerCounts" :columns="columns.playerCounts" :sort-options="{ enabled: true, initialSortBy: {field: 'icount', type: 'desc'} }"
         :pagination-options="{ enabled: true, perPage: 10, position: 'top', perPageDropdown: [10, 30, 60, 100], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
+      br
+      br
+      h2 Player Names
+      vue-good-table(:rows="stats.general.playerNames" :columns="columns.playerNames" :sort-options="{ enabled: true, initialSortBy: {field: 'lastPlayed', type: 'desc'} }"
+        :pagination-options="{ enabled: true, perPage: 25, position: 'top', perPageDropdown: [10, 25, 50], dropdownAllowAll: true, nextLabel: 'next',prevLabel: 'prev',}")
