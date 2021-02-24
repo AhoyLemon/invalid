@@ -101,8 +101,6 @@ var app = new Vue({
 
   methods: {
 
-
-
     ////////////////////////////////////////////////////////////////
     // Lobby Create / Join Methods
 
@@ -714,7 +712,6 @@ var app = new Vue({
     /////////////////////////////
     // EMPLOYEE FUNCTIONS
 
-
     summonTheFlyingPig() {
       const self = this;
       self.round.flyingPig.active = true;
@@ -729,7 +726,6 @@ var app = new Vue({
       clearInterval(self.round.flyingPig.timer);
       self.round.flyingPig.timer = undefined;
     },
-
 
     endTheGuessingRound() {
       const self = this;
@@ -1059,6 +1055,13 @@ var app = new Vue({
         summary: summary
       });
 
+    },
+
+    onPaste (evt) {
+      const self = this;
+      console.log('on paste', evt);
+      evt.preventDefault();
+      return false;
     },
     
     ////////////////////////////////////////////////////////////////
