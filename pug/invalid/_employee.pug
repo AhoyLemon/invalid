@@ -78,7 +78,7 @@ main.employee-screen(v-if="my.role == 'employee' && (round.phase == 'choose rule
               // Okay, here's the working password form.
               form.password-form(@submit.prevent="tryThisPassword(ui.passwordAttempt)")
                 fieldset
-                  input(type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" maxlength="25" v-focus :class="{ 'error' : ui.passwordInputError }" autocomplete="off" required v-touppercase)
+                  input(type="text" v-model="ui.passwordAttempt" id="PasswordAttempt" maxlength="25" @paste="onPaste" v-focus :class="{ 'error' : ui.passwordInputError }" autocomplete="off" required v-touppercase)
                   label(for="PasswordAttempt") Create A Password
                     sup.required *
                 .button-holder

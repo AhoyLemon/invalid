@@ -1061,6 +1061,19 @@ var app = new Vue({
       const self = this;
       console.log('on paste', evt);
       evt.preventDefault();
+
+      self.my.score -= 10;
+      self.players[self.my.playerIndex].score -= 10;
+
+      let instance = Vue.$toast.open(
+        {
+          message: "<h2>Pasting is disabled.</h3><p>BigCorp prevents any employee from pasting in passwords, for like, security reasons or something. You have been docked 10 points for breaking this perfectly reasonable rule.</p>",
+          type: "error",
+          duration: 8000,
+          position: "bottom-right"
+        }
+      );
+
       return false;
     },
     
@@ -1395,7 +1408,7 @@ var app = new Vue({
 
     /////////////////////////////////////////////
     // FAKE AN EMPLOYEE
-    /*
+    
     self.my.role = "employee";
     self.my.name = "Lemon";
     self.my.playerIndex = 0;
@@ -1416,7 +1429,7 @@ var app = new Vue({
     self.round.challenge = {"id":29,"name":"Periodic Table of Elements","nameAsRule":"Your password must be an element on the Periodic Table.","failedMessage":"[PASS]? Next you'll tell me unobtanium is real. Try again.","possible":["ACTINIUM","ALUMINUM","AMERICIUM","ANTIMONY","ARGON","ARSENIC","ASTATINE","BARIUM","BERKELIUM","BERYLLIUM","BISMUTH","BOHRIUM","BORON","BROMINE","CADMIUM","CALCIUM","CALIFORNIUM","CARBON","CERIUM","CESIUM","CHLORINE","CHROMIUM","COBALT","COPPER","CURIUM","DARMSTADTIUM","DUBNIUM","DYSPROSIUM","EINSTEINIUM","ERBIUM","EUROPIUM","FERMIUM","FLOURINE","FRANCIUM","GADOLINIUM","GALLIUM","GERMANIUM","GOLD","HAFNIUM","HASSIUM","HELIUM","HOLMIUM","HYDROGEN","INDIUM","IODINE","IRIDIUM","IRON","KRYPTON","LANTHANUM","LAWRENCIUM","LEAD","LITHIUM","LUTETIUM","MAGNESIUM","MANGANESE","MEITNERIUM","MENDELEVIUM","MERCURY","MOLYBDENUM","NEODYMIUM","NEON","NEPTUNIUM","NICKEL","NIOBIUM","NITROGEN","NOBELIUM","OGANESSON","OSMIUM","OXYGEN","PALLADIUM","PHOSPHORUS","PLATINUM","PLUTONIUM","POTASSIUM","PRASEODYMIUM","PROMETHIUM","PROTACTINIUM","RADIUM","RADON","RHENIUM","RHODIUM","ROENTGENIUM","RUBIDIUM","RUTHENIUM","RUTHERFORDIUM","SAMARIUM","SCANDIUM","SEABORGIUM","SELENIUM","SILICON","SILVER","SODIUM","STRONTIUM","SULFUR","TANTALUM","TECHNETIUM","TELLURIUM","TERBIUM","THALLIUM","THORIUM","THULIUM","TIN","TITANIUM","TUNGSTEN","UNUNBIUM","UNUNHEXIUM","UNUNQUADIUM","UNUNSEPTIUM","UNUNTRIUM","URANIUM","VANADIUM","XENON","YTTERBIUM","YTTRIUM","ZINC","ZIRCONIUM"]};
     self.round.bugs = ["FART"];
     self.round.rules = [{"type":"Set A Minimum","message":"Your password must be more than 5 characters","inputValue":6,"inputValueTwo":null}];
-    */
+    
 
     /*
     /////////////////////////////////////////////
