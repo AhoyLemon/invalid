@@ -215,7 +215,9 @@ var app = new Vue({
       const self = this;
 
       self.ui.viewing = "loading";
-
+      let url = new URL(location.protocol + '//' + location.host + location.pathname);
+      url.searchParams.set('game', game);
+      
       if (game == "cameo") {
 
         axios.get('/stats/live/cameo/json')
@@ -377,6 +379,9 @@ var app = new Vue({
             self.ui.viewing = "wrongest";
           });
       }
+
+      window.history.pushState({}, '', url);
+
     },
 
     formatTime(stamp,format) {
@@ -420,7 +425,9 @@ var app = new Vue({
       } else {
         return "";
       }
-      
+    },
+    percentOf(full,partial) {
+      return percentOf(full,partial);
     },
 
     formatStatement(statement) {

@@ -6,10 +6,10 @@ section.famous.stats(v-if="ui.viewing == 'cameo'")
 
     .box.big-number(v-if="stats.general.cameo && stats.general.cameo.GamesStarted > 0")
       .caption Games Started
-      .number(v-text="stats.general.cameo.GamesStarted")
+      .number(v-text="addCommas(stats.general.cameo.GamesStarted)")
       .sub-number
-        strong(v-text="stats.general.cameo.GamesFinished") finished
-        |  finished
+        strong(v-text="addCommas(stats.general.cameo.GamesFinished)") finished
+        |  finished | {{percentOf(stats.general.cameo.GamesStarted, stats.general.cameo.GamesFinished)}}%
 
     .box.date(v-if="stats.general && stats.general.lastPlayed && stats.general.lastPlayed.cameo")
       .caption Last Game

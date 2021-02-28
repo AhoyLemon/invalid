@@ -19,8 +19,20 @@ const gimmickRounds = {
       { name: "Richard Roeper", desc:"Movie Critic, Formerly of Ebert & Roeper", slug:"richarderoeper", value:55 },
       { name: "Richard Turner", desc:"Bassist, Blackberry Smoke", slug:"richardturner", value:50 },
       { name: "Richard Petty", desc:"NASCAR driver", slug:"rlpetty43", value:250 },
-
     ],
+
+    finalHires: [
+      { name: "Richard McGonagle", desc:"Voice Actor, the Uncharted video game series", slug:"richardmcgonagle", value:35 },
+      { name: "Richard Thomas", desc:"John-Boy Walton on The Waltons", slug:"richardthomas", value:100 },
+      { name: "Richard Schiff", desc:"Toby on The West Wing", slug:"richard_schiff", value:250 },
+      { name: "Dick Beardsley", desc:"Marathon Runner", slug:"dickbeardsley", value:70 },
+      { name: "Richard Dreyfuss", desc:"Hooper in Jaws", slug:"richarddreyfuss1", value:999 },
+      { name: "Richard Hamilton", desc:"aka “The Man In The Mask”", slug:"ripcity3232", value:250 },
+      { name: "Richard Marx", desc:"Wherever you go, whatever you do, he will be right here waiting for you.", slug:"richardmarx", value:250 },
+      { name: "Kim Richards", desc:"Real Housewives of Beverly Hills", slug:"kimrichards", value:125 },
+      { name: "Mo B. Dick", desc:"rap producer, No Limit Records", slug:"themobdick", value:35 },
+      { name: "Dick Butkus", desc:"Former Linebacker, Chicago Bears", slug:"dickbutkus", value:395 }
+    ]
   },
 
   trumpworld: {
@@ -43,6 +55,22 @@ const gimmickRounds = {
     ]
   }
 };
+
+
+const testLoad = {
+  cameoValuationIndexes: [1,0,1,2],
+  cameoHistory: [{"name":"John Cleese","correct":true},{"name":"Perez Hilton","correct":true},{"name":"Mermaid Elle","correct":true},{"name":"Jackie Mason","correct":true},{"name":"Colin Mochrie","correct":true},{"name":"Chumlee","correct":true},{"name":"Michael Buffer","correct":false},{"name":"Brent Spiner","correct":false},{"name":"RiFF RAFF","correct":false},{"name":"Jonathan Frakes","correct":true},{"name":"Sean Astin","correct":true},{"name":"Gibby Haynes","correct":true}],
+  valuationHistory: [{"name":"John Cleese","correct":true},{"name":"Perez Hilton","correct":true},{"name":"Mermaid Elle","correct":true},{"name":"Jackie Mason","correct":true},{"name":"Colin Mochrie","correct":true},{"name":"Chumlee","correct":true},{"name":"Michael Buffer","correct":false},{"name":"Brent Spiner","correct":false},{"name":"RiFF RAFF","correct":false},{"name":"Jonathan Frakes","correct":true},{"name":"Sean Astin","correct":true},{"name":"Gibby Haynes","correct":true}]
+};
+
+
+
+
+
+
+
+
+
 
 /*
 ///////////////////////////////////////////////////////////

@@ -7,6 +7,11 @@ Vue.directive('focus', {
   }
 });
 
+if (window.location.hostname == "kinda.fun") {
+  Vue.config.devtools = false;
+}
+
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -29,7 +34,8 @@ var app = new Vue({
       cameoQueue: [],
       cameoValuationIndexes: [],
       availableToHire: [],
-      cameoHistory: []
+      cameoHistory: [],
+      valuationHistory: []
     },
     round: {
       number: 0,
@@ -49,6 +55,7 @@ var app = new Vue({
       valueGuessMax: null,
       valueGuessMin: null,
       animateCameoIndex: 0,
+      itsTimeToSortCelebs: false,
       itsTimeToGuessValue: false,
       showNextRoundButton: false,
       showEmailButton: false,
@@ -66,7 +73,6 @@ var app = new Vue({
   },
 
   methods: {
-
 
     startSinglePlayerGame() {
       const self = this;
@@ -109,15 +115,29 @@ var app = new Vue({
           roundCelebs.forEach((cameo) => {
             self.game.cameoQueue.push(cameo);
           });
+
+          /////////////////////////////////
+          // Randomly choose which index to valuate.
+          // (also, let's make it different than the previous round's index)
   
           let r = randomNumber(1,30);
+          let x = -1;
           if (r < 11) {
-            self.game.cameoValuationIndexes.push(0);
+            x = 0;
           } else if (r < 21) {
-            self.game.cameoValuationIndexes.push(1);
+            x = 1;
           } else {
-            self.game.cameoValuationIndexes.push(2);
+            x = 2;
           }
+
+          if (self.game.cameoValuationIndexes[i - 1] != x) {
+            self.game.cameoValuationIndexes.push(x);
+          } else if (x != 2) {
+            self.game.cameoValuationIndexes.push((x + 1));
+          } else {
+            self.game.cameoValuationIndexes.push(0);
+          }
+
           i++;
         }
       }
@@ -135,7 +155,6 @@ var app = new Vue({
         return false;
       }
     },
-
 
     returnThreeNewCelebs() {
       const self = this;
@@ -161,9 +180,11 @@ var app = new Vue({
         lowerCeleb
       ];
 
+      /*
       console.log(celebs[0].name);
       console.log(celebs[1].name);
       console.log(celebs[2].name);
+      */
       celebs = shuffle(celebs);
       
       //self.showTheGuesses();
@@ -177,6 +198,7 @@ var app = new Vue({
       var intervalId = window.setInterval(function(){
         if (self.ui.animateCameoIndex > self.round.leftSide.length) {
           self.ui.showDragHelp = true;
+          self.ui.itsTimeToSortCelebs = true;
           clearInterval(intervalId);
         } else {
           self.showAGuessCard();
@@ -200,6 +222,7 @@ var app = new Vue({
     submitSortOrder() {
       const self = this;
       self.ui.orderConfirmed = true;
+      self.ui.itsTimeToSortCelebs = false;
       if (self.round.guessValueIndex != 2) {
         const i = (self.round.guessValueIndex + 1);
         self.ui.valueGuess = (self.round.correctSide[i].value + 1);
@@ -239,8 +262,10 @@ var app = new Vue({
       const self = this;
       const n = self.round.guessValueIndex;
       let offBy = Math.abs(self.ui.valueGuess - self.round.correctSide[self.round.guessValueIndex].value);
+      let valuePoints = 0;
 
       if (self.round.correctSide[n].value == self.ui.valueGuess) {
+        valuePoints = 250;
         self.my.score += 250;
         self.my.valuationOffBy += 0;
         let instance = Vue.$toast.open(
@@ -253,12 +278,12 @@ var app = new Vue({
         );
         soundPerfectValue.play();
       } else if (offBy < 50) {
-        let addScore = 200 - (offBy * 4);
-        self.my.score += addScore;
+        let valuePoints = 200 - (offBy * 4);
+        self.my.score += valuePoints;
         self.my.valuationOffBy += offBy;
         let instance = Vue.$toast.open(
           {
-            message: "<h4>"+addScore+" Points for being close</h4>",
+            message: "<h4>"+valuePoints+" Points for being close</h4>",
             type: "info",
             duration: 1500,
             position: "bottom-left"
@@ -284,11 +309,33 @@ var app = new Vue({
         valueGuessed: self.ui.valueGuess
       });
 
+      self.game.valuationHistory.push({
+        celebName: self.round.correctSide[n].name,
+        celebValue: self.round.correctSide[n].value,
+        playerValue: self.ui.valueGuess,
+        valuePoints: valuePoints
+      });
+
       sendEvent("Comparatively Famous", "Valuation", self.round.correctSide[self.round.guessValueIndex].name);
 
       self.round.valueGuessed = true;
       self.ui.itsTimeToGuessValue = false;
 
+
+      //////////////////////////////////////////////////////////////
+      // Let's put the answers in history (if there were any)
+      if (self.round.correctSide && self.round.correctSide.length > 0) {
+        self.round.correctSide.forEach((cameo,index) => {
+          let c = {
+            name: cameo.name,
+            correct: false
+          };
+          if (self.round.correctSide[index].slug == self.round.rightSide[index].slug) {
+            c.correct = true;
+          }
+          self.game.cameoHistory.push(c);
+        });
+      }
 
 
       if (self.round.number < settings.maxRounds) {
@@ -320,22 +367,6 @@ var app = new Vue({
       self.clearUI();
       self.round.valueGuessed = false;
       self.round.guessValueIndex = -1;
-
-
-      //////////////////////////////////////////////////////////////
-      // Let's put the answers in history (if there were any)
-      if (self.round.correctSide && self.round.correctSide.length > 0) {
-        self.round.correctSide.forEach((cameo,index) => {
-          let c = {
-            name: cameo.name,
-            correct: false
-          };
-          if (self.round.correctSide[index].slug == self.round.rightSide[index].slug) {
-            c.correct = true;
-          }
-          self.game.cameoHistory.push(c);
-        });
-      }
 
       // Advance round number
       self.round.number++;
@@ -442,7 +473,7 @@ var app = new Vue({
 
     beginFinalRound() {
       const self = this;
-      self.round.leftSide = self.game.availableToHire;
+      self.round.leftSide = [...self.game.availableToHire];
       self.round.rightSide = [];
       self.game.finalRound = true;
     },
@@ -568,6 +599,7 @@ var app = new Vue({
     playTheGameOverAudio() {
       const self = this;
       birthdayHowls = shuffle(birthdayHowls);
+      birthdayHowls = birthdayHowls.filter(x => x !== undefined);
       let n = 0;
       let i = self.round.rightSide.length;
       soundgameOverMusic.play();
@@ -608,6 +640,8 @@ var app = new Vue({
   },
 
   computed: {
+    
+    
     dragOptions() {
       return {
         animation: 0,
@@ -616,6 +650,7 @@ var app = new Vue({
         ghostClass: "ghost"
       };
     },
+
     computedGuessingPhase() {
       const self = this;
       if (self.game.finalRound) {
@@ -638,6 +673,7 @@ var app = new Vue({
         }
       }
     },
+
     computedValuationSkill() {
       const self = this;
 
@@ -679,6 +715,7 @@ var app = new Vue({
         };
       }
     }
+
   },
 
   mounted: function() {

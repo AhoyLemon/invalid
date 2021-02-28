@@ -12,6 +12,10 @@
   .round { order: 3; font-family: $displayFont; font-size: 36px; text-align: right; padding-right: 40px; }
 }
 
+.comparison-hud { background:yellow; @include position(absolute,null,0,60px); z-index: $z-comparison;
+  .inside { padding:10px; }
+}
+
 @media (min-width:1431px) {
   .hud { grid-template-columns: 1fr 960px 1fr; }
 }

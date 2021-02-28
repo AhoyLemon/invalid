@@ -57,6 +57,7 @@ const allValues = [
   { name: "Jonathan Goldsmith", desc:"The Most Interesting Man, Dos Equis Commercials", slug:"stayinteresting", value:250 },
   { name: "Richard Marx", desc:"Wherever you go, whatever you do, he will be right here waiting for you.", slug:"richardmarx", value:250 },
   { name: "Jeff Ross", desc:"Does those Comedy Central Roasts", slug:"jeffross", value:250 },
+  { name: "Richard Schiff", desc:"Toby on The West Wing", slug:"richard_schiff", value:250 },
   { name: "Dakota Skye", desc:"Porn Actress", slug:"dakota_skye", value:240 },
   { name: "Micky Dolenz", desc:"One Of The Monkees", slug:"mickydolenz", value:239 },
   { name: "David Koechner", desc:"Champ in Anchorman", slug:"davidkoechner", value:225 },

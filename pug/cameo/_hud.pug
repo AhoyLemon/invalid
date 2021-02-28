@@ -1,34 +1,49 @@
 .underbanner.hud(v-if="game.started && !game.over ")
-    
-    .score
-      div(v-if="my.score > 0") {{my.score}} Points
-      div(v-else) No Points
 
-    .interface
-      .sort-the-above(v-if="computedGuessingPhase == 'sort'")
-        span Sort the above by their relative Cameo value.
-      .button-holder(v-else-if="computedGuessingPhase == 'submit'")
-        button(@click="submitSortOrder()") Submit Answers
-      .button-holder(v-else-if="computedGuessingPhase == 'answers'")
-        span(v-if="ui.itsTimeToGuessValue")
-          button(@click="submitCameoValueGuess()") Valuate {{round.correctSide[round.guessValueIndex].name}}
-      .button-holder(v-else-if="computedGuessingPhase == 'finished'")
-        span(v-if="ui.showNextRoundButton")
-          button(@click="startNextRound()") Okay, Next Round
-      .button-holder(v-else-if="computedGuessingPhase == 'newMail'")
-        span(v-if="ui.showEmailButton")
-          button(@click="showTheEmail()") Check Your Email
-        span(v-else-if="ui.showBeginFinalRoundButton")
-          button(@click="beginFinalRound()") Begin Final Round!
+  .score
+    div(v-if="my.score > 0") {{my.score}} Points
+    div(v-else) No Points
 
-      div(v-if="computedGuessingPhase == 'hiring'")
-        .button-holder(v-if="round.rightSide.length > 0")
-          button(@click="finishHiring()") Finish Hiring
-        .text(v-else)
-          span Wish Pasha's daughter a happy birthday.
-      div(v-else-if="computedGuessingPhase == 'calculatingCosts'")
-        .text Calculating your costs...
+  .interface
+    .sort-the-above(v-if="computedGuessingPhase == 'sort'")
+      span Sort the above by their relative Cameo value.
+    .button-holder(v-else-if="computedGuessingPhase == 'submit'")
+      button(@click="submitSortOrder()") Submit Answers
+    .button-holder(v-else-if="computedGuessingPhase == 'answers'")
+      span(v-if="ui.itsTimeToGuessValue")
+        button(@click="submitCameoValueGuess()") Valuate {{round.correctSide[round.guessValueIndex].name}}
+    .button-holder(v-else-if="computedGuessingPhase == 'finished'")
+      span(v-if="ui.showNextRoundButton")
+        button(@click="startNextRound()") Okay, Next Round
+    .button-holder(v-else-if="computedGuessingPhase == 'newMail'")
+      span(v-if="ui.showEmailButton")
+        button(@click="showTheEmail()") Check Your Email
+      span(v-else-if="ui.showBeginFinalRoundButton")
+        button(@click="beginFinalRound()") Begin Final Round!
 
-    .round
-      div(v-if="game.finalRound") Final Round
-      div(v-else-if="round.number > 0") Round {{round.number}}
+    div(v-if="computedGuessingPhase == 'hiring'")
+      .button-holder(v-if="round.rightSide.length > 0")
+        button(@click="finishHiring()") Finish Hiring
+      .text(v-else)
+        span Wish Pasha's daughter a happy birthday.
+    div(v-else-if="computedGuessingPhase == 'calculatingCosts'")
+      .text Calculating your costs...
+
+  .round
+    div(v-if="game.finalRound") Final Round
+    div(v-else-if="round.number > 0") Round {{round.number}}
+
+.comparison-hud(v-if="game.started && !game.over")
+  .inside
+    ul
+      li(v-if="ui.itsTimeToSortCelebs || ui.orderConfirmed")
+        | Pablo got 
+        strong 1 correct
+        | .
+      li(v-if="ui.itsTimeToGuessValue")
+        | Pablo missed this by 
+        strong $76
+        | .
+      li Pablo is winning by 
+        strong 146 points
+        | .

@@ -88,8 +88,8 @@
           <div class="stats-boxes with-table">
             <div class="box big-number" v-if="stats.general.cameo &amp;&amp; stats.general.cameo.GamesStarted &gt; 0">
               <div class="caption">Games Started</div>
-              <div class="number" v-text="stats.general.cameo.GamesStarted"></div>
-              <div class="sub-number"><strong v-text="stats.general.cameo.GamesFinished">finished</strong> finished</div>
+              <div class="number" v-text="addCommas(stats.general.cameo.GamesStarted)"></div>
+              <div class="sub-number"><strong v-text="addCommas(stats.general.cameo.GamesFinished)">finished</strong> finished | {{percentOf(stats.general.cameo.GamesStarted, stats.general.cameo.GamesFinished)}}%</div>
             </div>
             <div class="box date" v-if="stats.general &amp;&amp; stats.general.lastPlayed &amp;&amp; stats.general.lastPlayed.cameo">
               <div class="caption">Last Game</div>

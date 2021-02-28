@@ -4,7 +4,7 @@ main.sort-three(v-if="game.started && !game.finalRound && !game.over")
   
     draggable.list-group.unranked( :list="round.leftSide"
                                     group="people"
-                                    :options="{ disabled : ui.animateCameoIndex < 3 }"
+                                    :disabled="ui.animateCameoIndex < 3"
                                     :class="{ 'no-move-cursor' : ui.animateCameoIndex < 3 }"
                                     @start="isDragging = true"
                                     @end="isDragging = false"

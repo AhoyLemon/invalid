@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700&amp;family=Open+Sans:wght@400;700&amp;display=swap" rel="stylesheet"/>
     <link href="css/cameo.css" type="text/css" rel="stylesheet"/>
     <meta name="description" content="The Game of Celebrity Value"/>
-    <meta http-equiv="last-modified" content="2021-01-22@11:20:00"/>
+    <meta http-equiv="last-modified" content="2021-01-28@11:55:06"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/img/famous/apple-touch-icon.png"/>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/famous/favicon-32x32.png"/>
     <link rel="icon" type="image/png" sizes="16x16" href="/img/famous/favicon-16x16.png"/>
@@ -141,7 +141,7 @@
       </main>
       <main class="sort-three" v-if="game.started &amp;&amp; !game.finalRound &amp;&amp; !game.over">
         <div class="three-to-compare">
-          <draggable class="list-group unranked" :list="round.leftSide" group="people" :options="{ disabled : ui.animateCameoIndex &lt; 3 }" :class="{ 'no-move-cursor' : ui.animateCameoIndex &lt; 3 }" @start="isDragging = true" @end="isDragging = false" v-if="computedGuessingPhase == 'sort' || computedGuessingPhase == 'submit'">
+          <draggable class="list-group unranked" :list="round.leftSide" group="people" :disabled="ui.animateCameoIndex &lt; 3" :class="{ 'no-move-cursor' : ui.animateCameoIndex &lt; 3 }" @start="isDragging = true" @end="isDragging = false" v-if="computedGuessingPhase == 'sort' || computedGuessingPhase == 'submit'">
             <div class="cameo list-group-item" v-for="(element, index) in round.leftSide" :key="index">
               <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
               <figcaption>
@@ -290,6 +290,15 @@
           <div v-else-if="round.number &gt; 0">Round {{round.number}}</div>
         </div>
       </div>
+      <div class="comparison-hud" v-if="game.started &amp;&amp; !game.over">
+        <div class="inside">
+          <ul>
+            <li v-if="ui.itsTimeToSortCelebs || ui.orderConfirmed">Pablo got <strong>1 correct</strong>.</li>
+            <li v-if="ui.itsTimeToGuessValue">Pablo missed this by <strong>$76</strong>.</li>
+            <li>Pablo is winning by <strong>146 points</strong>.</li>
+          </ul>
+        </div>
+      </div>
       <main class="game-over" v-if="game.over">
         <section class="headline">
           <h1>Game Over</h1>
@@ -367,7 +376,7 @@
         var socket = io.connect();
         
       </script>
-      <script src="js/min/cameo.min.js?updated2021-01-22@11:20:00"></script>
+      <script src="js/min/cameo.min.js?updated2021-01-28@11:55:06"></script>
       <script type="text/javascript">
         var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
