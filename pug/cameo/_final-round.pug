@@ -4,7 +4,7 @@ main.final-round(v-if="game.started && game.finalRound")
 
     draggable.list-group.unhired( :list="round.leftSide"
                                       group="people"
-                                      :options="{ disabled : ui.hiringFinished }"
+                                      :disabled="ui.hiringFinished"
                                       :class="{ 'no-move-cursor' : false }"
                                       @start="isDragging = true"
                                       @end="isDragging = false"
@@ -20,7 +20,7 @@ main.final-round(v-if="game.started && game.finalRound")
 
     draggable.list-group.hired( :list="round.rightSide"
                                       group="people"
-                                      :options="{ disabled : ui.hiringFinished }"
+                                      :disabled="ui.hiringFinished"
                                       :class="{ 'no-move-cursor' : ui.hiringFinished }"
                                       @start="isDragging = true"
                                       @end="isDragging = false"

@@ -58,9 +58,14 @@ const gimmickRounds = {
 
 
 const testLoad = {
-  cameoValuationIndexes: [1,0,1,2],
-  cameoHistory: [{"name":"John Cleese","correct":true},{"name":"Perez Hilton","correct":true},{"name":"Mermaid Elle","correct":true},{"name":"Jackie Mason","correct":true},{"name":"Colin Mochrie","correct":true},{"name":"Chumlee","correct":true},{"name":"Michael Buffer","correct":false},{"name":"Brent Spiner","correct":false},{"name":"RiFF RAFF","correct":false},{"name":"Jonathan Frakes","correct":true},{"name":"Sean Astin","correct":true},{"name":"Gibby Haynes","correct":true}],
-  valuationHistory: [{"name":"John Cleese","correct":true},{"name":"Perez Hilton","correct":true},{"name":"Mermaid Elle","correct":true},{"name":"Jackie Mason","correct":true},{"name":"Colin Mochrie","correct":true},{"name":"Chumlee","correct":true},{"name":"Michael Buffer","correct":false},{"name":"Brent Spiner","correct":false},{"name":"RiFF RAFF","correct":false},{"name":"Jonathan Frakes","correct":true},{"name":"Sean Astin","correct":true},{"name":"Gibby Haynes","correct":true}]
+  playerName: "Carlos",
+  playerScore: 1604,
+  cameoHistory: [{"name":"LeVar Burton","correct":true},{"name":"John C. McGinley","correct":true},{"name":"Paula Poundstone","correct":true},{"name":"Steve Guttenberg","correct":true},{"name":"Roger Stone","correct":true},{"name":"Les Gold","correct":true},{"name":"deadmau5","correct":true},{"name":"Basil Brush","correct":true},{"name":"Kyle Troup","correct":true},{"name":"Elijah Wood","correct":true},{"name":"Ted DiBiase","correct":true},{"name":"David Ellefson","correct":true}],
+  cameoValuationIndexes: [2,0,1,0],
+  valuationHistory: [{"celebName":"Paula Poundstone","celebValue":49,"playerValue":"70","valuePoints":0},{"celebName":"Steve Guttenberg","celebValue":250,"playerValue":"225","valuePoints":0},{"celebName":"Basil Brush","celebValue":97,"playerValue":"125","valuePoints":0},{"celebName":"Elijah Wood","celebValue":300,"playerValue":"325","valuePoints":0}],
+  availableToHire: [{"name":"Kenny G","desc":"Saxophonist","slug":"kennyg","value":295},{"name":"Henry","desc":"aka The NoTortoise BIG","slug":"thenotortoisebig","value":200},{"name":"Sarah Palin","desc":"Portent of things to come","slug":"sarahpalin","value":200},{"name":"Tommy Chong","desc":"Marijuana Enthusiast","slug":"tommychong","value":150},{"name":"Hide The Pain Harold","desc":"Photo Meme","slug":"hidethepainharold","value":250},{"name":"Sir Mix-A-Lot","desc":"Likes Big Butts","slug":"therealsirmixalot","value":150},{"name":"Steve Wozniak","desc":"Apple Co-Founder","slug":"stevewoz","value":500},{"name":"Montell Jordan","desc":"Singer, “This Is How We Do It”","slug":"mrjordan1911","value":100},{"name":"Sean Astin","desc":"Sam in The Lord of the Rings","slug":"seanastin","value":295},{"name":"Dr Drew","desc":"Radio Doctor, “Loveline”","slug":"drdrew","value":198}],
+  finalBudget: 935,
+  finalSpent: 1300
 };
 
 

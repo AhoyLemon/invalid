@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700&amp;family=Open+Sans:wght@400;700&amp;display=swap" rel="stylesheet"/>
     <link href="css/cameo.css" type="text/css" rel="stylesheet"/>
     <meta name="description" content="The Game of Celebrity Value"/>
-    <meta http-equiv="last-modified" content="2021-01-28@11:55:06"/>
+    <meta http-equiv="last-modified" content="2021-01-28@13:02:30"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/img/famous/apple-touch-icon.png"/>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/famous/favicon-32x32.png"/>
     <link rel="icon" type="image/png" sizes="16x16" href="/img/famous/favicon-16x16.png"/>
@@ -205,7 +205,7 @@
       </main>
       <main class="final-round" v-if="game.started &amp;&amp; game.finalRound">
         <div class="casting-interface" v-if="!ui.cameosPaid">
-          <draggable class="list-group unhired" :list="round.leftSide" group="people" :options="{ disabled : ui.hiringFinished }" :class="{ 'no-move-cursor' : false }" @start="isDragging = true" @end="isDragging = false" v-if="true">
+          <draggable class="list-group unhired" :list="round.leftSide" group="people" :disabled="ui.hiringFinished" :class="{ 'no-move-cursor' : false }" @start="isDragging = true" @end="isDragging = false" v-if="true">
             <div class="cameo list-group-item" v-for="(element, index) in round.leftSide" :key="index">
               <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
               <figcaption>
@@ -214,7 +214,7 @@
               </figcaption>
             </div>
           </draggable>
-          <draggable class="list-group hired" :list="round.rightSide" group="people" :options="{ disabled : ui.hiringFinished }" :class="{ 'no-move-cursor' : ui.hiringFinished }" @start="isDragging = true" @end="isDragging = false" v-if="true">
+          <draggable class="list-group hired" :list="round.rightSide" group="people" :disabled="ui.hiringFinished" :class="{ 'no-move-cursor' : ui.hiringFinished }" @start="isDragging = true" @end="isDragging = false" v-if="true">
             <div class="cameo list-group-item" v-for="(element, index) in round.rightSide" :key="index">
               <figure><img :src="'img/cameos/'+element.slug+'.jpg'"/></figure>
               <figcaption>
@@ -371,12 +371,12 @@
       <script src="js/libraries/vuedraggable.min.js"></script>
       <script src="js/libraries/vue-toast-notification.min.js"></script>
       <link href="css/libraries/vue-toast-notification.css" type="text/css" rel="stylesheet"/>
-      <script src="/socket.io/socket.io.js"></script>
+      <script src="/socket.io/socket.io.min.js"></script>
       <script>
         var socket = io.connect();
         
       </script>
-      <script src="js/min/cameo.min.js?updated2021-01-28@11:55:06"></script>
+      <script src="js/min/cameo.min.js?updated2021-01-28@13:02:30"></script>
       <script type="text/javascript">
         var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

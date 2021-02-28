@@ -30,6 +30,7 @@ var app = new Vue({
       mode: "",
       started: false,
       finalRound: false,
+      loadedGame: testLoad,
       over: false,
       cameoQueue: [],
       cameoValuationIndexes: [],
@@ -105,45 +106,56 @@ var app = new Vue({
       // Okay, here's all the exhibition round stuff.
       let i = 0;
       
-      while (i < settings.maxRounds) {
-        // First, get three celebrities.
-        let roundCelebs = self.returnThreeNewCelebs();
 
-        // Check if any of them are duplicates. If none of them are, do stuff
-        // (otherwise, this'll just loop again.)
-        if (!self.isThisADuplicate(roundCelebs[0]) && !self.isThisADuplicate(roundCelebs[1]) && !self.isThisADuplicate(roundCelebs[2])) {
-          roundCelebs.forEach((cameo) => {
-            self.game.cameoQueue.push(cameo);
-          });
+      if (self.game.loadedGame && self.game.loadedGame.cameoHistory && self.game.loadedGame.cameoValuationIndexes) {
 
-          /////////////////////////////////
-          // Randomly choose which index to valuate.
-          // (also, let's make it different than the previous round's index)
+        self.game.loadedGame.cameoHistory.forEach((cameo) => {
+          let x = self.celebs.find(element => element.name == cameo.name);
+          self.game.cameoQueue.push(x);
+        });
+
+      } else {
+        
+        while (i < settings.maxRounds) {
+          // First, get three celebrities.
+          let roundCelebs = self.returnThreeNewCelebs();
   
-          let r = randomNumber(1,30);
-          let x = -1;
-          if (r < 11) {
-            x = 0;
-          } else if (r < 21) {
-            x = 1;
-          } else {
-            x = 2;
+          // Check if any of them are duplicates. If none of them are, do stuff
+          // (otherwise, this'll just loop again.)
+          if (!self.isThisADuplicate(roundCelebs[0]) && !self.isThisADuplicate(roundCelebs[1]) && !self.isThisADuplicate(roundCelebs[2])) {
+            roundCelebs.forEach((cameo) => {
+              self.game.cameoQueue.push(cameo);
+            });
+  
+            /////////////////////////////////
+            // Randomly choose which index to valuate.
+            // (also, let's make it different than the previous round's index)
+    
+            let r = randomNumber(1,30);
+            let x = -1;
+            if (r < 11) {
+              x = 0;
+            } else if (r < 21) {
+              x = 1;
+            } else {
+              x = 2;
+            }
+  
+            if (self.game.cameoValuationIndexes[i - 1] != x) {
+              self.game.cameoValuationIndexes.push(x);
+            } else if (x != 2) {
+              self.game.cameoValuationIndexes.push((x + 1));
+            } else {
+              self.game.cameoValuationIndexes.push(0);
+            }
+  
+            i++;
           }
-
-          if (self.game.cameoValuationIndexes[i - 1] != x) {
-            self.game.cameoValuationIndexes.push(x);
-          } else if (x != 2) {
-            self.game.cameoValuationIndexes.push((x + 1));
-          } else {
-            self.game.cameoValuationIndexes.push(0);
-          }
-
-          i++;
         }
+
       }
 
       self.populateFinalRound();
-      //self.game.cameoQueue = gimmickRounds.richards.queue;
 
     },
 
