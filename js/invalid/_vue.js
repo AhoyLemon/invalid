@@ -502,7 +502,7 @@ var app = new Vue({
         if (r.inputValue == r.inputValueTwo) {
           r.message = "You may only use the letter " + r.inputValue + ' once';
         } else {
-          r.message = "Your password cannot contain both " +  r.inputValue + " and " + r.inputValueTwo + " (simultanously)";
+          r.message = "Your password cannot contain both " +  r.inputValue + " and " + r.inputValueTwo + " (simultaneously)";
         }
       }
 

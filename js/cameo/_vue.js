@@ -67,8 +67,15 @@ var app = new Vue({
       exceededBudget: false,
       cameosPaid: false,
 
+
+      opponent: {
+        sortCorrect: -1,
+        missedBy: "",
+      },
+
       // TODO: Remove temp load game stuff.
       loadGameClicked: false
+
     }
 
   },
@@ -113,6 +120,8 @@ var app = new Vue({
           let x = self.celebs.find(element => element.name == cameo.name);
           self.game.cameoQueue.push(x);
         });
+        self.game.cameoValuationIndexes = self.game.loadedGame.cameoValuationIndexes;
+        alert('I loaded celebs from the savegame!');
 
       } else {
         
@@ -216,6 +225,9 @@ var app = new Vue({
           self.showAGuessCard();
         }
       }, 1500);
+
+      self.checkOpponentScore();
+
     },
 
     sortByValue(list) {
@@ -458,6 +470,41 @@ var app = new Vue({
           }
         }
       }, 1000);
+    },
+
+
+    /////////////////////////////////////////////
+    // LOADED GAME STUFF
+    
+    checkOpponentScore() {
+      const self = this;
+      let checkCameos = [];
+      let vI = -1;
+      if (self.round.number == 1) {
+        checkCameos = [0,1,2];
+        vI = 0;
+      } else if (self.round.number == 2) {
+        checkCameos = [3,4,5];
+        vI = 3;
+      } else if (self.round.number == 3) {
+        checkCameos = [6,7,8];
+        vI = 6;
+      } else if (self.round.number == 4) {
+        checkCameos = [9,10,11];
+        vI = 9;
+      }
+
+      self.ui.opponent.sortCorrect = 0;
+      checkCameos.forEach((n) => {
+        if (self.game.loadedGame.cameoHistory[n].correct) {
+          self.ui.opponent.sortCorrect++;
+        }
+      });
+
+      let offBy = Math.abs(self.game.loadedGame.valuationHistory[vI].celebValue - parseInt(self.game.loadedGame.valuationHistory[vI].playerValue));
+
+      self.ui.opponent.missedBy = self.dollars(offBy);
+
     },
 
     ////////////////////////////////////////////

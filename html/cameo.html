@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700&amp;family=Open+Sans:wght@400;700&amp;display=swap" rel="stylesheet"/>
     <link href="css/cameo.css" type="text/css" rel="stylesheet"/>
     <meta name="description" content="The Game of Celebrity Value"/>
-    <meta http-equiv="last-modified" content="2021-01-28@13:02:30"/>
+    <meta http-equiv="last-modified" content="2021-02-03@09:59:15"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/img/famous/apple-touch-icon.png"/>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/famous/favicon-32x32.png"/>
     <link rel="icon" type="image/png" sizes="16x16" href="/img/famous/favicon-16x16.png"/>
@@ -293,9 +293,8 @@
       <div class="comparison-hud" v-if="game.started &amp;&amp; !game.over">
         <div class="inside">
           <ul>
-            <li v-if="ui.itsTimeToSortCelebs || ui.orderConfirmed">Pablo got <strong>1 correct</strong>.</li>
-            <li v-if="ui.itsTimeToGuessValue">Pablo missed this by <strong>$76</strong>.</li>
-            <li>Pablo is winning by <strong>146 points</strong>.</li>
+            <li v-if="ui.itsTimeToSortCelebs || ui.orderConfirmed"><span v-if="ui.opponent.sortCorrect == 0">{{game.loadedGame.playerName}} missed all these.</span><span v-else-if="ui.opponent.sortCorrect == 3">{{game.loadedGame.playerName}} got these all right.</span><span v-else="v-else">{{game.loadedGame.playerName}} got these all right.</span></li>
+            <li v-if="ui.itsTimeToGuessValue"><span>{{game.loadedGame.playerName}} missed this by {{ui.opponent.missedBy}}.</span></li>
           </ul>
         </div>
       </div>
@@ -376,7 +375,7 @@
         var socket = io.connect();
         
       </script>
-      <script src="js/min/cameo.min.js?updated2021-01-28@13:02:30"></script>
+      <script src="js/min/cameo.min.js?updated2021-02-03@09:59:15"></script>
       <script type="text/javascript">
         var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

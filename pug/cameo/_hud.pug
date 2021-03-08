@@ -37,13 +37,15 @@
   .inside
     ul
       li(v-if="ui.itsTimeToSortCelebs || ui.orderConfirmed")
-        | Pablo got 
-        strong 1 correct
-        | .
+        span(v-if="ui.opponent.sortCorrect == 0") {{game.loadedGame.playerName}} missed all these.
+        span(v-else-if="ui.opponent.sortCorrect == 3") {{game.loadedGame.playerName}} got these all right.
+        span(v-else) {{game.loadedGame.playerName}} got these all right.
       li(v-if="ui.itsTimeToGuessValue")
+        span {{game.loadedGame.playerName}} missed this by {{ui.opponent.missedBy}}.
+      //-li(v-if="ui.itsTimeToGuessValue")
         | Pablo missed this by 
         strong $76
         | .
-      li Pablo is winning by 
+      //-li Pablo is winning by 
         strong 146 points
         | .
