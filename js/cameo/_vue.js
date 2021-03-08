@@ -568,6 +568,7 @@ var app = new Vue({
     playTheGameOverAudio() {
       const self = this;
       birthdayHowls = shuffle(birthdayHowls);
+      birthdayHowls = birthdayHowls.filter(x => x !== undefined);
       let n = 0;
       let i = self.round.rightSide.length;
       soundgameOverMusic.play();
