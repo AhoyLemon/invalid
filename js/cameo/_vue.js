@@ -121,6 +121,7 @@ var app = new Vue({
           self.game.cameoQueue.push(x);
         });
         self.game.cameoValuationIndexes = self.game.loadedGame.cameoValuationIndexes;
+        self.game.loadedGame.compareScores = true;
         alert('I loaded celebs from the savegame!');
 
       } else {

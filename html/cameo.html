@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700&amp;family=Open+Sans:wght@400;700&amp;display=swap" rel="stylesheet"/>
     <link href="css/cameo.css" type="text/css" rel="stylesheet"/>
     <meta name="description" content="The Game of Celebrity Value"/>
-    <meta http-equiv="last-modified" content="2021-02-03@09:59:15"/>
+    <meta http-equiv="last-modified" content="2021-02-21@15:29:32"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/img/famous/apple-touch-icon.png"/>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/famous/favicon-32x32.png"/>
     <link rel="icon" type="image/png" sizes="16x16" href="/img/famous/favicon-16x16.png"/>
@@ -264,7 +264,9 @@
           <div v-else="v-else">No Points</div>
         </div>
         <div class="interface">
-          <div class="sort-the-above" v-if="computedGuessingPhase == 'sort'"><span>Sort the above by their relative Cameo value.</span></div>
+          <div class="sort-the-above" v-if="computedGuessingPhase == 'sort'">
+            <template v-if="game.loadedGame &amp;&amp; game.loadedGame.compareScores"><span v-if="ui.opponent.sortCorrect == 0">{{game.loadedGame.playerName}} missed all these.</span><span v-else-if="ui.opponent.sortCorrect == 3">{{game.loadedGame.playerName}} got these all right.</span><span v-else="v-else">{{game.loadedGame.playerName}} got these all right.</span></template><span v-else="v-else">Sort the above by their relative Cameo value.</span>
+          </div>
           <div class="button-holder" v-else-if="computedGuessingPhase == 'submit'">
             <button @click="submitSortOrder()">Submit Answers</button>
           </div>
@@ -293,7 +295,7 @@
       <div class="comparison-hud" v-if="game.started &amp;&amp; !game.over">
         <div class="inside">
           <ul>
-            <li v-if="ui.itsTimeToSortCelebs || ui.orderConfirmed"><span v-if="ui.opponent.sortCorrect == 0">{{game.loadedGame.playerName}} missed all these.</span><span v-else-if="ui.opponent.sortCorrect == 3">{{game.loadedGame.playerName}} got these all right.</span><span v-else="v-else">{{game.loadedGame.playerName}} got these all right.</span></li>
+            <li v-if="ui.itsTimeToSortCelebs"><span v-if="ui.opponent.sortCorrect == 0">{{game.loadedGame.playerName}} missed all these.</span><span v-else-if="ui.opponent.sortCorrect == 3">{{game.loadedGame.playerName}} got these all right.</span><span v-else="v-else">{{game.loadedGame.playerName}} got these all right.</span></li>
             <li v-if="ui.itsTimeToGuessValue"><span>{{game.loadedGame.playerName}} missed this by {{ui.opponent.missedBy}}.</span></li>
           </ul>
         </div>
@@ -375,7 +377,7 @@
         var socket = io.connect();
         
       </script>
-      <script src="js/min/cameo.min.js?updated2021-02-03@09:59:15"></script>
+      <script src="js/min/cameo.min.js?updated2021-02-21@15:29:32"></script>
       <script type="text/javascript">
         var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */

@@ -6,7 +6,11 @@
 
   .interface
     .sort-the-above(v-if="computedGuessingPhase == 'sort'")
-      span Sort the above by their relative Cameo value.
+      template(v-if="game.loadedGame && game.loadedGame.compareScores")
+        span(v-if="ui.opponent.sortCorrect == 0") {{game.loadedGame.playerName}} missed all these.
+        span(v-else-if="ui.opponent.sortCorrect == 3") {{game.loadedGame.playerName}} got these all right.
+        span(v-else) {{game.loadedGame.playerName}} got these all right.
+      span(v-else) Sort the above by their relative Cameo value.
     .button-holder(v-else-if="computedGuessingPhase == 'submit'")
       button(@click="submitSortOrder()") Submit Answers
     .button-holder(v-else-if="computedGuessingPhase == 'answers'")
@@ -28,7 +32,7 @@
         span Wish Pasha's daughter a happy birthday.
     div(v-else-if="computedGuessingPhase == 'calculatingCosts'")
       .text Calculating your costs...
-
+      
   .round
     div(v-if="game.finalRound") Final Round
     div(v-else-if="round.number > 0") Round {{round.number}}
@@ -36,7 +40,7 @@
 .comparison-hud(v-if="game.started && !game.over")
   .inside
     ul
-      li(v-if="ui.itsTimeToSortCelebs || ui.orderConfirmed")
+      li(v-if="ui.itsTimeToSortCelebs")
         span(v-if="ui.opponent.sortCorrect == 0") {{game.loadedGame.playerName}} missed all these.
         span(v-else-if="ui.opponent.sortCorrect == 3") {{game.loadedGame.playerName}} got these all right.
         span(v-else) {{game.loadedGame.playerName}} got these all right.
