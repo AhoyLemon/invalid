@@ -105,8 +105,12 @@ const allValues = [
   { name: "Dave Hanson", desc:"One of the guys from the movie Slapshot", slug:"davehanson16", value:116  },
 
   { name: "Colin Mochrie", desc:"Perennial Contestant, Whose Line is it Anyway?", slug:"colinmochrie7591", value:110 },
+
+  { name: "Colin Baker", desc:"The Sixth Doctor on Doctor Who (1984 - 1986)", slug:"colinbaker", value:105 },
+  { name: "Sylvester McCoy", desc:"The Seventh Doctor on Doctor Who (1987 - 1989)", slug:"earthling7", value:100 },
+
   { name: "Fiona the Hippo", desc:"The Cincinnati Zoo’s premature baby hippo", slug:"fionathehippo", value:100 },
-  { name: "Sylvester McCoy", desc:"The Seventh Doctor on Doctor Who (87- 89)", slug:"earthling7", value:100 },
+  
   { name: "Dave Foley", desc:"Kids in the Hall", slug:"dsf", value:100 },
   { name: "Mick Foley", desc:"Former Professional Wrestler", slug:"mickfoley", value:100 },
   { name: "Burton Gilliam", desc:"“Lyle” in Blazing Saddles", slug:"camptownladies", value:100 },
@@ -152,6 +156,8 @@ const allValues = [
   { name: "KID from Kid N Play", desc:"Costar of House Party 1, 2 & 3", slug:"kidfromkidnplay", value:65  },
   { name: "Kato Kaelin", desc:"Stayed At OJ's House", slug:"kato", value:60 },
   { name: "Anthony Scaramucci", desc:"Former White House Communications Director", slug:"themooch", value:55 },
+
+  { name: "Pearl Mackie", desc:"Bill on Doctor Who (2016 - 2017)", slug:"pearlmackie", value:50  },
   { name: "Bonnie Chapman", desc:"Daughter of Dog The Bounty Hunter", slug:"bonniejoc", value:50  },
   { name: "Deep Roy", desc:"Oompa Loompa in the 2015 Willy Wonka movie", slug:"deeproy", value:50  },
   { name: "Xanman", desc:"Fan of Xanax", slug:"theonlyxanman20", value:50  },
