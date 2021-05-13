@@ -4,7 +4,7 @@
   "description": "Games made by Lemon.",
   "dependencies": {
     "express": "^4.17.1",
-    "lowdb": "^1.0.0",
+    "lodash": ">=4.17.21",
     "mysql": "^2.18.1",
     "socket.io": "^3.1.0"
   },
